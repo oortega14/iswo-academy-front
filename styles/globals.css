@@ -149,4 +149,20 @@
   .bold-16 {
     @apply text-[16px] font-[700];
   }
+
+  .bg-blue-dark {
+    @apply bg-[#030711]
+  }
+
+  .text-blue-dark {
+    @apply text-[#030711]
+  }
+
+  .bg-light-dotted {
+    @apply absolute inset-0 -z-10 h-full w-full bg-slate-100 bg-[radial-gradient(#ffffff33_1px,#cfcfcf_1px)] [background-size:16px_16px]
+  }
+
+  .bg-dark-dotted {
+    @apply absolute top-0 z-[-2] h-screen w-screen bg-[#030711] bg-[radial-gradient(#ffffff33_1px,#00000d_1px)] bg-[size:20px_20px]
+  }
 }

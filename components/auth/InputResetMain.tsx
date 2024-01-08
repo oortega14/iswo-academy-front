@@ -1,18 +1,22 @@
 "use client"
 
 import { FormEvent, useState } from "react"
-import Link from "next/link"
-import { IconLock, IconMail } from "@tabler/icons-react"
+import { IconLock, IconLockSquareRounded, IconMail } from "@tabler/icons-react"
 import { Toaster, toast } from "sonner"
-
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 
-export const InputLogin = () => {
+export const InputResetMain = () => {
   const [userData, setUserData] = useState({
-    email: "",
-    password: "",
+    password: '',
+    password_confirmation: '',
   })
+
+  let paramValue: string | null = ''
+  if (typeof window !== 'undefined') {
+    const queryParams = new URLSearchParams(window.location.search);
+    paramValue = queryParams.get('reset_password_token');
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -28,7 +32,7 @@ export const InputLogin = () => {
     }
     let data = { user: { ...userData } }
     try {
-      const request = await fetch(`${baseUrl}/login`, {
+      const request = await fetch(`${baseUrl}/users/${paramValue}/confirm_reset_password?password=${userData.password}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,44 +58,32 @@ export const InputLogin = () => {
         onSubmit={(e) => handleSubmit(e)}
       >
         <div className="rounded-full flex items-center justify-start w-full mt-3">
-          <IconMail className="size-5 mr-2" />
-          <label htmlFor="email">Email</label>
+          <IconLock className="size-5 mr-2" />
+          <label htmlFor="password">Nueva Contraseña</label>
         </div>
         <Input
-          type="email"
-          placeholder="ejemplo@iswoacademy.com"
-          name="email"
+          type="password"
+          placeholder="******"
+          name="password"
           onChange={(e) => handleChange(e)}
           className="mt-2"
         />
         <div className="rounded-full flex items-center justify-start w-full mt-3">
-          <IconLock className="size-5 mr-2" />
-          <label htmlFor="password">Contraseña</label>
+          <IconLockSquareRounded className="size-5 mr-2" />
+          <label htmlFor="password">Confirmar Contraseña</label>
         </div>
         <Input
           type="password"
-          name="password"
+          name="password_confirmation"
           onChange={(e) => handleChange(e)}
           placeholder="*******"
           className="mt-2"
         />
-        <Link
-          href={"/reset-password"}
-          className="mt-2 w-full items-start hover:underline"
-        >
-          Olvidé mi contraseña
-        </Link>
-        <Link
-          href={"/register"}
-          className="mt-2 w-full items-start hover:underline"
-        >
-          ¿Aún no tienes una cuenta? Registrate ahora!
-        </Link>
-        <Button className="mt-3">Iniciar Sesión</Button>
+        <Button className="mt-3">Actualizar mi contraseña</Button>
       </form>
       <Toaster theme="system" position="top-right" richColors  />
     </>
   )
 }
 
-export default InputLogin
+export default InputResetMain

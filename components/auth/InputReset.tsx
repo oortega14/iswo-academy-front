@@ -8,14 +8,13 @@ import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 
 export const InputReset = () => {
-  const [userData, setUserData] = useState({
-    email: "",
-    password: "",
+  const [emailRecovery, setEmailRecovery] = useState({
+    email: ""
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    setUserData({ ...userData, [name]: value })
+    setEmailRecovery({ ...emailRecovery, [name]: value })
   }
 
   const handleSubmit = async (e: FormEvent) => {
@@ -25,14 +24,13 @@ export const InputReset = () => {
       throw new Error("NEXT_PUBLIC_BASE_URL is not defined in the environment");
     }
     e.preventDefault()
-    let data = { user: { ...userData } }
     try {
-      const request = await fetch(baseUrl, {
+      const request = await fetch(`${baseUrl}/users/reset_password`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(emailRecovery),
       })
       const response = await request.json()
       if (request.status === 200) {

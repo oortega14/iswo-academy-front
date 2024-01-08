@@ -25,7 +25,7 @@ export default function ResetPasswordPage() {
       >
         <div className={cn(
           'w-full min-h-[400px] rounded-b-md flex flex-col justify-center items-center px-4 bg-slate-950 text-white',
-          'lg:w-1/2 lg:rounded-tr lg:min-h-[550px] shadow-md',
+          'lg:w-1/2 lg:rounded-tr lg:min-h-[550px] shadow-md 2xl:min-h-[700px]',
           'dark:bg-slate-200 dark:text-black')
         }>
           <h2  className="text-4xl font-extrabold text-center">¿Olvidaste tu contraseña?</h2>
@@ -33,7 +33,7 @@ export default function ResetPasswordPage() {
         </div>
         <div className='
           w-full  min-h-[420px] rounded-t-md flex flex-col justify-center items-center px-4 bg-slate-200 shadow-md
-          lg:w-1/2 lg:min-h-[550px]
+          lg:w-1/2 lg:min-h-[550px] 2xl:min-h-[700px]
           dark:bg-slate-950
         '>
           <MotionDiv
