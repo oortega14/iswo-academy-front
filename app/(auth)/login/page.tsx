@@ -1,6 +1,6 @@
 import { MotionDiv } from "@/components/animations/MotionDiv";
 import InputLogin from "@/components/auth/InputLogin";
-import { IswoIcon } from "@/icons";
+import { IswoIconLarge } from "@/icons";
 import { cn } from "@/lib/utils";
 
 const variants = {
@@ -38,7 +38,7 @@ export default function LoginPage() {
               damping: 20
             }}
           >
-            <IswoIcon className="size-24 lg:size-32 dark:invert"/>
+            <IswoIconLarge className="size-24 lg:size-32 dark:invert"/>
           </MotionDiv>
           <InputLogin />
         </div>

@@ -4,11 +4,15 @@ import { FormEvent, useState } from "react"
 import Link from "next/link"
 import { IconLock, IconMail } from "@tabler/icons-react"
 import { Toaster, toast } from "sonner"
-
+import { useRouter } from 'next/navigation'
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
+import { useUIStore } from "@/store/ui/ui-store"
 
 export const InputLogin = () => {
+  const router = useRouter()
+  const currentUser = useUIStore((state) => state.currentUser)
+  const updateCurrentUser = useUIStore((state) => state.updateCurrentUser)
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -36,17 +40,16 @@ export const InputLogin = () => {
         body: JSON.stringify(data),
       })
       const response = await request.json()
-      console.log(response)
       if (request.status === 200) {
         toast.success('exitoso')
-        console.log(response)
+        updateCurrentUser(response)
+        router.push(`/academies/${response.academy.id}/dashboard`)
       } else {
         toast.error(response.errors)
       }
     } catch (e) {
     }
   }
-
   return (
     <>
       <form

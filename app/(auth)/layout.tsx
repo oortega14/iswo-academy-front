@@ -5,6 +5,7 @@ export default function AuthLayout({
 }) {
   return (
     <div className="flex justify-center">
+      <div className="bg-light-dotted dark:bg-dark-dotted"></div>
       {children}
     </div>
   );

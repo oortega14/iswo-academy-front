@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { NAV_LINKS } from "@/constants"
-import { IswoIcon } from "@/icons"
+import { IswoIconLarge } from "@/icons"
 import { IconMenuDeep } from "@tabler/icons-react"
 
 import { ThemeToggle } from "../theme-toggle"
@@ -14,7 +14,7 @@ export const Header = () => {
     <section className="flex items-center justify-center mb-24 fixed z-30 w-full">
       <nav className="sm:py-2 md:py-3 flex items-center max-w-[1440px] justify-between w-full px-5 md:px-24 3xl:px-28 backdrop-blur-md">
         <Link href="/">
-          <IswoIcon className="w-20 h-20 dark:invert" />
+          <IswoIconLarge className="w-20 h-20 dark:invert" />
         </Link>
 
         <ul className="hidden h-full gap-12 md:flex">

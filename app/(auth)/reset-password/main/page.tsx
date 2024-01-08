@@ -1,7 +1,7 @@
 import { MotionDiv } from "@/components/animations/MotionDiv";
 import InputReset from "@/components/auth/InputReset";
 import InputResetMain from "@/components/auth/InputResetMain";
-import { IswoIcon } from "@/icons";
+import { IswoIconLarge } from "@/icons";
 import { cn } from "@/lib/utils";
 import { IconLockSquareRounded } from "@tabler/icons-react";
 
@@ -58,7 +58,7 @@ export default function ResetPasswordMainPage() {
               damping: 20
             }}
           >
-            <IswoIcon className="size-24 lg:size-32 dark:invert"/>
+            <IswoIconLarge className="size-24 lg:size-32 dark:invert"/>
           </MotionDiv>
           <InputResetMain />
         </div>

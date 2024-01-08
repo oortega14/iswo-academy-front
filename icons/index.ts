@@ -1,1 +1,2 @@
-export * from './IswoIcon';
+export * from './IswoIconLarge';
+export * from './IswoIconSmall';

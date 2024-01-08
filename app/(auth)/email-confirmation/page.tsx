@@ -1,4 +1,4 @@
-import { IswoIcon } from "@/icons"
+import { IswoIconLarge } from "@/icons"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { MotionDiv } from "@/components/animations/MotionDiv"
@@ -61,7 +61,7 @@ export default function EmailConfirmationPage() {
                 bottom: 100,
               }}
             >
-              <IswoIcon className="size-24 lg:size-32 dark:invert" />
+              <IswoIconLarge className="size-24 lg:size-32 dark:invert" />
             </MotionDiv>
           </div>
           <div

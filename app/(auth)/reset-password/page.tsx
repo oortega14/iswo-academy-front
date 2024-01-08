@@ -1,6 +1,6 @@
 import { MotionDiv } from "@/components/animations/MotionDiv";
 import InputReset from "@/components/auth/InputReset";
-import { IswoIcon } from "@/icons";
+import { IswoIconLarge } from "@/icons";
 import { cn } from "@/lib/utils";
 
 const variants = {
@@ -46,7 +46,7 @@ export default function ResetPasswordPage() {
               damping: 20
             }}
           >
-            <IswoIcon className="size-24 lg:size-32 dark:invert"/>
+            <IswoIconLarge className="size-24 lg:size-32 dark:invert"/>
           </MotionDiv>
           <InputReset />
         </div>

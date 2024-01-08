@@ -1,9 +1,8 @@
 import { FOOTER_CONTACT_INFO, FOOTER_LINKS, SOCIALS } from '@/constants'
-import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import FooterColumn from './FooterColumn'
-import { IswoIcon } from '@/icons'
+import { IswoIconLarge } from '@/icons'
 
 const Footer = () => {
   return (
@@ -14,7 +13,7 @@ const Footer = () => {
           <div className='flex flex-wrap gap-10 sm:justify-between md:flex-1'>
             <div className='flex flex-col gap-0'>
               <Link href="/" className="m-0">
-                <IswoIcon className='w-40 h-32 dark:invert'/>
+                <IswoIconLarge className='w-40 h-32 dark:invert'/>
               </Link>
               <h4 className='text-xl font-bold'> ISWO </h4>
               <p className='text-pretty mb-4'> "Productividad y Competitividad Organizacional" </p>
