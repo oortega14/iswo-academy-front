@@ -43,7 +43,7 @@ export const InputLogin = () => {
       if (request.status === 200) {
         toast.success('exitoso')
         updateCurrentUser(response)
-        router.push(`/academies/${response.academy.id}/dashboard`)
+        router.push(`/academies/${response.academy.id}/dashboard/main`)
       } else {
         toast.error(response.errors)
       }

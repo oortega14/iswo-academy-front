@@ -6,7 +6,7 @@ export const buildRoute = (category: string, subcategory: string, id: string) =>
     case 'dashboard':
       switch (normalizedSubcategory) {
         case 'inicio':
-          return `/academies/${id}/dashboard`;
+          return `/academies/${id}/dashboard/main`;
         case 'mensajes':
           return `/academies/${id}/dashboard/messages`;
       }

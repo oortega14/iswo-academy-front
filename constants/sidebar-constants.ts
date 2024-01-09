@@ -47,3 +47,5 @@ export const SIDEBAR_LINKS: SidebarLink[] = [
     ]
   },
 ];
+
+export const IMAGEMIMETYPE = /image\/(jpg|png|)/i;
