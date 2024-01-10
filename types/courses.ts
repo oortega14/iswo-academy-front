@@ -19,3 +19,13 @@ export interface Student {
   user_name: string;
 }
 
+export interface Question {
+  id:               number;
+  question:         string;
+  question_options: QuestionOption[];
+}
+
+export interface QuestionOption {
+  id:          number;
+  option_text: string;
+}

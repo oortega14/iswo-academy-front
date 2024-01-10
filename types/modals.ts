@@ -16,3 +16,15 @@ export interface BackdropProps {
   children: React.ReactNode
   onClick: React.MouseEventHandler
 }
+
+export interface EditQuestionModalProps {
+  modalOpen: boolean
+  close: () => void
+  questionId: number
+}
+
+export interface DeleteQuestionModalProps {
+  modalOpen: boolean
+  questionId: number
+  close: () => void
+}

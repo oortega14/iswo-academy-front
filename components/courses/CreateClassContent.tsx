@@ -1,70 +1,22 @@
 "use client"
 
-import { useState } from "react"
-import Link from "next/link"
-import { useParams } from "next/navigation"
 import {
-  IconArticle,
-  IconEdit,
-  IconEyeCheck,
-  IconEyeX,
-  IconTrash,
+  IconArticle
 } from "@tabler/icons-react"
-
-import { cn } from "@/lib/utils"
-import useGetLessons from "@/hooks/useGetLessons"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-
 import { MotionButton } from "../animations/MotionButton"
-import DeleteLessonsModal from "../modals/DeleteLessonsModal"
-import EditLessonsModal from "../modals/EditLessonsModal"
 import { Button, buttonVariants } from "../ui/button"
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
 
 const CreateClassContent = () => {
-  const params = useParams()
-  const [loading, setLoading] = useState<boolean>()
-  const [editModalOpen, setEditModalOpen] = useState(false)
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false)
-  const [selectedLessonId, setSelectedLessonId] = useState(0)
-  const close = (
-    setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>>
-  ) => {
-    setModalOpenFunction(false)
-  }
-  const open = (
-    setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>>,
-    lessonId: number
-  ) => {
-    setModalOpenFunction(true)
-    setSelectedLessonId(lessonId)
-  }
-  const lessons = useGetLessons({
-    courseId: Array.isArray(params.courseId)
-      ? params.courseId[0]
-      : params.courseId,
-    setLoadingCallback: setLoading,
-  })
 
-  function truncarTexto(texto: string, longitudMaxima: number) {
-    if (texto.length > longitudMaxima) {
-      return texto.slice(0, longitudMaxima) + "..."
-    } else {
-      return texto
-    }
+  const handleSubmit = (e) => {
+    console.log(e)
   }
 
-  const handleSubmit = (e) => {}
-
-  const handleChange = (e) => {}
+  const handleChange = (e) => {
+    console.log(e)
+  }
 
   return (
     <>
@@ -124,17 +76,6 @@ const CreateClassContent = () => {
           <Button className="mt-3">Crear clase</Button>
         </MotionButton>
       </form>
-
-      <EditLessonsModal
-        modalOpen={editModalOpen}
-        close={() => close(setEditModalOpen)}
-        lessonId={selectedLessonId}
-      />
-      <DeleteLessonsModal
-        modalOpen={deleteModalOpen}
-        close={() => close(setDeleteModalOpen)}
-        lessonId={selectedLessonId}
-      />
     </>
   )
 }
