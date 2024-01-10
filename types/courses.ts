@@ -11,3 +11,11 @@ export interface File {
   id:   number;
   file: string;
 }
+
+
+export interface Student {
+  id:        number;
+  user_id:   number;
+  user_name: string;
+}
+

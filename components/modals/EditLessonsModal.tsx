@@ -40,7 +40,7 @@ const EditLessonsModal = ({
   })
 
   if (loading) {
-    return 'cargando'
+    return ''
   } else {
     return (
       <AnimatePresence>

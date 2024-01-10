@@ -1,6 +1,6 @@
 "use client"
 import { MotionDiv } from "@/components/animations/MotionDiv"
-import AdminCourse from "@/components/courses/AdminCourse"
+import CreateClass from "@/components/courses/CreateClass"
 import Sidebar from "@/components/dashboard/sidebar/Sidebar"
 import { useParams } from "next/navigation"
 
@@ -9,7 +9,7 @@ const variants = {
   visible: { opacity: 1 },
 }
 
-export default function AdminPage() {
+export default function CreateClassPage() {
   const params = useParams<{ id: string }>()
   return (
     <MotionDiv
@@ -26,7 +26,7 @@ export default function AdminPage() {
       <section>
         <div className="flex min-h-screen overflow-y-hidden ">
           <Sidebar />
-          <AdminCourse/>
+          <CreateClass />
         </div>
       </section>
     </MotionDiv>
