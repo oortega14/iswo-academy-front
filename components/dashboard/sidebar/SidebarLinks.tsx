@@ -14,7 +14,9 @@ import { SidebarCategory } from "./SidebarCategory"
 export const SidebarLinks = () => {
   const params = useParams<{ id: string; courseId: string }>()
   const [loading, setLoading] = useState<boolean>(false)
-  const courses = useGetCourses(params.id, setLoading)
+  const courses = useGetCourses({
+    academyId: params.id,
+    setLoadingCallback: setLoading})
   const router = useRouter()
   const isSidebarOpen = useUIStore((state) => state.isSidebarOpen)
 

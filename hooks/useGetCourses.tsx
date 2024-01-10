@@ -1,10 +1,9 @@
 import { useUIStore } from '@/store/ui/ui-store';
+import { GetCoursesProps } from '@/types/hooks';
 import { Course } from '@/types/sidebar';
 import { useEffect, useState } from 'react';
 
-type CallbackFunction = (loading: boolean) => void;
-
-const useGetCourses = (academyId: string, setLoadingCallback: CallbackFunction) => {
+const useGetCourses = ({academyId, setLoadingCallback}: GetCoursesProps) => {
   const baseUrl = useUIStore((state) => state.baseUrl);
   const [courses, setCourses] = useState<Course[]>([]);
 

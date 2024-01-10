@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { useParams } from "next/navigation"
-import { Accordion } from "@radix-ui/react-accordion"
 import {
   IconEdit,
   IconEyeCheck,
@@ -31,20 +30,31 @@ import {
 } from "@/components/ui/table"
 
 import { MotionButton } from "../animations/MotionButton"
-import { MotionPresence } from "../animations/MotionPresence"
-import Modal from "../modal/Modal"
+import Modal from "../ui/Modal"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+import EditLessonsModal from "../modals/EditLessonsModal"
+import DeleteLessonsModal from "../modals/DeleteLessonsModal"
 
 const CourseContent = () => {
   const params = useParams()
-  const [loading, setLoading] = useState()
-  const [modalOpen, setModalOpen] = useState(false)
-  const close = () => setModalOpen(false)
-  const open = () => setModalOpen(true)
-  const lessons = useGetLessons(params?.courseId, setLoading)
+  const [loading, setLoading] = useState<boolean>()
+  const [editModalOpen, setEditModalOpen] = useState(false)
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false)
+  const [selectedLessonId, setSelectedLessonId] = useState(0)
+  const close = (setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>>) => {
+    setModalOpenFunction(false);
+  };
+  const open = (setModalOpenFunction : React.Dispatch<React.SetStateAction<boolean>>, lessonId: number) => {
+    setModalOpenFunction(true);
+    setSelectedLessonId(lessonId)
+  };
+  const lessons = useGetLessons({
+    courseId: Array.isArray(params.courseId) ? params.courseId[0] : params.courseId,
+    setLoadingCallback: setLoading
+  })
 
   function truncarTexto(texto: string, longitudMaxima: number) {
     if (texto.length > longitudMaxima) {
@@ -62,7 +72,6 @@ const CourseContent = () => {
         </h1>
       </div>
       <Table>
-        <TableCaption>La lista de tus lecciones.</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-1/5">Acciones</TableHead>
@@ -83,7 +92,7 @@ const CourseContent = () => {
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={() => (modalOpen ? close() : open())}
+                      onClick={() => (editModalOpen ? close(setEditModalOpen) : open(setEditModalOpen, lesson.id))}
                       className=" border-[1px]"
                     >
                       <IconEdit className=" size-6 " />
@@ -96,7 +105,7 @@ const CourseContent = () => {
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={() => (modalOpen ? close() : open())}
+                      onClick={() => (deleteModalOpen ? close(setDeleteModalOpen) : open(setDeleteModalOpen, lesson.id))}
                       className="border-[1px]"
                     >
                       <IconTrash className=" size-6 " />
@@ -123,48 +132,14 @@ const CourseContent = () => {
           </>
         ))}
       </Table>
-      <AnimatePresence>
-        {modalOpen && (
-          <Modal modalOpen={modalOpen} handleClose={close}>
-            <Card className="w-2/3 h-2/3">
-              <CardHeader>
-                <CardTitle>Create project</CardTitle>
-                <CardDescription>
-                  Deploy your new project in one-click.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form>
-                  <div className="grid w-full items-center gap-4">
-                    <div className="flex flex-col space-y-1.5">
-                      <Label htmlFor="name">Name</Label>
-                      <Input id="name" placeholder="Name of your project" />
-                    </div>
-                    <div className="flex flex-col space-y-1.5">
-                      <Label htmlFor="framework">Framework</Label>
-                      <Select>
-                        <SelectTrigger id="framework">
-                          <SelectValue placeholder="Select" />
-                        </SelectTrigger>
-                        <SelectContent position="popper">
-                          <SelectItem value="next">Next.js</SelectItem>
-                          <SelectItem value="sveltekit">SvelteKit</SelectItem>
-                          <SelectItem value="astro">Astro</SelectItem>
-                          <SelectItem value="nuxt">Nuxt.js</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-                </form>
-              </CardContent>
-              <CardFooter className="flex justify-between">
-                <Button variant="outline">Cancel</Button>
-                <Button>Deploy</Button>
-              </CardFooter>
-            </Card>
-          </Modal>
-        )}
-      </AnimatePresence>
+      <div className="w-full mb-5 flex justify-center">
+        <Button>
+          Agregar nueva clase
+        </Button>
+      </div>
+      <EditLessonsModal modalOpen={editModalOpen} close={() => close(setEditModalOpen)} lessonId={selectedLessonId}/>
+      <DeleteLessonsModal modalOpen={deleteModalOpen} close={() => close(setDeleteModalOpen)} lessonId={selectedLessonId}/>
+
     </>
   )
 }

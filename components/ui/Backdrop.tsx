@@ -1,6 +1,7 @@
+import { BackdropProps } from "@/types/modals"
 import { MotionDiv } from "../animations/MotionDiv"
 
-const Backdrop = ({children, onClick}) => {
+const Backdrop = ({children, onClick}: BackdropProps) => {
   return (
     <MotionDiv
       className="absolute top-0 left-0 h-full w-full flex items-center justify-center bg-[#030711e1]"

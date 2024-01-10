@@ -1,7 +1,14 @@
+import React from "react"
 import { MotionDiv } from "../animations/MotionDiv"
 import Backdrop from "./Backdrop"
 
-const Modal = ({ children, handleClose}) => {
+interface ModalProps {
+  children: React.ReactNode
+  handleClose: () => void
+  modalOpen: boolean
+}
+
+const Modal = ({ modalOpen, handleClose, children} : ModalProps) => {
   const dropIn = {
     hidden: {
       y: "-100vh",
@@ -29,7 +36,6 @@ const Modal = ({ children, handleClose}) => {
         exit='exit'
       >
         {children}
-        <button onClick={handleClose}>Close</button>
       </MotionDiv>
     </Backdrop>
   )
