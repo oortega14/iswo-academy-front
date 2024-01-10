@@ -135,7 +135,7 @@ const EvaluationContent = () => {
           </TableHeader>
           <TableBody>
             {questions.map((question) => (
-              <>
+              <div key={question.id}>
                 <TableRow>
                   <TableCell className="flex gap-x-2">
                     <Tooltip>
@@ -212,7 +212,7 @@ const EvaluationContent = () => {
                     {question.question}
                   </TableCell>
                 </TableRow>
-              </>
+              </div>
             ))}
           </TableBody>
         </Table>

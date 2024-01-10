@@ -1,9 +1,5 @@
-"use client"
-
-import { useParams } from "next/navigation"
-
 import { MotionDiv } from "@/components/animations/MotionDiv"
-import Evaluation from "@/components/courses/Evaluation"
+import DashboardContent from "@/components/dashboard/content/DashboardContent"
 import Sidebar from "@/components/dashboard/sidebar/Sidebar"
 
 const variants = {
@@ -11,8 +7,7 @@ const variants = {
   visible: { opacity: 1 },
 }
 
-export default function AnswersPage() {
-  const params = useParams<{ id: string }>()
+export default function SuperAdminDashboard() {
   return (
     <MotionDiv
       className="w-full"
@@ -25,9 +20,11 @@ export default function AnswersPage() {
       }}
       viewport={{ amount: 0 }}
     >
-      <section className="flex min-h-screen overflow-y-hidden">
-        <Sidebar />
-        <Evaluation />
+      <section>
+        <div className="flex min-h-screen overflow-y-hidden ">
+          <Sidebar />
+          <DashboardContent />
+        </div>
       </section>
     </MotionDiv>
   )

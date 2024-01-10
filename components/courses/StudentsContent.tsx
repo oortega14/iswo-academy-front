@@ -58,7 +58,7 @@ const StudentsContent = () => {
           </TableRow>
         </TableHeader>
         {students.map((student) => (
-          <>
+          <div key={student.id}>
             <TableBody>
               <TableRow>
                 <TableCell className="flex gap-x-2">
@@ -83,7 +83,7 @@ const StudentsContent = () => {
                 <TableCell className="font-medium">{student.user_name}</TableCell>
               </TableRow>
             </TableBody>
-          </>
+          </div>
         ))}
       </Table>
       <DeleteStudentModal

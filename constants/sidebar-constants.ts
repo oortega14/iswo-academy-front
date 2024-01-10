@@ -2,56 +2,101 @@ import { SidebarLink } from "@/types/sidebar";
 import { IconAbacus, IconFileSpreadsheet } from "@tabler/icons-react";
 import { IconAddressBook, IconClock, IconLayoutDashboard } from "@tabler/icons-react";
 
+//MimeTypes
+
+export const IMAGEMIMETYPE = /image\/(jpg|png|)/i;
+
 // NAVBAR
-export const SIDEBAR_LINKS: SidebarLink[] = [
+export const SUPER_ADMIN_SIDEBAR_LINKS: SidebarLink[] = [
   {
-    href: '/',
-    key: 'back-office',
+    category_key: 'superadmin-back-office',
     label: 'BackOffice',
     icon: IconClock,
     links: [
-      { subcategory: 'home', label: 'Inicio', route: '/academies/' },
-      { subcategory: 'messages', label: 'Mensajes', route: '/academies/' }
-    ]
-  },
-  {
-    href: '/',
-    key: 'dashboard',
-    label: 'Dashboard',
-    icon: IconLayoutDashboard,
-    links: [
-      { subcategory: 'home', label: 'Inicio', route: '/academies/' },
-      { subcategory: 'messages', label: 'Mensajes', route: '/academies/' }
-    ]
-  },
-  {
-    href: '/',
-    key: 'courses',
-    label: 'Cursos',
-    icon: IconFileSpreadsheet
-  },
-  {
-    href: '/',
-    key: 'admin-courses',
-    label: 'Administrar Cursos',
-    icon: IconAbacus,
-    links: [
-      { subcategory: 'content', label: 'Contenido', route: '/academies/' },
-      { subcategory: 'students', label: 'Estudiantes', route: '/academies/' },
-      { subcategory: 'evaluation', label: 'Evaluacion', route: '/academies/' },
-      { subcategory: 'certificade', label: 'Certificado', route: '/academies/' },
-    ]
-  },
-  {
-    href: '/',
-    key: 'help',
-    label: 'ContactUs',
-    icon: IconAddressBook,
-    links: [
-      { subcategory: 'home', label: 'Inicio', route: '/academies/' },
-      { subcategory: 'messages', label: 'Mensajes', route: '/academies/' }
+      { subcategory_key: 'home', label: 'Inicio' },
+      { subcategory_key: 'messages', label: 'Mensajes' }
     ]
   }
 ];
 
-export const IMAGEMIMETYPE = /image\/(jpg|png|)/i;
+export const ADMIN_SIDEBAR_LINKS: SidebarLink[] = [
+  {
+    category_key: 'admin-dashboard',
+    label: 'Dashboard',
+    icon: IconLayoutDashboard,
+    links: [
+      { subcategory_key: 'home', label: 'Inicio' },
+      { subcategory_key: 'messages', label: 'Mensajes' }
+    ]
+  },
+  {
+    category_key: 'admin-courses',
+    label: 'Cursos',
+    icon: IconFileSpreadsheet
+  },
+  {
+    category_key: 'admin-edit-courses',
+    label: 'Administrar Cursos',
+    icon: IconAbacus,
+    links: [
+      { subcategory_key: 'content', label: 'Contenido' },
+      { subcategory_key: 'students', label: 'Estudiantes' },
+      { subcategory_key: 'evaluation', label: 'Evaluacion' },
+      { subcategory_key: 'certificade', label: 'Certificado' },
+    ]
+  },
+  {
+    category_key: 'admin-help',
+    label: 'ContactUs',
+    icon: IconAddressBook,
+    links: [
+      { subcategory_key: 'home', label: 'Inicio' },
+      { subcategory_key: 'messages', label: 'Mensajes' }
+    ]
+  }
+];
+
+export const TEACHER_SIDEBAR_LINKS: SidebarLink[] = [
+  {
+    category_key: 'teacher-courses',
+    label: 'Mis Cursos',
+    icon: IconFileSpreadsheet,
+    links: [
+      { subcategory_key: 'home', label: 'Inicio' },
+      { subcategory_key: 'messages', label: 'Mensajes' }
+    ]
+  },
+  {
+    category_key: 'teacher-help',
+    label: 'ContactUs',
+    icon: IconAddressBook,
+    links: [
+      { subcategory_key: 'home', label: 'Inicio' },
+      { subcategory_key: 'messages', label: 'Mensajes' }
+    ]
+  }
+];
+
+export const STUDENT_SIDEBAR_LINKS: SidebarLink[] = [
+  {
+    category_key: 'student-courses',
+    label: 'Cursos',
+    icon: IconFileSpreadsheet,
+    links: [
+      { subcategory_key: 'home', label: 'Inicio' },
+      { subcategory_key: 'in_progress_courses', label: 'Cursos en progreso' },
+      { subcategory_key: 'ended_courses', label: 'Cursos finalizados' }
+    ]
+  },
+  {
+    category_key: 'student-help',
+    label: 'ContactUs',
+    icon: IconAddressBook,
+    links: [
+      { subcategory_key: 'home', label: 'Inicio' },
+      { subcategory_key: 'messages', label: 'Mensajes' }
+    ]
+  }
+];
+
+

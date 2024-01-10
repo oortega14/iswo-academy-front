@@ -12,7 +12,6 @@ export interface File {
   file: string;
 }
 
-
 export interface Student {
   id:        number;
   user_id:   number;
@@ -27,5 +26,10 @@ export interface Question {
 
 export interface QuestionOption {
   id:          number;
+  option_text: string;
+}
+
+export interface Answer {
+  id: number;
   option_text: string;
 }

@@ -37,16 +37,32 @@ export interface AcademyConfiguration {
   domain: string;
 }
 
-
 export interface SidebarLink {
-  href?: string;
-  key: string;
+  category_key: string;
   label: string;
   icon?: React.ComponentType;
-  links?: Array<{ subcategory: string; label: string; route: string }>;
+  links?: Array<{ subcategory_key: string; label: string; }>;
+}
+
+export interface SidebarNavigationProps {
+  sidebarLinks?: SidebarLink[]
+  isSidebarOpen: boolean
+  handleClick: (categoryLabel: string, subcategoryLabel: string | number) => void
+}
+
+export interface SidebarNavigationAdminProps {
+  sidebarLinks?: SidebarLink[]
+  isSidebarOpen: boolean
+  handleClick: (categoryLabel: string, subcategoryLabel: string | number) => void
+  courses: Course[]
 }
 
 export interface SidebarCategoryProps {
+  category: SidebarLink
+  handleClick: (categoryLabel: string, subcategoryLabel: string | number) => void
+}
+
+export interface SidebarCategoryAdminProps {
   category: SidebarLink
   handleClick: (categoryLabel: string, subcategoryLabel: string | number) => void
   courses: Course[]
@@ -61,6 +77,7 @@ export type SidebarProps = {
 export type BuildRouteProps = {
   category: string
   subcategory: string | number
-  id: string
+  userId: string
   courseId: string
+  academyId: string
 }

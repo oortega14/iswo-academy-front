@@ -11,7 +11,7 @@ import { useUIStore } from "@/store/ui/ui-store"
 
 export const InputLogin = () => {
   const router = useRouter()
-  const currentUser = useUIStore((state) => state.currentUser)
+  const baseUrl = useUIStore((state) => state.baseUrl)
   const updateCurrentUser = useUIStore((state) => state.updateCurrentUser)
   const [userData, setUserData] = useState({
     email: "",
@@ -25,11 +25,6 @@ export const InputLogin = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-
-    if (!baseUrl) {
-      throw new Error("NEXT_PUBLIC_BASE_URL is not defined in the environment");
-    }
     let data = { user: { ...userData } }
     try {
       const request = await fetch(`${baseUrl}/login`, {
@@ -41,9 +36,17 @@ export const InputLogin = () => {
       })
       const response = await request.json()
       if (request.status === 200) {
-        toast.success('exitoso')
+        toast.success('Ingreso Exitoso')
         updateCurrentUser(response)
-        router.push(`/academies/${response.academy.id}/dashboard/main`)
+        if (response.role === 'Estudiante') {
+          router.push(`/student/${response.id}/dashboard/main`)
+        } else if (response.role === 'Profesor') {
+          router.push(`/teacher/${response.id}/dashboard/main`)
+        } else if (response.role === 'Administrador') {
+          router.push(`/admin/${response.id}/academies/${response.academy.id}/dashboard/main`)
+        } else if (response.role === 'Súper Administrador') {
+          router.push(`/super-admin/${response.id}/dashboard/main`)
+        }
       } else {
         toast.error(response.errors)
       }

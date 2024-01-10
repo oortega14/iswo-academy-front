@@ -1,49 +1,91 @@
-import { BuildRouteProps } from "@/types/sidebar";
+import { BuildRouteProps } from "@/types/sidebar"
 
-export const buildRoute = ({category , subcategory, id, courseId}: BuildRouteProps) => {
-  const normalizedCategory = category.toLowerCase();
+export const buildRoute = ({
+  category,
+  subcategory,
+  userId,
+  academyId,
+  courseId,
+}: BuildRouteProps) => {
+  const normalizedCategory = category.toLowerCase()
   let normalizedSubcategory = subcategory
-  if (typeof subcategory === 'string') {
-    normalizedSubcategory = subcategory.toLowerCase();
+  if (typeof subcategory === "string") {
+    normalizedSubcategory = subcategory.toLowerCase()
   }
+  console.log(normalizedCategory)
+  console.log(normalizedSubcategory)
 
   switch (normalizedCategory) {
-    case 'dashboard':
+    // students_routes
+    case "student-courses":
       switch (normalizedSubcategory) {
-        case 'inicio':
-          return `/academies/${id}/dashboard/main`;
-        case 'mensajes':
-          return `/academies/${id}/dashboard/messages`;
-        case 'icon':
-          return `/academies/${id}/dashboard/main`;
+        case "home":
+          return `/student/${userId}/dashboard/main`
+        case "in_progress_courses":
+          return `/student/${userId}/dashboard/in_progress`
+        case "ended_courses":
+          return `/student/${userId}/dashboard/ended`
       }
-    case 'backoffice':
+    case "student-help":
       switch (normalizedSubcategory) {
-        case 'inicio':
-          return `/academies/${id}/back-office/main`;
-        case 'mensajes':
-          return `/academies/${id}/back-office/messages`;
-        case 'icon':
-          return `/academies/${id}/back-office/main`;
+        case "home":
+          return `/student/${userId}/help/main`
+        case "messages":
+          return `/student/${userId}/help/messages`
       }
-    case 'cursos':
-      return `/academies/${id}/courses/${subcategory}/content`;
-    case 'administrar cursos':
+    // teachers_routes
+    case "teacher-courses":
       switch (normalizedSubcategory) {
-        case 'contenido':
-          return `/academies/${id}/courses/${courseId}/content`;
-        case 'estudiantes':
-          return `/academies/${id}/courses/${courseId}/students`;
-        case 'evaluacion':
-          return `/academies/${id}/courses/${courseId}/evaluation`;
-        case 'certificado':
-          return `/academies/${id}/courses/${courseId}/certificate`;
-        case 'icon':
-          return `/academies/${id}/courses/${courseId}/content`;
+        case "home":
+          return `/teacher/${userId}/dashboard/main`
+        case "messages":
+          return `/teacher/${userId}/dashboard/messages`
       }
+    case "teacher-help":
+      switch (normalizedSubcategory) {
+        case "home":
+          return `/teacher/${userId}/help/main`
+        case "messages":
+          return `/teacher/${userId}/help/messages`
+      }
+    // admin_routes
+    case "dashboard":
+      switch (normalizedSubcategory) {
+        case "inicio":
+          return `/academies/${academyId}/dashboard/main`
+        case "mensajes":
+          return `/academies/${academyId}/dashboard/messages`
+        case "icon":
+          return `/academies/${academyId}/dashboard/main`
+      }
+
+    case "admin-courses":
+      return `admin/${userId}/academies/${academyId}/courses/${subcategory}/content`
+    case "administrar cursos":
+      switch (normalizedSubcategory) {
+        case "contenido":
+          return `/academies/${academyId}/courses/${courseId}/content`
+        case "estudiantes":
+          return `/academies/${academyId}/courses/${courseId}/students`
+        case "evaluacion":
+          return `/academies/${academyId}/courses/${courseId}/evaluation`
+        case "certificado":
+          return `/academies/${academyId}/courses/${courseId}/certificate`
+        case "icon":
+          return `/academies/${academyId}}/courses/${courseId}/content`
+      }
+    // super_admin_routes
+    case "superadmin-back-office":
+      switch (normalizedSubcategory) {
+        case "home":
+          return `/super-admin/${userId}/back-office/main`
+        case "messages":
+          return `/super-admin/${userId}/back-office/messages`
+      }
+
     default:
-      return '/';
+      return "/"
   }
-};
+}
 
 export default buildRoute

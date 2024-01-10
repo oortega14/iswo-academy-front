@@ -75,7 +75,7 @@ const CourseContent = () => {
           </TableRow>
         </TableHeader>
         {lessons.map((lesson) => (
-          <>
+          <div key={lesson.id}>
             <TableBody>
               <TableRow>
                 <TableCell className="flex gap-x-2">
@@ -131,7 +131,7 @@ const CourseContent = () => {
                 </TableCell>
               </TableRow>
             </TableBody>
-          </>
+          </div>
         ))}
       </Table>
       <div className="w-full mb-5 flex justify-center">

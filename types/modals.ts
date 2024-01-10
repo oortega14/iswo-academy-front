@@ -28,3 +28,15 @@ export interface DeleteQuestionModalProps {
   questionId: number
   close: () => void
 }
+
+export interface EditAnswersModalProps {
+  modalOpen: boolean
+  close: () => void
+  questionId: number
+}
+
+export interface EditAnswerModalProps {
+  modalOpen: boolean
+  close: () => void
+  answerId: number
+}
