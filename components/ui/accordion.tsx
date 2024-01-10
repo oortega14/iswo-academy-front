@@ -35,7 +35,6 @@ const AccordionTrigger = React.forwardRef<
         <IconCircle className="size-2 shrink-0 "/>
         {children}
       </div>
-      <IconChevronDown className="size-4 shrink-0 transition-transform duration-200" />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ))

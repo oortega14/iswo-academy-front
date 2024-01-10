@@ -1,13 +1,16 @@
+"use client"
 import { MotionDiv } from "@/components/animations/MotionDiv"
-import DashboardContent from "@/components/dashboard/content/DashboardContent"
+import AdminCourseContent from "@/components/courses/AdminCourseContent"
 import Sidebar from "@/components/dashboard/sidebar/Sidebar"
+import { useParams } from "next/navigation"
 
 const variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
 }
 
-export default function DashboardMainPage() {
+export default function AdminPage() {
+  const params = useParams<{ id: string }>()
   return (
     <MotionDiv
       className="w-full"
@@ -23,7 +26,7 @@ export default function DashboardMainPage() {
       <section>
         <div className="flex min-h-screen overflow-y-hidden ">
           <Sidebar />
-          <DashboardContent />
+          <AdminCourseContent />
         </div>
       </section>
     </MotionDiv>

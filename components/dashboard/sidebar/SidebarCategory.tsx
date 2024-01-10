@@ -27,7 +27,7 @@ export const SidebarCategory = ({ category, handleClick, courses }: SidebarCateg
                       onClick={handleClick.bind(
                         null,
                         category.label,
-                        course.title
+                        course.id
                       )}
                     >
                       {course.title}

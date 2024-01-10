@@ -1,3 +1,4 @@
+import { Toaster } from "sonner";
 
 export default function AdminLayout({
  children
@@ -7,6 +8,7 @@ export default function AdminLayout({
   return (
     <div>
       {children}
+      <Toaster theme="system" position="top-right" richColors  />
     </div>
   );
 }

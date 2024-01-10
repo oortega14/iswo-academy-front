@@ -1,15 +1,16 @@
 "use client"
 import MainContent from "./MainContent"
 import { HeaderDashboard } from "./HeaderDashboard"
+import MessagesContent from "./MessagesContent"
 
-export const DashboardContent = () => {
+export const DashboardContentMessages = () => {
   return (
     <>
       <div className="flex flex-col flex-1 h-full overflow-hidden">
         <HeaderDashboard/>
-        <MainContent/>
+        <MessagesContent/>
       </div>
     </>
   )
 }
-export default DashboardContent
+export default DashboardContentMessages

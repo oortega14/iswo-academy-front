@@ -47,13 +47,20 @@ export interface SidebarLink {
 }
 
 export interface SidebarCategoryProps {
-  category: SidebarLink;
-  handleClick: (categoryLabel: string, subcategoryLabel: string) => void;
-  courses: Course[]; // Asegúrate de tener el tipo Course definido
+  category: SidebarLink
+  handleClick: (categoryLabel: string, subcategoryLabel: string | number) => void
+  courses: Course[]
 }
 
 export type SidebarProps = {
   params: {
     id: string
   }
+}
+
+export type BuildRouteProps = {
+  category: string
+  subcategory: string | number
+  id: string
+  courseId: string
 }

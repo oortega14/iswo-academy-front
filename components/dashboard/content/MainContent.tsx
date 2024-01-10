@@ -1,10 +1,9 @@
 "use client"
 
-import { FormEvent, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
+import { useParams } from "next/navigation"
 import { useUIStore } from "@/store/ui/ui-store"
-import { useParams } from 'next/navigation'
 import {
   IconBadgeTm,
   IconBrandCodepen,
@@ -13,24 +12,25 @@ import {
 } from "@tabler/icons-react"
 import { toast } from "sonner"
 
+import { useGetAcademy } from "@/hooks/useGetAcademy"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useGetAcademy } from "@/hooks/useGetAcademy"
-import { Academy } from "@/types/sidebar"
+import  Figure  from "./Figure"
 
 export const MainContent = () => {
-
+  const currentUser = useUIStore((state) => state.currentUser)
+  const baseUrl = useUIStore((state) => state.baseUrl)
+  const params = useParams<{ id: string }>()
+  const [loading, setLoading] = useState(true)
   const [previewImage, setPreviewImage] = useState("")
   const [logo, setLogo] = useState({})
-  const params = useParams<{ id: string}>()
-  const [loading, setLoading] = useState(true)
-  const academy = useGetAcademy(params.id, setLoading)
-  const router = useRouter()
-  const [userData, setUserData] = useState({
-    email: "",
-    password: "",
+  const [academyConfiguration, setAcademyConfiguration] = useState({
+    domain: "",
+    slogan: "",
+    description: "",
   })
+  const academy = useGetAcademy(params.id, setLoading)
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -60,40 +60,51 @@ export const MainContent = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    setUserData({ ...userData, [name]: value })
+    setAcademyConfiguration({ ...academyConfiguration, [name]: value })
   }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-
-    if (!baseUrl) {
-      throw new Error("NEXT_PUBLIC_BASE_URL is not defined in the environment")
+    const fd = new FormData()
+    if (logo instanceof Blob) {
+      fd.append("academy[logo]", logo)
     }
-    let data = { user: { ...userData } }
+    fd.append("academy[description]", academyConfiguration.description)
+    fd.append("academy[slogan]", academyConfiguration.slogan)
+    fd.append(
+      "academy[academy_configuration_attributes][domain]",
+      academyConfiguration.domain
+    )
+
     try {
-      const request = await fetch(`${baseUrl}/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+      const request = await fetch(`${baseUrl}/academies/${params.id}`, {
+        method: "PATCH",
+        credentials: "include",
+        body: fd,
       })
       const response = await request.json()
       if (request.status === 200) {
         toast.success("exitoso")
-        router.push(`/academies/${response.academy.id}/dashboard/main`)
       } else {
-        toast.error(response.errors)
+        toast.error(response.message)
       }
     } catch (e) {}
   }
 
-  const currentUser = useUIStore((state) => state.currentUser)
-  console.log(academy)
+  useEffect(() => {
+    if (!!academy) {
+      setAcademyConfiguration({
+        ...academyConfiguration,
+        domain: academy?.academy_configuration?.domain,
+        slogan: academy?.slogan,
+        description: academy?.description,
+      })
+    }
+  }, [academy])
+
   return (
     <div>
-      <main className="flex-1 h-auto max-h-full p-5 overflow-hidden overflow-y-scroll">
+      <main className="flex-1 h-auto p-5 overflow-hidden ">
         <div className="flex flex-col items-start justify-between pb-6 space-y-4 border-b lg:items-center lg:space-y-0 lg:flex-row">
           <h1 className="text-2xl font-semibold whitespace-nowrap">
             Hola {currentUser?.first_name} Configuremos tu academia
@@ -103,6 +114,69 @@ export const MainContent = () => {
           className="flex flex-col p-0 w-full"
           onSubmit={(e) => handleSubmit(e)}
         >
+          {!!academy?.logo && !previewImage ? (
+            <>
+              <div className="flex items-center mt-3">
+                <IconBadgeTm className="size-5 mr-2" />
+                <Label htmlFor="logo" className="text-md">
+                  Logo
+                </Label>
+              </div>
+              <div className="flex justify-start items-center w-full ">
+                <Figure image={academy?.logo}/>
+                <div className="grid w-full items-center gap-1.5 mt-3">
+                  <Input
+                    id="logo"
+                    type="file"
+                    onChange={(e) => handleFile(e)}
+                  />
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              {!!previewImage ? (
+                <>
+                  <div className="flex items-center mt-3">
+                    <IconBadgeTm className="size-5 mr-2" />
+                    <Label htmlFor="logo" className="text-md">
+                      Logo
+                    </Label>
+                  </div>
+                  <div className="flex justify-start items-center w-full ">
+                    <Image
+                      className="max-w-60 mt-3 mr-3 rounded-lg"
+                      src={previewImage}
+                      alt="logo_preview"
+                      width={300}
+                      height={300}
+                    />
+                    <div className="grid w-full items-center gap-1.5 mt-3">
+                      <Input
+                        id="logo"
+                        type="file"
+                        onChange={(e) => handleFile(e)}
+                      />
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className="grid w-full items-center gap-1.5 mt-3">
+                  <div className="flex items-center">
+                    <IconBadgeTm className="size-5 mr-2" />
+                    <Label htmlFor="logo" className="text-md">
+                      Logo
+                    </Label>
+                  </div>
+                  <Input
+                    id="logo"
+                    type="file"
+                    onChange={(e) => handleFile(e)}
+                  />
+                </div>
+              )}
+            </>
+          )}
           <div className="rounded-full flex items-center justify-start w-full mt-3">
             <IconZoomInArea className="size-5 mr-2" />
             <label htmlFor="domain">Dominio</label>
@@ -139,43 +213,6 @@ export const MainContent = () => {
             className="mt-2"
             defaultValue={academy?.description}
           />
-
-          {!!previewImage ? (
-            <>
-              <div className="flex items-center mt-3">
-                <IconBadgeTm className="size-5 mr-2" />
-                <Label htmlFor="logo" className="text-md">
-                  Logo
-                </Label>
-              </div>
-              <div className="flex justify-start items-center w-full ">
-                <Image
-                  className="max-w-60 mt-3 mr-3 rounded-lg"
-                  src={previewImage}
-                  alt="logo_preview"
-                  width={300}
-                  height={300}
-                />
-                <div className="grid w-full items-center gap-1.5 mt-3">
-                  <Input
-                    id="logo"
-                    type="file"
-                    onChange={(e) => handleFile(e)}
-                  />
-                </div>
-              </div>
-            </>
-          ) : (
-            <div className="grid w-full items-center gap-1.5 mt-3">
-              <div className="flex items-center">
-                <IconBadgeTm className="size-5 mr-2" />
-                <Label htmlFor="logo" className="text-md">
-                  Logo
-                </Label>
-              </div>
-              <Input id="logo" type="file" onChange={(e) => handleFile(e)} />
-            </div>
-          )}
           <Button className="mt-3">Actualizar Academia</Button>
         </form>
       </main>

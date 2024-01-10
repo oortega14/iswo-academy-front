@@ -14,7 +14,7 @@ export function ThemeToggle() {
       variant="ghost"
       size="icon"
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      className="ml-3"
+      className="ml-3 border-[1px]"
     >
       <IconSunHigh className="dark:hidden size-6 " />
       <IconMoon className="hidden size-6 dark:block" />
