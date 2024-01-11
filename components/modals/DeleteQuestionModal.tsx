@@ -26,10 +26,10 @@ const DeleteQuestionModal = ({
             <CardHeader>
               <div className="flex gap-x-3 items-center">
                 <IconTrash className="size-8" />
-                <CardTitle>Eliminar Estudiante</CardTitle>
+                <CardTitle>Eliminar Pregunta</CardTitle>
               </div>
               <CardDescription>
-                A continuación puedes eliminar al estudiante
+                A continuación puedes eliminar la pregunta
               </CardDescription>
             </CardHeader>
             <CardContent>

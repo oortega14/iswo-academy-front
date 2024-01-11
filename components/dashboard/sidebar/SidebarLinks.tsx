@@ -37,10 +37,8 @@ export const SidebarLinks = () => {
       academyId: params.academyId,
       courseId: params.courseId,
     })
-    console.log(route)
     router.push(route)
   }
-console.log(currentUser.role)
   if (loading) {
     return "cargando"
   } else {

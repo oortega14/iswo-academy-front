@@ -12,8 +12,6 @@ export const buildRoute = ({
   if (typeof subcategory === "string") {
     normalizedSubcategory = subcategory.toLowerCase()
   }
-  console.log(normalizedCategory)
-  console.log(normalizedSubcategory)
 
   switch (normalizedCategory) {
     // students_routes
@@ -49,30 +47,33 @@ export const buildRoute = ({
           return `/teacher/${userId}/help/messages`
       }
     // admin_routes
-    case "dashboard":
+    case "admin-dashboard":
       switch (normalizedSubcategory) {
-        case "inicio":
-          return `/academies/${academyId}/dashboard/main`
-        case "mensajes":
-          return `/academies/${academyId}/dashboard/messages`
-        case "icon":
-          return `/academies/${academyId}/dashboard/main`
+        case "home":
+          return `/admin/${userId}/academies/${academyId}/dashboard/main`
+        case "messages":
+          return `/admin/${userId}/academies/${academyId}/dashboard/messages`
       }
 
     case "admin-courses":
-      return `admin/${userId}/academies/${academyId}/courses/${subcategory}/content`
-    case "administrar cursos":
+      return `/admin/${userId}/academies/${academyId}/courses/${subcategory}/content`
+    case "admin-edit-courses":
       switch (normalizedSubcategory) {
-        case "contenido":
-          return `/academies/${academyId}/courses/${courseId}/content`
-        case "estudiantes":
-          return `/academies/${academyId}/courses/${courseId}/students`
-        case "evaluacion":
-          return `/academies/${academyId}/courses/${courseId}/evaluation`
-        case "certificado":
-          return `/academies/${academyId}/courses/${courseId}/certificate`
-        case "icon":
-          return `/academies/${academyId}}/courses/${courseId}/content`
+        case "content":
+          return `/admin/${userId}/academies/${academyId}/courses/${courseId}/content`
+        case "students":
+          return `/admin/${userId}/academies/${academyId}/courses/${courseId}/students`
+        case "evaluation":
+          return `/admin/${userId}/academies/${academyId}/courses/${courseId}/evaluation`
+        case "certificate":
+          return `/admin/${userId}/academies/${academyId}/courses/${courseId}/certificate`
+      }
+    case "admin-help":
+      switch (normalizedSubcategory) {
+        case "home":
+          return `/admin/${userId}/help/main`
+        case "messages":
+          return `/admin/${userId}/help/messages`
       }
     // super_admin_routes
     case "superadmin-back-office":

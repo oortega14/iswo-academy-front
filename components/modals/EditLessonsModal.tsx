@@ -50,10 +50,10 @@ const EditLessonsModal = ({
               <CardHeader>
                 <div className="flex gap-x-3 items-center">
                   <IconEdit className="size-8" />
-                  <CardTitle>Edita la clase</CardTitle>
+                  <CardTitle>Edita la Lección</CardTitle>
                 </div>
                 <CardDescription>
-                  A continuación edita los campos de tu clase
+                  A continuación edita los campos de tu lección
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -66,7 +66,6 @@ const EditLessonsModal = ({
                         className="border-2"
                         id="title"
                         name="title"
-                        placeholder="El titulo de tu clase"
                       />
                     </div>
                     <div className="flex flex-col space-y-1.5">
@@ -76,18 +75,17 @@ const EditLessonsModal = ({
                         className="border-2"
                         id="description"
                         name="description"
-                        placeholder="La descripción de tu clase"
                       />
                     </div>
 
                     <div className="flex flex-col space-y-2">
                       <Label htmlFor="video">Video</Label>
                       {!!file ? (
-                      <div className=" max-w-[220px] rounded-lg flex shadow-lg mx-auto ">
+                      <div className=" max-w-[220px] rounded-lg flex shadow-lg mx-auto overflow-hidden">
                         {
                           <video
                             id="video"
-                            className="w-100"
+                            className="w-100 "
                             src={URL.createObjectURL(file)}
                             controls
                           />

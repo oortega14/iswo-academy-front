@@ -2,10 +2,9 @@
 
 import { useState } from "react"
 import { useParams } from "next/navigation"
-import {
-  IconEdit,
-  IconTrash,
-} from "@tabler/icons-react"
+import { IconEdit, IconTrash } from "@tabler/icons-react"
+
+import useGetStudents from "@/hooks/useGetStudents"
 import {
   Table,
   TableBody,
@@ -14,10 +13,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+
 import { MotionButton } from "../animations/MotionButton"
-import { Button } from "../ui/button"
-import useGetStudents from "@/hooks/useGetStudents"
 import DeleteStudentModal from "../modals/DeleteStudentModal"
+import { Button } from "../ui/button"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip"
 
 const StudentsContent = () => {
   const params = useParams()
@@ -45,47 +50,58 @@ const StudentsContent = () => {
 
   return (
     <>
-      <div className="flex flex-col items-start justify-between pb-6 space-y-4 border-b lg:items-center lg:space-y-0 lg:flex-row">
-        <h1 className="text-2xl font-semibold whitespace-nowrap mt-4 ml-3">
-          Tus estudiantes:
-        </h1>
-      </div>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-1/5">Acciones</TableHead>
-            <TableHead className="w-4/5">Nombre del estudiante</TableHead>
-          </TableRow>
-        </TableHeader>
-        {students.map((student) => (
-          <div key={student.id}>
-            <TableBody>
-              <TableRow>
-                <TableCell className="flex gap-x-2">
-                  <MotionButton
-                    whileHover={{ scale: 1.15 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() =>
-                        deleteModalOpen
-                          ? close(setDeleteModalOpen)
-                          : open(setDeleteModalOpen, student.id)
-                      }
-                      className="border-[1px]"
-                    >
-                      <IconTrash className=" size-6 " />
-                    </Button>
-                  </MotionButton>
-                </TableCell>
-                <TableCell className="font-medium">{student.user_name}</TableCell>
-              </TableRow>
-            </TableBody>
-          </div>
-        ))}
-      </Table>
+      <TooltipProvider>
+        <div className="flex flex-col items-start justify-between pb-6 space-y-4 border-b lg:items-center lg:space-y-0 lg:flex-row">
+          <h1 className="text-2xl font-semibold whitespace-nowrap mt-4 ml-3">
+            Tus estudiantes:
+          </h1>
+        </div>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-1/5">Acciones</TableHead>
+              <TableHead className="w-4/5">Nombre del estudiante</TableHead>
+            </TableRow>
+          </TableHeader>
+          {students.map((student) => (
+            <>
+              <TableBody key={student.id}>
+                <TableRow>
+                  <TableCell className="flex gap-x-2">
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <MotionButton
+                          whileHover={{ scale: 1.15 }}
+                          whileTap={{ scale: 0.9 }}
+                        >
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() =>
+                              deleteModalOpen
+                                ? close(setDeleteModalOpen)
+                                : open(setDeleteModalOpen, student.id)
+                            }
+                            className="border-[1px]"
+                          >
+                            <IconTrash className=" size-6 " />
+                          </Button>
+                        </MotionButton>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Eliminar Estudiante</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TableCell>
+                  <TableCell className="font-medium">
+                    {student.user_name}
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </>
+          ))}
+        </Table>
+      </TooltipProvider>
       <DeleteStudentModal
         modalOpen={deleteModalOpen}
         close={() => close(setDeleteModalOpen)}

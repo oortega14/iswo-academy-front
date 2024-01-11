@@ -37,10 +37,10 @@ const DeleteLessonsModal = ({
             <CardHeader>
               <div className="flex gap-x-3 items-center">
                 <IconTrash className="size-8" />
-                <CardTitle>Eliminar clase</CardTitle>
+                <CardTitle>Eliminar lección</CardTitle>
               </div>
               <CardDescription>
-                A continuación puedes eliminar la clase
+                A continuación puedes eliminar la lección
               </CardDescription>
             </CardHeader>
             <CardContent>

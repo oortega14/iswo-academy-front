@@ -45,10 +45,10 @@ const EditAnswerModal = ({
               <CardHeader>
                 <div className="flex gap-x-3 items-center">
                   <IconEdit className="size-8" />
-                  <CardTitle>Edita la clase</CardTitle>
+                  <CardTitle>Edita la respuesta</CardTitle>
                 </div>
                 <CardDescription>
-                  A continuación edita los campos de tu clase
+                  A continuación edita los campos la respuesta
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -61,7 +61,6 @@ const EditAnswerModal = ({
                         className="border-2"
                         id="title"
                         name="title"
-                        placeholder="El titulo de tu clase"
                       />
                     </div>
                   </div>

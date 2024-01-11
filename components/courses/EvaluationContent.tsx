@@ -74,7 +74,7 @@ const EvaluationContent = () => {
   }
 
   const handleClickQuestion = (id: number) => {
-    router.push(`/academies/${params.id}/courses/${params.courseId}/evaluation/${id}/question/answers`)
+    router.push(`/admin/${params.id}/academies/${params.academyId}/courses/${params.courseId}/evaluation/${id}/question/answers`)
   }
 
   return (
@@ -135,8 +135,8 @@ const EvaluationContent = () => {
           </TableHeader>
           <TableBody>
             {questions.map((question) => (
-              <div key={question.id}>
-                <TableRow>
+              <>
+                <TableRow key={question.id}>
                   <TableCell className="flex gap-x-2">
                     <Tooltip>
                       <TooltipTrigger asChild>
@@ -212,7 +212,7 @@ const EvaluationContent = () => {
                     {question.question}
                   </TableCell>
                 </TableRow>
-              </div>
+              </>
             ))}
           </TableBody>
         </Table>

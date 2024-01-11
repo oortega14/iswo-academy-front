@@ -7,7 +7,6 @@ import { SidebarCategoryAdmin } from "./SidebarCategoryAdmin"
 
 export const SidebarNavigationAdmin = ({ sidebarLinks, isSidebarOpen, handleClick, courses }: SidebarNavigationAdminProps) => {
   const params = useParams()
-  console.log(params)
   return (
     <>
       <nav className="flex-1 overflow-hidden hover:overflow-y-auto px-3">
