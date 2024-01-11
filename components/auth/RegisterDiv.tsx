@@ -8,7 +8,6 @@ import {
   IconUserCircle,
 } from "@tabler/icons-react"
 import { Toaster, toast } from "sonner"
-
 import {
   Select,
   SelectContent,
@@ -16,11 +15,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
 import { MotionDiv } from "../animations/MotionDiv"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { IconPencilPlus } from "@tabler/icons-react"
+import { useUIStore } from "@/store/ui/ui-store"
+import { useRouter } from "next/navigation"
 
 export type RegisterParams = {
   name: string
@@ -33,6 +33,8 @@ export type RegisterParams = {
 }
 
 export default function RegisterDiv() {
+  const baseUrl = useUIStore((state) => state.baseUrl)
+  const router = useRouter()
   const [userData, setUserData] = useState<RegisterParams>({
     name: "",
     last_name: "",
@@ -62,14 +64,9 @@ export default function RegisterDiv() {
     setUserData({ ...userData, role: value })
   }
 
-  console.log(userData)
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
-    if (!baseUrl) {
-      throw new Error("NEXT_PUBLIC_BASE_URL is not defined in the environment")
-    }
     let data = { user: { ...userData } }
     try {
       const request = await fetch(`${baseUrl}/users`, {
@@ -80,10 +77,10 @@ export default function RegisterDiv() {
         body: JSON.stringify(data),
       })
       const response = await request.json()
-      console.log(response)
       if (request.status === 200) {
-        toast.success("exitoso")
+        toast.success("Registro exitoso")
         console.log(response)
+        router.push(`/${response.user.id}/email-step`)
       } else {
         toast.error(response.errors)
       }
@@ -108,7 +105,7 @@ export default function RegisterDiv() {
         }}
       >
         <h2 className="text-xl text-center font-bold">
-          Creamos tu cuenta
+          Vamos a crear tu cuenta
         </h2>
         <div className="border-t-[1px] mt-2 border-slate-300 bg-slate-200" />
       </MotionDiv>

@@ -1,7 +1,7 @@
 type CallbackFunction = (loading: boolean) => void;
 
-export type GetCoursesProps = {
-  academyId: string
+export type GetCurrentUserProps = {
+  baseUrl: string
   setLoadingCallback: CallbackFunction
 }
 

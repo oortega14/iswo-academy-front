@@ -1,15 +1,16 @@
 "use client"
 
 import { FormEvent, useState } from "react"
-import {  IconMail } from "@tabler/icons-react"
+import { IconMail } from "@tabler/icons-react"
 import { Toaster, toast } from "sonner"
 
+import { MotionDiv } from "../animations/MotionDiv"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 
 export const InputReset = () => {
   const [emailRecovery, setEmailRecovery] = useState({
-    email: ""
+    email: "",
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,10 +19,10 @@ export const InputReset = () => {
   }
 
   const handleSubmit = async (e: FormEvent) => {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
     if (!baseUrl) {
-      throw new Error("NEXT_PUBLIC_BASE_URL is not defined in the environment");
+      throw new Error("NEXT_PUBLIC_BASE_URL is not defined in the environment")
     }
     e.preventDefault()
     try {
@@ -34,8 +35,7 @@ export const InputReset = () => {
       })
       const response = await request.json()
       if (request.status === 200) {
-        toast.success('exitoso')
-        console.log(response)
+        toast.success("Revisa tu correo para recuperar tu contraseña")
       }
     } catch (e) {
       console.error(e)
@@ -52,7 +52,9 @@ export const InputReset = () => {
           <IconMail className="size-5 mr-2" />
           <span>Email</span>
         </div>
-        <label htmlFor="email" className="text-muted-foreground mt-2 text-sm">Ingresa el correo electrónico que registraste en nuestra plataforma</label>
+        <label htmlFor="email" className="text-muted-foreground mt-2 text-sm">
+          Ingresa el correo electrónico que registraste en nuestra plataforma
+        </label>
         <Input
           type="email"
           name="email"
@@ -60,9 +62,14 @@ export const InputReset = () => {
           onChange={(e) => handleChange(e)}
           className="mt-2"
         />
-        <Button className="mt-3">Recuperar mi contraseña</Button>
+        <MotionDiv
+          whileHover={{ scale: 0.95 }}
+          whileTap={{ scale: 1.05}}
+        >
+          <Button className="mt-3 w-full">Recuperar mi contraseña</Button>
+        </MotionDiv>
       </form>
-      <Toaster theme="system" position="top-right" richColors  />
+      <Toaster theme="system" position="top-right" richColors duration={4000} />
     </>
   )
 }

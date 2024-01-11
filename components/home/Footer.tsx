@@ -21,7 +21,7 @@ const Footer = () => {
                 <FooterColumn title={column.title} key={column.title}>
                   <ul className="regular-14 flex flex-col gap-4 text-gray-30">
                     {column.links.map(link=>(
-                      <div className='flex items-center'>
+                      <div className='flex items-center' key={link.label}>
                         <link.icon className='mr-2 size-8'/>
                         <p>{link.label}</p>
                       </div>

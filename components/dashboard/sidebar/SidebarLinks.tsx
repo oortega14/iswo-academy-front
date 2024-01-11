@@ -39,6 +39,7 @@ export const SidebarLinks = () => {
     })
     router.push(route)
   }
+  console.log(currentUser)
   if (loading) {
     return "cargando"
   } else {

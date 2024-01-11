@@ -3,20 +3,21 @@
 import { FormEvent, useState } from "react"
 import { IconLock, IconLockSquareRounded, IconMail } from "@tabler/icons-react"
 import { Toaster, toast } from "sonner"
+import { MotionDiv } from "../animations/MotionDiv"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
+import { useRouter, useSearchParams } from "next/navigation"
+import { SendTokenResetEmail } from "@/lib/requests"
 
 export const InputResetMain = () => {
   const [userData, setUserData] = useState({
-    password: '',
-    password_confirmation: '',
+    password: "",
+    password_confirmation: "",
   })
 
-  let paramValue: string | null = ''
-  if (typeof window !== 'undefined') {
-    const queryParams = new URLSearchParams(window.location.search);
-    paramValue = queryParams.get('reset_password_token');
-  }
+  const queryParams = useSearchParams()
+  const token = queryParams.get('reset_password_token')
+  const router = useRouter()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -25,29 +26,17 @@ export const InputResetMain = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-
-    if (!baseUrl) {
-      throw new Error("NEXT_PUBLIC_BASE_URL is not defined in the environment");
-    }
     let data = { user: { ...userData } }
-    try {
-      const request = await fetch(`${baseUrl}/users/${paramValue}/confirm_reset_password?password=${userData.password}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-      const response = await request.json()
-      console.log(response)
-      if (request.status === 200) {
-        toast.success('exitoso')
-        console.log(response)
-      } else {
-        toast.error(response.errors)
-      }
-    } catch (e) {
+    const [request, response]: any = await SendTokenResetEmail({
+      token: token,
+      password: userData.password,
+      data: data
+    })
+    if (request.status === 200) {
+      toast.success("Has cambiado tu contraseña satisfactoriamente")
+      router.push("/login")
+    } else {
+      toast.error(response.errors)
     }
   }
 
@@ -79,9 +68,14 @@ export const InputResetMain = () => {
           placeholder="*******"
           className="mt-2"
         />
-        <Button className="mt-3">Actualizar mi contraseña</Button>
+        <MotionDiv
+          whileHover={{ scale: 0.98}}
+          whileTap={{ scale: 1.08}}
+        >
+          <Button className="mt-3 w-full">Actualizar mi contraseña</Button>
+        </MotionDiv>
       </form>
-      <Toaster theme="system" position="top-right" richColors  />
+      <Toaster theme="system" position="top-right" richColors />
     </>
   )
 }

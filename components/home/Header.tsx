@@ -4,10 +4,12 @@ import { NAV_LINKS } from "@/constants"
 import { IswoIconLarge } from "@/icons"
 import { IconMenuDeep } from "@tabler/icons-react"
 
+import { siteConfig } from "@/config/site"
+
+import { cn } from "../../lib/utils"
+import { MotionButton } from "../animations/MotionButton"
 import { ThemeToggle } from "../theme-toggle"
 import { Button, buttonVariants } from "../ui/button"
-import { siteConfig } from "@/config/site"
-import { cn } from '../../lib/utils'
 
 export const Header = () => {
   return (
@@ -32,24 +34,33 @@ export const Header = () => {
         <div className="flex items-center">
           <IconMenuDeep className="inline-block cursor-pointer md:hidden size-8" />
           <div className="flex gap-4">
-            <Link
-              href={siteConfig.buttons.login}
-              rel="noreferrer"
-              className={cn(
-                 buttonVariants(),
-                 'hidden md:flex font-semibold')}
+            <MotionButton
+              whileHover={{ scale: 0.95 }}
+              whileTap={{ scale: 1.15 }}
             >
-              Ingresar
-            </Link>
-            <Link
-              rel="noreferrer"
-              href={siteConfig.buttons.register}
-              className={cn(
-                buttonVariants({ variant: "outline" }),
-                'hidden md:flex font-semibold')}
+              <Link
+                href={siteConfig.buttons.login}
+                rel="noreferrer"
+                className={cn(buttonVariants(), "hidden md:flex font-semibold")}
+              >
+                Ingresar
+              </Link>
+            </MotionButton>
+            <MotionButton
+              whileHover={{ scale: 0.95 }}
+              whileTap={{ scale: 1.15 }}
             >
-              Registrarse
-            </Link>
+              <Link
+                rel="noreferrer"
+                href={siteConfig.buttons.register}
+                className={cn(
+                  buttonVariants({ variant: "outline" }),
+                  "hidden md:flex font-semibold"
+                )}
+              >
+                Registrarse
+              </Link>
+            </MotionButton>
           </div>
           <ThemeToggle />
         </div>

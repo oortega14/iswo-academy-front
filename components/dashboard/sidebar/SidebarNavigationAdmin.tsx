@@ -29,7 +29,7 @@ export const SidebarNavigationAdmin = ({ sidebarLinks, isSidebarOpen, handleClic
           <div className="mt-3">
             {sidebarLinks?.map((category) => (
               <>
-                <div className="">
+                <div key={category.category_key}>
                   {!!category.icon && (
                     <div
                       className="flex justify-center w-full size-8 dark:hover:bg-white rounded-lg overflow-hidden dark:hover:text-blue-dark p-1 box-content mb-2 hover:bg-blue-dark hover:text-white cursor-pointer"

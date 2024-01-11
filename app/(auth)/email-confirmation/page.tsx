@@ -1,8 +1,12 @@
+import Image from "next/image"
 import { IswoIconLarge } from "@/icons"
+
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { MotionButton } from "@/components/animations/MotionButton"
 import { MotionDiv } from "@/components/animations/MotionDiv"
-import Image from "next/image"
+import { useSearchParams } from "next/navigation"
+import ConfirmEmailButton from "@/components/auth/ConfirmEmailButton"
 
 const variants = {
   hidden: { opacity: 0 },
@@ -45,8 +49,8 @@ export default function EmailConfirmationPage() {
         "
           >
             <MotionDiv
-              initial={{ x: 0, scale: 1.7}}
-              animate={{ rotate: 360}}
+              initial={{ x: 0, scale: 1.7 }}
+              animate={{ rotate: 360 }}
               transition={{
                 duration: 1.4,
                 type: "spring",
@@ -84,10 +88,7 @@ export default function EmailConfirmationPage() {
               Dando click en el siguiente boton confirmaras tu email para poder
               usar nuestra plataforma
             </p>
-
-            <Button variant={"secondary"} className="mt-5">
-              Verificar Correo Electrónico
-            </Button>
+            <ConfirmEmailButton />
           </div>
         </MotionDiv>
       </MotionDiv>
