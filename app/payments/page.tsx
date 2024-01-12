@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useUIStore } from '@/store/ui/ui-store';
 
-export const GetBanks = async (baseUrl: any) => {
+const GetBanks = async (baseUrl: any) => {
   try {
     const request = await fetch(`${baseUrl}/epayco/banks`,{
       method: 'GET',
@@ -41,7 +41,6 @@ const Payments = () => {
         setBanks(data.banks);
       })
   }, [])
-  console.log(banks)
 
   const handleChange = (e: any) => {
     const { target } = e;
@@ -74,16 +73,16 @@ const Payments = () => {
     <React.Fragment>
       <h1>Bancos</h1>
       <form className="w-full space-y-2" onSubmit={handleSubmit}>
-        <label className="font-semibold text-lg text-slate-600"> Tipo de documento </label>
-        <select name="doc_type" className="rounded-lg px-2 py-1 w-full border-2" onChange={handleChange}>
+        <label className="text-lg font-semibold text-slate-600"> Tipo de documento </label>
+        <select name="doc_type" className="w-full rounded-lg border-2 px-2 py-1" onChange={handleChange}>
           <option value={-1}>Tipo de Documento:</option>
           {documentTypes.map((docType, i) => (
             <option key={'categoria' + i} value={docType.value}> {docType.name} </option>
           ))}
         </select>
 
-        <label className="font-semibold text-lg text-slate-600"> Banco </label>
-        <select name="bank_code" className="rounded-lg px-2 py-1 w-full border-2" onChange={handleChange}>
+        <label className="text-lg font-semibold text-slate-600"> Banco </label>
+        <select name="bank_code" className="w-full rounded-lg border-2 px-2 py-1" onChange={handleChange}>
           <option value={-1}>Banco:</option>
           {banks.map((bank: any, i) => {
            return (
@@ -91,25 +90,25 @@ const Payments = () => {
           )})}
         </select>
 
-        <label className="font-semibold text-lg text-slate-600"> Número de documento </label>
-        <input type="number" name="doc_number" className="rounded-lg px-2 py-1 w-full border-2" onChange={handleChange}/>
+        <label className="text-lg font-semibold text-slate-600"> Número de documento </label>
+        <input type="number" name="doc_number" className="w-full rounded-lg border-2 px-2 py-1" onChange={handleChange}/>
 
-        <label className="font-semibold text-lg text-slate-600"> Nombre </label>
-        <input type="text" name="first_name" className="rounded-lg px-2 py-1 w-full border-2" onChange={handleChange}/>
+        <label className="text-lg font-semibold text-slate-600"> Nombre </label>
+        <input type="text" name="first_name" className="w-full rounded-lg border-2 px-2 py-1" onChange={handleChange}/>
 
-        <label className="font-semibold text-lg text-slate-600"> Apellido </label>
-        <input type="text" name="last_name" className="rounded-lg px-2 py-1 w-full border-2" onChange={handleChange}/>
+        <label className="text-lg font-semibold text-slate-600"> Apellido </label>
+        <input type="text" name="last_name" className="w-full rounded-lg border-2 px-2 py-1" onChange={handleChange}/>
 
-        <label className="font-semibold text-lg text-slate-600"> Email </label>
-        <input type="text" name="email" className="rounded-lg px-2 py-1 w-full border-2" onChange={handleChange}/>
+        <label className="text-lg font-semibold text-slate-600"> Email </label>
+        <input type="text" name="email" className="w-full rounded-lg border-2 px-2 py-1" onChange={handleChange}/>
 
-        <label className="font-semibold text-lg text-slate-600"> Teléfono </label>
-        <input type="number" name="phone" className="rounded-lg px-2 py-1 w-full border-2" onChange={handleChange}/>
+        <label className="text-lg font-semibold text-slate-600"> Teléfono </label>
+        <input type="number" name="phone" className="w-full rounded-lg border-2 px-2 py-1" onChange={handleChange}/>
 
-        <label className="font-semibold text-lg text-slate-600"> IP </label>
-        <input type="text" name="ip" className="rounded-lg px-2 py-1 w-full border-2" onChange={handleChange}/>
+        <label className="text-lg font-semibold text-slate-600"> IP </label>
+        <input type="text" name="ip" className="w-full rounded-lg border-2 px-2 py-1" onChange={handleChange}/>
 
-        <button type="submit" className='bg-gradient-to-b from-slate-50 to-slate-300  drop-shadow-lg text-slate-600 text-sm lg:text-lg justify-center flex items-center lg:py-2 font-semibold rounded-md hover:from-slate-300 hover:to-slate-50 cursor-pointer'>
+        <button type="submit" className='flex cursor-pointer items-center  justify-center rounded-md bg-gradient-to-b from-slate-50 to-slate-300 text-sm font-semibold text-slate-600 drop-shadow-lg hover:from-slate-300 hover:to-slate-50 lg:py-2 lg:text-lg'>
           Guardar
         </button>
       </form>
