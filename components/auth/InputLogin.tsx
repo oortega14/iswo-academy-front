@@ -38,7 +38,6 @@ export const InputLogin = () => {
       const response = await request.json()
       if (request.status === 200) {
         toast.success('Ingreso Exitoso')
-        console.log(response)
         updateCurrentUser(response)
         if (response.role === 'Estudiante') {
           router.push(`/student/${response.id}/dashboard/main`)

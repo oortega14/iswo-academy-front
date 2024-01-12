@@ -45,8 +45,6 @@ const AnswersContent = () => {
     setLoadingCallback: setLoading,
   })
 
-  console.log(answers)
-
   const close = (
     setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>>
   ) => {

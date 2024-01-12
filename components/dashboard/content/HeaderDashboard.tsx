@@ -31,7 +31,6 @@ export const HeaderDashboard = () => {
   const changeUserSettings = useUIStore((state) => state.changeUserSettings)
 
   const toggleButton = (flag: string) => {
-    console.log(flag)
     if (flag === "notifications") {
       changeNotifications()
       isSettingsBarOpen && changeSettingsBar()

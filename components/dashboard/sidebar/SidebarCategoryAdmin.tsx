@@ -7,7 +7,6 @@ import {
 import { Course, SidebarCategoryAdminProps } from "@/types/sidebar";
 
 export const SidebarCategoryAdmin = ({ category, handleClick, courses }: SidebarCategoryAdminProps) => {
-  console.log(courses)
   if (category.category_key === 'admin-courses') {
     return (
       <AccordionItem value={category.category_key} key={category.category_key}>

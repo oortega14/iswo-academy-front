@@ -19,10 +19,10 @@ export const InputReset = () => {
   }
 
   const handleSubmit = async (e: FormEvent) => {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    const baseUrl = process.env.API_BASE_URL
 
     if (!baseUrl) {
-      throw new Error("NEXT_PUBLIC_BASE_URL is not defined in the environment")
+      throw new Error("API_BASE_URL is not defined in the environment")
     }
     e.preventDefault()
     try {
@@ -62,10 +62,7 @@ export const InputReset = () => {
           onChange={(e) => handleChange(e)}
           className="mt-2"
         />
-        <MotionDiv
-          whileHover={{ scale: 0.95 }}
-          whileTap={{ scale: 1.05}}
-        >
+        <MotionDiv whileHover={{ scale: 0.95 }} whileTap={{ scale: 1.05 }}>
           <Button className="mt-3 w-full">Recuperar mi contraseña</Button>
         </MotionDiv>
       </form>
