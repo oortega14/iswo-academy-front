@@ -19,10 +19,10 @@ export const InputReset = () => {
   }
 
   const handleSubmit = async (e: FormEvent) => {
-    const baseUrl = process.env.API_BASE_URL
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
     if (!baseUrl) {
-      throw new Error("API_BASE_URL is not defined in the environment")
+      throw new Error("NEXT_PUBLIC_API_URL is not defined in the environment")
     }
     e.preventDefault()
     try {

@@ -87,7 +87,7 @@ export const useUIStore = create<State & Action>()((set) => ({
     profile_picture: null,
     created_at: "",
   },
-  baseUrl: `${process.env.API_BASE_URL}`,
+  baseUrl: `${process.env.NEXT_PUBLIC_API_URL}`,
   changeSidebar: () =>
     set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
   changeSettingsBar: () =>

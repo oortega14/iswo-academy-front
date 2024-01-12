@@ -1,6 +1,6 @@
 import { TokenResetProps } from "@/types/requests"
 
-const baseUrl = process.env.API_BASE_URL
+const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
 export async function FetchEmailVerification(userId: string | string[]) {
   try {
