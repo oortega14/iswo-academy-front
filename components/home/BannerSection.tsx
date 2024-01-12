@@ -2,7 +2,7 @@ import React from 'react'
 
 export const BannerSection = () => {
   return (
-    <section className='relative flex justify-center top-20 bg-slate-100 px-5 md:px-24 dark:bg-slate-900 pt-20'>
+    <section className='relative top-20 flex justify-center bg-slate-100 px-5 pt-20 dark:bg-slate-900 md:px-24'>
       <div>
       <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
           Una solucion integral para tu empresa<br className="hidden sm:inline" />

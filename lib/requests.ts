@@ -1,3 +1,5 @@
+import { TokenResetProps } from "@/types/requests"
+
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
 export async function FetchEmailVerification(userId: string | string[]){
@@ -23,7 +25,7 @@ export async function SendTokenEmailVerification(token: string | null){
   } catch (e) {}
 }
 
-export async function SendTokenResetEmail({token, password, data}){
+export async function SendTokenResetEmail({token, password, data}: TokenResetProps){
   try {
     const request = await fetch(`${baseUrl}/users/${token}/confirm_reset_password?password=${password}`, {
       method: 'POST',

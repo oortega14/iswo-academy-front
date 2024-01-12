@@ -66,7 +66,6 @@ export default function RegisterDiv() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-
     let data = { user: { ...userData } }
     try {
       const request = await fetch(`${baseUrl}/users`, {
@@ -79,7 +78,6 @@ export default function RegisterDiv() {
       const response = await request.json()
       if (request.status === 200) {
         toast.success("Registro exitoso")
-        console.log(response)
         router.push(`/${response.user.id}/email-step`)
       } else {
         toast.error(response.errors)
@@ -89,9 +87,9 @@ export default function RegisterDiv() {
   return (
     <div
       className="
-          w-full  min-h-[420px] rounded-t-md flex flex-col justify-center items-center px-6 bg-slate-200 shadow-md
-          lg:w-1/2 lg:min-h-[550px] 2xl:min-h-[800px]
-          dark:bg-slate-950
+          flex  min-h-[420px] w-full flex-col items-center justify-center rounded-t-md bg-slate-200 px-6 shadow-md
+          dark:bg-slate-950 lg:min-h-[550px] lg:w-1/2
+          2xl:min-h-[800px]
         "
     >
       <MotionDiv
@@ -104,17 +102,17 @@ export default function RegisterDiv() {
           damping: 20,
         }}
       >
-        <h2 className="text-xl text-center font-bold">
+        <h2 className="mt-3 text-center text-xl font-bold">
           Vamos a crear tu cuenta
         </h2>
-        <div className="border-t-[1px] mt-2 border-slate-300 bg-slate-200" />
+        <div className="mt-2 border-t-[1px] border-slate-300 bg-slate-200" />
       </MotionDiv>
       <form
-        className="flex flex-col p-0 w-full"
+        className="flex w-full flex-col p-0"
         onSubmit={(e) => handleSubmit(e)}
       >
-        <div className="rounded-full flex items-center justify-start w-full mt-3">
-          <IconPencilPlus className="size-5 mr-2" />
+        <div className="mt-3 flex w-full items-center justify-start rounded-full">
+          <IconPencilPlus className="mr-2 size-5" />
           <label htmlFor="name">Nombre(s)</label>
         </div>
         <Input
@@ -124,8 +122,8 @@ export default function RegisterDiv() {
           onChange={(e) => handleChange(e)}
           className="mt-2"
         />
-        <div className="rounded-full flex items-center justify-start w-full mt-3">
-          <IconPencilPlus className="size-5 mr-2" />
+        <div className="mt-3 flex w-full items-center justify-start rounded-full">
+          <IconPencilPlus className="mr-2 size-5" />
           <label htmlFor="last_name">Apellidos</label>
         </div>
         <Input
@@ -135,8 +133,8 @@ export default function RegisterDiv() {
           placeholder="Pon aqui tun apellido"
           className="mt-2"
         />
-        <div className="rounded-full flex items-center justify-start w-full mt-3">
-          <IconMail className="size-5 mr-2" />
+        <div className="mt-3 flex w-full items-center justify-start rounded-full">
+          <IconMail className="mr-2 size-5" />
           <label htmlFor="password">Email</label>
         </div>
         <Input
@@ -146,19 +144,8 @@ export default function RegisterDiv() {
           placeholder="ejemplo@iswoacademy.com"
           className="mt-2"
         />
-        <div className="rounded-full flex items-center justify-start w-full mt-3">
-          <IconUser className="size-5 mr-2" />
-          <label htmlFor="username">Usuario</label>
-        </div>
-        <Input
-          type="text"
-          name="username"
-          onChange={(e) => handleChange(e)}
-          placeholder="*******"
-          className="mt-2"
-        />
-        <div className="rounded-full flex items-center justify-start w-full mt-3">
-          <IconLockOpen className="size-5 mr-2" />
+        <div className="mt-3 flex w-full items-center justify-start rounded-full">
+          <IconLockOpen className="mr-2 size-5" />
           <label htmlFor="password">Contraseña</label>
         </div>
         <Input
@@ -168,8 +155,8 @@ export default function RegisterDiv() {
           placeholder="*******"
           className="mt-2"
         />
-        <div className="rounded-full flex items-center justify-start w-full mt-3">
-          <IconLockOpen className="size-5 mr-2" />
+        <div className="mt-3 flex w-full items-center justify-start rounded-full">
+          <IconLockOpen className="mr-2 size-5" />
           <label htmlFor="password_confirmation">Confirmar Contraseña</label>
         </div>
         <Input
@@ -179,13 +166,13 @@ export default function RegisterDiv() {
           placeholder="*******"
           className="mt-2"
         />
-        <div className="rounded-full flex items-center justify-start w-full mt-2">
-          <IconUserCircle className="size-5 mr-2" />
-          <label htmlFor="password_confirmation">Rol</label>
+        <div className="mt-2 flex w-full items-center justify-start rounded-full">
+          <IconUserCircle className="mr-2 size-5" />
+          <label htmlFor="password_confirmation">Registrarse como:</label>
         </div>
         <Select onValueChange={(e) => handleSelect(e)}>
-          <SelectTrigger className="w-full mt-2">
-            <SelectValue placeholder="Escoge tu rol" />
+          <SelectTrigger className="mt-2 w-full">
+            <SelectValue placeholder="Escoge tu perfil" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="student">Estudiante</SelectItem>
@@ -194,7 +181,7 @@ export default function RegisterDiv() {
           </SelectContent>
         </Select>
 
-        <Button className="mt-3 mb-4">Registrarse</Button>
+        <Button className="mb-4 mt-3">Registrarse</Button>
       </form>
       <Toaster theme="system" position="top-right" richColors />
     </div>

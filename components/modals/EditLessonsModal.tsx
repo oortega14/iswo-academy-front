@@ -40,15 +40,15 @@ const EditLessonsModal = ({
   })
 
   if (loading) {
-    return ''
+    return <span></span>
   } else {
     return (
       <AnimatePresence>
         {modalOpen && (
           <Modal modalOpen={modalOpen} handleClose={close}>
-            <Card className="lg:w-3/4 lg:h-2/3">
+            <Card className="lg:h-2/3 lg:w-3/4">
               <CardHeader>
-                <div className="flex gap-x-3 items-center">
+                <div className="flex items-center gap-x-3">
                   <IconEdit className="size-8" />
                   <CardTitle>Edita la Lección</CardTitle>
                 </div>
@@ -81,7 +81,7 @@ const EditLessonsModal = ({
                     <div className="flex flex-col space-y-2">
                       <Label htmlFor="video">Video</Label>
                       {!!file ? (
-                      <div className=" max-w-[220px] rounded-lg flex shadow-lg mx-auto overflow-hidden">
+                      <div className=" mx-auto flex max-w-[220px] overflow-hidden rounded-lg shadow-lg">
                         {
                           <video
                             id="video"
@@ -92,7 +92,7 @@ const EditLessonsModal = ({
                         }
                       </div>
                     ) : (
-                      <div className=" max-w-[220px] rounded-lg flex shadow-lg mx-auto">
+                      <div className=" mx-auto flex max-w-[220px] rounded-lg shadow-lg">
                         {
                           <video
                             id="video"
@@ -105,7 +105,7 @@ const EditLessonsModal = ({
                     )}
                       <Input id="video" type="file" className="border-2"/>
                     </div>
-                    <div className="flex gap-x-3 items-center">
+                    <div className="flex items-center gap-x-3">
                       <Label htmlFor="visible">Es visible</Label>
                       <Checkbox checked={lesson?.visible} id="visible" name="checkbox" />
                     </div>

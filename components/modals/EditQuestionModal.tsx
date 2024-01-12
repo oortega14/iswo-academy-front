@@ -36,15 +36,15 @@ const EditQuestionModal = ({
   })
 
   if (loading) {
-    return ''
+    return <span></span>
   } else {
     return (
       <AnimatePresence>
         {modalOpen && (
           <Modal modalOpen={modalOpen} handleClose={close}>
-            <Card className="lg:w-3/4 lg:h-2/3">
+            <Card className="lg:h-2/3 lg:w-3/4">
               <CardHeader>
-                <div className="flex gap-x-3 items-center">
+                <div className="flex items-center gap-x-3">
                   <IconEdit className="size-8" />
                   <CardTitle>Edita la pregunta</CardTitle>
                 </div>

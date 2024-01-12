@@ -14,7 +14,7 @@ export default function EmailStepPage() {
     <section className="min-h-screen w-full max-w-[1440px] p-10 lg:p-16">
       <div className="bg-light-dotted dark:bg-dark-dotted"></div>
       <MotionDiv
-        className="flex items-center justify-center w-full h-full"
+        className="flex h-full w-full items-center justify-center "
         variants={variants}
         initial="hidden"
         animate="visible"
@@ -25,9 +25,9 @@ export default function EmailStepPage() {
         }}
         viewport={{ amount: 0 }}
       >
-        <div className="w-full h-2/3 dark:bg-slate-200 bg-blue-dark text-white dark:text-blue-dark rounded-xl p-6 max-w-[1000px]">
+        <div className="min-h-2/3 bg-blue-dark dark:text-blue-dark w-full max-w-[1000px] rounded-xl p-6 text-white dark:bg-slate-200">
           <MotionDiv
-            className="w-full flex justify-center"
+            className="flex w-full justify-center"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{
@@ -42,21 +42,21 @@ export default function EmailStepPage() {
               alt="email_confirmation"
             />
           </MotionDiv>
-          <h2 className="w-full text-center text-4xl font-extrabold mb-3">
+          <h2 className="mb-3 w-full text-center text-4xl font-extrabold">
             Confirmación de Correo Electrónico
           </h2>
-          <div className="w-full flex justify-center items-center mb-3">
+          <div className="mb-3 flex w-full items-center justify-center">
             <p className="max-w-[850px]">
               Te hemos enviado un correo a la dirección ingresada en el anterior
               paso, para confirmar la validez de tu correo electrónico. Despues
-              de recibir el correo sigue el link que se te proveyo para
+              de recibir el correo sigue el link que se te envió para
               completar el registro
             </p>
           </div>
-          <div className="w-full flex justify-center">
+          <div className="flex w-full justify-center">
             <hr />
           </div>
-          <div className="flex justify-center gap-x-4 mt-4">
+          <div className="mt-4 flex justify-center gap-x-4">
             <Button variant={"secondary"} className="font-semibold">
               <Link
                 rel="noreferrer"

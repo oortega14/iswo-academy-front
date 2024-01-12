@@ -18,7 +18,7 @@ export default function EmailConfirmationPage() {
     <section className="min-h-screen w-full max-w-[1440px] p-10 lg:p-16">
       <div className="bg-light-dotted dark:bg-dark-dotted"></div>
       <MotionDiv
-        className="flex items-center justify-center w-full h-full"
+        className="flex h-full w-full items-center justify-center"
         variants={variants}
         initial="hidden"
         animate="visible"
@@ -43,9 +43,9 @@ export default function EmailConfirmationPage() {
         >
           <div
             className="
-          w-full  min-h-[420px] rounded-t-md flex flex-col justify-center items-center px-4 bg-slate-200 shadow-md
-          lg:w-1/2 lg:min-h-[550px] 2xl:min-h-[700px]
-          dark:bg-slate-950
+          flex  min-h-[420px] w-full flex-col items-center justify-center rounded-t-md bg-slate-200 px-4 shadow-md
+          dark:bg-slate-950 lg:min-h-[550px] lg:w-1/2
+          2xl:min-h-[700px]
         "
           >
             <MotionDiv
@@ -65,13 +65,13 @@ export default function EmailConfirmationPage() {
                 bottom: 100,
               }}
             >
-              <IswoIconLarge className="size-24 lg:size-32 dark:invert" />
+              <IswoIconLarge className="size-24 dark:invert lg:size-32" />
             </MotionDiv>
           </div>
           <div
             className={cn(
-              "w-full min-h-[400px] rounded-b-md flex flex-col justify-center items-center px-4 bg-slate-950 text-white",
-              "lg:w-1/2 lg:rounded-tr lg:min-h-[550px] shadow-md 2xl:min-h-[700px]",
+              "flex min-h-[400px] w-full flex-col items-center justify-center rounded-b-md bg-slate-950 px-4 text-white",
+              "shadow-md lg:min-h-[550px] lg:w-1/2 lg:rounded-tr 2xl:min-h-[700px]",
               "dark:bg-slate-200 dark:text-black"
             )}
           >
@@ -81,10 +81,10 @@ export default function EmailConfirmationPage() {
               height={400}
               alt="email_confirmation"
             />
-            <h2 className="text-4xl font-extrabold text-center">
+            <h2 className="text-center text-4xl font-extrabold">
               ¡Bienvenido a ISWO academy!
             </h2>
-            <p className="mt-8 text-xl text-center text-muted-foreground font-semibold dark:text-muted ">
+            <p className="mt-8 text-center text-xl font-semibold text-muted-foreground dark:text-muted ">
               Dando click en el siguiente boton confirmaras tu email para poder
               usar nuestra plataforma
             </p>

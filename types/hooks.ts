@@ -4,9 +4,18 @@ export type GetCurrentUserProps = {
   baseUrl: string
   setLoadingCallback: CallbackFunction
 }
+export type getAcademyProps = {
+  academyId: string
+  setLoadingCallback: CallbackFunction
+}
 
 export type GetCourseProps = {
   courseId: string
+  setLoadingCallback: CallbackFunction
+}
+
+export type GetCoursesProps = {
+  academyId: string
   setLoadingCallback: CallbackFunction
 }
 
@@ -26,12 +35,12 @@ export type GetLessonProps = {
 }
 
 export type GetQuestionProps = {
-  questionId: string
+  questionId: number
   setLoadingCallback: CallbackFunction
 }
 
 export type GetAnswersProps = {
-  questionId: number
+  questionId: string
   setLoadingCallback: CallbackFunction
 }
 

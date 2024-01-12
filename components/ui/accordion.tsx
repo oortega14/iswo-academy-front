@@ -31,7 +31,7 @@ const AccordionTrigger = React.forwardRef<
       )}
       {...props}
     >
-      <div className="flex justify-start items-center gap-x-2">
+      <div className="flex items-center justify-start gap-x-2">
         <IconCircle className="size-2 shrink-0 "/>
         {children}
       </div>
@@ -49,7 +49,7 @@ const AccordionContent = React.forwardRef<
     className="overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
     {...props}
   >
-    <div className={cn("pb-4 pt-0 pl-2", className)}>{children}</div>
+    <div className={cn("pb-4 pl-2 pt-0", className)}>{children}</div>
   </AccordionPrimitive.Content>
 ))
 

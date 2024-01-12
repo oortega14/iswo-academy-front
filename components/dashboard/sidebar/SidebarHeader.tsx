@@ -12,13 +12,13 @@ export const SidebarHeader = () => {
   return (
     <>
       <div
-        className={cn("flex items-center justify-between flex-shrink-0 px-2", {
+        className={cn("flex shrink-0 items-center justify-between px-2", {
           "lg:justify-center": !isSidebarOpen,
         })}
       >
         {isSidebarOpen ? (
           <MotionDiv
-            className="w-full py-0 flex justify-center"
+            className="flex w-full justify-center py-0"
             initial={{ x: 0, scale: 1.2}}
               animate={{ rotate: 360, x:10 }}
               transition={{
@@ -28,14 +28,14 @@ export const SidebarHeader = () => {
                 damping: 20,
               }}
           >
-            <IswoIconLarge className="dark:invert size-28" />
+            <IswoIconLarge className="size-28 dark:invert" />
           </MotionDiv>
         ) : (
-          <div className="w-full py-3 flex justify-center">
-            <IswoIconSmall className="dark:invert size-12" />
+          <div className="flex w-full justify-center py-3">
+            <IswoIconSmall className="size-12 dark:invert" />
           </div>
         )}
-        <button className="px-2 rounded-md lg:hidden" onClick={changeSidebar}>
+        <button className="rounded-md px-2 lg:hidden" onClick={changeSidebar}>
           <IconX />
         </button>
       </div>

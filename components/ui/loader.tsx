@@ -14,7 +14,7 @@ const Loader = ({ width, height }: Props) => {
 
   return (
     <div
-      className="bg-gradient-to-r from-transparent via-slate-400 to-transparent bg-no-repeat bg-shimmer animate-shimmer rounded-lg dark:via-[#343434]"
+      className="bg-shimmer animate-shimmer rounded-lg bg-gradient-to-r from-transparent via-slate-400 to-transparent bg-no-repeat dark:via-[#343434]"
       style={shimmerStyle}
     ></div>
   )

@@ -17,12 +17,15 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import  Figure  from "./Figure"
+import useGetCurrentUser from "@/hooks/useGetCurrentUser"
 
 export const MainContent = () => {
-  const currentUser = useUIStore((state) => state.currentUser)
   const baseUrl = useUIStore((state) => state.baseUrl)
-  const params = useParams<{ id: string }>()
+  const params = useParams<{ id: string, academyId: string }>()
   const [loading, setLoading] = useState(true)
+  const currentUser = useGetCurrentUser({
+    baseUrl: baseUrl,
+    setLoadingCallback: setLoading})
   const [previewImage, setPreviewImage] = useState("")
   const [logo, setLogo] = useState({})
   const [academyConfiguration, setAcademyConfiguration] = useState({
@@ -30,8 +33,9 @@ export const MainContent = () => {
     slogan: "",
     description: "",
   })
-  const academy = useGetAcademy(params.id, setLoading)
-
+  const academy = useGetAcademy({
+    academyId: params.academyId,
+    setLoadingCallback: setLoading})
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     const file = e.target.files?.[0]
@@ -93,38 +97,38 @@ export const MainContent = () => {
 
   useEffect(() => {
     if (!!academy) {
-      setAcademyConfiguration({
-        ...academyConfiguration,
+      setAcademyConfiguration((prevConfig) => ({
+        ...prevConfig,
         domain: academy?.academy_configuration?.domain,
         slogan: academy?.slogan,
         description: academy?.description,
-      })
+      }));
     }
   }, [academy])
 
   return (
     <div>
-      <main className="flex-1 h-auto p-5 overflow-hidden ">
-        <div className="flex flex-col items-start justify-between pb-6 space-y-4 border-b lg:items-center lg:space-y-0 lg:flex-row">
-          <h1 className="text-2xl font-semibold whitespace-nowrap">
+      <main className="h-auto flex-1 overflow-hidden p-5 ">
+        <div className="flex flex-col items-start justify-between space-y-4 border-b pb-6 lg:flex-row lg:items-center lg:space-y-0">
+          <h1 className="whitespace-nowrap text-2xl font-semibold">
             Hola {currentUser?.first_name} Configuremos tu academia
           </h1>
         </div>
         <form
-          className="flex flex-col p-0 w-full"
+          className="flex w-full flex-col p-0"
           onSubmit={(e) => handleSubmit(e)}
         >
           {!!academy?.logo && !previewImage ? (
             <>
-              <div className="flex items-center mt-3">
-                <IconBadgeTm className="size-5 mr-2" />
+              <div className="mt-3 flex items-center">
+                <IconBadgeTm className="mr-2 size-5" />
                 <Label htmlFor="logo" className="text-md">
                   Logo
                 </Label>
               </div>
-              <div className="flex justify-start items-center w-full ">
+              <div className="flex w-full items-center justify-start ">
                 <Figure image={academy?.logo}/>
-                <div className="grid w-full items-center gap-1.5 mt-3">
+                <div className="mt-3 grid w-full items-center gap-1.5">
                   <Input
                     id="logo"
                     type="file"
@@ -137,21 +141,21 @@ export const MainContent = () => {
             <>
               {!!previewImage ? (
                 <>
-                  <div className="flex items-center mt-3">
-                    <IconBadgeTm className="size-5 mr-2" />
+                  <div className="mt-3 flex items-center">
+                    <IconBadgeTm className="mr-2 size-5" />
                     <Label htmlFor="logo" className="text-md">
                       Logo
                     </Label>
                   </div>
-                  <div className="flex justify-start items-center w-full ">
+                  <div className="flex w-full items-center justify-start ">
                     <Image
-                      className="max-w-60 mt-3 mr-3 rounded-lg"
+                      className="mr-3 mt-3 max-w-60 rounded-lg"
                       src={previewImage}
                       alt="logo_preview"
                       width={300}
                       height={300}
                     />
-                    <div className="grid w-full items-center gap-1.5 mt-3">
+                    <div className="mt-3 grid w-full items-center gap-1.5">
                       <Input
                         id="logo"
                         type="file"
@@ -161,9 +165,9 @@ export const MainContent = () => {
                   </div>
                 </>
               ) : (
-                <div className="grid w-full items-center gap-1.5 mt-3">
+                <div className="mt-3 grid w-full items-center gap-1.5">
                   <div className="flex items-center">
-                    <IconBadgeTm className="size-5 mr-2" />
+                    <IconBadgeTm className="mr-2 size-5" />
                     <Label htmlFor="logo" className="text-md">
                       Logo
                     </Label>
@@ -177,8 +181,8 @@ export const MainContent = () => {
               )}
             </>
           )}
-          <div className="rounded-full flex items-center justify-start w-full mt-3">
-            <IconZoomInArea className="size-5 mr-2" />
+          <div className="mt-3 flex w-full items-center justify-start rounded-full">
+            <IconZoomInArea className="mr-2 size-5" />
             <label htmlFor="domain">Dominio</label>
           </div>
           <Input
@@ -189,8 +193,8 @@ export const MainContent = () => {
             className="mt-2"
             defaultValue={academy?.academy_configuration?.domain}
           />
-          <div className="rounded-full flex items-center justify-start w-full mt-3">
-            <IconBrandCodepen className="size-5 mr-2" />
+          <div className="mt-3 flex w-full items-center justify-start rounded-full">
+            <IconBrandCodepen className="mr-2 size-5" />
             <label htmlFor="slogan">Eslogan</label>
           </div>
           <Input
@@ -201,8 +205,8 @@ export const MainContent = () => {
             className="mt-2"
             defaultValue={academy?.slogan}
           />
-          <div className="rounded-full flex items-center justify-start w-full mt-3">
-            <IconColorPicker className="size-5 mr-2" />
+          <div className="mt-3 flex w-full items-center justify-start rounded-full">
+            <IconColorPicker className="mr-2 size-5" />
             <label htmlFor="description">Descripción</label>
           </div>
           <Input

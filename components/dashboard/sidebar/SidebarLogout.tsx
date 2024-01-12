@@ -24,7 +24,7 @@ export const SidebarLogout = () => {
   return (
     <div>
       <button
-        className="flex items-center justify-center w-full px-4 py-2 space-x-1 font-medium tracking-wider uppercase border rounded-md focus:outline-none focus:ring"
+        className="flex w-full items-center justify-center space-x-1 rounded-md border px-4 py-2 font-medium uppercase tracking-wider focus:outline-none focus:ring"
         onClick={logout}
       >
         <IconLogout />

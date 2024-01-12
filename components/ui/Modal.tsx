@@ -29,7 +29,7 @@ const Modal = ({ modalOpen, handleClose, children} : ModalProps) => {
     <Backdrop onClick={handleClose}>
       <MotionDiv
         onClick={(e)=> e.stopPropagation()}
-        className="w-full lg:w-1/2 m-auto p-2 rounded-md flex flex-col items-center"
+        className="m-auto flex w-full flex-col items-center rounded-md p-2 lg:w-1/2"
         variants={dropIn}
         initial='hidden'
         animate='visible'

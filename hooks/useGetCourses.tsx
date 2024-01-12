@@ -1,5 +1,5 @@
 import { useUIStore } from '@/store/ui/ui-store';
-import { GetCoursesProps } from '@/types/hooks';
+import {GetCoursesProps}  from '@/types/hooks';
 import { Course } from '@/types/sidebar';
 import { useEffect, useState } from 'react';
 

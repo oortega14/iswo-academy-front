@@ -60,11 +60,11 @@ const AnswersContent = () => {
     setAnswerSelected(answerId)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     console.log(e)
   }
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     console.log(e)
   }
 
@@ -75,8 +75,8 @@ const AnswersContent = () => {
   return (
     <>
       <TooltipProvider>
-        <div className="flex flex-col items-start justify-between pb-6 space-y-4 border-b lg:items-center lg:space-y-0 lg:flex-row px-3">
-          <h1 className="text-2xl font-semibold whitespace-nowrap mt-4 ml-3">
+        <div className="flex flex-col items-start justify-between space-y-4 border-b px-3 pb-6 lg:flex-row lg:items-center lg:space-y-0">
+          <h1 className="ml-3 mt-4 whitespace-nowrap text-2xl font-semibold">
             Editemos las respuestas de la pregunta seleccionada
           </h1>
         </div>

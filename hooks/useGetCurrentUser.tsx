@@ -1,9 +1,9 @@
-import { Lesson } from '@/types/courses';
+import { User } from '@/store/ui/ui-store';
 import { GetCurrentUserProps } from '@/types/hooks';
 import { useEffect, useState } from 'react';
 
 const useGetCurrentUser = ({baseUrl, setLoadingCallback}: GetCurrentUserProps) => {
-  const [user, setUser] = useState<Lesson>();
+  const [user, setUser] = useState<User>();
 
   useEffect(() => {
     const getCurrentUser = async () => {

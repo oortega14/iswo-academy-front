@@ -2,7 +2,7 @@ import { SidebarLogout } from "./SidebarLogout"
 
 export const SidebarFooter = () => {
   return (
-    <div className="flex-shrink-0 p-2 border-t max-h-14">
+    <div className="max-h-14 shrink-0 border-t p-2">
       <SidebarLogout />
     </div>
   )

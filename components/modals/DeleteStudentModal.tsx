@@ -22,9 +22,9 @@ const DeleteStudentModal = ({
     <AnimatePresence>
       {modalOpen && (
         <Modal modalOpen={modalOpen} handleClose={close}>
-          <Card className="lg:w-2/3 lg:h-2/3">
+          <Card className="lg:h-2/3 lg:w-2/3">
             <CardHeader>
-              <div className="flex gap-x-3 items-center">
+              <div className="flex items-center gap-x-3">
                 <IconTrash className="size-8" />
                 <CardTitle>Eliminar Estudiante</CardTitle>
               </div>
@@ -33,8 +33,8 @@ const DeleteStudentModal = ({
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex gap-x-3 items-center">
-                <IconAlertCircle className="text-red-500 size-8" />
+              <div className="flex items-center gap-x-3">
+                <IconAlertCircle className="size-8 text-red-500" />
                 <span>Esta accion es irreversible! ¿estás seguro?</span>
               </div>
             </CardContent>

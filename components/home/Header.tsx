@@ -13,10 +13,10 @@ import { Button, buttonVariants } from "../ui/button"
 
 export const Header = () => {
   return (
-    <section className="flex items-center justify-center mb-24 fixed z-30 w-full">
-      <nav className="sm:py-2 md:py-3 flex items-center max-w-[1440px] justify-between w-full px-5 md:px-24 3xl:px-28 backdrop-blur-md">
+    <section className="fixed z-30 mb-24 flex w-full items-center justify-center">
+      <nav className="3xl:px-28 flex w-full max-w-[1440px] items-center justify-between px-5 backdrop-blur-md sm:py-2 md:px-24 md:py-3">
         <Link href="/">
-          <IswoIconLarge className="w-20 h-20 dark:invert" />
+          <IswoIconLarge className="h-20 w-20 dark:invert" />
         </Link>
 
         <ul className="hidden h-full gap-12 md:flex">
@@ -32,7 +32,7 @@ export const Header = () => {
         </ul>
 
         <div className="flex items-center">
-          <IconMenuDeep className="inline-block cursor-pointer md:hidden size-8" />
+          <IconMenuDeep className="inline-block size-8 cursor-pointer md:hidden" />
           <div className="flex gap-4">
             <MotionButton
               whileHover={{ scale: 0.95 }}
@@ -41,7 +41,7 @@ export const Header = () => {
               <Link
                 href={siteConfig.buttons.login}
                 rel="noreferrer"
-                className={cn(buttonVariants(), "hidden md:flex font-semibold")}
+                className={cn(buttonVariants(), "hidden font-semibold md:flex")}
               >
                 Ingresar
               </Link>
@@ -55,7 +55,7 @@ export const Header = () => {
                 href={siteConfig.buttons.register}
                 className={cn(
                   buttonVariants({ variant: "outline" }),
-                  "hidden md:flex font-semibold"
+                  "hidden font-semibold md:flex"
                 )}
               >
                 Registrarse

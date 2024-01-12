@@ -22,7 +22,6 @@ export const InputLogin = () => {
     const { name, value } = e.target
     setUserData({ ...userData, [name]: value })
   }
-
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     let data = { user: { ...userData } }
@@ -31,12 +30,15 @@ export const InputLogin = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": "false"
         },
+        credentials: 'include',
         body: JSON.stringify(data),
       })
       const response = await request.json()
       if (request.status === 200) {
         toast.success('Ingreso Exitoso')
+        console.log(response)
         updateCurrentUser(response)
         if (response.role === 'Estudiante') {
           router.push(`/student/${response.id}/dashboard/main`)
@@ -56,11 +58,11 @@ export const InputLogin = () => {
   return (
     <>
       <form
-        className="flex flex-col p-0 w-full"
+        className="flex w-full flex-col p-0"
         onSubmit={(e) => handleSubmit(e)}
       >
-        <div className="rounded-full flex items-center justify-start w-full mt-3">
-          <IconMail className="size-5 mr-2" />
+        <div className="mt-3 flex w-full items-center justify-start rounded-full">
+          <IconMail className="mr-2 size-5" />
           <label htmlFor="email">Email</label>
         </div>
         <Input
@@ -70,8 +72,8 @@ export const InputLogin = () => {
           onChange={(e) => handleChange(e)}
           className="mt-2"
         />
-        <div className="rounded-full flex items-center justify-start w-full mt-3">
-          <IconLock className="size-5 mr-2" />
+        <div className="mt-3 flex w-full items-center justify-start rounded-full">
+          <IconLock className="mr-2 size-5" />
           <label htmlFor="password">Contraseña</label>
         </div>
         <Input

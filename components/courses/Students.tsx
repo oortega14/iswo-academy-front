@@ -7,7 +7,7 @@ import StudentsContent from "./StudentsContent";
 const AdminCourse = () => {
   return (
     <>
-      <div className="flex flex-col flex-1 h-full overflow-hidden">
+      <div className="flex h-full flex-1 flex-col overflow-hidden">
         <HeaderDashboard/>
         <StudentsContent/>
       </div>

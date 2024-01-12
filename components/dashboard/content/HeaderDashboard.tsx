@@ -4,20 +4,19 @@ import {
   IconBell,
   IconBrandGitlab,
   IconBrandTabler,
-  IconNotification,
-  IconNotificationOff,
   IconSearch,
   IconServer,
   IconX,
 } from "@tabler/icons-react"
 
 import { cn } from "@/lib/utils"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Input } from "@/components/ui/input"
 import { MotionDiv } from "@/components/animations/MotionDiv"
+import { ThemeToggle } from "@/components/theme-toggle"
 import styles from "@/styles/dashboard.module.css"
 
 import HideSidebarButton from "./HideSidebarButton"
-import { ThemeToggle } from "@/components/theme-toggle"
 
 export const HeaderDashboard = () => {
   const isSearchBoxOpen = useUIStore((state) => state.isSearchBoxOpen)
@@ -31,25 +30,25 @@ export const HeaderDashboard = () => {
   const changeServices = useUIStore((state) => state.changeServices)
   const changeUserSettings = useUIStore((state) => state.changeUserSettings)
 
-  const toggleButton = (flag:string) => {
+  const toggleButton = (flag: string) => {
     console.log(flag)
-    if (flag === 'notifications') {
-      changeNotifications();
+    if (flag === "notifications") {
+      changeNotifications()
       isSettingsBarOpen && changeSettingsBar()
       isServicesOpen && changeServices()
       isUsersSettingsOpen && changeUserSettings()
-    } else if ( flag === 'services') {
-      changeServices();
+    } else if (flag === "services") {
+      changeServices()
       isSettingsBarOpen && changeSettingsBar()
       isUsersSettingsOpen && changeUserSettings()
       isNotificationsOpen && changeNotifications()
-    } else if (flag === 'userSettings') {
-      changeUserSettings();
+    } else if (flag === "userSettings") {
+      changeUserSettings()
       isSettingsBarOpen && changeSettingsBar()
       isNotificationsOpen && changeNotifications()
       isServicesOpen && changeServices()
-    } else if (flag === 'search') {
-      changeSearchBar();
+    } else if (flag === "search") {
+      changeSearchBar()
       isSettingsBarOpen && changeSettingsBar()
       isNotificationsOpen && changeNotifications()
       isServicesOpen && changeServices()
@@ -59,62 +58,60 @@ export const HeaderDashboard = () => {
 
   return (
     <div className="w-full">
-      <header className="flex-shrink-0 border-b bg-white dark:bg-blue-dark z-20 w-full">
+      <header className="dark:bg-blue-dark z-20 w-full shrink-0 border-b bg-white">
         <div className="flex items-center justify-between p-2">
           <div className="flex items-center space-x-3">
             {/* TODO: poner el icono */}
-            <span className="p-2 text-xl font-semibold tracking-wider uppercase lg:hidden">
+            <span className="p-2 text-xl font-semibold uppercase tracking-wider lg:hidden">
               K-WD
             </span>
             <HideSidebarButton />
           </div>
           {isSearchBoxOpen && (
-            <div
-              className={cn("fixed inset-0 z-10 bg-opacity-20", styles.blur)}
-            >
+            <div className={cn("fixed inset-0 z-10 opacity-20", styles.blur)}>
               <div className="absolute inset-x-0 flex items-center justify-between p-2 shadow-md">
-                <div className="flex items-center flex-1 px-2 space-x-2">
+                <div className="flex flex-1 items-center space-x-2 px-2">
                   <IconSearch />
                   <Input
                     type="text"
                     placeholder="Search"
-                    className="w-full px-4 py-3 text-gray-600 rounded-md focus:outline-none"
+                    className="w-full rounded-md px-4 py-3 text-gray-600 focus:outline-none"
                   />
                 </div>
                 {/* close button */}
                 <button
-                  onClick={()=>toggleButton('search')}
-                  className="p-2 dark:bg-blue-dark border-slate-200 border-[1px] rounded-full md:hidden focus:outline-none focus:ring dark:hover:bg-slate-200 hover:text-blue-dark"
+                  onClick={() => toggleButton("search")}
+                  className="dark:bg-blue-dark hover:text-blue-dark rounded-full border-[1px] border-slate-200 p-2 focus:outline-none focus:ring dark:hover:bg-slate-200 md:hidden"
                 >
                   <IconX />
                 </button>
               </div>
             </div>
           )}
-          <div className="items-center hidden px-2 space-x-2 md:flex-1 md:flex md:mr-auto md:ml-5">
+          <div className="hidden items-center space-x-2 px-2 md:ml-5 md:mr-auto md:flex md:flex-1">
             <IconSearch />
             <Input
               type="text"
               placeholder="Search"
-              className="px-4 py-3 rounded-md lg:w-full md:py-2 md:flex-1 focus:outline-none md:focus:shadow md:focus:border-2 border-[1px]"
+              className="rounded-md border-[1px] px-4 py-3 focus:outline-none md:flex-1 md:py-2 md:focus:border-2 md:focus:shadow lg:w-full"
             />
           </div>
           <div className="relative flex items-center space-x-3">
             <button
-              onClick={()=>toggleButton('search')}
-              className="p-2 dark:bg-blue-dark border-slate-200 border-[1px] rounded-full md:hidden focus:outline-none focus:ring dark:hover:bg-slate-200 hover:text-blue-dark"
+              onClick={() => toggleButton("search")}
+              className="dark:bg-blue-dark hover:text-blue-dark rounded-full border-[1px] border-slate-200 p-2 focus:outline-none focus:ring dark:hover:bg-slate-200 md:hidden"
             >
               <IconSearch />
             </button>
             <ThemeToggle />
-            <div className="items-center hidden space-x-3 md:flex">
+            <div className="hidden items-center space-x-3 md:flex">
               <div className="relative">
                 {/* red dot */}
-                <div className="absolute right-0 p-1 bg-red-400 rounded-full animate-ping"></div>
-                <div className="absolute right-0 p-1 bg-red-400 border rounded-full"></div>
+                <div className="absolute right-0 animate-ping rounded-full bg-red-400 p-1"></div>
+                <div className="absolute right-0 rounded-full border bg-red-400 p-1"></div>
                 <button
-                  onClick={()=>toggleButton('notifications')}
-                  className="p-2 rounded-full focus:outline-none focus:ring border-[1px] hover:bg-slate-200 dark:hover:bg-slate-800"
+                  onClick={() => toggleButton("notifications")}
+                  className="rounded-full border-[1px] p-2 hover:bg-slate-200 focus:outline-none focus:ring dark:hover:bg-slate-800"
                 >
                   <IconBell />
                 </button>
@@ -129,15 +126,15 @@ export const HeaderDashboard = () => {
                       damping: 20,
                     }}
                   >
-                    <div className="absolute bg-white w-48 max-w-md mt-3 transform rounded-lg shadow-lg -translate-x-3/4 min-w-max dark:bg-slate-800">
-                      <div className="p-4 font-medium border-b dark:border-slate-200">
+                    <div className="absolute mt-3 w-48 min-w-max max-w-md -translate-x-3/4 rounded-lg bg-white shadow-lg dark:bg-slate-800">
+                      <div className="border-b p-4 font-medium dark:border-slate-200">
                         <span className="">Notificaciones</span>
                       </div>
-                      <ul className="flex flex-col p-2 my-2 space-y-1">
+                      <ul className="my-2 flex flex-col space-y-1 p-2">
                         <li>
                           <a
                             href="#"
-                            className="block px-2 py-1 transition rounded-md dark:hover:bg-blue-dark hover:bg-slate-200 "
+                            className="dark:hover:bg-blue-dark block rounded-md px-2 py-1 transition hover:bg-slate-200 "
                           >
                             Link
                           </a>
@@ -145,13 +142,13 @@ export const HeaderDashboard = () => {
                         <li>
                           <a
                             href="#"
-                            className="block px-2 py-1 transition rounded-md dark:hover:bg-blue-dark hover:bg-slate-200 "
+                            className="dark:hover:bg-blue-dark block rounded-md px-2 py-1 transition hover:bg-slate-200 "
                           >
                             Another Link
                           </a>
                         </li>
                       </ul>
-                      <div className="flex items-center justify-center p-4 border-t dark:border-slate-200">
+                      <div className="flex items-center justify-center border-t p-4 dark:border-slate-200">
                         <a href="#">See All</a>
                       </div>
                     </div>
@@ -160,8 +157,8 @@ export const HeaderDashboard = () => {
               </div>
               <div>
                 <button
-                  onClick={()=>toggleButton('services')}
-                  className="p-2 rounded-full focus:outline-none focus:ring border-[1px] hover:bg-slate-200 dark:hover:bg-slate-800"
+                  onClick={() => toggleButton("services")}
+                  className="rounded-full border-[1px] p-2 hover:bg-slate-200 focus:outline-none focus:ring dark:hover:bg-slate-800"
                 >
                   <IconServer />
                 </button>
@@ -176,17 +173,17 @@ export const HeaderDashboard = () => {
                       damping: 20,
                     }}
                   >
-                    <div className="absolute bg-white w-48 max-w-md mt-3 transform rounded-lg shadow-lg -translate-x-3/4 min-w-max dark:bg-slate-800">
-                      <div className="p-4 text-lg font-medium border-b dark:border-slate-200">
+                    <div className="absolute mt-3 w-48 min-w-max max-w-md -translate-x-3/4 rounded-lg bg-white shadow-lg dark:bg-slate-800">
+                      <div className="border-b p-4 text-lg font-medium dark:border-slate-200">
                         Web apps & services
                       </div>
-                      <ul className="flex flex-col p-2 my-3 space-y-3">
+                      <ul className="my-3 flex flex-col space-y-3 p-2">
                         <li>
                           <a
                             href="#"
-                            className="flex items-start px-2 py-1 space-x-2 rounded-md dark:hover:bg-blue-dark hover:bg-slate-200"
+                            className="dark:hover:bg-blue-dark flex items-start space-x-2 rounded-md px-2 py-1 hover:bg-slate-200"
                           >
-                            <span className="block mt-1">
+                            <span className="mt-1 block">
                               <IconBrandTabler />
                             </span>
                             <span className="flex flex-col">
@@ -200,9 +197,9 @@ export const HeaderDashboard = () => {
                         <li>
                           <a
                             href="#"
-                            className="flex items-start px-2 py-1 space-x-2 rounded-md dark:hover:bg-blue-dark hover:bg-slate-200"
+                            className="dark:hover:bg-blue-dark flex items-start space-x-2 rounded-md px-2 py-1 hover:bg-slate-200"
                           >
-                            <span className="block mt-1">
+                            <span className="mt-1 block">
                               <IconBrandGitlab />
                             </span>
                             <span className="flex flex-col">
@@ -215,7 +212,7 @@ export const HeaderDashboard = () => {
                           </a>
                         </li>
                       </ul>
-                      <div className="flex items-center justify-center p-4 border-t dark:border-slate-200">
+                      <div className="flex items-center justify-center border-t p-4 dark:border-slate-200">
                         <a href="#">Show all apps</a>
                       </div>
                     </div>
@@ -224,17 +221,19 @@ export const HeaderDashboard = () => {
               </div>
               <div className="relative">
                 <button
-                  onClick={()=>toggleButton('userSettings')}
-                  className="p-2 rounded-full focus:outline-none focus:ring border-[1px] hover:bg-slate-200 dark:hover:bg-slate-800"
+                  onClick={() => toggleButton("userSettings")}
+                  className="rounded-full border-[1px] p-2 hover:bg-slate-200 focus:outline-none focus:ring dark:hover:bg-slate-800"
                 >
-                  <img
-                    className="object-cover w-8 h-8 rounded-full"
-                    src="https://avatars0.githubusercontent.com/u/57622665?s=460&u=8f581f4c4acd4c18c33a87b3e6476112325e8b38&v=4"
-                    alt="Ahmed Kamel"
-                  />
+                  <Avatar>
+                    <AvatarImage
+                      src="https://github.com/shadcn.png"
+                      alt="@shadcn"
+                    />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
                 </button>
-                <div className="absolute right-0 p-1 bg-green-400 rounded-full bottom-3 animate-ping"></div>
-                <div className="absolute right-0 p-1 bg-green-400 border border-white rounded-full bottom-3"></div>
+                <div className="absolute bottom-3 right-0 animate-ping rounded-full bg-green-400 p-1"></div>
+                <div className="absolute bottom-3 right-0 rounded-full border border-white bg-green-400 p-1"></div>
 
                 {/* <!-- Dropdown card --> */}
                 {isUsersSettingsOpen && (
@@ -248,18 +247,18 @@ export const HeaderDashboard = () => {
                       damping: 20,
                     }}
                   >
-                    <div className="absolute bg-white w-48 max-w-md mt-3 transform rounded-lg shadow-lg -translate-x-3/4 min-w-max dark:bg-slate-800">
-                      <div className="flex flex-col p-4 space-y-1 font-medium border-b dark:border-slate-200">
+                    <div className="absolute mt-3 w-48 min-w-max max-w-md -translate-x-3/4 rounded-lg bg-white shadow-lg dark:bg-slate-800">
+                      <div className="flex flex-col space-y-1 border-b p-4 font-medium dark:border-slate-200">
                         <span className="">Ahmed Kamel</span>
                         <span className="text-sm ">
                           ahmed.kamel@example.com
                         </span>
                       </div>
-                      <ul className="flex flex-col p-2 my-2 space-y-1">
+                      <ul className="my-2 flex flex-col space-y-1 p-2">
                         <li>
                           <a
                             href="#"
-                            className="block px-2 py-1 transition rounded-md dark:hover:bg-blue-dark hover:bg-slate-200"
+                            className="dark:hover:bg-blue-dark block rounded-md px-2 py-1 transition hover:bg-slate-200"
                           >
                             Link
                           </a>
@@ -267,13 +266,13 @@ export const HeaderDashboard = () => {
                         <li>
                           <a
                             href="#"
-                            className="block px-2 py-1 transition rounded-md dark:hover:bg-blue-dark hover:bg-slate-200"
+                            className="dark:hover:bg-blue-dark block rounded-md px-2 py-1 transition hover:bg-slate-200"
                           >
                             Another Link
                           </a>
                         </li>
                       </ul>
-                      <div className="flex items-center justify-center p-4 border-t dark:border-slate-200">
+                      <div className="flex items-center justify-center border-t p-4 dark:border-slate-200">
                         <a href="#">Logout</a>
                       </div>
                     </div>

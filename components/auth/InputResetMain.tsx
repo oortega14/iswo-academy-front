@@ -43,11 +43,11 @@ export const InputResetMain = () => {
   return (
     <>
       <form
-        className="flex flex-col p-0 w-full"
+        className="flex w-full flex-col p-0"
         onSubmit={(e) => handleSubmit(e)}
       >
-        <div className="rounded-full flex items-center justify-start w-full mt-3">
-          <IconLock className="size-5 mr-2" />
+        <div className="mt-3 flex w-full items-center justify-start rounded-full">
+          <IconLock className="mr-2 size-5" />
           <label htmlFor="password">Nueva Contraseña</label>
         </div>
         <Input
@@ -57,8 +57,8 @@ export const InputResetMain = () => {
           onChange={(e) => handleChange(e)}
           className="mt-2"
         />
-        <div className="rounded-full flex items-center justify-start w-full mt-3">
-          <IconLockSquareRounded className="size-5 mr-2" />
+        <div className="mt-3 flex w-full items-center justify-start rounded-full">
+          <IconLockSquareRounded className="mr-2 size-5" />
           <label htmlFor="password">Confirmar Contraseña</label>
         </div>
         <Input

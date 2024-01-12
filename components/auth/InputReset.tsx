@@ -45,14 +45,14 @@ export const InputReset = () => {
   return (
     <>
       <form
-        className="flex flex-col p-0 w-full"
+        className="flex w-full flex-col p-0"
         onSubmit={(e) => handleSubmit(e)}
       >
-        <div className="rounded-full flex items-center justify-start w-full mt-3">
-          <IconMail className="size-5 mr-2" />
+        <div className="mt-3 flex w-full items-center justify-start rounded-full">
+          <IconMail className="mr-2 size-5" />
           <span>Email</span>
         </div>
-        <label htmlFor="email" className="text-muted-foreground mt-2 text-sm">
+        <label htmlFor="email" className="mt-2 text-sm text-muted-foreground">
           Ingresa el correo electrónico que registraste en nuestra plataforma
         </label>
         <Input

@@ -21,7 +21,7 @@ import  Figure  from "./Figure"
 export const MessagesContent = () => {
   const currentUser = useUIStore((state) => state.currentUser)
   const baseUrl = useUIStore((state) => state.baseUrl)
-  const params = useParams<{ id: string }>()
+  const params = useParams<{ id: string, academyId: string }>()
   const [loading, setLoading] = useState(true)
   const [previewImage, setPreviewImage] = useState("")
   const [logo, setLogo] = useState({})
@@ -30,7 +30,9 @@ export const MessagesContent = () => {
     slogan: "",
     description: "",
   })
-  const academy = useGetAcademy(params.id, setLoading)
+  const academy = useGetAcademy({
+    academyId: params.academyId,
+    setLoadingCallback: setLoading})
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -93,20 +95,20 @@ export const MessagesContent = () => {
 
   useEffect(() => {
     if (!!academy) {
-      setAcademyConfiguration({
-        ...academyConfiguration,
+      setAcademyConfiguration((prevConfig) => ({
+        ...prevConfig,
         domain: academy?.academy_configuration?.domain,
         slogan: academy?.slogan,
         description: academy?.description,
-      })
+      }));
     }
   }, [academy])
 
   return (
     <div>
-      <main className="flex-1 h-auto p-5 overflow-hidden ">
-        <div className="flex flex-col items-start justify-between pb-6 space-y-4 border-b lg:items-center lg:space-y-0 lg:flex-row">
-          <h1 className="text-2xl font-semibold whitespace-nowrap">
+      <main className="h-auto flex-1 overflow-hidden p-5 ">
+        <div className="flex flex-col items-start justify-between space-y-4 border-b pb-6 lg:flex-row lg:items-center lg:space-y-0">
+          <h1 className="whitespace-nowrap text-2xl font-semibold">
             Hola {currentUser?.first_name} A continuación veremos los mensajes de tus estudiantes
           </h1>
         </div>

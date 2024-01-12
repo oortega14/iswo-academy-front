@@ -65,11 +65,11 @@ const EvaluationContent = () => {
     setSelectedQuestionId(questionId)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     console.log(e)
   }
 
-  const handleChange = (e) => {
+  const handleChange = (e:any) => {
     console.log(e)
   }
 
@@ -80,17 +80,17 @@ const EvaluationContent = () => {
   return (
     <>
       <TooltipProvider>
-        <div className="flex flex-col items-start justify-between pb-6 space-y-4 border-b lg:items-center lg:space-y-0 lg:flex-row px-3">
-          <h1 className="text-2xl font-semibold whitespace-nowrap mt-4 ml-3">
+        <div className="flex flex-col items-start justify-between space-y-4 border-b px-3 pb-6 lg:flex-row lg:items-center lg:space-y-0">
+          <h1 className="ml-3 mt-4 whitespace-nowrap text-2xl font-semibold">
             Vamos a configurar la evaluación de tu curso
           </h1>
         </div>
         <form
-          className="flex flex-col p-0 w-full px-3"
+          className="flex w-full flex-col p-0 px-3"
           onSubmit={(e) => handleSubmit(e)}
         >
-          <div className="rounded-full flex items-center justify-start w-full mt-3">
-            <IconArticle className="size-5 mr-2" />
+          <div className="mt-3 flex w-full items-center justify-start rounded-full">
+            <IconArticle className="mr-2 size-5" />
             <label htmlFor="title">
               ¿Cual es el tiempo limite para realizar la evaluacion?
             </label>
@@ -102,8 +102,8 @@ const EvaluationContent = () => {
             onChange={(e) => handleChange(e)}
             className="mt-2"
           />
-          <div className="rounded-full flex items-center justify-start w-full mt-3">
-            <IconArticle className="size-5 mr-2" />
+          <div className="mt-3 flex w-full items-center justify-start rounded-full">
+            <IconArticle className="mr-2 size-5" />
             <label htmlFor="description">
               ¿Cuantas respuestas correctas son requeridas para aprobar el
               examen?
@@ -121,8 +121,8 @@ const EvaluationContent = () => {
           </MotionButton>
         </form>
         <Separator className="my-3" />
-        <div className="flex flex-col items-start justify-between pb-6 space-y-4 border-b lg:items-center lg:space-y-0 lg:flex-row px-3">
-          <h2 className="text-xl font-semibold whitespace-nowrap mt-3">
+        <div className="flex flex-col items-start justify-between space-y-4 border-b px-3 pb-6 lg:flex-row lg:items-center lg:space-y-0">
+          <h2 className="mt-3 whitespace-nowrap text-xl font-semibold">
             Estas son las preguntas de tu curso:
           </h2>
         </div>

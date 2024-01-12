@@ -11,7 +11,7 @@ export default function MainLayout({
   return (
     <div className="relative flex min-h-screen flex-col">
       <Header />
-      <main className="relative overflow-hidden top-20">{children}</main>
+      <main className="relative top-20 overflow-hidden">{children}</main>
       <BannerSection />
       <FeaturedAcademies />
       <Footer />

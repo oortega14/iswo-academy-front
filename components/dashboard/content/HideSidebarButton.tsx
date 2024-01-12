@@ -9,11 +9,11 @@ const HideSidebarButton = () => {
   return (
     <button
       onClick={changeSidebar}
-      className="p-2 rounded-md focus:outline-none focus:ring"
+      className="rounded-md p-2 focus:outline-none focus:ring"
     >
       <svg
-        className={cn("w-4 h-4 text-gray-600", {
-          "transform transition-transform -rotate-180": isSidebarOpen,
+        className={cn("h-4 w-4 text-gray-600", {
+          "transition-transform -rotate-180": isSidebarOpen,
         })}
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

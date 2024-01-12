@@ -9,7 +9,7 @@ export const SidebarNavigationAdmin = ({ sidebarLinks, isSidebarOpen, handleClic
   const params = useParams()
   return (
     <>
-      <nav className="flex-1 overflow-hidden hover:overflow-y-auto px-3">
+      <nav className="flex-1 overflow-hidden px-3 hover:overflow-y-auto">
         {isSidebarOpen ? (
           <Accordion type="single" collapsible>
             {sidebarLinks?.map((category) => {
@@ -32,7 +32,7 @@ export const SidebarNavigationAdmin = ({ sidebarLinks, isSidebarOpen, handleClic
                 <div key={category.category_key}>
                   {!!category.icon && (
                     <div
-                      className="flex justify-center w-full size-8 dark:hover:bg-white rounded-lg overflow-hidden dark:hover:text-blue-dark p-1 box-content mb-2 hover:bg-blue-dark hover:text-white cursor-pointer"
+                      className="dark:hover:text-blue-dark hover:bg-blue-dark mb-2 box-content flex size-8 w-full cursor-pointer justify-center overflow-hidden rounded-lg p-1 hover:text-white dark:hover:bg-white"
                       onClick={handleClick.bind(null, category.label, "icon")}
                     >
                       <category.icon />

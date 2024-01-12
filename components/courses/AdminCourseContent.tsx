@@ -69,8 +69,8 @@ const CourseContent = () => {
   return (
     <>
       <TooltipProvider>
-        <div className="flex flex-col items-start justify-between pb-6 space-y-4 border-b lg:items-center lg:space-y-0 lg:flex-row">
-          <h1 className="text-2xl font-semibold whitespace-nowrap mt-4 ml-3">
+        <div className="flex flex-col items-start justify-between space-y-4 border-b pb-6 lg:flex-row lg:items-center lg:space-y-0">
+          <h1 className="ml-3 mt-4 whitespace-nowrap text-2xl font-semibold">
             Tus lecciones:
           </h1>
         </div>
@@ -141,12 +141,12 @@ const CourseContent = () => {
                   <TableCell>{truncarTexto(lesson.description, 100)}</TableCell>
                   <TableCell>
                     {lesson.visible === true ? (
-                      <div className="flex gap-x-2 items-center">
+                      <div className="flex items-center gap-x-2">
                         <IconEyeCheck className="text-green-600" />
                         <span>Si</span>
                       </div>
                     ) : (
-                      <div className="flex gap-x-2 items-center">
+                      <div className="flex items-center gap-x-2">
                         <IconEyeX className="text-red-600" />
                         <span>No</span>
                       </div>
@@ -157,7 +157,7 @@ const CourseContent = () => {
             </>
           ))}
         </Table>
-        <div className="w-full mb-5 flex justify-center">
+        <div className="mb-5 flex w-full justify-center">
           <MotionButton whileHover={{ scale: 0.95 }} whileTap={{ scale: 1.15 }}>
             <Link
               href={`/academies/${params.id}/courses/${params.courseId}/create-class`}

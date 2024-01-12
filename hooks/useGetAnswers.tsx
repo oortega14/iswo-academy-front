@@ -1,9 +1,9 @@
 import { useUIStore } from '@/store/ui/ui-store';
 import { Answer } from '@/types/courses';
-import { GetQuestionProps } from '@/types/hooks';
+import { GetAnswersProps } from '@/types/hooks';
 import { useEffect, useState } from 'react';
 
-const useGetAnswers = ({questionId, setLoadingCallback}: GetQuestionProps) => {
+const useGetAnswers = ({questionId, setLoadingCallback}: GetAnswersProps) => {
   const baseUrl = useUIStore((state) => state.baseUrl);
   const [answers, setAnswers] = useState<Answer[]>([]);
 
