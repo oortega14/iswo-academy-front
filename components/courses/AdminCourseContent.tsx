@@ -1,183 +1,120 @@
 "use client"
 
-import { useState } from "react"
-import Link from "next/link"
-import { useParams } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 import {
-  IconEdit,
-  IconEyeCheck,
-  IconEyeX,
-  IconTrash,
+  IconCertificate,
+  IconHelp,
+  IconSchool,
+  IconTextRecognition,
 } from "@tabler/icons-react"
-
-import { cn } from "@/lib/utils"
-import useGetLessons from "@/hooks/useGetLessons"
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-
-import { MotionButton } from "../animations/MotionButton"
-import DeleteLessonsModal from "../modals/DeleteLessonsModal"
-import EditLessonsModal from "../modals/EditLessonsModal"
-import { Button, buttonVariants } from "../ui/button"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "../ui/tooltip"
+import { MotionDiv } from "../animations/MotionDiv"
 
 const CourseContent = () => {
   const params = useParams()
-  const [loading, setLoading] = useState<boolean>()
-  const [editModalOpen, setEditModalOpen] = useState(false)
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false)
-  const [selectedLessonId, setSelectedLessonId] = useState(0)
-  const close = (
-    setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>>
-  ) => {
-    setModalOpenFunction(false)
-  }
-  const open = (
-    setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>>,
-    lessonId: number
-  ) => {
-    setModalOpenFunction(true)
-    setSelectedLessonId(lessonId)
-  }
-  const lessons = useGetLessons({
-    courseId: Array.isArray(params.courseId)
-      ? params.courseId[0]
-      : params.courseId,
-    setLoadingCallback: setLoading,
-  })
-
-  function truncarTexto(texto: string, longitudMaxima: number) {
-    if (texto.length > longitudMaxima) {
-      return texto.slice(0, longitudMaxima) + "..."
-    } else {
-      return texto
-    }
+  const router = useRouter()
+  const handleNavigate = (e: any) => {
+    const target = e.currentTarget.id
+    router.push(`/admin/${params.id}/academies/${params.academyId}/courses/${params.courseId}/${target}`)
   }
 
   return (
     <>
-      <TooltipProvider>
-        <div className="flex flex-col items-start justify-between space-y-4 border-b pb-6 lg:flex-row lg:items-center lg:space-y-0">
-          <h1 className="ml-3 mt-4 whitespace-nowrap text-2xl font-semibold">
-            Tus lecciones:
-          </h1>
+      <div className="mt-12">
+        <div className="mb-12 grid grid-cols-1 gap-y-10 gap-x-6 md:grid-cols-2 px-4">
+          <MotionDiv
+            whileHover={{ scale: 0.98 }}
+            whileTap={{ scale: 0.99 }}
+            id='lessons'
+            className="cursor-pointer"
+            onClick={(e)=>handleNavigate(e)}
+          >
+            <div className="relative flex flex-col bg-clip-border rounded-xl shadow-md border-2">
+              <div className="bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr from-blue-600 to-blue-400 text-white shadow-blue-500/40 shadow-lg relative -mt-4 grid h-16 w-16 place-items-center">
+                <IconTextRecognition />
+              </div>
+              <div className="p-4 ">
+                <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
+                  Lecciones
+                </h4>
+              </div>
+              <div className="border-t border-blue-gray-50 p-4">
+                <p className="block antialiased font-sans text-base leading-relaxed font-normal text-blue-gray-600 text-muted-foreground">
+                  Aqui podras modificar las lecciones de tu curso
+                </p>
+              </div>
+            </div>
+          </MotionDiv>
+          <MotionDiv
+            whileHover={{ scale: 0.98 }}
+            whileTap={{ scale: 0.99 }}
+            className="cursor-pointer"
+            id='evaluation'
+            onClick={(e)=>handleNavigate(e)}
+          >
+            <div className="relative flex flex-col bg-clip-border rounded-xl border-2 shadow-md">
+              <div className="bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr from-pink-600 to-pink-400 text-white shadow-pink-500/40 shadow-lg relative -mt-4 grid h-16 w-16 place-items-center">
+                <IconSchool />
+              </div>
+              <div className="p-4">
+                <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
+                  Evaluación
+                </h4>
+              </div>
+              <div className="border-t border-blue-gray-50 p-4">
+                <p className="block antialiased font-sans text-base leading-relaxed font-normal text-blue-gray-600 text-muted-foreground">
+                  Aqui podras configurar la evaluación de tu curso
+                </p>
+              </div>
+            </div>
+          </MotionDiv>
+          <MotionDiv
+            whileHover={{ scale: 0.98 }}
+            whileTap={{ scale: 0.99 }}
+            className="cursor-pointer"
+            id='certificate'
+            onClick={(e)=>handleNavigate(e)}
+          >
+            <div className="relative flex flex-col bg-clip-border rounded-xl border-2 shadow-md">
+              <div className="bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr from-green-600 to-green-400 text-white shadow-green-500/40 shadow-lg relative -mt-4 grid h-16 w-16 place-items-center">
+                <IconCertificate />
+              </div>
+              <div className="p-4 ">
+                <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
+                  Certificado
+                </h4>
+              </div>
+              <div className="border-t border-blue-gray-50 p-4">
+                <p className="block antialiased font-sans text-base leading-relaxed font-normal text-blue-gray-600 text-muted-foreground">
+                  Aqui podras configurar los certificados de tu curso
+                </p>
+              </div>
+            </div>
+          </MotionDiv>
+          <MotionDiv
+            whileHover={{ scale: 0.98 }}
+            whileTap={{ scale: 1 }}
+            id='help'
+            className="cursor-pointer"
+            onClick={(e)=>handleNavigate(e)}
+          >
+            <div className="relative flex flex-col bg-clip-border rounded-xl border-2 shadow-md">
+              <div className="bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr from-orange-600 to-orange-400 text-white shadow-orange-500/40 shadow-lg relative -mt-4 grid h-16 w-16 place-items-center">
+                <IconHelp />
+              </div>
+              <div className="p-4">
+                <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
+                  Ayuda
+                </h4>
+              </div>
+              <div className="border-t border-blue-gray-50 p-4">
+                <p className="block antialiased font-sans text-base leading-relaxed font-normal text-blue-gray-600 text-muted-foreground">
+                  Aqui encontraras toda la ayuda que necesites
+                </p>
+              </div>
+            </div>
+          </MotionDiv>
         </div>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-1/5">Acciones</TableHead>
-              <TableHead className="w-1/5">Titulo de la clase</TableHead>
-              <TableHead className="w-1/2">Descripción</TableHead>
-              <TableHead className="w-1/5">Es visible</TableHead>
-            </TableRow>
-          </TableHeader>
-          {lessons.map((lesson) => (
-            <>
-              <TableBody key={lesson.id}>
-                <TableRow>
-                  <TableCell className="flex gap-x-2">
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <MotionButton
-                          whileHover={{ scale: 1.15 }}
-                          whileTap={{ scale: 0.9 }}
-                        >
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() =>
-                              editModalOpen
-                                ? close(setEditModalOpen)
-                                : open(setEditModalOpen, lesson.id)
-                            }
-                            className=" border-[1px]"
-                          >
-                            <IconEdit className=" size-6 " />
-                          </Button>
-                        </MotionButton>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Editar Lección</p>
-                      </TooltipContent>
-                    </Tooltip>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <MotionButton
-                          whileHover={{ scale: 1.15 }}
-                          whileTap={{ scale: 0.9 }}
-                        >
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() =>
-                              deleteModalOpen
-                                ? close(setDeleteModalOpen)
-                                : open(setDeleteModalOpen, lesson.id)
-                            }
-                            className="border-[1px]"
-                          >
-                            <IconTrash className=" size-6 " />
-                          </Button>
-                        </MotionButton>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Eliminar Lección</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TableCell>
-                  <TableCell className="font-medium">{lesson.title}</TableCell>
-                  <TableCell>{truncarTexto(lesson.description, 100)}</TableCell>
-                  <TableCell>
-                    {lesson.visible === true ? (
-                      <div className="flex items-center gap-x-2">
-                        <IconEyeCheck className="text-green-600" />
-                        <span>Si</span>
-                      </div>
-                    ) : (
-                      <div className="flex items-center gap-x-2">
-                        <IconEyeX className="text-red-600" />
-                        <span>No</span>
-                      </div>
-                    )}
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </>
-          ))}
-        </Table>
-        <div className="mb-5 flex w-full justify-center">
-          <MotionButton whileHover={{ scale: 0.95 }} whileTap={{ scale: 1.15 }}>
-            <Link
-              href={`/academies/${params.id}/courses/${params.courseId}/create-class`}
-              className={cn(buttonVariants({ variant: "default" }))}
-            >
-              Agregar nueva clase
-            </Link>
-          </MotionButton>
-        </div>
-      </TooltipProvider>
-      <EditLessonsModal
-        modalOpen={editModalOpen}
-        close={() => close(setEditModalOpen)}
-        lessonId={selectedLessonId}
-      />
-      <DeleteLessonsModal
-        modalOpen={deleteModalOpen}
-        close={() => close(setDeleteModalOpen)}
-        lessonId={selectedLessonId}
-      />
+      </div>
     </>
   )
 }

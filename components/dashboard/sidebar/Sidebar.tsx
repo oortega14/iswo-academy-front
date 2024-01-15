@@ -31,7 +31,7 @@ export const Sidebar = () => {
       >
         <aside
           className={cn(
-            "dark:bg-blue-dark inset-y-0 z-10 flex min-h-screen w-64 shrink-0 flex-col overflow-hidden border-r bg-white  shadow-lg transition-all lg:static lg:z-auto lg:shadow-none",
+            "dark:bg-blue-dark inset-y-0 z-10 flex min-h-screen max-h-screen w-64 shrink-0 flex-col overflow-hidden border-r bg-white  shadow-lg transition-all lg:static lg:z-auto lg:shadow-none overflow-y-hidden",
             { "-translate-x-full lg:translate-x-0 lg:w-20": !isSidebarOpen }
           )}
         >

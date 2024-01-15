@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 const useGetCourse = ({courseId, setLoadingCallback}: GetCourseProps) => {
   const baseUrl = useUIStore((state) => state.baseUrl);
-  const [course, setCourse] = useState<Course[]>([]);
+  const [course, setCourse] = useState<Course>();
 
   useEffect(() => {
     const getCourses = async () => {
@@ -19,9 +19,7 @@ const useGetCourse = ({courseId, setLoadingCallback}: GetCourseProps) => {
 
         if (request.status === 200) {
           setCourse(response);
-        } else {
-          console.error('Error al obtener cursos:', response);
-        }
+        } 
       } catch (error) {
         console.error('Error de red:', error);
       } finally {

@@ -8,10 +8,7 @@ export const buildRoute = ({
   courseId,
 }: BuildRouteProps) => {
   const normalizedCategory = category.toLowerCase()
-  let normalizedSubcategory = subcategory
-  if (typeof subcategory === "string") {
-    normalizedSubcategory = subcategory.toLowerCase()
-  }
+  const normalizedSubcategory = subcategory.toLowerCase()
 
   switch (normalizedCategory) {
     // students_routes
@@ -55,8 +52,14 @@ export const buildRoute = ({
           return `/admin/${userId}/academies/${academyId}/dashboard/messages`
       }
 
-    case "admin-courses":
-      return `/admin/${userId}/academies/${academyId}/courses/${subcategory}/content`
+    case "admin-get-courses":
+      switch (normalizedSubcategory) {
+        case "content":
+          return `/admin/${userId}/academies/${academyId}/courses/content`
+        case "new-course":
+          return `/admin/${userId}/academies/${academyId}/courses/new-course`
+      }
+
     case "admin-edit-courses":
       switch (normalizedSubcategory) {
         case "content":

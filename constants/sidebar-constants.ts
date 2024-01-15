@@ -30,19 +30,12 @@ export const ADMIN_SIDEBAR_LINKS: SidebarLink[] = [
     ]
   },
   {
-    category_key: 'admin-courses',
+    category_key: 'admin-get-courses',
     label: 'Cursos',
-    icon: IconFileSpreadsheet
-  },
-  {
-    category_key: 'admin-edit-courses',
-    label: 'Administrar Cursos',
-    icon: IconAbacus,
+    icon: IconFileSpreadsheet,
     links: [
       { subcategory_key: 'content', label: 'Contenido' },
-      { subcategory_key: 'students', label: 'Estudiantes' },
-      { subcategory_key: 'evaluation', label: 'Evaluacion' },
-      { subcategory_key: 'certificade', label: 'Certificado' },
+      { subcategory_key: 'new-course', label: 'Crear Curso' },
     ]
   },
   {

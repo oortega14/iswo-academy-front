@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface Lesson {
   id:          number;
   title:       string;
@@ -32,4 +34,10 @@ export interface QuestionOption {
 export interface Answer {
   id: number;
   option_text: string;
+}
+
+export interface ButtonTooltipProps {
+  tooltip: string
+  icon: React.ComponentType | React.ReactNode;
+  onClick?: () => void;
 }

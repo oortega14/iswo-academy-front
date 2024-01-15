@@ -47,24 +47,24 @@ export interface SidebarLink {
 export interface SidebarNavigationProps {
   sidebarLinks?: SidebarLink[]
   isSidebarOpen: boolean
-  handleClick: (categoryLabel: string, subcategoryLabel: string | number) => void
+  handleClick: (categoryLabel: string, subcategoryLabel: string ) => void
 }
 
 export interface SidebarNavigationAdminProps {
   sidebarLinks?: SidebarLink[]
   isSidebarOpen: boolean
-  handleClick: (categoryLabel: string, subcategoryLabel: string | number) => void
+  handleClick: (categoryLabel: string, subcategoryLabel: string ) => void
   courses: Course[]
 }
 
 export interface SidebarCategoryProps {
   category: SidebarLink
-  handleClick: (categoryLabel: string, subcategoryLabel: string | number) => void
+  handleClick: (categoryLabel: string, subcategoryLabel: string ) => void
 }
 
 export interface SidebarCategoryAdminProps {
   category: SidebarLink
-  handleClick: (categoryLabel: string, subcategoryLabel: string | number) => void
+  handleClick: (categoryLabel: string, subcategoryLabel: string ) => void
   courses: Course[]
 }
 
@@ -76,7 +76,7 @@ export type SidebarProps = {
 
 export type BuildRouteProps = {
   category: string
-  subcategory: string | number
+  subcategory: string
   userId: string
   courseId: string
   academyId: string

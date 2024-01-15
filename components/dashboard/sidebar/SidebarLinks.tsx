@@ -33,7 +33,7 @@ export const SidebarLinks = () => {
 
   const handleClick = (
     categoryLabel: string,
-    subcategoryLabel: string | number
+    subcategoryLabel: string
   ) => {
     const route = buildRoute({
       category: categoryLabel,
@@ -57,7 +57,7 @@ export const SidebarLinks = () => {
           <SidebarNavigation sidebarLinks={TEACHER_SIDEBAR_LINKS} isSidebarOpen={isSidebarOpen} handleClick={handleClick}/>
         )}
         {currentUser?.role === 'Administrador' && (
-          <SidebarNavigationAdmin sidebarLinks={ADMIN_SIDEBAR_LINKS} isSidebarOpen={isSidebarOpen} handleClick={handleClick} courses={courses}/>
+          <SidebarNavigation sidebarLinks={ADMIN_SIDEBAR_LINKS} isSidebarOpen={isSidebarOpen} handleClick={handleClick} />
         )}
         {currentUser?.role === 'Súper Administrador' && (
           <SidebarNavigation sidebarLinks={SUPER_ADMIN_SIDEBAR_LINKS} isSidebarOpen={isSidebarOpen} handleClick={handleClick}/>

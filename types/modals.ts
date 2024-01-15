@@ -12,6 +12,12 @@ export interface DeleteLessonsModalProps {
   close: () => void
 }
 
+export interface DeleteCourseModalProps {
+  modalOpen: boolean
+  courseId: number
+  close: () => void
+}
+
 export interface BackdropProps {
   children: React.ReactNode
   onClick: React.MouseEventHandler
@@ -39,4 +45,10 @@ export interface EditAnswerModalProps {
   modalOpen: boolean
   close: () => void
   answerId: number
+}
+
+export interface EditCourseModalProps {
+  modalOpen: boolean
+  close: () => void
+  courseId: number
 }

@@ -4,8 +4,10 @@ import { Accordion } from "@/components/ui/accordion"
 import { SidebarNavigationAdminProps } from "@/types/sidebar"
 import { useParams } from "next/navigation"
 import { SidebarCategoryAdmin } from "./SidebarCategoryAdmin"
+import { useUIStore } from "@/store/ui/ui-store"
 
 export const SidebarNavigationAdmin = ({ sidebarLinks, isSidebarOpen, handleClick, courses }: SidebarNavigationAdminProps) => {
+  const openSidebar = useUIStore((state)=> state.changeSidebar)
   const params = useParams()
   return (
     <>
@@ -33,7 +35,7 @@ export const SidebarNavigationAdmin = ({ sidebarLinks, isSidebarOpen, handleClic
                   {!!category.icon && (
                     <div
                       className="dark:hover:text-blue-dark hover:bg-blue-dark mb-2 box-content flex size-8 w-full cursor-pointer justify-center overflow-hidden rounded-lg p-1 hover:text-white dark:hover:bg-white"
-                      onClick={handleClick.bind(null, category.label, "icon")}
+                      onClick={()=>(openSidebar())}
                     >
                       <category.icon />
                     </div>
