@@ -1,6 +1,27 @@
-import { TokenResetProps } from "@/types/requests"
+import { ConfigurateAcademyParams, FetchRegisterParams, TokenResetProps } from "@/types/requests"
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
+
+// Register
+
+export async function RegisterNewUser(data: FetchRegisterParams){
+  try {
+    const request = await fetch(`${baseUrl}/users`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud");
+   }
+}
+
+//email-verification
 
 export async function FetchEmailVerification(userId: string | string[]) {
   try {
@@ -25,6 +46,8 @@ export async function SendTokenEmailVerification(token: string | null) {
   } catch (e) {}
 }
 
+//reset-email
+
 export async function SendTokenResetEmail({
   token,
   password,
@@ -43,6 +66,23 @@ export async function SendTokenResetEmail({
     const response = await request.json()
     return [request, response]
   } catch (e) {}
+}
+
+//academies
+
+export async function ConfigurateAcademy(userData: ConfigurateAcademyParams) {
+  try {
+    const request = await fetch(`${baseUrl}/academies`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(userData),
+    })
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud");
+  }
 }
 
 export async function FetchCoursesByAcademyId(id: string) {

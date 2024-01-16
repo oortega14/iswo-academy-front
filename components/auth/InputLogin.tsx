@@ -29,8 +29,7 @@ export const InputLogin = () => {
       const request = await fetch(`${baseUrl}/login`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": "false"
+          "Content-Type": "application/json"
         },
         credentials: 'include',
         body: JSON.stringify(data),
@@ -44,7 +43,12 @@ export const InputLogin = () => {
         } else if (response.role === 'Profesor') {
           router.push(`/teacher/${response.id}/dashboard/main`)
         } else if (response.role === 'Administrador') {
-          router.push(`/admin/${response.id}/academies/${response.academy.id}/dashboard/main`)
+          console.log(response.academy.id === null)
+          if (response.academy.id === null) {
+            router.push(`/${response.id}/create-academy`)
+          } else {
+            router.push(`/admin/${response.id}/academies/${response.academy.id}/dashboard/main`)
+          }
         } else if (response.role === 'Súper Administrador') {
           router.push(`/super-admin/${response.id}/dashboard/main`)
         }

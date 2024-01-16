@@ -21,16 +21,8 @@ import { Input } from "../ui/input"
 import { IconPencilPlus } from "@tabler/icons-react"
 import { useUIStore } from "@/store/ui/ui-store"
 import { useRouter } from "next/navigation"
-
-export type RegisterParams = {
-  name: string
-  last_name: string
-  email: string
-  password: string
-  password_confirmation: string
-  username: string
-  role: number | null
-}
+import { RegisterNewUser } from "@/lib/requests"
+import { RegisterParams } from "@/types/requests"
 
 export default function RegisterDiv() {
   const baseUrl = useUIStore((state) => state.baseUrl)
@@ -67,22 +59,13 @@ export default function RegisterDiv() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     let data = { user: { ...userData } }
-    try {
-      const request = await fetch(`${baseUrl}/users`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-      const response = await request.json()
-      if (request.status === 200) {
-        toast.success("Registro exitoso")
-        router.push(`/${response.user.id}/email-step`)
-      } else {
-        toast.error(response.errors)
-      }
-    } catch (e) {}
+    const [request, response] = await RegisterNewUser(data)
+    if (request.status === 200) {
+      toast.success("Registro exitoso")
+      router.push(`/${response.user.id}/email-step`)
+    } else {
+      toast.error(response.errors)
+    }
   }
   return (
     <div

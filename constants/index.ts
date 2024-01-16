@@ -2,9 +2,9 @@ import { IconBrandFacebook, IconBrandInstagram, IconBrandLinkedin, IconBrandTwit
 
 // NAVIGATION
 export const NAV_LINKS = [
-  { href: '/', key: 'home', label: 'Home' },
-  { href: '/', key: 'pricing ', label: 'Pricing ' },
-  { href: '/', key: 'contact_us', label: 'Contact Us' },
+  { href: '/', key: 'home', label: 'Inicio' },
+  { href: '/', key: 'pricing ', label: 'Academias' },
+  { href: '/', key: 'contact_us', label: 'Contactanos' },
 ];
 
 // CAMP SECTION

@@ -44,6 +44,10 @@ export type GetAnswersProps = {
   setLoadingCallback: CallbackFunction
 }
 
+export type GetCategoriesProps = {
+  setLoadingCallback: CallbackFunction
+}
+
 export type GetAnswerProps = {
   answerId: number
   setLoadingCallback: CallbackFunction

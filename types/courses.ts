@@ -36,6 +36,11 @@ export interface Answer {
   option_text: string;
 }
 
+export interface Category {
+  id: number;
+  name: string;
+}
+
 export interface ButtonTooltipProps {
   tooltip: string
   icon: React.ComponentType | React.ReactNode;
