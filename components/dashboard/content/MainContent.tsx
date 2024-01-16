@@ -88,7 +88,7 @@ export const MainContent = () => {
       })
       const response = await request.json()
       if (request.status === 200) {
-        toast.success("exitoso")
+        toast.success("Academia actualizada con exito")
       } else {
         toast.error(response.message)
       }

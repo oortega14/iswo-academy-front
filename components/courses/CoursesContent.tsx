@@ -42,6 +42,7 @@ import {
   TableRow,
 } from "../ui/table"
 import AnswersContent from "./AnswersContent"
+import NoContent from "../ui/NoContent"
 
 const CoursesContent = () => {
   const [loading, setLoading] = useState<boolean>()
@@ -71,7 +72,9 @@ const CoursesContent = () => {
 
   return (
     <>
-      <TooltipProvider>
+      {
+        courses.length > 0 ? (
+          <TooltipProvider>
         <div className="flex flex-col items-start justify-between space-y-4 border-b px-3 pb-6 lg:flex-row lg:items-center lg:space-y-0">
           <h1 className="ml-3 mt-4 whitespace-nowrap text-2xl font-semibold">
             Los cursos disponibles en tu academia son
@@ -178,6 +181,11 @@ const CoursesContent = () => {
           courseId={courseSelectedId}
         />
       </TooltipProvider>
+        ) : (
+          <NoContent/>
+        )
+      }
+
     </>
   )
 }
