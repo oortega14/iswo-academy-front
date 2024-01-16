@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { FormEvent, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import {
   IconDeviceImacCog,
@@ -17,8 +17,10 @@ import {
   SelectValue,
 } from "../ui/select"
 import { Textarea } from "../ui/textarea"
+import { useUIStore } from "@/store/ui/ui-store"
 
 const NewCoursesContent = () => {
+  const baseUrl = useUIStore((state) => state.baseUrl)
   const { academyId } = useParams<{ academyId: string }>()
   const router = useRouter()
   const params = useParams()
@@ -34,8 +36,6 @@ const NewCoursesContent = () => {
     teacher_id: '',
     banner: null,
   });
-
-  const handleSubmit = (e) => {}
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -69,7 +69,34 @@ const NewCoursesContent = () => {
     }
   }
 
-  console.log(data)
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault()
+    const fd = new FormData()
+    if (banner instanceof Blob) {
+      fd.append('course[banner]', banner)
+    }
+    fd.append('course[teacher_id]', data.teacher_id);
+    fd.append('course[academy_id]', academyId);
+    fd.append('course[description]', data.description);
+    fd.append('course[price]', data.price);
+    fd.append('course[subtitle]', data.subtitle);
+    fd.append('course[title]', data.title);
+
+    try {
+      const request = await fetch(`${baseUrl}/courses`, {
+        method: "POST",
+        credentials: "include",
+        body: fd,
+      })
+      const response = await request.json()
+      if (request.status === 200) {
+        console.log(response)
+        console.log("Curso Creado con exito")
+      } else {
+        console.log(response.message)
+      }
+    } catch (e) {}
+  }
 
   const handleSelect = (e) => {}
 
