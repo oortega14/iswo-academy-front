@@ -93,5 +93,21 @@ export async function FetchCoursesByAcademyId(id: string) {
     })
     const response = await request.json()
     return [request, response]
-  } catch (e) {}
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud");
+  }
+}
+
+//logout
+export async function Logout() {
+  try {
+    const request = await fetch(`${baseUrl}/logout`,{
+      method: 'POST',
+      credentials: 'include'
+    });
+    const response = await request.json()
+    return [request, response];
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud");
+  }
 }

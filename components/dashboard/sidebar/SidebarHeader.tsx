@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { IswoIconLarge, IswoIconSmall } from "@/icons"
 import { useUIStore } from "@/store/ui/ui-store"
 import { IconX } from "@tabler/icons-react"
@@ -20,7 +21,7 @@ export const SidebarHeader = () => {
           <MotionDiv
             className="flex w-full justify-center py-0"
             initial={{ scale: 0 }}
-              animate={{ scale: 1.3 }}
+            animate={{ scale: 1.3 }}
             transition={{
               duration: 1.4,
               type: "spring",
@@ -28,7 +29,9 @@ export const SidebarHeader = () => {
               damping: 20,
             }}
           >
-            <IswoIconLarge className="size-28 dark:invert" />
+            <Link href={"/"}>
+              <IswoIconLarge className="size-28 dark:invert" />
+            </Link>
           </MotionDiv>
         ) : (
           <div className="flex w-full justify-center py-3">
@@ -42,7 +45,9 @@ export const SidebarHeader = () => {
                 damping: 20,
               }}
             >
-              <IswoIconSmall className="size-12 dark:invert mb-4" />
+              <Link href={"/"}>
+                <IswoIconSmall className="size-12 dark:invert mb-4" />
+              </Link>
             </MotionDiv>
           </div>
         )}

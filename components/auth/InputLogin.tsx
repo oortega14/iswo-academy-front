@@ -43,7 +43,6 @@ export const InputLogin = () => {
         } else if (response.role === 'Profesor') {
           router.push(`/teacher/${response.id}/dashboard/main`)
         } else if (response.role === 'Administrador') {
-          console.log(response.academy.id === null)
           if (response.academy.id === null) {
             router.push(`/${response.id}/create-academy`)
           } else {

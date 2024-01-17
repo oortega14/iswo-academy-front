@@ -1,5 +1,6 @@
 "use client"
 
+import { Logout } from "@/lib/requests"
 import { cn } from "@/lib/utils"
 import { useUIStore } from "@/store/ui/ui-store"
 import { IconLogout } from "@tabler/icons-react"
@@ -7,17 +8,11 @@ import { useRouter } from "next/navigation"
 
 export const SidebarLogout = () => {
   const isSidebarOpen = useUIStore((state) => state.isSidebarOpen)
-  const baseUrl = useUIStore((state) => state.baseUrl)
   const router = useRouter()
   const logout = async () => {
-    try {
-      const response = await fetch(`${baseUrl}/logout`,{
-        method: 'POST',
-        credentials: 'include'
-      });
+    const [request, response] = await Logout()
+    if (response.logged_out) {
       router.push('/')
-      return response;
-    } catch (e) {
     }
   };
 
