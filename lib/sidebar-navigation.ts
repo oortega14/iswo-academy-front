@@ -87,6 +87,28 @@ export const buildRoute = ({
           return `/super-admin/${userId}/back-office/messages`
       }
 
+    // profile_routes
+    case "profile-info":
+      switch (normalizedSubcategory) {
+        case "home":
+          return `/users/${userId}/profile/info`
+      }
+    case "profile-photo":
+      switch (normalizedSubcategory) {
+        case "home":
+          return `/users/${userId}/profile/photo`
+      }
+    case "profile-account":
+      switch (normalizedSubcategory) {
+        case "home":
+          return `/users/${userId}/profile/account`
+      }
+    case "profile-erase":
+      switch (normalizedSubcategory) {
+        case "home":
+          return `/users/${userId}/profile/delete-account`
+      }
+
     default:
       return "/"
   }
