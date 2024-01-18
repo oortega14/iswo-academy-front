@@ -20,6 +20,13 @@ export const buildRoute = ({
           return `/student/${userId}/dashboard/in_progress`
         case "ended_courses":
           return `/student/${userId}/dashboard/ended`
+        case "acquired_courses":
+          return `/student/${userId}/dashboard/acquired`
+      }
+    case "student-certificates":
+      switch (normalizedSubcategory) {
+        case "home":
+          return `/student/${userId}/certificates/main`
       }
     case "student-help":
       switch (normalizedSubcategory) {

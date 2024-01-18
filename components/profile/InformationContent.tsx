@@ -85,7 +85,7 @@ export const InformationContent = () => {
           currentUser?.social_network.instagram_profile_url,
         linked_in_profile_url:
           currentUser?.social_network.linked_in_profile_url,
-        twitter_profile_url: currentUser?.social_network.twitter_profile_url,
+        x_profile_url: currentUser?.social_network.x_profile_url,
         youtube_profile_url: currentUser?.social_network.youtube_profile_url,
         tiktok_profile_url: currentUser?.social_network.tiktok_profile_url,
       }))

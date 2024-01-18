@@ -9,7 +9,7 @@ const variants = {
   visible: { opacity: 1 },
 }
 
-export default function MainLayout({
+export default function AcademiesLayout({
   children,
 }: {
   children: React.ReactNode

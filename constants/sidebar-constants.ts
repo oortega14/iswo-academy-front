@@ -1,5 +1,5 @@
 import { SidebarLink } from "@/types/sidebar";
-import { IconAbacus, IconCamera, IconFileSpreadsheet, IconTrash, IconUser } from "@tabler/icons-react";
+import { IconCamera, IconCertificate, IconFileSpreadsheet, IconTrash, IconUser } from "@tabler/icons-react";
 import { IconAddressBook, IconClock, IconLayoutDashboard } from "@tabler/icons-react";
 
 //MimeTypes
@@ -76,9 +76,18 @@ export const STUDENT_SIDEBAR_LINKS: SidebarLink[] = [
     label: 'Cursos',
     icon: IconFileSpreadsheet,
     links: [
-      { subcategory_key: 'home', label: 'Inicio' },
+      { subcategory_key: 'home', label: 'Resumen' },
       { subcategory_key: 'in_progress_courses', label: 'Cursos en progreso' },
-      { subcategory_key: 'ended_courses', label: 'Cursos finalizados' }
+      { subcategory_key: 'ended_courses', label: 'Cursos finalizados' },
+      { subcategory_key: 'acquired_courses', label: 'Cursos de Interes' }
+    ]
+  },
+  {
+    category_key: 'student-certificates',
+    label: 'Certificates',
+    icon: IconCertificate,
+    links: [
+      { subcategory_key: 'home', label: 'Tus certificados' },
     ]
   },
   {

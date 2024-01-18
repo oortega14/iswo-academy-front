@@ -1,4 +1,5 @@
 import React from "react";
+import { Course } from "./sidebar";
 
 export interface Lesson {
   id:          number;
@@ -45,4 +46,16 @@ export interface ButtonTooltipProps {
   tooltip: string
   icon: React.ComponentType | React.ReactNode;
   onClick?: () => void;
+}
+
+export interface SharedContentProps {
+  title: string
+  courses: Course[]
+}
+
+export interface CoursesCardProps {
+  title: string
+  price: string
+  description: string
+  imageUrl: string
 }

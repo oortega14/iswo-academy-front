@@ -16,7 +16,7 @@ import useGetCurrentUser from "@/hooks/useGetCurrentUser"
 import { USER_TYPES } from "@/types/users"
 
 export const SidebarLinks = () => {
-  const params = useParams<{ id: string; courseId:string; academyId: string }>()
+  const params = useParams<{ userId: string; courseId:string; academyId: string }>()
   const [loading, setLoading] = useState<boolean>(false)
   const courses = useGetCourses({
     academyId: params.academyId,
@@ -37,7 +37,7 @@ export const SidebarLinks = () => {
     const route = buildRoute({
       category: categoryLabel,
       subcategory: subcategoryLabel,
-      userId: params.id,
+      userId: params.userId,
       academyId: params.academyId,
       courseId: params.courseId,
     })

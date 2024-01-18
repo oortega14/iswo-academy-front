@@ -14,6 +14,13 @@ export interface Course {
   students:     number;
 }
 
+export interface CoursesStatus {
+  acquired:    number;
+  in_progress: number;
+  ended:       number;
+}
+
+
 export interface CourseTest {
   id:           number;
   approve_with: number;
