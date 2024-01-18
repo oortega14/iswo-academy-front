@@ -25,10 +25,11 @@ export const SidebarLinks = () => {
   const router = useRouter()
   const isSidebarOpen = useUIStore((state) => state.isSidebarOpen)
   const baseUrl = useUIStore((state) => state.baseUrl)
-  const currentUser = useGetCurrentUser({
-    baseUrl: baseUrl,
-    setLoadingCallback: setLoading
-  })
+  // const currentUser = useGetCurrentUser({
+  //   baseUrl: baseUrl,
+  //   setLoadingCallback: setLoading
+  // })
+  const currentUser = useUIStore((state) => state.currentUser)
 
   const handleClick = (
     categoryLabel: string,
