@@ -1,124 +1,54 @@
 "use client"
 
 import { FormEvent, useEffect, useState } from "react"
-import Image from "next/image"
 import { useParams } from "next/navigation"
 import { useUIStore } from "@/store/ui/ui-store"
-import {
-  IconBadgeTm,
-  IconBrandCodepen,
-  IconBrandFacebook,
-  IconBrandInstagram,
-  IconBrandLinkedin,
-  IconBrandTiktok,
-  IconBrandX,
-  IconBrandYoutube,
-  IconColorPicker,
-  IconLock,
-  IconMail,
-  IconWebhook,
-  IconWorldWww,
-  IconZoomInArea,
-} from "@tabler/icons-react"
-import { toast } from "sonner"
-
-import { useGetAcademy } from "@/hooks/useGetAcademy"
+import { IconLock, IconMail } from "@tabler/icons-react"
+import { Toaster, toast } from "sonner"
 import useGetCurrentUser from "@/hooks/useGetCurrentUser"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-
-import Figure from "../dashboard/content/Figure"
-import { Separator } from "../ui/separator"
+import { UpdateAccountRequest } from "@/lib/requests"
 
 export const AccountContent = () => {
   const baseUrl = useUIStore((state) => state.baseUrl)
-  const params = useParams<{ id: string; academyId: string }>()
+  const params = useParams<{ userId: string; academyId: string }>()
   const [loading, setLoading] = useState(true)
   const currentUser = useGetCurrentUser({
     baseUrl: baseUrl,
     setLoadingCallback: setLoading,
   })
-  const [previewImage, setPreviewImage] = useState("")
-  const [logo, setLogo] = useState({})
-  const [academyConfiguration, setAcademyConfiguration] = useState({
-    domain: "",
-    slogan: "",
-    description: "",
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+    password_confirmation: "",
   })
-  const academy = useGetAcademy({
-    academyId: params.academyId,
-    setLoadingCallback: setLoading,
-  })
-  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    const file = e.target.files?.[0]
-    if (file) {
-      setLogo(file)
-      let fileReader: FileReader | null
-      let isCancel = false
-
-      fileReader = new FileReader()
-      fileReader.onload = (e) => {
-        const { result } = e.target as FileReader
-        if (result && !isCancel) {
-          setPreviewImage(result.toString())
-        }
-      }
-      fileReader.readAsDataURL(file)
-
-      return () => {
-        isCancel = true
-        if (fileReader && fileReader.readyState === 1) {
-          fileReader.abort()
-        }
-      }
-    }
-  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    setAcademyConfiguration({ ...academyConfiguration, [name]: value })
+    setData({ ...data, [name]: value })
   }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    const fd = new FormData()
-    if (logo instanceof Blob) {
-      fd.append("academy[logo]", logo)
+    
+    const [request, response] = await UpdateAccountRequest({
+      data: data,
+      userId: params.userId,
+    })
+    if (request.status == 200) {
+      toast.success(`Contraseña Actualizada`)
     }
-    fd.append("academy[description]", academyConfiguration.description)
-    fd.append("academy[slogan]", academyConfiguration.slogan)
-    fd.append(
-      "academy[academy_configuration_attributes][domain]",
-      academyConfiguration.domain
-    )
-
-    try {
-      const request = await fetch(`${baseUrl}/academies/${params.id}`, {
-        method: "PATCH",
-        credentials: "include",
-        body: fd,
-      })
-      const response = await request.json()
-      if (request.status === 200) {
-        toast.success("Academia actualizada con exito")
-      } else {
-        toast.error(response.message)
-      }
-    } catch (e) {}
   }
 
   useEffect(() => {
-    if (!!academy) {
-      setAcademyConfiguration((prevConfig) => ({
+    if (!!currentUser) {
+      setData((prevConfig) => ({
         ...prevConfig,
-        domain: academy?.academy_configuration?.domain,
-        slogan: academy?.slogan,
-        description: academy?.description,
+        email: currentUser?.email,
       }))
     }
-  }, [academy])
+  }, [currentUser])
 
   return (
     <div>
@@ -142,7 +72,7 @@ export const AccountContent = () => {
             name="email"
             onChange={(e) => handleChange(e)}
             className="mt-2"
-            defaultValue={academy?.academy_configuration?.domain}
+            defaultValue={currentUser?.email}
           />
           <div className="mt-3 flex w-full items-center justify-start rounded-full">
             <IconLock className="mr-2 size-5" />
@@ -152,9 +82,8 @@ export const AccountContent = () => {
             type="password"
             name="password"
             onChange={(e) => handleChange(e)}
-            placeholder="*************"
+            placeholder="******"
             className="mt-2"
-            defaultValue={academy?.slogan}
           />
           <div className="mt-3 flex w-full items-center justify-start rounded-full">
             <IconLock className="mr-2 size-5" />
@@ -166,13 +95,13 @@ export const AccountContent = () => {
             type="password"
             name="password_confirmation"
             onChange={(e) => handleChange(e)}
-            placeholder="*************"
+            placeholder="******"
             className="mt-2"
-            defaultValue={academy?.slogan}
           />
           <Button className="mt-3">Actualizar Academia</Button>
         </form>
       </main>
+      <Toaster theme="system" position="top-right" richColors/>
     </div>
   )
 }

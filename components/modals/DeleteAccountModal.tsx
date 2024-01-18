@@ -1,12 +1,11 @@
 import { IconAlertCircle, IconTrash } from "@tabler/icons-react"
 import { AnimatePresence } from "framer-motion"
-
-import { DeleteCourseModalProps } from "@/types/modals"
+import { DeleteAccountModalProps } from "@/types/modals"
 import { cn } from "@/lib/utils"
-
 import { MotionButton } from "../animations/MotionButton"
 import Modal from "../ui/Modal"
-import { Button, buttonVariants } from "../ui/button"
+import { buttonVariants } from "../ui/button"
+import { Toaster, toast } from 'sonner'
 import {
   Card,
   CardContent,
@@ -15,12 +14,24 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card"
+import { DeleteAccountRequest } from "@/lib/requests"
+import { useRouter } from "next/navigation"
 
 const DeleteAccountModal = ({
   modalOpen,
   close,
-  courseId,
-}: DeleteCourseModalProps) => {
+  userId,
+}: DeleteAccountModalProps) => {
+  const router = useRouter()
+  const handleDelete = async () => {
+    const [request, response] = await DeleteAccountRequest(userId)
+    if (request.status == 200) {
+      router.push('/')
+      toast.success('Cuenta eliminada')
+      close()
+    }
+  };
+
   return (
     <AnimatePresence>
       {modalOpen && (
@@ -56,7 +67,7 @@ const DeleteAccountModal = ({
               <MotionButton
                 whileHover={{ scale: 0.95 }}
                 whileTap={{ scale: 1.15 }}
-                onClick={close}
+                onClick={handleDelete}
                 className={cn(
                   buttonVariants({ variant: "destructive" }),
                   "border-[1px] px-2"
@@ -68,6 +79,7 @@ const DeleteAccountModal = ({
           </Card>
         </Modal>
       )}
+      <Toaster/>
     </AnimatePresence>
   )
 }

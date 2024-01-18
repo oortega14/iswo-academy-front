@@ -1,6 +1,6 @@
-'use client'
+"use client"
 
-import React from "react"
+import React, { useState } from "react"
 import { useRouter } from "next/navigation"
 import { useUIStore } from "@/store/ui/ui-store"
 import {
@@ -14,18 +14,20 @@ import {
 
 import { Logout } from "@/lib/requests"
 import { cn } from "@/lib/utils"
+import useGetCurrentUser from "@/hooks/useGetCurrentUser"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Input } from "@/components/ui/input"
 import { MotionDiv } from "@/components/animations/MotionDiv"
 import { ThemeToggle } from "@/components/theme-toggle"
 import styles from "@/styles/dashboard.module.css"
 
-import HideSidebarButton from "./HideSidebarButton"
-import useGetCurrentUser from "@/hooks/useGetCurrentUser"
 import HeaderProfileDropdown from "./HeaderProfileDropdown"
+import HideSidebarButton from "./HideSidebarButton"
 
 export const HeaderDashboard = () => {
   const router = useRouter()
+  const baseUrl = useUIStore((state) => state.baseUrl)
+  const [loading, setLoading] = useState(true)
   const isSearchBoxOpen = useUIStore((state) => state.isSearchBoxOpen)
   const isNotificationsOpen = useUIStore((state) => state.isNotificationsOpen)
   const isServicesOpen = useUIStore((state) => state.isServicesOpen)
@@ -36,6 +38,10 @@ export const HeaderDashboard = () => {
   const changeNotifications = useUIStore((state) => state.changeNotifications)
   const changeServices = useUIStore((state) => state.changeServices)
   const changeUserSettings = useUIStore((state) => state.changeUserSettings)
+  const currentUser = useGetCurrentUser({
+    baseUrl: baseUrl,
+    setLoadingCallback: setLoading,
+  })
 
   const toggleButton = (flag: string) => {
     if (flag === "notifications") {
@@ -239,10 +245,17 @@ export const HeaderDashboard = () => {
                   className="rounded-full border-[1px] p-2 hover:bg-slate-200 focus:outline-none focus:ring dark:hover:bg-slate-800"
                 >
                   <Avatar>
-                    <AvatarImage
-                      src="https://github.com/shadcn.png"
-                      alt="@shadcn"
-                    />
+                    {!!currentUser?.profile_picture ? (
+                      <AvatarImage
+                        src={currentUser?.profile_picture}
+                        alt="foto de perfil"
+                      />
+                    ) : (
+                      <AvatarImage
+                        src='/images/avatar_singenero.webp'
+                        alt="foto de perfil"
+                      />
+                    )}
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
                 </button>
@@ -251,7 +264,7 @@ export const HeaderDashboard = () => {
 
                 {/* <!-- Dropdown card --> */}
                 {isUsersSettingsOpen && (
-                  <HeaderProfileDropdown handleLogout={handleLogout}/>
+                  <HeaderProfileDropdown handleLogout={handleLogout} />
                 )}
               </div>
             </div>

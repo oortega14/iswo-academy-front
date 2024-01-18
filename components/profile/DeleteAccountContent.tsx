@@ -9,6 +9,7 @@ import useGetCurrentUser from "@/hooks/useGetCurrentUser"
 import { Button } from "@/components/ui/button"
 
 import DeleteAccountModal from "../modals/DeleteAccountModal"
+import { Toaster } from "sonner"
 
 export const DeleteAccountContent = () => {
   const baseUrl = useUIStore((state) => state.baseUrl)
@@ -60,8 +61,9 @@ export const DeleteAccountContent = () => {
       <DeleteAccountModal
         modalOpen={deleteModalOpen}
         close={() => close(setDeleteModalOpen)}
-        courseId={userSelectedId}
+        userId={userSelectedId}
       />
+      <Toaster theme="system" position="top-right" richColors/>
     </div>
   )
 }

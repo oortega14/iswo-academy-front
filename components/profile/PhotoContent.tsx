@@ -4,7 +4,7 @@ import { FormEvent, useEffect, useState } from "react"
 import Image from "next/image"
 import { useParams } from "next/navigation"
 import { useUIStore } from "@/store/ui/ui-store"
-import { toast } from "sonner"
+import { Toaster, toast } from "sonner"
 import { useGetAcademy } from "@/hooks/useGetAcademy"
 import useGetCurrentUser from "@/hooks/useGetCurrentUser"
 import { Button } from "@/components/ui/button"
@@ -22,28 +22,20 @@ import Figure from "../dashboard/content/Figure"
 
 export const PhotoContent = () => {
   const baseUrl = useUIStore((state) => state.baseUrl)
-  const params = useParams<{ id: string; academyId: string }>()
+  const params = useParams<{ userId: string; academyId: string }>()
+  const [file, setFile] = useState({});
   const [loading, setLoading] = useState(true)
   const currentUser = useGetCurrentUser({
     baseUrl: baseUrl,
     setLoadingCallback: setLoading,
   })
   const [previewImage, setPreviewImage] = useState("")
-  const [logo, setLogo] = useState({})
-  const [academyConfiguration, setAcademyConfiguration] = useState({
-    domain: "",
-    slogan: "",
-    description: "",
-  })
-  const academy = useGetAcademy({
-    academyId: params.academyId,
-    setLoadingCallback: setLoading,
-  })
+
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     const file = e.target.files?.[0]
     if (file) {
-      setLogo(file)
+      setFile(file)
       let fileReader: FileReader | null
       let isCancel = false
 
@@ -65,51 +57,30 @@ export const PhotoContent = () => {
     }
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setAcademyConfiguration({ ...academyConfiguration, [name]: value })
-  }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    const fd = new FormData()
-    if (logo instanceof Blob) {
-      fd.append("academy[logo]", logo)
-    }
-    fd.append("academy[description]", academyConfiguration.description)
-    fd.append("academy[slogan]", academyConfiguration.slogan)
-    fd.append(
-      "academy[academy_configuration_attributes][domain]",
-      academyConfiguration.domain
-    )
-
-    try {
-      const request = await fetch(`${baseUrl}/academies/${params.id}`, {
-        method: "PATCH",
-        credentials: "include",
-        body: fd,
-      })
-      const response = await request.json()
-      if (request.status === 200) {
-        toast.success("Academia actualizada con exito")
-      } else {
-        toast.error(response.message)
+    const fd = new FormData();
+      fd.append('section', 'profile_picture');
+      if (file instanceof Blob) {
+        fd.append('user[profile_picture]', file);
       }
-    } catch (e) {}
+      try {
+        const request = await fetch(`${baseUrl}/users/${params.userId}`,
+        {
+          method: 'PATCH',
+          credentials: 'include',
+          body: fd,
+        });
+        const response = await request.json()
+        if (response.status === 200) {
+          toast.success(`Datos Actualizados`);
+        }
+        return response;
+      } catch (e) {
+        console.log(e)
+      }
   }
-
-  useEffect(() => {
-    if (!!academy) {
-      setAcademyConfiguration((prevConfig) => ({
-        ...prevConfig,
-        domain: academy?.academy_configuration?.domain,
-        slogan: academy?.slogan,
-        description: academy?.description,
-      }))
-    }
-  }, [academy])
-
-  console.log(currentUser)
 
   return (
     <div>
@@ -120,30 +91,50 @@ export const PhotoContent = () => {
           </h1>
         </div>
         <div className="flex justify-center w-full">
-          <Card className="w-[350px] mt-5">
+          <Card className="w-[350px] mt-5 flex items-center flex-col">
             <CardHeader>
               <CardTitle>Foto de perfil</CardTitle>
               <CardDescription>Sube una foto tuya</CardDescription>
             </CardHeader>
-            <form>
+            <form onSubmit={(e)=>{handleSubmit(e)}}>
               <CardContent>
                 <div className="grid w-full items-center gap-4">
-                  {!!currentUser?.profile_picture ? (
-                    <Figure image={currentUser.profile_picture}/>
+                  {!!currentUser?.profile_picture && !previewImage ? (
+                    <>
+                      <div className="mt-3 flex justify-center items-center">
+                        <Figure image={currentUser.profile_picture} />
+                      </div>
+                    </>
                   ) : (
-                    <div className="w-full flex justify-center">
-                      <Image
-                        className="rounded-lg overflow-hidden border-2"
-                        src={'/images/avatar_singenero.webp'}
-                        alt="avatar"
-                        width={150}
-                        height={150}
-                      />
-                    </div>
+                    <>
+                      {!!previewImage ? (
+                        <>
+                          <div className="flex w-full items-center justify-center ">
+                            <Image
+                              className="mr-3 mt-3 max-w-60 rounded-lg"
+                              src={previewImage}
+                              alt="logo_preview"
+                              width={300}
+                              height={300}
+                            />
+                          </div>
+                        </>
+                      ) : (
+                        <div className="w-full flex justify-center">
+                          <Image
+                            className="rounded-lg overflow-hidden border-2"
+                            src={"/images/avatar_singenero.webp"}
+                            alt="avatar"
+                            width={150}
+                            height={150}
+                          />
+                        </div>
+                      )}
+                    </>
                   )}
                   <div className="flex flex-col space-y-1.5">
                     <Label htmlFor="photo">Foto</Label>
-                    <Input type="file" id="photo" />
+                    <Input type="file" id="photo" onChange={(e) => handleFile(e)}/>
                   </div>
                 </div>
               </CardContent>
@@ -154,6 +145,7 @@ export const PhotoContent = () => {
           </Card>
         </div>
       </main>
+      <Toaster theme="system" position="top-right" richColors/>
     </div>
   )
 }

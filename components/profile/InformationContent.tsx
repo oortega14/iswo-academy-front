@@ -1,119 +1,96 @@
 "use client"
 
 import { FormEvent, useEffect, useState } from "react"
-import Image from "next/image"
 import { useParams } from "next/navigation"
 import { useUIStore } from "@/store/ui/ui-store"
 import {
-  IconBadgeTm,
-  IconBrandCodepen,
   IconBrandFacebook,
   IconBrandInstagram,
   IconBrandLinkedin,
   IconBrandTiktok,
+  IconBrandX,
   IconBrandYoutube,
-  IconColorPicker,
-  IconWebhook,
-  IconZoomInArea,
+  IconList,
+  IconWorldWww,
 } from "@tabler/icons-react"
-import { toast } from "sonner"
-
-import { useGetAcademy } from "@/hooks/useGetAcademy"
+import { Toaster, toast } from "sonner"
+import useGetCurrentUser from "@/hooks/useGetCurrentUser"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import Figure from "../dashboard/content/Figure"
-import useGetCurrentUser from "@/hooks/useGetCurrentUser"
 import { Separator } from "../ui/separator"
-import { IconWorldWww } from "@tabler/icons-react"
-import { IconBrandX } from "@tabler/icons-react"
+import { UpdateInfoUser } from "@/lib/requests"
 
 export const InformationContent = () => {
   const baseUrl = useUIStore((state) => state.baseUrl)
-  const params = useParams<{ id: string, academyId: string }>()
+  const params = useParams<{ userId: string; academyId: string }>()
   const [loading, setLoading] = useState(true)
   const currentUser = useGetCurrentUser({
     baseUrl: baseUrl,
-    setLoadingCallback: setLoading})
-  const [previewImage, setPreviewImage] = useState("")
-  const [logo, setLogo] = useState({})
-  const [academyConfiguration, setAcademyConfiguration] = useState({
-    domain: "",
-    slogan: "",
+    setLoadingCallback: setLoading,
+  })
+  const [userConfiguration, setUserConfiguration] = useState({
+    first_name: "",
+    last_name: "",
+    college_degree: "",
     description: "",
   })
-  const academy = useGetAcademy({
-    academyId: params.academyId,
-    setLoadingCallback: setLoading})
-  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    const file = e.target.files?.[0]
-    if (file) {
-      setLogo(file)
-      let fileReader: FileReader | null
-      let isCancel = false
-
-      fileReader = new FileReader()
-      fileReader.onload = (e) => {
-        const { result } = e.target as FileReader
-        if (result && !isCancel) {
-          setPreviewImage(result.toString())
-        }
-      }
-      fileReader.readAsDataURL(file)
-
-      return () => {
-        isCancel = true
-        if (fileReader && fileReader.readyState === 1) {
-          fileReader.abort()
-        }
-      }
-    }
-  }
+  const [userSocialNetwork, setUserSocialNetwork] = useState({
+    web_site: "",
+    facebook_profile_url: "",
+    instagram_profile_url: "",
+    linked_in_profile_url: "",
+    x_profile_url: "",
+    youtube_profile_url: "",
+    tiktok_profile_url: "",
+  })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    setAcademyConfiguration({ ...academyConfiguration, [name]: value })
+    setUserConfiguration({ ...userConfiguration, [name]: value })
+  }
+
+  const handleChangeSecond = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setUserSocialNetwork({ ...userSocialNetwork, [name]: value })
   }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    const fd = new FormData()
-    if (logo instanceof Blob) {
-      fd.append("academy[logo]", logo)
+    const [request, response] = await UpdateInfoUser({
+      userConfiguration: userConfiguration,
+      userSocialNetwork: userSocialNetwork,
+      userId: params.userId
+    })
+    if (request.status == 200) {
+      toast.success(`Informacion Actualizada`)
+    } else {
+      toast.error(`No se pudo actualizar la info`)
     }
-    fd.append("academy[description]", academyConfiguration.description)
-    fd.append("academy[slogan]", academyConfiguration.slogan)
-    fd.append(
-      "academy[academy_configuration_attributes][domain]",
-      academyConfiguration.domain
-    )
-
-    try {
-      const request = await fetch(`${baseUrl}/academies/${params.id}`, {
-        method: "PATCH",
-        credentials: "include",
-        body: fd,
-      })
-      const response = await request.json()
-      if (request.status === 200) {
-        toast.success("Academia actualizada con exito")
-      } else {
-        toast.error(response.message)
-      }
-    } catch (e) {}
   }
 
   useEffect(() => {
-    if (!!academy) {
-      setAcademyConfiguration((prevConfig) => ({
+    if (!!currentUser) {
+      setUserConfiguration((prevConfig) => ({
         ...prevConfig,
-        domain: academy?.academy_configuration?.domain,
-        slogan: academy?.slogan,
-        description: academy?.description,
-      }));
+        first_name: currentUser?.first_name,
+        last_name: currentUser?.last_name,
+        college_degree: currentUser?.college_degree,
+        description: currentUser?.description,
+      }))
+      setUserSocialNetwork((prevConfig) => ({
+        ...prevConfig,
+        web_site: currentUser?.social_network.web_site,
+        facebook_profile_url: currentUser?.social_network.facebook_profile_url,
+        instagram_profile_url:
+          currentUser?.social_network.instagram_profile_url,
+        linked_in_profile_url:
+          currentUser?.social_network.linked_in_profile_url,
+        twitter_profile_url: currentUser?.social_network.twitter_profile_url,
+        youtube_profile_url: currentUser?.social_network.youtube_profile_url,
+        tiktok_profile_url: currentUser?.social_network.tiktok_profile_url,
+      }))
     }
-  }, [academy])
+  }, [currentUser])
 
   return (
     <div>
@@ -128,7 +105,7 @@ export const InformationContent = () => {
           onSubmit={(e) => handleSubmit(e)}
         >
           <div className="mt-3 flex w-full items-center justify-start rounded-full">
-            <IconZoomInArea className="mr-2 size-5" />
+            <IconList className="mr-2 size-5" />
             <label htmlFor="first_name">Nombres</label>
           </div>
           <Input
@@ -137,10 +114,10 @@ export const InformationContent = () => {
             name="first_name"
             onChange={(e) => handleChange(e)}
             className="mt-2"
-            defaultValue={academy?.academy_configuration?.domain}
+            defaultValue={currentUser?.first_name}
           />
           <div className="mt-3 flex w-full items-center justify-start rounded-full">
-            <IconBrandCodepen className="mr-2 size-5" />
+            <IconList className="mr-2 size-5" />
             <label htmlFor="last_name">Apellidos</label>
           </div>
           <Input
@@ -149,10 +126,10 @@ export const InformationContent = () => {
             onChange={(e) => handleChange(e)}
             placeholder="Escribe aqui tu eslogan"
             className="mt-2"
-            defaultValue={academy?.slogan}
+            defaultValue={currentUser?.last_name}
           />
           <div className="mt-3 flex w-full items-center justify-start rounded-full">
-            <IconColorPicker className="mr-2 size-5" />
+            <IconList className="mr-2 size-5" />
             <label htmlFor="college_degree">Titulo Universitario</label>
           </div>
           <Input
@@ -161,10 +138,10 @@ export const InformationContent = () => {
             onChange={(e) => handleChange(e)}
             placeholder="Modifica aqui tus estudios"
             className="mt-2"
-            defaultValue={academy?.description}
+            defaultValue={currentUser?.college_degree}
           />
           <div className="mt-3 flex w-full items-center justify-start rounded-full">
-            <IconColorPicker className="mr-2 size-5" />
+            <IconList className="mr-2 size-5" />
             <label htmlFor="college_degree">Descripción</label>
           </div>
           <Input
@@ -173,11 +150,11 @@ export const InformationContent = () => {
             onChange={(e) => handleChange(e)}
             placeholder="Escribe aqui una breve descripción tuya"
             className="mt-2"
-            defaultValue={academy?.description}
+            defaultValue={currentUser?.description}
           />
-          <Separator className="my-6 "/>
+          <Separator className="my-6 " />
           <h2 className="text-xl">Enlaces de redes sociales</h2>
-          <Separator className="mt-6 "/>
+          <Separator className="mt-6 " />
           <div className="mt-3 flex w-full items-center justify-start rounded-full">
             <IconWorldWww className="mr-2 size-5" />
             <label htmlFor="web_site">Pagina Web</label>
@@ -185,10 +162,10 @@ export const InformationContent = () => {
           <Input
             type="text"
             name="web_site"
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => handleChangeSecond(e)}
             placeholder="Escribe aqui la url de tu página web"
             className="mt-2"
-            defaultValue={academy?.description}
+            defaultValue={currentUser?.social_network?.web_site}
           />
           <div className="mt-3 flex w-full items-center justify-start rounded-full">
             <IconBrandFacebook className="mr-2 size-5" />
@@ -197,10 +174,10 @@ export const InformationContent = () => {
           <Input
             type="text"
             name="facebook_profile_url"
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => handleChangeSecond(e)}
             placeholder="Escribe aqui la url de tu Facebook"
             className="mt-2"
-            defaultValue={academy?.description}
+            defaultValue={currentUser?.social_network?.facebook_profile_url}
           />
           <div className="mt-3 flex w-full items-center justify-start rounded-full">
             <IconBrandInstagram className="mr-2 size-5" />
@@ -209,10 +186,10 @@ export const InformationContent = () => {
           <Input
             type="text"
             name="instagram_profile_url"
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => handleChangeSecond(e)}
             placeholder="Escribe aqui la url de tu Instagram"
             className="mt-2"
-            defaultValue={academy?.description}
+            defaultValue={currentUser?.social_network?.instagram_profile_url}
           />
           <div className="mt-3 flex w-full items-center justify-start rounded-full">
             <IconBrandLinkedin className="mr-2 size-5" />
@@ -221,10 +198,10 @@ export const InformationContent = () => {
           <Input
             type="text"
             name="linked_in_profile_url"
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => handleChangeSecond(e)}
             placeholder="Escribe aqui la url de tu LinkedIn"
             className="mt-2"
-            defaultValue={academy?.description}
+            defaultValue={currentUser?.social_network?.linked_in_profile_url}
           />
           <div className="mt-3 flex w-full items-center justify-start rounded-full">
             <IconBrandX className="mr-2 size-5" />
@@ -233,10 +210,10 @@ export const InformationContent = () => {
           <Input
             type="text"
             name="x_profile_url"
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => handleChangeSecond(e)}
             placeholder="Escribe aqui la url de X"
             className="mt-2"
-            defaultValue={academy?.description}
+            defaultValue={currentUser?.social_network?.x_profile_url}
           />
           <div className="mt-3 flex w-full items-center justify-start rounded-full">
             <IconBrandYoutube className="mr-2 size-5" />
@@ -245,10 +222,10 @@ export const InformationContent = () => {
           <Input
             type="text"
             name="youtube_profile_url"
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => handleChangeSecond(e)}
             placeholder="Escribe aqui la url de youtube"
             className="mt-2"
-            defaultValue={academy?.description}
+            defaultValue={currentUser?.social_network?.youtube_profile_url}
           />
           <div className="mt-3 flex w-full items-center justify-start rounded-full">
             <IconBrandTiktok className="mr-2 size-5" />
@@ -257,14 +234,15 @@ export const InformationContent = () => {
           <Input
             type="text"
             name="tiktok_profile_url"
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => handleChangeSecond(e)}
             placeholder="Escribe aqui la url de tiktok"
             className="mt-2"
-            defaultValue={academy?.description}
+            defaultValue={currentUser?.social_network?.tiktok_profile_url}
           />
           <Button className="mt-3">Actualizar Academia</Button>
         </form>
       </main>
+      <Toaster theme="system" position="top-right" richColors />
     </div>
   )
 }
