@@ -1,5 +1,5 @@
 import { SidebarLink } from "@/types/sidebar";
-import { IconAbacus, IconFileSpreadsheet } from "@tabler/icons-react";
+import { IconCamera, IconCertificate, IconFileSpreadsheet, IconTrash, IconUser } from "@tabler/icons-react";
 import { IconAddressBook, IconClock, IconLayoutDashboard } from "@tabler/icons-react";
 
 //MimeTypes
@@ -77,9 +77,18 @@ export const STUDENT_SIDEBAR_LINKS: SidebarLink[] = [
     label: 'Cursos',
     icon: IconFileSpreadsheet,
     links: [
-      { subcategory_key: 'home', label: 'Inicio' },
+      { subcategory_key: 'home', label: 'Resumen' },
       { subcategory_key: 'in_progress_courses', label: 'Cursos en progreso' },
-      { subcategory_key: 'ended_courses', label: 'Cursos finalizados' }
+      { subcategory_key: 'ended_courses', label: 'Cursos finalizados' },
+      { subcategory_key: 'acquired_courses', label: 'Cursos de Interes' }
+    ]
+  },
+  {
+    category_key: 'student-certificates',
+    label: 'Certificates',
+    icon: IconCertificate,
+    links: [
+      { subcategory_key: 'home', label: 'Tus certificados' },
     ]
   },
   {
@@ -93,4 +102,37 @@ export const STUDENT_SIDEBAR_LINKS: SidebarLink[] = [
   }
 ];
 
-
+export const PROFILE_SIDEBAR_LINKS: SidebarLink[] = [
+  {
+    category_key: 'profile-info',
+    label: 'Información',
+    icon: IconFileSpreadsheet,
+    links: [
+      { subcategory_key: 'home', label: 'Editar Información' }
+    ]
+  },
+  {
+    category_key: 'profile-photo',
+    label: 'Fotografía',
+    icon: IconCamera,
+    links: [
+      { subcategory_key: 'home', label: 'Editar Fotografía' }
+    ]
+  },
+  {
+    category_key: 'profile-account',
+    label: 'Cuenta',
+    icon: IconUser,
+    links: [
+      { subcategory_key: 'home', label: 'Editar Cuenta' }
+    ]
+  },
+  {
+    category_key: 'profile-erase',
+    label: 'Eliminar Cuenta',
+    icon: IconTrash,
+    links: [
+      { subcategory_key: 'home', label: 'Eliminar Cuenta' }
+    ]
+  },
+];

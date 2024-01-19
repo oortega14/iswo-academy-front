@@ -1,13 +1,13 @@
-import { MotionDiv } from "@/components/animations/MotionDiv"
-import DashboardContent from "@/components/dashboard/content/DashboardContent"
-import Sidebar from "@/components/dashboard/sidebar/Sidebar"
+import { MotionDiv } from "@/components/animations/MotionDiv";
+import ProfileSidebar from "@/components/dashboard/sidebar/ProfileSidebar";
+import Account from "@/components/profile/Account";
 
 const variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
 }
 
-export default function StudentDashboard() {
+export default function UserPages() {
   return (
     <MotionDiv
       className="w-full"
@@ -22,8 +22,8 @@ export default function StudentDashboard() {
     >
       <section>
         <div className="flex min-h-screen overflow-y-hidden ">
-          <Sidebar />
-          <DashboardContent />
+          <ProfileSidebar />
+          <Account />
         </div>
       </section>
     </MotionDiv>

@@ -2,14 +2,12 @@
 
 import React, { useState } from "react"
 import Link from "next/link"
-import { NAV_LINKS } from "@/constants"
 import { useUIStore } from "@/store/ui/ui-store"
 import { IconMenuDeep } from "@tabler/icons-react"
-
+import { USER_TYPES } from "@/types/users"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import useGetCurrentUser from "@/hooks/useGetCurrentUser"
-
 import { MotionButton } from "../animations/MotionButton"
 import { ThemeToggle } from "../theme-toggle"
 import { buttonVariants } from "../ui/button"
@@ -27,7 +25,7 @@ const HeaderButtons = () => {
   }
 
   if (!!currentUser) {
-    if (currentUser.role === "Súper Administrador") {
+    if (currentUser.role === USER_TYPES.SUPER_ADMIN) {
       return (
         <div className="flex items-center">
           <MotionButton whileHover={{ scale: 0.95 }} whileTap={{ scale: 1.15 }}>
@@ -42,7 +40,7 @@ const HeaderButtons = () => {
           <ThemeToggle />
         </div>
       )
-    } else if (currentUser.role === "Administrador") {
+    } else if (currentUser.role === USER_TYPES.ADMIN) {
       return (
         <div className="flex items-center">
           <MotionButton whileHover={{ scale: 0.95 }} whileTap={{ scale: 1.15 }}>
@@ -57,7 +55,7 @@ const HeaderButtons = () => {
           <ThemeToggle />
         </div>
       )
-    } else if (currentUser.role === "Profesor") {
+    } else if (currentUser.role === USER_TYPES.TEACHER) {
       return (
         <div className="flex items-center">
           <MotionButton whileHover={{ scale: 0.95 }} whileTap={{ scale: 1.15 }}>
@@ -72,7 +70,7 @@ const HeaderButtons = () => {
           <ThemeToggle />
         </div>
       )
-    } else if (currentUser.role === "Estudiante") {
+    } else if (currentUser.role === USER_TYPES.STUDENT) {
       return (
         <div className="flex items-center">
           <MotionButton whileHover={{ scale: 0.95 }} whileTap={{ scale: 1.15 }}>

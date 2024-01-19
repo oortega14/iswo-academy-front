@@ -1,4 +1,5 @@
-import { ConfigurateAcademyParams, FetchRegisterParams, TokenResetProps } from "@/types/requests"
+import { ConfigurateAcademyParams, FetchRegisterParams, TokenResetProps, UpdateAccountParams } from "@/types/requests"
+import { UpdateInfoUserParams } from '../types/requests';
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
@@ -105,6 +106,67 @@ export async function Logout() {
       method: 'POST',
       credentials: 'include'
     });
+    const response = await request.json()
+    return [request, response];
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud");
+  }
+}
+
+//user-profile
+
+export async function UpdateInfoUser({userConfiguration, userSocialNetwork, userId}: UpdateInfoUserParams){
+  let data3 = {
+    user: {
+      ...userConfiguration,
+      social_network_attributes: { ...userSocialNetwork },
+    },
+    section: "information",
+  }
+  try {
+    const request = await fetch(`${baseUrl}/users/${userId}`, {
+      method: "PATCH",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data3),
+    })
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud");
+  }
+}
+
+export async function UpdateAccountRequest({data, userId}: UpdateAccountParams){
+  let data2 = {
+    user: { ...data },
+    section: "account_params",
+  }
+  try {
+    const request = await fetch(`${baseUrl}/users/${userId}`, {
+      method: "PATCH",
+      headers: { "Content-type": "application/json;charset=UTF-8" },
+      credentials: "include",
+      body: JSON.stringify(data2),
+    })
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud");
+  }
+}
+
+export async function DeleteAccountRequest(userId: number){
+  try {
+    const request = await fetch(`${baseUrl}/users/${userId}`,
+    {
+      method: 'DELETE',
+      headers: { 'Content-type': 'application/json;charset=UTF-8' },
+      credentials: 'include',
+    });
+
     const response = await request.json()
     return [request, response];
   } catch (e) {

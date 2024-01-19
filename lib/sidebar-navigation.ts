@@ -20,6 +20,13 @@ export const buildRoute = ({
           return `/student/${userId}/dashboard/in_progress`
         case "ended_courses":
           return `/student/${userId}/dashboard/ended`
+        case "acquired_courses":
+          return `/student/${userId}/dashboard/acquired`
+      }
+    case "student-certificates":
+      switch (normalizedSubcategory) {
+        case "home":
+          return `/student/${userId}/certificates/main`
       }
     case "student-help":
       switch (normalizedSubcategory) {
@@ -87,6 +94,28 @@ export const buildRoute = ({
           return `/super-admin/${userId}/back-office/main`
         case "messages":
           return `/super-admin/${userId}/back-office/messages`
+      }
+
+    // profile_routes
+    case "profile-info":
+      switch (normalizedSubcategory) {
+        case "home":
+          return `/users/${userId}/profile/info`
+      }
+    case "profile-photo":
+      switch (normalizedSubcategory) {
+        case "home":
+          return `/users/${userId}/profile/photo`
+      }
+    case "profile-account":
+      switch (normalizedSubcategory) {
+        case "home":
+          return `/users/${userId}/profile/account`
+      }
+    case "profile-erase":
+      switch (normalizedSubcategory) {
+        case "home":
+          return `/users/${userId}/profile/delete-account`
       }
 
     default:

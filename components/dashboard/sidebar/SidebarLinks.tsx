@@ -9,15 +9,14 @@ import {
   TEACHER_SIDEBAR_LINKS,
 } from "@/constants/sidebar-constants"
 import { useUIStore } from "@/store/ui/ui-store"
-
 import buildRoute from "@/lib/sidebar-navigation"
 import useGetCourses from "@/hooks/useGetCourses"
 import { SidebarNavigation } from "./SidebarNavigation"
-import { SidebarNavigationAdmin } from "./SidebarNavigationAdmin"
 import useGetCurrentUser from "@/hooks/useGetCurrentUser"
+import { USER_TYPES } from "@/types/users"
 
 export const SidebarLinks = () => {
-  const params = useParams<{ id: string; courseId:string; academyId: string }>()
+  const params = useParams<{ userId: string; courseId:string; academyId: string }>()
   const [loading, setLoading] = useState<boolean>(false)
   const courses = useGetCourses({
     academyId: params.academyId,
@@ -39,7 +38,7 @@ export const SidebarLinks = () => {
     const route = buildRoute({
       category: categoryLabel,
       subcategory: subcategoryLabel,
-      userId: params.id,
+      userId: params.userId,
       academyId: params.academyId,
       courseId: params.courseId,
     })
@@ -51,16 +50,16 @@ export const SidebarLinks = () => {
   } else {
     return (
       <>
-        {currentUser?.role === 'Estudiante' && (
+        {currentUser?.role === USER_TYPES.STUDENT && (
           <SidebarNavigation sidebarLinks={STUDENT_SIDEBAR_LINKS} isSidebarOpen={isSidebarOpen} handleClick={handleClick}/>
         )}
-        {currentUser?.role === 'Profesor' && (
+        {currentUser?.role === USER_TYPES.TEACHER && (
           <SidebarNavigation sidebarLinks={TEACHER_SIDEBAR_LINKS} isSidebarOpen={isSidebarOpen} handleClick={handleClick}/>
         )}
-        {currentUser?.role === 'Administrador' && (
+        {currentUser?.role === USER_TYPES.ADMIN && (
           <SidebarNavigation sidebarLinks={ADMIN_SIDEBAR_LINKS} isSidebarOpen={isSidebarOpen} handleClick={handleClick} />
         )}
-        {currentUser?.role === 'Súper Administrador' && (
+        {currentUser?.role === USER_TYPES.SUPER_ADMIN && (
           <SidebarNavigation sidebarLinks={SUPER_ADMIN_SIDEBAR_LINKS} isSidebarOpen={isSidebarOpen} handleClick={handleClick}/>
         )}
       </>

@@ -3,8 +3,8 @@ import { IconBrandFacebook, IconBrandInstagram, IconBrandLinkedin, IconBrandTwit
 // NAVIGATION
 export const NAV_LINKS = [
   { href: '/', key: 'home', label: 'Inicio' },
-  { href: '/', key: 'pricing ', label: 'Academias' },
-  { href: '/', key: 'contact_us', label: 'Contactanos' },
+  { href: '/academies', key: 'academies', label: 'Academias' },
+  { href: '/contact-us', key: 'contact_us', label: 'Contactanos' },
 ];
 
 // CAMP SECTION
@@ -83,3 +83,10 @@ export const SOCIALS = {
     //{ icon: IcontecIswoIcon, label: 'PQRSF',  href: '' },
   ],
 };
+
+//Courses Cards
+export const COURSE_CARD_TITLES = {
+  in_progress_title: 'Los cursos en progreso son:',
+  acquired_title: 'Los cursos en los que estas interesado son:',
+  ended_title: 'Los cursos que has finalizado son:'
+}

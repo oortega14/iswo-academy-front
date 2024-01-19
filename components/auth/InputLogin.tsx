@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { useUIStore } from "@/store/ui/ui-store"
+import { USER_TYPES } from "@/types/users"
 
 export const InputLogin = () => {
   const router = useRouter()
@@ -38,17 +39,17 @@ export const InputLogin = () => {
       if (request.status === 200) {
         toast.success('Ingreso Exitoso')
         updateCurrentUser(response)
-        if (response.role === 'Estudiante') {
+        if (response.role === USER_TYPES.STUDENT) {
           router.push(`/student/${response.id}/dashboard/main`)
-        } else if (response.role === 'Profesor') {
+        } else if (response.role === USER_TYPES.TEACHER) {
           router.push(`/teacher/${response.id}/dashboard/main`)
-        } else if (response.role === 'Administrador') {
+        } else if (response.role === USER_TYPES.ADMIN) {
           if (response.academy.id === null) {
             router.push(`/${response.id}/create-academy`)
           } else {
             router.push(`/admin/${response.id}/academies/${response.academy.id}/dashboard/main`)
           }
-        } else if (response.role === 'Súper Administrador') {
+        } else if (response.role === USER_TYPES.SUPER_ADMIN) {
           router.push(`/super-admin/${response.id}/dashboard/main`)
         }
       } else {

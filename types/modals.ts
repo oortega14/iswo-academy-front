@@ -18,6 +18,12 @@ export interface DeleteCourseModalProps {
   close: () => void
 }
 
+export interface DeleteAccountModalProps {
+  modalOpen: boolean
+  userId: number
+  close: () => void
+}
+
 export interface BackdropProps {
   children: React.ReactNode
   onClick: React.MouseEventHandler

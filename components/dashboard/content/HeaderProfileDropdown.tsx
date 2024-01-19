@@ -1,15 +1,16 @@
-import { MotionDiv } from "@/components/animations/MotionDiv"
-import useGetCurrentUser from "@/hooks/useGetCurrentUser"
-import { useUIStore } from "@/store/ui/ui-store"
-import Link from "next/link"
 import React, { useState } from "react"
+import Link from "next/link"
+import { useUIStore } from "@/store/ui/ui-store"
 
-const HeaderProfileDropdown = ({handleLogout}: any) => {
-  const baseUrl = useUIStore((state)=> state.baseUrl)
+import useGetCurrentUser from "@/hooks/useGetCurrentUser"
+import { MotionDiv } from "@/components/animations/MotionDiv"
+
+const HeaderProfileDropdown = ({ handleLogout }: any) => {
+  const baseUrl = useUIStore((state) => state.baseUrl)
   const [loading, setLoading] = useState(true)
   const currentUser = useGetCurrentUser({
     baseUrl: baseUrl,
-    setLoadingCallback: setLoading
+    setLoadingCallback: setLoading,
   })
   return (
     <MotionDiv
@@ -24,13 +25,15 @@ const HeaderProfileDropdown = ({handleLogout}: any) => {
     >
       <div className="absolute mt-3 w-48 min-w-max max-w-md -translate-x-3/4 rounded-lg bg-white shadow-lg dark:bg-slate-800">
         <div className="flex flex-col space-y-1 border-b p-4 font-medium dark:border-slate-200">
-          <span className="">{currentUser?.first_name} {currentUser?.last_name}</span>
+          <span className="">
+            {currentUser?.first_name} {currentUser?.last_name}
+          </span>
           <span className="text-sm ">{currentUser?.email}</span>
         </div>
         <ul className="my-2 flex flex-col space-y-1 py-2 px-2">
           <li>
             <Link
-              href={`/users/${currentUser?.id}/profile`}
+              href={`/users/${currentUser?.id}/profile/info`}
               className="dark:hover:bg-blue-dark block rounded-md px-3 py-1 transition hover:bg-slate-200"
             >
               Mi Perfil
