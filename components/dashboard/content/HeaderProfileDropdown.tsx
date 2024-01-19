@@ -11,7 +11,6 @@ const HeaderProfileDropdown = ({handleLogout}: any) => {
     baseUrl: baseUrl,
     setLoadingCallback: setLoading
   })
-  console.log(currentUser)
   return (
     <MotionDiv
       initial={{ x: 0, scale: 0 }}

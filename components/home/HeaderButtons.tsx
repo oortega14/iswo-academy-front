@@ -25,7 +25,6 @@ const HeaderButtons = () => {
   if (loading) {
     return <span></span>
   }
-  console.log(currentUser)
 
   if (!!currentUser) {
     if (currentUser.role === "Súper Administrador") {

@@ -23,10 +23,10 @@ export const MainContent = () => {
   const baseUrl = useUIStore((state) => state.baseUrl)
   const params = useParams<{ id: string, academyId: string }>()
   const [loading, setLoading] = useState(true)
-  // const currentUser = useGetCurrentUser({
-  //   baseUrl: baseUrl,
-  //   setLoadingCallback: setLoading})
-  const currentUser = useUIStore((state) => state.currentUser)
+  const currentUser = useGetCurrentUser({
+    baseUrl: baseUrl,
+    setLoadingCallback: setLoading})
+  // const currentUser = useUIStore((state) => state.currentUser)
   const [previewImage, setPreviewImage] = useState("")
   const [logo, setLogo] = useState({})
   const [academyConfiguration, setAcademyConfiguration] = useState({
