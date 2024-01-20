@@ -1,12 +1,22 @@
 "use client"
 
-import { FormEvent, useState } from "react"
+import React, { FormEvent, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
+import { useUIStore } from "@/store/ui/ui-store"
+import { IconDeviceImacCog, IconList, IconPhotoScan } from "@tabler/icons-react"
+import axios from "axios"
+import { Toaster, toast } from "sonner"
+
 import {
-  IconDeviceImacCog,
-  IconList,
-} from "@tabler/icons-react"
-import useGetCourses from "@/hooks/useGetCourses"
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Progress } from "@/components/ui/progress"
+
 import { Button, buttonVariants } from "../ui/button"
 import { Input } from "../ui/input"
 import {
@@ -17,30 +27,44 @@ import {
   SelectValue,
 } from "../ui/select"
 import { Textarea } from "../ui/textarea"
-import { useUIStore } from "@/store/ui/ui-store"
 
 const NewCoursesContent = () => {
   const baseUrl = useUIStore((state) => state.baseUrl)
-  const { academyId } = useParams<{ academyId: string }>()
+  const { userId, academyId } = useParams<{
+    userId: string
+    academyId: string
+  }>()
   const router = useRouter()
-  const params = useParams()
   const [banner, setBanner] = useState({})
+  const [video, setVideo] = useState({})
   const [previewImage, setPreviewImage] = useState("")
+  const [uploadProgress, setUploadProgress] = useState(0)
 
   const [data, setData] = useState({
-    title: '',
-    subtitle: '',
-    price: '',
-    description: '',
+    title: "",
+    subtitle: "",
+    price: "",
+    description: "",
     academy_id: academyId,
-    teacher_id: '',
+    teacher_id: "",
     banner: null,
-  });
+    promotional_video: null,
+  })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    const { name, value } = e.target;
-    setData({ ...data, [name]: value });
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    e.preventDefault()
+    const { name, value } = e.target
+    setData({ ...data, [name]: value })
+  }
+
+  const close = (
+    setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    setModalOpenFunction(false)
   }
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,36 +93,56 @@ const NewCoursesContent = () => {
     }
   }
 
+  const handleVideo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!!file) {
+      setVideo(file)
+    }
+  }
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     const fd = new FormData()
     if (banner instanceof Blob) {
-      fd.append('course[banner]', banner)
+      fd.append("course[banner]", banner)
     }
-    fd.append('course[teacher_id]', data.teacher_id);
-    fd.append('course[academy_id]', academyId);
-    fd.append('course[description]', data.description);
-    fd.append('course[price]', data.price);
-    fd.append('course[subtitle]', data.subtitle);
-    fd.append('course[title]', data.title);
+    if (video instanceof Blob) {
+      fd.append("course[promotional_video]", video)
+    }
+    fd.append("course[teacher_id]", data.teacher_id)
+    fd.append("course[academy_id]", academyId)
+    fd.append("course[description]", data.description)
+    fd.append("course[price]", data.price)
+    fd.append("course[subtitle]", data.subtitle)
+    fd.append("course[title]", data.title)
 
     try {
-      const request = await fetch(`${baseUrl}/courses`, {
+      const response = await axios({
+        url: `${baseUrl}/courses`,
         method: "POST",
-        credentials: "include",
-        body: fd,
+        headers: { "Content-type": "multipart/form-data" },
+        withCredentials: true,
+        data: fd,
+        onUploadProgress: (progressEvent) => {
+          const percentCompleted = Math.round(
+            (progressEvent?.loaded * 100) /
+              (!!progressEvent.total ? progressEvent.total : 1)
+          )
+          setUploadProgress(percentCompleted)
+        },
       })
-      const response = await request.json()
-      if (request.status === 200) {
-        console.log(response)
-        console.log("Curso Creado con exito")
+      if (response.status === 200) {
+        router.push(`/admin/${userId}/academies/${academyId}/courses/content`)
+        toast.success("Curso Creado con exito")
       } else {
-        console.log(response.message)
+        //toast.error(response)
       }
     } catch (e) {}
   }
 
-  const handleSelect = (e) => {}
+  const handleSelect = (e: any) => {
+    console.log(e)
+  }
 
   return (
     <>
@@ -124,10 +168,21 @@ const NewCoursesContent = () => {
         />
         <div className="mt-3 flex w-full items-center justify-start rounded-full">
           <IconList className="mr-2 size-5" />
-          <label htmlFor="price">Precio del curso</label>
+          <label htmlFor="subtitle">Subtitulo del curso</label>
         </div>
         <Input
           type="text"
+          placeholder="Escribe aqui un subtitulo para tu curso"
+          name="subtitle"
+          onChange={(e) => handleChange(e)}
+          className="mt-2"
+        />
+        <div className="mt-3 flex w-full items-center justify-start rounded-full">
+          <IconList className="mr-2 size-5" />
+          <label htmlFor="price">Precio del curso</label>
+        </div>
+        <Input
+          type="number"
           name="price"
           onChange={(e) => handleChange(e)}
           placeholder="Escribe aqui el precio de tu curso"
@@ -144,10 +199,36 @@ const NewCoursesContent = () => {
           className="mt-2"
         />
         <div className="mt-3 flex w-full items-center justify-start rounded-full">
-          <IconDeviceImacCog className="mr-2 size-5" />
+          <IconPhotoScan className="mr-2 size-5" />
           <label htmlFor="banner">Banner del curso</label>
         </div>
-        <Input type="file" onChange={(e) => handleFile(e)} className="mt-2" />
+        {!!previewImage && (
+          <div className="flex justify-start items-center rounded-xl overflow-hidden my-4 max-w-[220px]">
+            <div>
+              <img
+                src={previewImage}
+                alt="vista-previa-imagen"
+                className="object-cover"
+              />
+            </div>
+          </div>
+        )}
+        <Input
+          type="file"
+          id="banner"
+          onChange={(e) => handleFile(e)}
+          className="mt-2"
+        />
+        <div className="mt-3 flex w-full items-center justify-start rounded-full">
+          <IconDeviceImacCog className="mr-2 size-5" />
+          <label htmlFor="promotional_video">Video promocional del curso</label>
+        </div>
+        <Input
+          type="file"
+          id="promotional_video"
+          onChange={(e) => handleVideo(e)}
+          className="mt-2"
+        />
         <div className="mt-3 flex w-full items-center justify-start rounded-full">
           <IconList className="mr-2 size-5" />
           <label htmlFor="password_confirmation">Escoje el instructor</label>
@@ -162,9 +243,34 @@ const NewCoursesContent = () => {
             <SelectItem value="admin">Administrador</SelectItem>
           </SelectContent>
         </Select>
-
-        <Button className="mb-4 mt-3">Crear Curso</Button>
+        <Dialog>
+          <DialogTrigger className="bg-white text-blue-dark p-2 w-full rounded-md my-4 font-bold">
+            Crear curso
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              {uploadProgress === 0 ? (
+                <>
+                  <DialogTitle className="text-2xl">
+                    ¿Todos los datos ingresados son correctos?
+                  </DialogTitle>
+                  <DialogDescription className="flex justify-center">
+                    <Button onClick={handleSubmit} className="mt-4 font-bold"> Seguro </Button>
+                  </DialogDescription>
+                </>
+              ) : (
+                <>
+                  <DialogTitle className="text-2xl">Progreso de carga</DialogTitle>
+                  <DialogDescription >
+                    <Progress className="mt-2" value={uploadProgress} />
+                  </DialogDescription>
+                </>
+              )}
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
       </form>
+      <Toaster />
     </>
   )
 }

@@ -63,3 +63,7 @@ export type GetAnswerProps = {
   answerId: number
   setLoadingCallback: CallbackFunction
 }
+
+export type GetAcademyByCategoryProps = {
+  setLoadingCallback: CallbackFunction
+}

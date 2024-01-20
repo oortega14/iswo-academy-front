@@ -4,7 +4,7 @@ import { MotionDiv } from "../animations/MotionDiv"
 const Backdrop = ({children, onClick}: BackdropProps) => {
   return (
     <MotionDiv
-      className="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-[#030711e1]"
+      className="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-[#030711e1] min-h-screen"
       onClick={onClick}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}

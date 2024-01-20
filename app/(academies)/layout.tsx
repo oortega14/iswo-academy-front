@@ -3,6 +3,7 @@ import FeaturedAcademies from "@/components/home/FeaturedAcademies"
 import Footer from "@/components/home/Footer"
 import Header from "@/components/home/Header"
 import { MotionDiv } from "@/components/animations/MotionDiv"
+import CategoriesSection from "@/components/academies/CategoriesSection"
 
 const variants = {
   hidden: { opacity: 0 },
@@ -28,9 +29,7 @@ export default function AcademiesLayout({
     >
     <div className="relative flex min-h-screen flex-col">
       <Header />
-      <main className="relative top-20 overflow-hidden">{children}</main>
-      <BannerSection />
-      <FeaturedAcademies />
+      <main className="relative top-28 overflow-hidden">{children}</main>
       <Footer />
     </div>
     </MotionDiv>

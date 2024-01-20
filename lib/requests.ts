@@ -71,6 +71,20 @@ export async function SendTokenResetEmail({
 
 //academies
 
+export async function FetchAcademiesByCategory() {
+  try {
+    const request = await fetch(`${baseUrl}/academies`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    })
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud");
+  }
+}
+
 export async function ConfigurateAcademy(userData: ConfigurateAcademyParams) {
   try {
     const request = await fetch(`${baseUrl}/academies`, {

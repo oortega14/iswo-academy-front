@@ -1,3 +1,8 @@
+export interface CourseGoal {
+  id: number
+  description: string
+}
+
 export interface Course {
   id:           number;
   title:        string;
@@ -12,6 +17,8 @@ export interface Course {
   banner:       string;
   course_test:  CourseTest;
   students:     number;
+  reviews:      number;
+  course_goals: CourseGoal[];
 }
 
 export interface CoursesStatus {

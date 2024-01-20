@@ -58,3 +58,9 @@ export interface EditCourseModalProps {
   close: () => void
   courseId: number
 }
+
+export interface UploadProgressModalProps{
+  modalOpen: boolean
+  close: () => void
+  uploadProgress: number
+}
