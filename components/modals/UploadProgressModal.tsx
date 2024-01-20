@@ -1,7 +1,4 @@
-import { Modal } from "flowbite-react"
-import { AnimatePresence } from "framer-motion"
 
-import { UploadProgressModalProps } from "@/types/modals"
 
 const UploadProgressModal = ({
   uploadProgress,
@@ -22,7 +19,7 @@ const UploadProgressModal = ({
                 Progreso de carga {uploadProgress}
               </label>
             </div>
-            
+
           </Modal.Body>
         </Modal>
       )}

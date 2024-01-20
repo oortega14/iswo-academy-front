@@ -13,19 +13,23 @@ import {
 import { toast } from "sonner"
 
 import { useGetAcademy } from "@/hooks/useGetAcademy"
+import useGetCurrentUser from "@/hooks/useGetCurrentUser"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import  Figure  from "./Figure"
-import useGetCurrentUser from "@/hooks/useGetCurrentUser"
+import InputFileWithImage from "@/components/forms/InputFileWithImage"
+
+import Figure from "./Figure"
+import InputTextWithIcon from "@/components/forms/InputTextWithIcon"
 
 export const MainContent = () => {
   const baseUrl = useUIStore((state) => state.baseUrl)
-  const params = useParams<{ id: string, academyId: string }>()
+  const params = useParams<{ userId: string; academyId: string }>()
   const [loading, setLoading] = useState(true)
   const currentUser = useGetCurrentUser({
     baseUrl: baseUrl,
-    setLoadingCallback: setLoading})
+    setLoadingCallback: setLoading,
+  })
   // const currentUser = useUIStore((state) => state.currentUser)
   const [previewImage, setPreviewImage] = useState("")
   const [logo, setLogo] = useState({})
@@ -36,7 +40,8 @@ export const MainContent = () => {
   })
   const academy = useGetAcademy({
     academyId: params.academyId,
-    setLoadingCallback: setLoading})
+    setLoadingCallback: setLoading,
+  })
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     const file = e.target.files?.[0]
@@ -82,7 +87,7 @@ export const MainContent = () => {
     )
 
     try {
-      const request = await fetch(`${baseUrl}/academies/${params.id}`, {
+      const request = await fetch(`${baseUrl}/academies/${params.userId}`, {
         method: "PATCH",
         credentials: "include",
         body: fd,
@@ -103,7 +108,7 @@ export const MainContent = () => {
         domain: academy?.academy_configuration?.domain,
         slogan: academy?.slogan,
         description: academy?.description,
-      }));
+      }))
     }
   }, [academy])
 
@@ -128,7 +133,7 @@ export const MainContent = () => {
                 </Label>
               </div>
               <div className="flex w-full items-center justify-start ">
-                <Figure image={academy?.logo}/>
+                <Figure image={academy?.logo} />
                 <div className="mt-3 grid w-full items-center gap-1.5">
                   <Input
                     id="logo"
@@ -139,84 +144,37 @@ export const MainContent = () => {
               </div>
             </>
           ) : (
-            <>
-              {!!previewImage ? (
-                <>
-                  <div className="mt-3 flex items-center">
-                    <IconBadgeTm className="mr-2 size-5" />
-                    <Label htmlFor="logo" className="text-md">
-                      Logo
-                    </Label>
-                  </div>
-                  <div className="flex w-full items-center justify-start ">
-                    <Image
-                      className="mr-3 mt-3 max-w-60 rounded-lg"
-                      src={previewImage}
-                      alt="logo_preview"
-                      width={300}
-                      height={300}
-                    />
-                    <div className="mt-3 grid w-full items-center gap-1.5">
-                      <Input
-                        id="logo"
-                        type="file"
-                        onChange={(e) => handleFile(e)}
-                      />
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <div className="mt-3 grid w-full items-center gap-1.5">
-                  <div className="flex items-center">
-                    <IconBadgeTm className="mr-2 size-5" />
-                    <Label htmlFor="logo" className="text-md">
-                      Logo
-                    </Label>
-                  </div>
-                  <Input
-                    id="logo"
-                    type="file"
-                    onChange={(e) => handleFile(e)}
-                  />
-                </div>
-              )}
-            </>
+            <InputFileWithImage
+              Icon={IconBadgeTm}
+              label="Logo"
+              image={previewImage}
+              name="logo"
+              onChange={(e) => handleFile(e)}
+            />
           )}
-          <div className="mt-3 flex w-full items-center justify-start rounded-full">
-            <IconZoomInArea className="mr-2 size-5" />
-            <label htmlFor="domain">Dominio</label>
-          </div>
-          <Input
-            type="text"
-            placeholder="Escribe aqui tu dominio"
+          <InputTextWithIcon
+            Icon={IconZoomInArea}
+            label="Dominio"
             name="domain"
+            placeholder="Escribe aqui tu dominio"
             onChange={(e) => handleChange(e)}
-            className="mt-2"
             defaultValue={academy?.academy_configuration?.domain}
           />
-          <div className="mt-3 flex w-full items-center justify-start rounded-full">
-            <IconBrandCodepen className="mr-2 size-5" />
-            <label htmlFor="slogan">Eslogan</label>
-          </div>
-          <Input
-            type="text"
+          <InputTextWithIcon
+            Icon={IconBrandCodepen}
+            label="Eslogan"
             name="slogan"
-            onChange={(e) => handleChange(e)}
             placeholder="Escribe aqui tu eslogan"
-            className="mt-2"
+            onChange={(e) => handleChange(e)}
             defaultValue={academy?.slogan}
           />
-          <div className="mt-3 flex w-full items-center justify-start rounded-full">
-            <IconColorPicker className="mr-2 size-5" />
-            <label htmlFor="description">Descripción</label>
-          </div>
-          <Input
-            type="text"
+          <InputTextWithIcon
+            Icon={IconColorPicker}
+            label="Descripción"
             name="description"
-            onChange={(e) => handleChange(e)}
-            placeholder="Escribe aqui una descripción de tu academia"
-            className="mt-2"
+            placeholder="Escribe aqui tu descripción"
             defaultValue={academy?.description}
+            onChange={(e) => handleChange(e)}
           />
           <Button className="mt-3">Actualizar Academia</Button>
         </form>

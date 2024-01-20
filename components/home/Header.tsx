@@ -15,8 +15,8 @@ import HeaderButtons from "./HeaderButtons"
 export const Header = () => {
 
   return (
-    <section className="fixed z-30 mb-24 flex w-full items-center justify-center">
-      <nav className="3xl:px-28 flex w-full max-w-[1440px] items-center justify-between px-5 backdrop-blur-md sm:py-2 md:px-24 md:py-3">
+    <section className="fixed z-30 mb-24 flex w-full items-center justify-center backdrop-blur-md ">
+      <nav className="3xl:px-28 flex w-full max-w-[1440px] items-center justify-between px-5 sm:py-2 md:px-24 md:py-3">
         <Link href="/">
           <MotionDiv whileHover={{ scale: 0.98 }} whileTap={{ scale: 1 }}>
             <IswoIconLarge className="h-20 w-20 dark:invert" />
