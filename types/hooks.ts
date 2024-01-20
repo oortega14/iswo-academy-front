@@ -63,3 +63,13 @@ export type GetAnswerProps = {
   answerId: number
   setLoadingCallback: CallbackFunction
 }
+
+export type GetLearningRoutesProps = {
+  academyId: String
+  setLoadingCallback: CallbackFunction
+}
+
+export type GetLearningRouteProps = {
+  learningRouteId: string
+  setLoadingCallback: CallbackFunction
+}

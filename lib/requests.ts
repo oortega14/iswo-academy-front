@@ -173,3 +173,18 @@ export async function DeleteAccountRequest(userId: number){
     throw new Error("Error al realizar la solicitud");
   }
 }
+
+export async function CreateLearningRoute(learningRouteData: LearningRouteParams) {
+  try {
+    const request = await fetch(`${baseUrl}/learning_routes`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(learningRouteData),
+    })
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud");
+  }
+}

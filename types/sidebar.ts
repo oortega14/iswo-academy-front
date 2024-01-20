@@ -44,6 +44,14 @@ export interface AcademyConfiguration {
   domain: string;
 }
 
+export interface LearningRoute {
+  id: number;
+  name: String;
+  academy_id: Number;
+  created_at: String;
+  updated_at: String;
+}
+
 export interface SidebarLink {
   category_key: string;
   label: string;
