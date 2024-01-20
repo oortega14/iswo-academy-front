@@ -2,8 +2,14 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['iswo-academy.s3.amazonaws.com'],
-  },
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'iswo-academy.s3.amazonaws.com',
+        port: '',
+      },
+    ],
+  }
 }
 
 export default nextConfig

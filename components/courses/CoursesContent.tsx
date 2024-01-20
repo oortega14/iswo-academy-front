@@ -70,6 +70,8 @@ const CoursesContent = () => {
     setCourseSelectedId(courseId)
   }
 
+  console.log(courses)
+
   return (
     <>
       {

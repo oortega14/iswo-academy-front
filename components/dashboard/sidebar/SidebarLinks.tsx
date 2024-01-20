@@ -29,7 +29,7 @@ export const SidebarLinks = () => {
     baseUrl: baseUrl,
     setLoadingCallback: setLoading
   })
-  // const currentUser = useUIStore((state) => state.currentUser)
+  //const currentUser = useUIStore((state) => state.currentUser)
 
   const handleClick = (
     categoryLabel: string,

@@ -73,3 +73,6 @@ export type GetLearningRouteProps = {
   learningRouteId: string
   setLoadingCallback: CallbackFunction
 }
+export type GetAcademyByCategoryProps = {
+  setLoadingCallback: CallbackFunction
+}
