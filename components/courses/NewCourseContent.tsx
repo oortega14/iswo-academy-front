@@ -3,7 +3,7 @@
 import React, { FormEvent, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { useUIStore } from "@/store/ui/ui-store"
-import { IconDeviceImacCog, IconList, IconPhotoScan } from "@tabler/icons-react"
+import { IconDeviceImacCog, IconFileDescription, IconList, IconListTree, IconPhotoScan } from "@tabler/icons-react"
 import axios from "axios"
 import { Toaster, toast } from "sonner"
 
@@ -16,7 +16,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Progress } from "@/components/ui/progress"
-
 import { Button, buttonVariants } from "../ui/button"
 import { Input } from "../ui/input"
 import {
@@ -26,7 +25,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select"
-import { Textarea } from "../ui/textarea"
+import { IconLayoutCollage } from "@tabler/icons-react"
+import TextareaWithIcon from "../forms/TextareaWithIcon"
+import InputTextWithIcon from "../forms/InputTextWithIcon"
+import InputNumberWithIcon from "../forms/InputNumberWithIcon"
+import { IconReceipt2 } from "@tabler/icons-react"
+import InputFileWithImage from "../forms/InputFileWithImage"
+import InputFileWithVideo from "../forms/InputFileWithVideo"
+import ListItemsFromInput from "../forms/ListItemsFromInput"
 
 const NewCoursesContent = () => {
   const baseUrl = useUIStore((state) => state.baseUrl)
@@ -36,8 +42,10 @@ const NewCoursesContent = () => {
   }>()
   const router = useRouter()
   const [banner, setBanner] = useState({})
-  const [video, setVideo] = useState({})
-  const [previewImage, setPreviewImage] = useState("")
+  const [promotionalImage, setPromotionalImage] = useState({})
+  const [video, setVideo] = useState({name: ''})
+  const [previewPromImage, setPreviewPromImage] = useState('')
+  const [previewImage, setPreviewImage] = useState('')
   const [uploadProgress, setUploadProgress] = useState(0)
 
   const [data, setData] = useState({
@@ -49,7 +57,12 @@ const NewCoursesContent = () => {
     teacher_id: "",
     banner: null,
     promotional_video: null,
+    promotional_image: null,
   })
+
+  const [dataGoals, setDataGoals] = useState([
+    { description: '' }
+  ]);
 
   const handleChange = (
     e:
@@ -59,12 +72,6 @@ const NewCoursesContent = () => {
     e.preventDefault()
     const { name, value } = e.target
     setData({ ...data, [name]: value })
-  }
-
-  const close = (
-    setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>>
-  ) => {
-    setModalOpenFunction(false)
   }
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,6 +100,32 @@ const NewCoursesContent = () => {
     }
   }
 
+  const handlePromotionalImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    const file = e.target.files?.[0]
+    if (file) {
+      setPromotionalImage(file)
+      let fileReader: FileReader | null
+      let isCancel = false
+
+      fileReader = new FileReader()
+      fileReader.onload = (e) => {
+        const { result } = e.target as FileReader
+        if (result && !isCancel) {
+          setPreviewPromImage(result.toString())
+        }
+      }
+      fileReader.readAsDataURL(file)
+
+      return () => {
+        isCancel = true
+        if (fileReader && fileReader.readyState === 1) {
+          fileReader.abort()
+        }
+      }
+    }
+  }
+
   const handleVideo = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!!file) {
@@ -106,6 +139,9 @@ const NewCoursesContent = () => {
     if (banner instanceof Blob) {
       fd.append("course[banner]", banner)
     }
+    if (promotionalImage instanceof Blob) {
+      fd.append("course[promotional_image]", promotionalImage)
+    }
     if (video instanceof Blob) {
       fd.append("course[promotional_video]", video)
     }
@@ -115,6 +151,7 @@ const NewCoursesContent = () => {
     fd.append("course[price]", data.price)
     fd.append("course[subtitle]", data.subtitle)
     fd.append("course[title]", data.title)
+    fd.append("course[course_goals]", JSON.stringify(dataGoals))
 
     try {
       const response = await axios({
@@ -155,79 +192,62 @@ const NewCoursesContent = () => {
         className="flex w-full flex-col px-4"
         onSubmit={(e) => handleSubmit(e)}
       >
-        <div className="mt-3 flex w-full items-center justify-start rounded-full">
-          <IconList className="mr-2 size-5" />
-          <label htmlFor="title">Titulo del curso</label>
-        </div>
-        <Input
-          type="text"
-          placeholder="Escribe aqui el titulo de tu curso"
-          name="title"
+        <InputTextWithIcon
+          Icon={IconListTree}
+          label={'Titulo del curso'}
+          name={'title'}
+          placeholder={'Escribe aqui el titulo de tu curso'}
           onChange={(e) => handleChange(e)}
-          className="mt-2"
         />
-        <div className="mt-3 flex w-full items-center justify-start rounded-full">
-          <IconList className="mr-2 size-5" />
-          <label htmlFor="subtitle">Subtitulo del curso</label>
-        </div>
-        <Input
-          type="text"
-          placeholder="Escribe aqui un subtitulo para tu curso"
-          name="subtitle"
+        <InputTextWithIcon
+          Icon={IconListTree}
+          label={'Subtitulo del curso'}
+          name={'subtitle'}
+          placeholder={'Escribe aqui un subtitulo para tu curso'}
           onChange={(e) => handleChange(e)}
-          className="mt-2"
         />
-        <div className="mt-3 flex w-full items-center justify-start rounded-full">
-          <IconList className="mr-2 size-5" />
-          <label htmlFor="price">Precio del curso</label>
-        </div>
-        <Input
-          type="number"
-          name="price"
+        <InputNumberWithIcon
+          Icon={IconReceipt2}
+          label={'Precio del curso'}
+          name={'price'}
+          placeholder={'Escribe aqui el precio de tu curso'}
           onChange={(e) => handleChange(e)}
-          placeholder="Escribe aqui el precio de tu curso"
-          className="mt-2"
         />
-        <div className="mt-3 flex w-full items-center justify-start rounded-full">
-          <IconList className="mr-2 size-5" />
-          <label htmlFor="description">Descripción del curso</label>
-        </div>
-        <Textarea
-          name="description"
+        <TextareaWithIcon
+          Icon={IconFileDescription}
+          label={'Descripción del curso'}
+          name={'description'}
+          placeholder={'Escribe aqui la descripción de tu curso'}
           onChange={(e) => handleChange(e)}
-          placeholder="Escribe aqui la descripción de tu curso"
-          className="mt-2"
         />
-        <div className="mt-3 flex w-full items-center justify-start rounded-full">
-          <IconPhotoScan className="mr-2 size-5" />
-          <label htmlFor="banner">Banner del curso</label>
-        </div>
-        {!!previewImage && (
-          <div className="flex justify-start items-center rounded-xl overflow-hidden my-4 max-w-[220px]">
-            <div>
-              <img
-                src={previewImage}
-                alt="vista-previa-imagen"
-                className="object-cover"
-              />
-            </div>
-          </div>
-        )}
-        <Input
-          type="file"
-          id="banner"
-          onChange={(e) => handleFile(e)}
-          className="mt-2"
+        <ListItemsFromInput
+          data={dataGoals}
+          setData={setDataGoals}
+          Icon={IconList}
+          label='Objetivos del Curso'
+          placeholder='Escribe aqui el precio de tu curso'
+          buttonLabel='Agregar Objetivo'
         />
-        <div className="mt-3 flex w-full items-center justify-start rounded-full">
-          <IconDeviceImacCog className="mr-2 size-5" />
-          <label htmlFor="promotional_video">Video promocional del curso</label>
-        </div>
-        <Input
-          type="file"
-          id="promotional_video"
+        <InputFileWithImage
+          Icon={IconPhotoScan}
+          label={'Banner del Curso'}
+          image={previewImage}
+          name={'banner'}
+          onChange={handleFile}
+        />
+        <InputFileWithImage
+          Icon={IconLayoutCollage}
+          label={'Imagen promocional del curso'}
+          image={previewPromImage}
+          name={'promotional_image'}
+          onChange={handlePromotionalImage}
+        />
+        <InputFileWithVideo
+          Icon={IconDeviceImacCog}
+          name="promotional_video"
+          label={'Video Promocional del Curso'}
+          video={video}
           onChange={(e) => handleVideo(e)}
-          className="mt-2"
         />
         <div className="mt-3 flex w-full items-center justify-start rounded-full">
           <IconList className="mr-2 size-5" />

@@ -5,7 +5,7 @@ import { Course } from "@/types/sidebar"
 
 const AcademyCourseMain = ({ course }: { course: Course }) => {
   return (
-    <div className="w-full bg-slate-900 min-h-[280px] rounded-l-xl p-4 flex flex-col">
+    <div className="w-full bg-slate-900 text-slate-200 min-h-[280px] rounded-l-xl p-4 flex flex-col">
       <div className="w-full">
         <span className="hover:text-blue-700 cursor-pointer">
           {course.academy_name}

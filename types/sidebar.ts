@@ -15,6 +15,8 @@ export interface Course {
   academy_id:   number;
   academy_name: string;
   banner:       string;
+  promotional_video: string;
+  promotional_image: string;
   course_test:  CourseTest;
   students:     number;
   reviews:      number;
