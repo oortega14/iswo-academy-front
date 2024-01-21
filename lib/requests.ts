@@ -1,4 +1,4 @@
-import { ConfigurateAcademyParams, FetchRegisterParams, TokenResetProps, UpdateAccountParams } from "@/types/requests"
+import { ConfigurateAcademyParams, FetchRegisterParams, TokenResetProps, UpdateAccountParams, CreateLearningRouteParams, UpdateLearningRouteParams } from "@/types/requests"
 import { UpdateInfoUserParams } from '../types/requests';
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
@@ -188,10 +188,25 @@ export async function DeleteAccountRequest(userId: number){
   }
 }
 
-export async function CreateLearningRoute(learningRouteData: LearningRouteParams) {
+export async function CreateLearningRoute(learningRouteData: CreateLearningRouteParams) {
   try {
     const request = await fetch(`${baseUrl}/learning_routes`, {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(learningRouteData),
+    })
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud");
+  }
+}
+
+export async function UpdateLearningRoute({ learningRouteData, learningRouteId }: UpdateLearningRouteParams ) {
+  try {
+    const request = await fetch(`${baseUrl}/learning_routes/${learningRouteId}`, {
+      method: "PATCH",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
       body: JSON.stringify(learningRouteData),

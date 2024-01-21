@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils"
 import useGetLearningRoute from "@/hooks/useGetLearningRoute"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../../ui/card"
 import { useState } from "react"
-import { CreateLearningRoute } from "@/lib/requests"
+import { CreateLearningRoute, UpdateLearningRoute } from "@/lib/requests"
 
 const LearningRouteModal = ({ modalOpen, close, learningRouteId, academyId }: any) => {
   const [loading, setLoading] = useState(true)
@@ -29,12 +29,19 @@ const LearningRouteModal = ({ modalOpen, close, learningRouteId, academyId }: an
   })
 
   const handleSubmit = async () => {
-    const [request, response] = await CreateLearningRoute(data)
-    if (request.status == 200) {
-      close()
+    const learningRouteData = data
+    if (!!learningRouteId) {
+      const [request, response] = await UpdateLearningRoute({ learningRouteData, learningRouteId })
+      if (request.status == 200) {
+        close()
+      }
+    } else {
+      const [request, response] = await CreateLearningRoute(learningRouteData)
+      if (request.status == 200) {
+        close()
+      }
     }
   }
-
 
   return (
     <AnimatePresence>
