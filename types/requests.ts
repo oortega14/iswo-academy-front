@@ -34,10 +34,15 @@ export type ConfigurateAcademyParams = {
   name: string
 }
 
-//create-academy
-export type LearningRouteParams = {
-  academy_id: string
-  name: string
+// create-learning-route
+export type CreateLearningRouteParams = {
+  learningRouteData: LearningRoute
+}
+
+// update-learning-route
+export type UpdateLearningRouteParams = {
+  learningRouteId: string
+  learningRouteData: LearningRoute
 }
 
 //user-requests
@@ -46,6 +51,11 @@ export type UserConfiguration = {
   last_name: string
   college_degree: string
   description: string
+}
+
+export type LearningRoute = {
+  name: string
+  academy_id: number
 }
 
 export type UserSocialNetwork = {
