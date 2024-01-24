@@ -2,13 +2,16 @@
 
 import { FormEvent, useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { useUIStore } from "@/store/ui/ui-store"
 import { IconLock, IconMail } from "@tabler/icons-react"
 import { Toaster, toast } from "sonner"
-import { useRouter } from 'next/navigation'
+
+import { USER_TYPES } from "@/types/users"
+
+import { MotionDiv } from "../animations/MotionDiv"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
-import { useUIStore } from "@/store/ui/ui-store"
-import { USER_TYPES } from "@/types/users"
 
 export const InputLogin = () => {
   const router = useRouter()
@@ -30,14 +33,14 @@ export const InputLogin = () => {
       const request = await fetch(`${baseUrl}/login`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        credentials: 'include',
+        credentials: "include",
         body: JSON.stringify(data),
       })
       const response = await request.json()
       if (request.status === 200) {
-        toast.success('Ingreso Exitoso')
+        toast.success("Ingreso Exitoso")
         updateCurrentUser(response)
         if (response.role === USER_TYPES.STUDENT) {
           router.push(`/student/${response.id}/dashboard/main`)
@@ -47,7 +50,9 @@ export const InputLogin = () => {
           if (response.academy.id === null) {
             router.push(`/${response.id}/create-academy`)
           } else {
-            router.push(`/admin/${response.id}/academies/${response.academy.id}/dashboard/main`)
+            router.push(
+              `/admin/${response.id}/academies/${response.academy.id}/dashboard/main`
+            )
           }
         } else if (response.role === USER_TYPES.SUPER_ADMIN) {
           router.push(`/super-admin/${response.id}/dashboard/main`)
@@ -55,8 +60,7 @@ export const InputLogin = () => {
       } else {
         toast.error(response.errors)
       }
-    } catch (e) {
-    }
+    } catch (e) {}
   }
   return (
     <>
@@ -98,9 +102,15 @@ export const InputLogin = () => {
         >
           ¿Aún no tienes una cuenta? Registrate ahora!
         </Link>
-        <Button className="mt-3">Iniciar Sesión</Button>
+        <MotionDiv
+          whileHover={{ scale: 0.98}}
+          whileTap={{ scale: 1.02}}
+          className="w-full "
+        >
+          <Button className="mt-3 w-full">Iniciar Sesión</Button>
+        </MotionDiv>
       </form>
-      <Toaster theme="system" position="top-right" richColors  />
+      <Toaster theme="system" position="top-right" richColors />
     </>
   )
 }

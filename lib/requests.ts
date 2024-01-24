@@ -1,4 +1,4 @@
-import { ConfigurateAcademyParams, FetchRegisterParams, TokenResetProps, UpdateAccountParams } from "@/types/requests"
+import { ConfigurateAcademyParams, CreateCourseSectionRequestProps, FetchRegisterParams, TokenResetProps, UpdateAccountParams } from "@/types/requests"
 import { UpdateInfoUserParams } from '../types/requests';
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
@@ -200,5 +200,48 @@ export async function CreateLearningRoute(learningRouteData: LearningRouteParams
     return [request, response]
   } catch (e) {
     throw new Error("Error al realizar la solicitud");
+  }
+}
+
+export async function DeleteCourseRequest( courseId: number ) {
+  try {
+    const request = await fetch(`${baseUrl}/courses/${courseId}`,
+    {
+      method: 'DELETE',
+      headers: { 'Content-type': 'application/json;charset=UTF-8' },
+      credentials: 'include',
+    });
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error('Error al realizar la solicitud')
+  }
+}
+
+export async function CreateCourseSectionRequest({
+  courseId,
+  position,
+  name,
+} : CreateCourseSectionRequestProps ) {
+  const data = {
+    position: position,
+    name: name,
+    course_id: courseId,
+  }
+  const data2 = {
+    course_section: {...data}
+  }
+  try {
+    const request = await fetch(`${baseUrl}/course_sections`,
+    {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json;charset=UTF-8' },
+      credentials: 'include',
+      body: JSON.stringify(data2),
+    });
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error('Error al realizar la solicitud')
   }
 }

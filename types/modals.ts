@@ -1,4 +1,4 @@
-import React from "react"
+import React, { SetStateAction } from "react"
 
 export interface EditLessonsModalProps {
   modalOpen: boolean
@@ -16,6 +16,8 @@ export interface DeleteCourseModalProps {
   modalOpen: boolean
   courseId: number
   close: () => void
+  deleteFlag: boolean
+  setDeleteFlag: React.Dispatch<SetStateAction<boolean>>
 }
 
 export interface DeleteAccountModalProps {
@@ -63,4 +65,11 @@ export interface UploadProgressModalProps{
   modalOpen: boolean
   close: () => void
   uploadProgress: number
+}
+
+export interface CreateSectionsModalProps {
+  modalOpen: boolean
+  close: () => void
+  flag: boolean
+  setFlag: React.Dispatch<SetStateAction<boolean>>
 }

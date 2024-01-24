@@ -8,6 +8,7 @@ import {
   IconBadgeTm,
   IconBrandCodepen,
   IconColorPicker,
+  IconSignature,
   IconZoomInArea,
 } from "@tabler/icons-react"
 import { toast } from "sonner"
@@ -18,9 +19,10 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import InputFileWithImage from "@/components/forms/InputFileWithImage"
+import InputTextWithIcon from "@/components/forms/InputTextWithIcon"
 
 import Figure from "./Figure"
-import InputTextWithIcon from "@/components/forms/InputTextWithIcon"
+import { MotionDiv } from "@/components/animations/MotionDiv"
 
 export const MainContent = () => {
   const baseUrl = useUIStore((state) => state.baseUrl)
@@ -37,36 +39,12 @@ export const MainContent = () => {
     domain: "",
     slogan: "",
     description: "",
+    name: "",
   })
   const academy = useGetAcademy({
     academyId: params.academyId,
     setLoadingCallback: setLoading,
   })
-  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    const file = e.target.files?.[0]
-    if (file) {
-      setLogo(file)
-      let fileReader: FileReader | null
-      let isCancel = false
-
-      fileReader = new FileReader()
-      fileReader.onload = (e) => {
-        const { result } = e.target as FileReader
-        if (result && !isCancel) {
-          setPreviewImage(result.toString())
-        }
-      }
-      fileReader.readAsDataURL(file)
-
-      return () => {
-        isCancel = true
-        if (fileReader && fileReader.readyState === 1) {
-          fileReader.abort()
-        }
-      }
-    }
-  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -79,6 +57,7 @@ export const MainContent = () => {
     if (logo instanceof Blob) {
       fd.append("academy[logo]", logo)
     }
+    fd.append("academy[name]", academyConfiguration.name)
     fd.append("academy[description]", academyConfiguration.description)
     fd.append("academy[slogan]", academyConfiguration.slogan)
     fd.append(
@@ -124,34 +103,23 @@ export const MainContent = () => {
           className="flex w-full flex-col p-0"
           onSubmit={(e) => handleSubmit(e)}
         >
-          {!!academy?.logo && !previewImage ? (
-            <>
-              <div className="mt-3 flex items-center">
-                <IconBadgeTm className="mr-2 size-5" />
-                <Label htmlFor="logo" className="text-md">
-                  Logo
-                </Label>
-              </div>
-              <div className="flex w-full items-center justify-start ">
-                <Figure image={academy?.logo} />
-                <div className="mt-3 grid w-full items-center gap-1.5">
-                  <Input
-                    id="logo"
-                    type="file"
-                    onChange={(e) => handleFile(e)}
-                  />
-                </div>
-              </div>
-            </>
-          ) : (
-            <InputFileWithImage
-              Icon={IconBadgeTm}
-              label="Logo"
-              image={previewImage}
-              name="logo"
-              onChange={(e) => handleFile(e)}
-            />
-          )}
+          <InputFileWithImage
+            Icon={IconBadgeTm}
+            label="Logo"
+            name="logo"
+            defaultImage={!!academy?.logo ? academy?.logo : ''}
+            previewImage={previewImage}
+            setPreviewImage={setPreviewImage}
+            setImage={setLogo}
+          />
+          <InputTextWithIcon
+            Icon={IconSignature}
+            label="Nombre de la Academia"
+            placeholder="Escribe aquí el nombre de tu academia"
+            name="name"
+            onChange={(e) => handleChange(e)}
+            defaultValue={academy?.name}
+          />
           <InputTextWithIcon
             Icon={IconZoomInArea}
             label="Dominio"
@@ -176,7 +144,13 @@ export const MainContent = () => {
             defaultValue={academy?.description}
             onChange={(e) => handleChange(e)}
           />
-          <Button className="mt-3">Actualizar Academia</Button>
+          <MotionDiv
+            whileHover={{ scale: 0.99 }}
+            whileTap={{ scale: 1.01 }}
+            className="w-full"
+          >
+          <Button className="mt-3 w-full">Actualizar Academia</Button>
+          </MotionDiv>
         </form>
       </main>
     </div>

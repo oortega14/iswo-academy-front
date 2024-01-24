@@ -1,27 +1,37 @@
-import React from "react"
-import { IconStar, IconStarFilled } from "@tabler/icons-react"
-
+import { IconCheck } from "@tabler/icons-react"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+} from "@/components/ui/table"
 import { Course } from "@/types/sidebar"
+import useGetLessons from "@/hooks/useGetLessons"
+import { useState } from "react"
 
 const AcademyCourseContent = ({ course }: { course: Course }) => {
-  const miArray = new Array(5)
-  console.log(course)
+  const [loading, setLoading] = useState(true)
+  const lessons = useGetLessons({
+    setLoadingCallback: setLoading,
+    courseId: JSON.stringify(course.id)
+  })
   return (
-    <div className="w-full bg-slate-900 min-h-[280px] rounded-l-xl p-4 flex flex-col">
-      <div className="w-full">
-        <span className="hover:text-blue-700 cursor-pointer">
-          {course.academy_name}
-        </span>
-      </div>
-      <h2 className="font-extrabold text-3xl mt-8 mb-3">{course.title}</h2>
-      <p className="mb-4">{course.description}</p>
-      <span className="text-md mb-4">Creado por: {course.teacher}</span>
-      <div className="text-md flex">
-        <span className="mr-3">Puntuación:</span>
-        {Array.from({ length: course.reviews }, (_, index) => (
-          <IconStarFilled key={index} />
-        ))}
-      </div>
+    <div className="w-full min-h-[280px] rounded-l-xl p-4 flex flex-col">
+      <h2 className="font-extrabold text-3xl mt-8 mb-3">
+        Las lecciones de este curso son:
+      </h2>
+      <Table>
+        <TableBody>
+          {lessons.map((goal) => (
+            <TableRow key={goal.id}>
+              <TableCell className="flex gap-x-2 font-medium">
+                <IconCheck />
+                {goal.description}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </div>
   )
 }

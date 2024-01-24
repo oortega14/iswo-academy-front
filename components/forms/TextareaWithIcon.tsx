@@ -7,7 +7,8 @@ const TextareaWithIcon = ({
   label,
   placeholder,
   name,
-  onChange
+  onChange,
+  defaultValue,
 } : TextareaWithIconProps) => {
   return (
     <div>
@@ -20,6 +21,7 @@ const TextareaWithIcon = ({
         name={name}
         onChange={onChange}
         className="mt-2"
+        defaultValue={defaultValue}
       />
     </div>
   )

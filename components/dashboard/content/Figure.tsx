@@ -11,14 +11,10 @@ const Figure = ({ image }: FigureProps) => {
   return (
     <div className="relative mr-2 flex justify-center rounded-lg pt-3">
       {/* {!imageLoaded && <Loader height="160px" width="160px" />} */}
-      <Image
+      <img
         src={image}
         alt="curso"
-        width={160}
-        height={160}
-        className={`mb-3 min-h-40 w-full min-w-40 overflow-hidden rounded-lg border-[1px]`}
-        placeholder='blur'
-        blurDataURL="@/components/ui/loader"
+        className={`mb-3 max-h-64 max-w-64 overflow-hidden rounded-lg border-[1px]`}
       />
     </div>
   )

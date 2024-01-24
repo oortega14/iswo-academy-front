@@ -1,24 +1,24 @@
 import { useUIStore } from '@/store/ui/ui-store';
-import {GetCoursesProps}  from '@/types/hooks';
-import { Course } from '@/types/sidebar';
+import {GetCourseSectionsProps}  from '@/types/hooks';
+import { CourseSection } from '@/types/sidebar';
 import { useEffect, useState } from 'react';
 
-const useGetCourses = ({academyId, setLoadingCallback, flag}: GetCoursesProps) => {
+const useGetCourseSections = ({courseId, setLoadingCallback, flag}: GetCourseSectionsProps) => {
   const baseUrl = useUIStore((state) => state.baseUrl);
-  const [courses, setCourses] = useState<Course[]>([]);
+  const [courseSections, setCourseSections] = useState<CourseSection[]>([]);
 
   useEffect(() => {
     const getCourses = async () => {
       try {
         setLoadingCallback(true);
-        const request = await fetch(`${baseUrl}/courses?academy_id=${academyId}`, {
+        const request = await fetch(`${baseUrl}/course_sections?course_id=${courseId}`, {
           method: 'GET',
           credentials: 'include',
         });
         const response = await request.json();
 
         if (request.status === 200) {
-          setCourses(response);
+          setCourseSections(response);
         } else {
           console.error('Error al obtener cursos:', response);
         }
@@ -29,12 +29,12 @@ const useGetCourses = ({academyId, setLoadingCallback, flag}: GetCoursesProps) =
       }
     };
 
-    if (academyId) {
+    if (courseId) {
       getCourses();
     }
-  }, [academyId, flag, setLoadingCallback]);
+  }, [courseId, flag, setLoadingCallback]);
 
-  return courses;
+  return courseSections;
 };
 
-export default useGetCourses;
+export default useGetCourseSections;

@@ -21,7 +21,7 @@ const CategoriesSection = () => {
     return <span></span>
   }
   return (
-    <section className="relative top-20 flex flex-col justify-center bg-slate-200 px-5 py-10 md:px-24 dark:bg-slate-950">
+    <section className="relative top-20 flex flex-col justify-center bg-slate-200 px-5 py-10 md:px-24 dark:bg-slate-950 pb-20">
       {categories?.map((category) => (
         <div key={category.id}>
           <h2 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl ">

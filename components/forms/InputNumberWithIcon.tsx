@@ -7,7 +7,8 @@ const InputNumberWithIcon = ({
   label,
   placeholder,
   name,
-  onChange
+  onChange,
+  defaultValue
 } : InputWithIconProps) => {
   return (
     <div>
@@ -21,6 +22,7 @@ const InputNumberWithIcon = ({
         name={name}
         onChange={onChange}
         className="mt-2"
+        defaultValue={defaultValue}
       />
     </div>
   )

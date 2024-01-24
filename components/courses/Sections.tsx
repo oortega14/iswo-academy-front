@@ -1,16 +1,16 @@
 "use client"
 
 import { HeaderDashboard } from "../dashboard/content/HeaderDashboard"
-import LessonsContent from "./LessonsContent"
+import SectionsContent from "./SectionsContent"
 
-export const Lessons = () => {
+export const Sections = () => {
   return (
     <>
       <div className="flex h-full flex-1 flex-col overflow-hidden">
         <HeaderDashboard/>
-        <LessonsContent/>
+        <SectionsContent/>
       </div>
     </>
   )
 }
-export default Lessons
+export default Sections

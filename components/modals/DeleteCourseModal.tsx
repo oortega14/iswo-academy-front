@@ -1,10 +1,8 @@
 import { IconAlertCircle, IconTrash } from "@tabler/icons-react"
 import { AnimatePresence } from "framer-motion"
-
 import { DeleteCourseModalProps } from "@/types/modals"
 import { cn } from "@/lib/utils"
-
-import { MotionButton } from "../animations/MotionButton"
+import  MotionButton  from "../animations/MotionButton"
 import Modal from "../ui/Modal"
 import { Button, buttonVariants } from "../ui/button"
 import {
@@ -15,12 +13,25 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card"
+import { DeleteCourseRequest } from "@/lib/requests"
+import { toast } from "sonner"
 
 const DeleteCourseModal = ({
   modalOpen,
   close,
   courseId,
+  deleteFlag,
+  setDeleteFlag,
 }: DeleteCourseModalProps) => {
+  const handleDelete = async () => {
+    const [request, response] = await DeleteCourseRequest(courseId)
+    if (request.status === 200) {
+      setDeleteFlag(!deleteFlag)
+      toast.success(`${response.message}`);
+      close();
+    }
+  }
+
   return (
     <AnimatePresence>
       {modalOpen && (
@@ -43,8 +54,6 @@ const DeleteCourseModal = ({
             </CardContent>
             <CardFooter className="flex justify-between">
               <MotionButton
-                whileHover={{ scale: 0.95 }}
-                whileTap={{ scale: 1.15 }}
                 onClick={close}
                 className={cn(
                   buttonVariants({ variant: "outline" }),
@@ -54,9 +63,7 @@ const DeleteCourseModal = ({
                 Cancelar
               </MotionButton>
               <MotionButton
-                whileHover={{ scale: 0.95 }}
-                whileTap={{ scale: 1.15 }}
-                onClick={close}
+                onClick={handleDelete}
                 className={cn(
                   buttonVariants({ variant: "destructive" }),
                   "border-[1px] px-2"

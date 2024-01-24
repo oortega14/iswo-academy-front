@@ -16,7 +16,6 @@ export default function coursePage() {
     courseId: params.courseId,
     setLoadingCallback: setLoading,
   })
-  console.log(course)
   if (loading) return <span />
   else if (!!course) {
     return (

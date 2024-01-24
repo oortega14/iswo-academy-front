@@ -74,3 +74,9 @@ export type UpdateAccountParams = {
   data: EmailRestore
   userId: string
 }
+
+export type CreateCourseSectionRequestProps = {
+  name: string
+  courseId: string | string[]
+  position: string | null
+}

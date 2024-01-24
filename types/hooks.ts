@@ -17,6 +17,12 @@ export type GetCourseProps = {
 export type GetCoursesProps = {
   academyId: string
   setLoadingCallback: CallbackFunction
+  flag: boolean
+}
+export type GetCourseSectionsProps = {
+  courseId: string
+  setLoadingCallback: CallbackFunction
+  flag: boolean
 }
 
 export type GetCoursesInformationProps = {

@@ -23,6 +23,22 @@ export interface Course {
   course_goals: CourseGoal[];
 }
 
+export interface CourseSection {
+  id: number;
+  name:     string;
+  position: number;
+  lessons:  Lesson[];
+}
+
+export interface Lesson {
+  id:          number;
+  title:       string;
+  description: string;
+  visible:     boolean;
+  url_video:   null;
+  files:       any[];
+}
+
 export interface CoursesStatus {
   acquired:    number;
   in_progress: number;

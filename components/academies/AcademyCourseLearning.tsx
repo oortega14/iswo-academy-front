@@ -5,16 +5,11 @@ import { Course } from "@/types/sidebar"
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
   TableRow,
 } from "@/components/ui/table"
 
 const AcademyCourseLearning = ({ course }: { course: Course }) => {
-  console.log(course)
   return (
     <div className="w-full min-h-[280px] rounded-l-xl p-4 flex flex-col">
       <h2 className="font-extrabold text-3xl mt-8 mb-3">
