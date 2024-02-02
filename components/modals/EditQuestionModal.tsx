@@ -1,7 +1,11 @@
-import { ChangeEventHandler, useEffect, useState } from "react"
+import React, { ChangeEventHandler, useEffect, useState } from "react"
 import { IconEdit } from "@tabler/icons-react"
 import { AnimatePresence } from "framer-motion"
-import {  EditQuestionModalProps } from "@/types/modals"
+
+import { EditQuestionModalProps } from "@/types/modals"
+import useGetQuestion from "@/hooks/useGetQuestion"
+
+import MotionButton from "../animations/MotionButton"
 import Modal from "../ui/Modal"
 import { Button } from "../ui/button"
 import {
@@ -14,26 +18,42 @@ import {
 } from "../ui/card"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
-import { MotionButton } from "../animations/MotionButton"
-import useGetQuestion from "@/hooks/useGetQuestion"
+import { EditQuestionRequest } from "@/lib/requests"
+import { toast } from "sonner"
 
 const EditQuestionModal = ({
   modalOpen,
   close,
   questionId,
+  flag,
+  setFlag
 }: EditQuestionModalProps) => {
   const [loading, setLoading] = useState(true)
   const [file, setFile] = useState()
   const [data, setData] = useState({
-    title: '',
-    description: '',
-    visible: 'f',
-    video: '',
+    question: "",
   })
   const question = useGetQuestion({
     questionId: questionId,
-    setLoadingCallback: setLoading
+    setLoadingCallback: setLoading,
+    flag: flag
   })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setData({ ...data, [name]: value })
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    const [request, response] = await EditQuestionRequest(data, questionId)
+    if (request.status === 200) {
+      console.log(response)
+      toast.success('Pregunta actualizada correctamente')
+      setFlag(!flag)
+      close()
+    }
+  }
 
   if (loading) {
     return <span></span>
@@ -62,26 +82,17 @@ const EditQuestionModal = ({
                         className="border-2"
                         id="question"
                         name="question"
+                        onChange={(e)=>handleChange(e)}
                       />
                     </div>
                   </div>
                 </form>
               </CardContent>
               <CardFooter className="flex justify-between">
-                <MotionButton
-                  whileHover={{ scale: 0.95}}
-                  whileTap={{ scale: 1.15}}
-                >
-                  <Button onClick={close} variant="outline">
-                    Cancelar
-                  </Button>
+                <MotionButton onClick={close} variant="outline">
+                  Cancelar
                 </MotionButton>
-                <MotionButton
-                  whileHover={{ scale: 0.95}}
-                  whileTap={{ scale: 1.15}}
-                >
-                  <Button>Editar</Button>
-                </MotionButton>
+                <MotionButton onClick={handleSubmit}>Editar</MotionButton>
               </CardFooter>
             </Card>
           </Modal>

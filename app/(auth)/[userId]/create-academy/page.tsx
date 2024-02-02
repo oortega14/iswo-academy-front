@@ -4,7 +4,6 @@ import { IswoIconLarge } from "@/icons"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { MotionButton } from "@/components/animations/MotionButton"
 import { MotionDiv } from "@/components/animations/MotionDiv"
 import ConfirmEmailButton from "@/components/auth/ConfirmEmailButton"
 import CreateAcademyForm from "@/components/auth/CreateAcademyForm"

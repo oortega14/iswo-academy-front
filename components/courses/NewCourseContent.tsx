@@ -207,7 +207,7 @@ const NewCoursesContent = () => {
           </SelectContent>
         </Select>
         <Dialog>
-          <DialogTrigger className="dark:bg-white dark:text-blue-dark text-slate-200 bg-blue-dark p-2 w-full rounded-md my-4 font-bold">
+          <DialogTrigger className="dark:text-blue-dark bg-blue-dark my-4 w-full rounded-md p-2 font-bold text-slate-200 dark:bg-white">
             Crear curso
           </DialogTrigger>
           <DialogContent>

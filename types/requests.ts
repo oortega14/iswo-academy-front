@@ -54,8 +54,10 @@ export type UserConfiguration = {
 }
 
 export type LearningRoute = {
-  name: string
-  academy_id: number
+  learning_route: {
+    name: string
+    academy_id: number
+  }
 }
 
 export type UserSocialNetwork = {
@@ -89,4 +91,11 @@ export type CreateCourseSectionRequestProps = {
   name: string
   courseId: string | string[]
   position: string | null
+}
+
+export type UpdateSectionRequestParams = {
+  sectionId: string
+  sectionData: {
+    name: string
+  }
 }

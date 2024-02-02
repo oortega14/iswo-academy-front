@@ -28,8 +28,8 @@ const InputFileWithVideo = ({
             <Icon className="mr-2 size-5" />
             <label htmlFor={name}>{label}</label>
           </div>
-          <div className="flex space-x-5 items-center">
-            <div className="flex justify-start items-center rounded-xl overflow-hidden my-4 max-w-[250px] ">
+          <div className="flex items-center space-x-5">
+            <div className="my-4 flex max-w-[250px] items-center justify-start overflow-hidden rounded-xl ">
               <video controls>
                 <source src={defaultVideo} />
               </video>
@@ -54,7 +54,7 @@ const InputFileWithVideo = ({
             })}
           >
             {!!video?.name && (
-              <div className="flex justify-start items-center rounded-xl overflow-hidden my-4 max-w-[250px] ">
+              <div className="my-4 flex max-w-[250px] items-center justify-start overflow-hidden rounded-xl ">
                 <video controls>
                   <source src={URL.createObjectURL(video as any)} />
                 </video>

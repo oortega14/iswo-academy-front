@@ -16,8 +16,8 @@ const AcademyCourseContent = ({ course }: { course: Course }) => {
     courseId: JSON.stringify(course.id)
   })
   return (
-    <div className="w-full min-h-[280px] rounded-l-xl p-4 flex flex-col">
-      <h2 className="font-extrabold text-3xl mt-8 mb-3">
+    <div className="flex min-h-[280px] w-full flex-col rounded-l-xl p-4">
+      <h2 className="mb-3 mt-8 text-3xl font-extrabold">
         Las lecciones de este curso son:
       </h2>
       <Table>

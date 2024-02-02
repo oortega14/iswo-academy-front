@@ -14,7 +14,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-import { MotionButton } from "../animations/MotionButton"
+import MotionButton from "../animations/MotionButton"
 import DeleteStudentModal from "../modals/DeleteStudentModal"
 import { Button } from "../ui/button"
 import {
@@ -27,6 +27,7 @@ import {
 const StudentsContent = () => {
   const params = useParams()
   const [loading, setLoading] = useState<boolean>()
+  const [changeFlag, setChangeFlag] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const [selectedLessonId, setSelectedLessonId] = useState(0)
   const close = (
@@ -71,21 +72,15 @@ const StudentsContent = () => {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <MotionButton
-                          whileHover={{ scale: 1.15 }}
-                          whileTap={{ scale: 0.9 }}
+                          variant="ghost"
+                          onClick={() =>
+                            deleteModalOpen
+                              ? close(setDeleteModalOpen)
+                              : open(setDeleteModalOpen, student.id)
+                          }
+                          className="border-[1px]"
                         >
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() =>
-                              deleteModalOpen
-                                ? close(setDeleteModalOpen)
-                                : open(setDeleteModalOpen, student.id)
-                            }
-                            className="border-[1px]"
-                          >
-                            <IconTrash className=" size-6 " />
-                          </Button>
+                          <IconTrash className=" size-6 " />
                         </MotionButton>
                       </TooltipTrigger>
                       <TooltipContent>
@@ -106,6 +101,8 @@ const StudentsContent = () => {
         modalOpen={deleteModalOpen}
         close={() => close(setDeleteModalOpen)}
         lessonId={selectedLessonId}
+        flag={changeFlag}
+        setFlag={setChangeFlag}
       />
     </>
   )

@@ -7,7 +7,6 @@ import {
 } from "@/constants/sidebar-constants"
 import { useUIStore } from "@/store/ui/ui-store"
 import buildRoute from "@/lib/sidebar-navigation"
-import useGetCourses from "@/hooks/useGetCourses"
 import useGetCurrentUser from "@/hooks/useGetCurrentUser"
 import { SidebarNavigation } from "./SidebarNavigation"
 
@@ -18,10 +17,6 @@ export const SidebarProfileLinks = () => {
     academyId: string
   }>()
   const [loading, setLoading] = useState<boolean>(false)
-  const courses = useGetCourses({
-    academyId: params.academyId,
-    setLoadingCallback: setLoading,
-  })
   const router = useRouter()
   const isSidebarOpen = useUIStore((state) => state.isSidebarOpen)
   const baseUrl = useUIStore((state) => state.baseUrl)

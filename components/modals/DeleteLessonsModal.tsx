@@ -1,11 +1,8 @@
 import { IconAlertCircle, IconTrash } from "@tabler/icons-react"
 import { AnimatePresence } from "framer-motion"
-
 import { DeleteLessonsModalProps } from "@/types/modals"
-
-import { MotionButton } from "../animations/MotionButton"
+import MotionButton from "../animations/MotionButton"
 import Modal from "../ui/Modal"
-import { Button } from "../ui/button"
 import {
   Card,
   CardContent,
@@ -14,21 +11,26 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card"
-import { Input } from "../ui/input"
-import { Label } from "../ui/label"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select"
+import { DeleteLessonRequest } from "@/lib/requests"
+import { toast } from "sonner"
 
 const DeleteLessonsModal = ({
   modalOpen,
   close,
   lessonId,
+  flag,
+  setFlag
 }: DeleteLessonsModalProps) => {
+
+  const handleDelete = async () => {
+    const [request, response] = await DeleteLessonRequest(lessonId)
+    if (request.status === 200) {
+      setFlag(!flag)
+      toast.success(`${response.message}`);
+      close();
+    }
+  }
+
   return (
     <AnimatePresence>
       {modalOpen && (
@@ -50,20 +52,13 @@ const DeleteLessonsModal = ({
               </div>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <MotionButton
-                whileHover={{ scale: 0.95 }}
-                whileTap={{ scale: 1.15 }}
-              >
-                <Button onClick={close} variant="outline">
-                  Cancelar
-                </Button>
+              <MotionButton onClick={close} variant="outline">
+                Cancelar
               </MotionButton>
               <MotionButton
-                whileHover={{ scale: 0.95 }}
-                whileTap={{ scale: 1.15 }}
-              >
-                <Button variant={"destructive"}>Eliminar</Button>
-              </MotionButton>
+                variant={"destructive"}
+                onClick={(e)=>handleDelete()}
+              >Eliminar</MotionButton>
             </CardFooter>
           </Card>
         </Modal>

@@ -1,6 +1,6 @@
 import { useUIStore } from '@/store/ui/ui-store';
-import { Lesson } from '@/types/courses';
 import { GetLessonsProps } from '@/types/hooks';
+import { Lesson } from '@/types/sidebar';
 import { useEffect, useState } from 'react';
 
 const useGetLessons = ({courseId, setLoadingCallback}: GetLessonsProps) => {

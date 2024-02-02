@@ -91,7 +91,7 @@ const CreateSectionsModal = ({
                 onClick={handleCreate}
                 className={cn(
                   buttonVariants({ variant: "default" }),
-                  "border-[1px] px-2 bg-green-700"
+                  "border-[1px] bg-green-700 px-2"
                 )}
               >
                 Crear

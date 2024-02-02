@@ -17,7 +17,7 @@ import {
 import MotionButton from "../animations/MotionButton"
 import DeleteCourseModal from "../modals/DeleteCourseModal"
 import NoContent from "../ui/NoContent"
-import { buttonVariants } from "../ui/button"
+import { Button, buttonVariants } from "../ui/button"
 import {
   Table,
   TableBody,
@@ -76,10 +76,10 @@ const CoursesContent = () => {
             <TableBody>
               {courses.map((course) => (
                 <TableRow key={course.id}>
-                  <TableCell className=" space-x-2">
+                  <TableCell className=" flex space-x-2">
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <MotionButton
+                        <Button
                           variant={"ghost"}
                           className={cn("border-[1px] px-2")}
                           onClick={() => {
@@ -89,7 +89,7 @@ const CoursesContent = () => {
                           }}
                         >
                           <IconEdit />
-                        </MotionButton>
+                        </Button>
                       </TooltipTrigger>
                       <TooltipContent>
                         <p>Editar Curso</p>
@@ -97,8 +97,8 @@ const CoursesContent = () => {
                     </Tooltip>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <MotionButton
-                          variant={"ghost"}
+                        <Button
+                          variant={"destructive"}
                           className={cn("border-[1px] px-2")}
                           onClick={() => {
                             editModalOpen
@@ -107,7 +107,7 @@ const CoursesContent = () => {
                           }}
                         >
                           <IconTrash />
-                        </MotionButton>
+                        </Button>
                       </TooltipTrigger>
                       <TooltipContent>
                         <p>Eliminar Curso</p>
@@ -118,12 +118,12 @@ const CoursesContent = () => {
                         <Link
                           href={`/admin/${params.userId}/academies/${params.academyId}/courses/${course.id}/main`}
                         >
-                          <MotionButton
+                          <Button
                             variant={"ghost"}
                             className={cn("border-[1px] px-2")}
                           >
                             <IconList />
-                          </MotionButton>
+                          </Button>
                         </Link>
                       </TooltipTrigger>
                       <TooltipContent>
@@ -135,8 +135,8 @@ const CoursesContent = () => {
                   <TableCell className="font-medium">
                     {truncarTexto(course.description, 150)}
                   </TableCell>
-                  <TableCell className="font-medium ml-5">
-                    <div className="flex gap-x-1 items-center">
+                  <TableCell className="ml-5 font-medium">
+                    <div className="flex items-center gap-x-1">
                       <IconUser className="size-7" />
                       {course.students}
                     </div>

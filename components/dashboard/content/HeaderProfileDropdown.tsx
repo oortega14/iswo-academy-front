@@ -30,7 +30,7 @@ const HeaderProfileDropdown = ({ handleLogout }: any) => {
           </span>
           <span className="text-sm ">{currentUser?.email}</span>
         </div>
-        <ul className="my-2 flex flex-col space-y-1 py-2 px-2">
+        <ul className="my-2 flex flex-col space-y-1 p-2">
           <li>
             <Link
               href={`/users/${currentUser?.id}/profile/info`}

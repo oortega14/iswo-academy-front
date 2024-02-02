@@ -1,7 +1,11 @@
-import { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { IconEdit } from "@tabler/icons-react"
 import { AnimatePresence } from "framer-motion"
+
 import { EditAnswerModalProps } from "@/types/modals"
+import useGetAnswer from "@/hooks/useGetAnswer"
+
+import MotionButton from "../animations/MotionButton"
 import Modal from "../ui/Modal"
 import { Button } from "../ui/button"
 import {
@@ -14,25 +18,48 @@ import {
 } from "../ui/card"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
-import { MotionButton } from "../animations/MotionButton"
-import useGetAnswer from "@/hooks/useGetAnswer"
+import { EditAnswerRequest } from "@/lib/requests"
+import { toast } from "sonner"
 
 const EditAnswerModal = ({
   modalOpen,
   close,
   answerId,
+  flag,
+  setFlag
 }: EditAnswerModalProps) => {
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState({
-    title: '',
-    description: '',
-    visible: 'f',
-    video: '',
+    option_text: "",
   })
   const answer = useGetAnswer({
     answerId: answerId,
-    setLoadingCallback: setLoading
+    setLoadingCallback: setLoading,
+    flag: flag
   })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setData({...data, [name]: value })
+  }
+
+  useEffect(() => {
+    if (!!answer) {
+      setData((prevConfig) => ({
+        ...prevConfig,
+        option_text: answer?.option_text,
+      }))
+    }
+  }, [answer])
+
+  const handleSubmit = async () => {
+    const [request, response ] = await EditAnswerRequest(data, answerId)
+    if (request.status === 200) {
+      toast.success('Respuesta editada correctamente')
+      close()
+      setFlag(!flag)
+    }
+  }
 
   if (loading) {
     return <span></span>
@@ -55,32 +82,23 @@ const EditAnswerModal = ({
                 <form>
                   <div className="grid w-full items-center gap-4">
                     <div className="flex flex-col space-y-1.5">
-                      <Label htmlFor="title">Titulo</Label>
+                      <Label htmlFor="option_text">Contenido</Label>
                       <Input
                         defaultValue={answer?.option_text}
                         className="border-2"
-                        id="title"
-                        name="title"
+                        id="option_text"
+                        name="option_text"
+                        onChange={(e)=>{handleChange(e)}}
                       />
                     </div>
                   </div>
                 </form>
               </CardContent>
               <CardFooter className="flex justify-between">
-                <MotionButton
-                  whileHover={{ scale: 0.95}}
-                  whileTap={{ scale: 1.15}}
-                >
-                  <Button onClick={close} variant="outline">
-                    Cancelar
-                  </Button>
+                <MotionButton onClick={close} variant="outline">
+                  Cancelar
                 </MotionButton>
-                <MotionButton
-                  whileHover={{ scale: 0.95}}
-                  whileTap={{ scale: 1.15}}
-                >
-                  <Button>Editar</Button>
-                </MotionButton>
+                <MotionButton onClick={handleSubmit}>Editar</MotionButton>
               </CardFooter>
             </Card>
           </Modal>

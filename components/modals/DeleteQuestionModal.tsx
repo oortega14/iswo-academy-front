@@ -1,7 +1,9 @@
 import { IconAlertCircle, IconTrash } from "@tabler/icons-react"
 import { AnimatePresence } from "framer-motion"
+
 import { DeleteQuestionModalProps } from "@/types/modals"
-import { MotionButton } from "../animations/MotionButton"
+
+import MotionButton from "../animations/MotionButton"
 import Modal from "../ui/Modal"
 import { Button } from "../ui/button"
 import {
@@ -12,12 +14,26 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card"
+import { toast } from "sonner"
+import { DeleteQuestionRequest } from "@/lib/requests"
 
 const DeleteQuestionModal = ({
   modalOpen,
   close,
   questionId,
+  flag,
+  setFlag
 }: DeleteQuestionModalProps) => {
+
+  const handleDelete = async () => {
+    const [request, response] = await DeleteQuestionRequest(questionId)
+    if (request.status === 200) {
+      setFlag(!flag)
+      close()
+      toast.success('Pregunta eliminada correctamente')
+    }
+  }
+
   return (
     <AnimatePresence>
       {modalOpen && (
@@ -39,20 +55,10 @@ const DeleteQuestionModal = ({
               </div>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <MotionButton
-                whileHover={{ scale: 0.95 }}
-                whileTap={{ scale: 1.15 }}
-              >
-                <Button onClick={close} variant="outline">
-                  Cancelar
-                </Button>
+              <MotionButton onClick={close} variant="outline">
+                Cancelar
               </MotionButton>
-              <MotionButton
-                whileHover={{ scale: 0.95 }}
-                whileTap={{ scale: 1.15 }}
-              >
-                <Button variant={"destructive"}>Eliminar</Button>
-              </MotionButton>
+              <MotionButton variant={"destructive"} onClick={handleDelete}>Eliminar</MotionButton>
             </CardFooter>
           </Card>
         </Modal>

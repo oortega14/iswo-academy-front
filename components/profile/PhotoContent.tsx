@@ -90,8 +90,8 @@ export const PhotoContent = () => {
             Actualicemos la foto de tu perfil
           </h1>
         </div>
-        <div className="flex justify-center w-full">
-          <Card className="w-[350px] mt-5 flex items-center flex-col">
+        <div className="flex w-full justify-center">
+          <Card className="mt-5 flex w-[350px] flex-col items-center">
             <CardHeader>
               <CardTitle>Foto de perfil</CardTitle>
               <CardDescription>Sube una foto tuya</CardDescription>
@@ -101,7 +101,7 @@ export const PhotoContent = () => {
                 <div className="grid w-full items-center gap-4">
                   {!!currentUser?.profile_picture && !previewImage ? (
                     <>
-                      <div className="mt-3 flex justify-center items-center">
+                      <div className="mt-3 flex items-center justify-center">
                         <Figure image={currentUser.profile_picture} />
                       </div>
                     </>
@@ -120,9 +120,9 @@ export const PhotoContent = () => {
                           </div>
                         </>
                       ) : (
-                        <div className="w-full flex justify-center">
+                        <div className="flex w-full justify-center">
                           <Image
-                            className="rounded-lg overflow-hidden border-2"
+                            className="overflow-hidden rounded-lg border-2"
                             src={"/images/avatar_singenero.webp"}
                             alt="avatar"
                             width={150}

@@ -46,13 +46,13 @@ const ListItemsFromInput = ({
         <label htmlFor="course_goals">{label}</label>
       </div>
       {filteredData.map((goal, index) => (
-        <div key={index} className="w-full flex items-center gap-3 ">
-          <span className="w-full border p-2 rounded-md my-2">
+        <div key={index} className="flex w-full items-center gap-3 ">
+          <span className="my-2 w-full rounded-md border p-2">
             {goal.description}
           </span>
           <div
             onClick={() => removeGoal(index)}
-            className=" border p-2 rounded-lg text-red-600 border-red-600 hover:bg-red-600 hover:text-blue-dark cursor-pointer"
+            className=" hover:text-blue-dark cursor-pointer rounded-lg border border-red-600 p-2 text-red-600 hover:bg-red-600"
           >
             <IconX className="size-6" />
           </div>
@@ -68,7 +68,7 @@ const ListItemsFromInput = ({
           className=""
         />
         <button
-          className="text-nowrap px-3 py-2 rounded-lg font-bold bg-blue-dark text-slate-200 dark:bg-slate-200 dark:text-blue-dark hover:scale-95"
+          className="bg-blue-dark dark:text-blue-dark text-nowrap rounded-lg px-3 py-2 font-bold text-slate-200 hover:scale-95 dark:bg-slate-200"
           onClick={insertNewGoal}
         >
           {buttonLabel}

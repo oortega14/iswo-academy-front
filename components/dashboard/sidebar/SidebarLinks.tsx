@@ -10,7 +10,6 @@ import {
 } from "@/constants/sidebar-constants"
 import { useUIStore } from "@/store/ui/ui-store"
 import buildRoute from "@/lib/sidebar-navigation"
-import useGetCourses from "@/hooks/useGetCourses"
 import { SidebarNavigation } from "./SidebarNavigation"
 import useGetCurrentUser from "@/hooks/useGetCurrentUser"
 import { USER_TYPES } from "@/types/users"
@@ -18,10 +17,6 @@ import { USER_TYPES } from "@/types/users"
 export const SidebarLinks = () => {
   const params = useParams<{ userId: string; courseId:string; academyId: string }>()
   const [loading, setLoading] = useState<boolean>(false)
-  const courses = useGetCourses({
-    academyId: params.academyId,
-    setLoadingCallback: setLoading,
-  })
   const router = useRouter()
   const isSidebarOpen = useUIStore((state) => state.isSidebarOpen)
   const baseUrl = useUIStore((state) => state.baseUrl)

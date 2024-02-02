@@ -27,7 +27,7 @@ export const SidebarCategoryAdmin = ({ category, handleClick, courses }: Sidebar
                       onClick={handleClick.bind(
                         null,
                         category.category_key,
-                        course.id
+                        JSON.stringify(course.id)
                       )}
                     >
                       {course.title}

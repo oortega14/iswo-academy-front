@@ -1,7 +1,7 @@
 import { IconAlertCircle, IconTrash } from "@tabler/icons-react"
 import { AnimatePresence } from "framer-motion"
 import { DeleteLessonsModalProps } from "@/types/modals"
-import { MotionButton } from "../animations/MotionButton"
+import MotionButton from "../animations/MotionButton"
 import Modal from "../ui/Modal"
 import { Button } from "../ui/button"
 import {
@@ -17,6 +17,8 @@ const DeleteStudentModal = ({
   modalOpen,
   close,
   lessonId,
+  flag,
+  setFlag,
 }: DeleteLessonsModalProps) => {
   return (
     <AnimatePresence>
@@ -39,20 +41,10 @@ const DeleteStudentModal = ({
               </div>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <MotionButton
-                whileHover={{ scale: 0.95 }}
-                whileTap={{ scale: 1.15 }}
-              >
-                <Button onClick={close} variant="outline">
-                  Cancelar
-                </Button>
+              <MotionButton onClick={close} variant="outline">
+                Cancelar
               </MotionButton>
-              <MotionButton
-                whileHover={{ scale: 0.95 }}
-                whileTap={{ scale: 1.15 }}
-              >
-                <Button variant={"destructive"}>Eliminar</Button>
-              </MotionButton>
+              <MotionButton variant={"destructive"}>Eliminar</MotionButton>
             </CardFooter>
           </Card>
         </Modal>

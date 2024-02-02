@@ -46,7 +46,7 @@ export const SidebarHeader = () => {
               }}
             >
               <Link href={"/"}>
-                <IswoIconSmall className="size-12 dark:invert mb-4" />
+                <IswoIconSmall className="mb-4 size-12 dark:invert" />
               </Link>
             </MotionDiv>
           </div>

@@ -15,7 +15,7 @@ export default function AcademiesPage() {
           }}
           className="w-1/2 flex-col items-center justify-center pl-24"
         >
-          <h2 className="font-extrabold text-4xl mb-5">
+          <h2 className="mb-5 text-4xl font-extrabold">
             Encuentra la mejor <br />
             academia para tí
           </h2>
@@ -25,9 +25,9 @@ export default function AcademiesPage() {
             que pueda expresar mucho de lo que quieres aprender en jaja{" "}
           </p>
         </MotionDiv>
-        <div className="w-1/2 flex justify-center pr-24 ">
-          <div className="w-2/3 flex justify-center">
-            <div className="rounded-full overflow-hidden w-full h-[450px] flex justify-center">
+        <div className="flex w-1/2 justify-center pr-24 ">
+          <div className="flex w-2/3 justify-center">
+            <div className="flex h-[450px] w-full justify-center overflow-hidden rounded-full">
               <img
                 src="/images/academies_banner.webp"
                 alt="academies"

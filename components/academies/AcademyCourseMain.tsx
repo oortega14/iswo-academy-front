@@ -5,13 +5,13 @@ import { Course } from "@/types/sidebar"
 
 const AcademyCourseMain = ({ course }: { course: Course }) => {
   return (
-    <div className="w-full bg-slate-900 text-slate-200 min-h-[280px] rounded-l-xl p-4 flex flex-col">
+    <div className="flex min-h-[280px] w-full flex-col rounded-l-xl bg-slate-900 p-4 text-slate-200">
       <div className="w-full">
-        <span className="hover:text-blue-700 cursor-pointer">
+        <span className="cursor-pointer hover:text-blue-700">
           {course.academy_name}
         </span>
       </div>
-      <h2 className="font-extrabold text-3xl mt-8 mb-3">{course.title}</h2>
+      <h2 className="mb-3 mt-8 text-3xl font-extrabold">{course.title}</h2>
       <p className="mb-4">{course.description}</p>
       <span className="text-md mb-4">Creado por: {course.teacher}</span>
       <div className="text-md flex">

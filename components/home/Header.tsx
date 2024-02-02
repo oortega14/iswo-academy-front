@@ -1,15 +1,7 @@
 import Link from "next/link"
 import { NAV_LINKS } from "@/constants"
 import { IswoIconLarge } from "@/icons"
-import { IconMenuDeep } from "@tabler/icons-react"
-
-import { siteConfig } from "@/config/site"
-
-import { cn } from "../../lib/utils"
-import { MotionButton } from "../animations/MotionButton"
 import { MotionDiv } from "../animations/MotionDiv"
-import { ThemeToggle } from "../theme-toggle"
-import { Button, buttonVariants } from "../ui/button"
 import HeaderButtons from "./HeaderButtons"
 
 export const Header = () => {

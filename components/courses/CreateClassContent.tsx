@@ -3,10 +3,10 @@
 import {
   IconArticle
 } from "@tabler/icons-react"
-import { MotionButton } from "../animations/MotionButton"
 import { Button, buttonVariants } from "../ui/button"
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
+import MotionButton from "../animations/MotionButton"
 
 const CreateClassContent = () => {
 
@@ -72,8 +72,7 @@ const CreateClassContent = () => {
           onChange={(e) => handleChange(e)}
           className="mt-2"
         />
-        <MotionButton whileHover={{ scale: 0.95 }} whileTap={{ scale: 1.15 }}>
-          <Button className="mt-3">Crear clase</Button>
+        <MotionButton className="mt-3">Crear clase
         </MotionButton>
       </form>
     </>

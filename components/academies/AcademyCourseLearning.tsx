@@ -11,8 +11,8 @@ import {
 
 const AcademyCourseLearning = ({ course }: { course: Course }) => {
   return (
-    <div className="w-full min-h-[280px] rounded-l-xl p-4 flex flex-col">
-      <h2 className="font-extrabold text-3xl mt-8 mb-3">
+    <div className="flex min-h-[280px] w-full flex-col rounded-l-xl p-4">
+      <h2 className="mb-3 mt-8 text-3xl font-extrabold">
         Lo que aprenderas en este curso sera:
       </h2>
       <Table>

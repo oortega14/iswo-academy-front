@@ -7,7 +7,7 @@ export const BannerSection = () => {
       <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
           Una solucion integral para tu empresa<br className="hidden sm:inline" />
         </h1>
-        <p className="max-w-[700px] text-lg text-muted-foreground text-center mt-3">
+        <p className="mt-3 max-w-[700px] text-center text-lg text-muted-foreground">
         Desarrolla competencias y habilidades específicas para tus Clientes y Colaboradores; con dominio, diseño, recursos, exámenes y certificados automatizados y personalizados.
         Desarrolla Competencia y Compromiso en el Talento Humano con Calidad y al menor costo.
         </p>

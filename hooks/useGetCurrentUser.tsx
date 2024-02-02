@@ -1,5 +1,5 @@
-import { User } from '@/store/ui/ui-store';
 import { GetCurrentUserProps } from '@/types/hooks';
+import { User } from '@/types/store';
 import { useEffect, useState } from 'react';
 
 const useGetCurrentUser = ({baseUrl, setLoadingCallback}: GetCurrentUserProps) => {

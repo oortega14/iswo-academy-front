@@ -6,13 +6,13 @@ import { IconEdit } from "@tabler/icons-react"
 import { Input } from "../../../ui/input"
 import { Label } from "../../../ui/label"
 import { Textarea } from "../../../ui/textarea"
-import { MotionButton } from "../../../animations/MotionButton"
 import { buttonVariants } from "../../../ui/button"
 import { cn } from "@/lib/utils"
 import useGetLearningRoute from "@/hooks/useGetLearningRoute"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../../ui/card"
 import { useState } from "react"
 import { CreateLearningRoute, UpdateLearningRoute } from "@/lib/requests"
+import MotionButton from "@/components/animations/MotionButton"
 
 const LearningRouteModal = ({ modalOpen, close, learningRouteId, academyId }: any) => {
   const [loading, setLoading] = useState(true)
@@ -31,12 +31,12 @@ const LearningRouteModal = ({ modalOpen, close, learningRouteId, academyId }: an
   const handleSubmit = async () => {
     const learningRouteData = data
     if (!!learningRouteId) {
-      const [request, response] = await UpdateLearningRoute({ learningRouteData, learningRouteId })
+      const [request, response] = await UpdateLearningRoute({learningRouteData, learningRouteId })
       if (request.status == 200) {
         close()
       }
     } else {
-      const [request, response] = await CreateLearningRoute(learningRouteData)
+      const [request, response] = await CreateLearningRoute({learningRouteData})
       if (request.status == 200) {
         close()
       }
@@ -72,7 +72,7 @@ const LearningRouteModal = ({ modalOpen, close, learningRouteId, academyId }: an
               </form>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <MotionButton whileHover={{ scale: 0.95 }} whileTap={{ scale: 1.15 }} onClick={close}
+              <MotionButton onClick={close}
                 className={cn(
                   buttonVariants({ variant: "outline" }),
                   "border-[1px] px-2"
@@ -80,7 +80,7 @@ const LearningRouteModal = ({ modalOpen, close, learningRouteId, academyId }: an
               >
                 Cancelar
               </MotionButton>
-              <MotionButton whileHover={{ scale: 0.95 }} whileTap={{ scale: 1.15 }} onClick={handleSubmit}
+              <MotionButton onClick={handleSubmit}
                 className={cn(
                   buttonVariants({ variant: "default" }),
                   "border-[1px] px-2"

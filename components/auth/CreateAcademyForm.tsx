@@ -62,7 +62,7 @@ export const CreateAcademyForm = () => {
   return (
     <>
       <form
-        className="flex w-full flex-col p-0 mt-6"
+        className="mt-6 flex w-full flex-col p-0"
         onSubmit={(e) => handleSubmit(e)}
       >
         <div className="mt-3 flex w-full items-center justify-start rounded-full">
@@ -70,7 +70,7 @@ export const CreateAcademyForm = () => {
           <label htmlFor="email">Escoja la categoría</label>
         </div>
         <Select onValueChange={handleSelect}>
-          <SelectTrigger className="w-full text-blue-dark dark:text-white text-muted-foreground dark:text-muted-foreground mt-3">
+          <SelectTrigger className="text-blue-dark mt-3 w-full text-muted-foreground dark:text-muted-foreground ">
             <SelectValue placeholder="Selecciona una categoría" />
           </SelectTrigger>
           <SelectContent>
@@ -96,7 +96,7 @@ export const CreateAcademyForm = () => {
           name="name"
           onChange={(e) => handleChange(e)}
           placeholder="Escribe aqui el nombre de tu academia"
-          className="mt-2 text-blue-dark dark:text-white"
+          className="text-blue-dark mt-2 dark:text-white"
         />
         <Button variant={"secondary"} className="mt-10">
           Crear academia

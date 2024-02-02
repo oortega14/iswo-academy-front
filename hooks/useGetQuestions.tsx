@@ -1,9 +1,9 @@
 import { useUIStore } from '@/store/ui/ui-store';
-import { Lesson, Question } from '@/types/courses';
+import { Question } from '@/types/courses';
 import { useEffect, useState } from 'react';
 import { GetQuestionsProps } from '@/types/hooks';
 
-const useGetQuestions = ({courseId, setLoadingCallback}: GetQuestionsProps) => {
+const useGetQuestions = ({evaluationId, setLoadingCallback, flag}: GetQuestionsProps) => {
   const baseUrl = useUIStore((state) => state.baseUrl);
   const [questions, setQuestions] = useState<Question[]>([]);
 
@@ -11,7 +11,7 @@ const useGetQuestions = ({courseId, setLoadingCallback}: GetQuestionsProps) => {
     const getCourses = async () => {
       try {
         setLoadingCallback(true);
-        const request = await fetch(`${baseUrl}/test_questions?course_id=${courseId}`, {
+        const request = await fetch(`${baseUrl}/test_questions?course_test_id=${evaluationId}`, {
           method: 'GET',
           credentials: 'include',
         });
@@ -28,10 +28,10 @@ const useGetQuestions = ({courseId, setLoadingCallback}: GetQuestionsProps) => {
       }
     };
 
-    if (!!courseId) {
+    if (!!evaluationId) {
       getCourses();
     }
-  }, [courseId, setLoadingCallback]);
+  }, [evaluationId, setLoadingCallback, flag]);
 
   return questions;
 };

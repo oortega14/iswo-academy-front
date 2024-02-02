@@ -9,7 +9,7 @@ import AcademyCourseLearning from "@/components/academies/AcademyCourseLearning"
 import AcademyCourseSidebar from "@/components/academies/AcademyCourseSidebar"
 import AcademyCourseMain from "@/components/academies/AcademyCourseMain"
 
-export default function coursePage() {
+export default function CoursePage() {
   const params = useParams<{ academyId: string; courseId: string }>()
   const [loading, setLoading] = useState(true)
   const course = useGetCourse({
@@ -19,7 +19,7 @@ export default function coursePage() {
   if (loading) return <span />
   else if (!!course) {
     return (
-      <section className="px-20 flex ">
+      <section className="flex px-20 ">
         <div className="w-2/3 space-y-3">
           <AcademyCourseMain course={course} />
           <AcademyCourseLearning course={course} />

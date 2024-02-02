@@ -14,11 +14,13 @@ import {
   IconWorldWww,
 } from "@tabler/icons-react"
 import { Toaster, toast } from "sonner"
+
+import { UpdateInfoUser } from "@/lib/requests"
 import useGetCurrentUser from "@/hooks/useGetCurrentUser"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+
 import { Separator } from "../ui/separator"
-import { UpdateInfoUser } from "@/lib/requests"
 
 export const InformationContent = () => {
   const baseUrl = useUIStore((state) => state.baseUrl)
@@ -59,7 +61,7 @@ export const InformationContent = () => {
     const [request, response] = await UpdateInfoUser({
       userConfiguration: userConfiguration,
       userSocialNetwork: userSocialNetwork,
-      userId: params.userId
+      userId: params.userId,
     })
     if (request.status == 200) {
       toast.success(`Informacion Actualizada`)
@@ -72,23 +74,22 @@ export const InformationContent = () => {
     if (!!currentUser) {
       setUserConfiguration((prevConfig) => ({
         ...prevConfig,
-        first_name: currentUser?.first_name,
-        last_name: currentUser?.last_name,
-        college_degree: currentUser?.college_degree,
-        description: currentUser?.description,
+        first_name: currentUser?.first_name ?? prevConfig.first_name,
+        last_name: currentUser?.last_name ?? prevConfig.last_name,
+        college_degree:
+          currentUser?.college_degree ?? prevConfig.college_degree,
+        description: currentUser?.description ?? prevConfig.description,
       }))
       setUserSocialNetwork((prevConfig) => ({
         ...prevConfig,
-        web_site: currentUser?.social_network.web_site,
-        facebook_profile_url: currentUser?.social_network.facebook_profile_url,
-        instagram_profile_url:
-          currentUser?.social_network.instagram_profile_url,
-        linked_in_profile_url:
-          currentUser?.social_network.linked_in_profile_url,
-        x_profile_url: currentUser?.social_network.x_profile_url,
-        youtube_profile_url: currentUser?.social_network.youtube_profile_url,
-        tiktok_profile_url: currentUser?.social_network.tiktok_profile_url,
-      }))
+        web_site: currentUser?.social_network?.web_site ?? prevConfig.web_site,
+        facebook_profile_url: currentUser?.social_network?.facebook_profile_url ?? prevConfig.facebook_profile_url,
+        instagram_profile_url: currentUser?.social_network?.instagram_profile_url ?? prevConfig.instagram_profile_url,
+        linked_in_profile_url: currentUser?.social_network?.linked_in_profile_url ?? prevConfig.linked_in_profile_url,
+        x_profile_url: currentUser?.social_network?.x_profile_url ?? prevConfig.x_profile_url,
+        youtube_profile_url: currentUser?.social_network?.youtube_profile_url ?? prevConfig.youtube_profile_url,
+        tiktok_profile_url: currentUser?.social_network?.tiktok_profile_url ?? prevConfig.tiktok_profile_url,
+      }));
     }
   }, [currentUser])
 
@@ -138,7 +139,7 @@ export const InformationContent = () => {
             onChange={(e) => handleChange(e)}
             placeholder="Modifica aqui tus estudios"
             className="mt-2"
-            defaultValue={currentUser?.college_degree}
+            defaultValue={currentUser?.college_degree || ""}
           />
           <div className="mt-3 flex w-full items-center justify-start rounded-full">
             <IconList className="mr-2 size-5" />
@@ -150,7 +151,7 @@ export const InformationContent = () => {
             onChange={(e) => handleChange(e)}
             placeholder="Escribe aqui una breve descripción tuya"
             className="mt-2"
-            defaultValue={currentUser?.description}
+            defaultValue={currentUser?.description || ""}
           />
           <Separator className="my-6 " />
           <h2 className="text-xl">Enlaces de redes sociales</h2>
@@ -165,7 +166,7 @@ export const InformationContent = () => {
             onChange={(e) => handleChangeSecond(e)}
             placeholder="Escribe aqui la url de tu página web"
             className="mt-2"
-            defaultValue={currentUser?.social_network?.web_site}
+            defaultValue={currentUser?.social_network?.web_site || ""}
           />
           <div className="mt-3 flex w-full items-center justify-start rounded-full">
             <IconBrandFacebook className="mr-2 size-5" />
@@ -177,7 +178,9 @@ export const InformationContent = () => {
             onChange={(e) => handleChangeSecond(e)}
             placeholder="Escribe aqui la url de tu Facebook"
             className="mt-2"
-            defaultValue={currentUser?.social_network?.facebook_profile_url}
+            defaultValue={
+              currentUser?.social_network?.facebook_profile_url || ""
+            }
           />
           <div className="mt-3 flex w-full items-center justify-start rounded-full">
             <IconBrandInstagram className="mr-2 size-5" />
@@ -189,7 +192,9 @@ export const InformationContent = () => {
             onChange={(e) => handleChangeSecond(e)}
             placeholder="Escribe aqui la url de tu Instagram"
             className="mt-2"
-            defaultValue={currentUser?.social_network?.instagram_profile_url}
+            defaultValue={
+              currentUser?.social_network?.instagram_profile_url || ""
+            }
           />
           <div className="mt-3 flex w-full items-center justify-start rounded-full">
             <IconBrandLinkedin className="mr-2 size-5" />
@@ -201,7 +206,9 @@ export const InformationContent = () => {
             onChange={(e) => handleChangeSecond(e)}
             placeholder="Escribe aqui la url de tu LinkedIn"
             className="mt-2"
-            defaultValue={currentUser?.social_network?.linked_in_profile_url}
+            defaultValue={
+              currentUser?.social_network?.linked_in_profile_url || ""
+            }
           />
           <div className="mt-3 flex w-full items-center justify-start rounded-full">
             <IconBrandX className="mr-2 size-5" />
@@ -213,7 +220,7 @@ export const InformationContent = () => {
             onChange={(e) => handleChangeSecond(e)}
             placeholder="Escribe aqui la url de X"
             className="mt-2"
-            defaultValue={currentUser?.social_network?.x_profile_url}
+            defaultValue={currentUser?.social_network?.x_profile_url || ""}
           />
           <div className="mt-3 flex w-full items-center justify-start rounded-full">
             <IconBrandYoutube className="mr-2 size-5" />
@@ -225,7 +232,9 @@ export const InformationContent = () => {
             onChange={(e) => handleChangeSecond(e)}
             placeholder="Escribe aqui la url de youtube"
             className="mt-2"
-            defaultValue={currentUser?.social_network?.youtube_profile_url}
+            defaultValue={
+              currentUser?.social_network?.youtube_profile_url || ""
+            }
           />
           <div className="mt-3 flex w-full items-center justify-start rounded-full">
             <IconBrandTiktok className="mr-2 size-5" />
@@ -237,7 +246,7 @@ export const InformationContent = () => {
             onChange={(e) => handleChangeSecond(e)}
             placeholder="Escribe aqui la url de tiktok"
             className="mt-2"
-            defaultValue={currentUser?.social_network?.tiktok_profile_url}
+            defaultValue={currentUser?.social_network?.tiktok_profile_url || ""}
           />
           <Button className="mt-3">Actualizar Academia</Button>
         </form>

@@ -4,15 +4,11 @@ import React, { useState } from "react"
 import Link from "next/link"
 import { useUIStore } from "@/store/ui/ui-store"
 import { IconMenuDeep } from "@tabler/icons-react"
-
 import { USER_TYPES } from "@/types/users"
 import { siteConfig } from "@/config/site"
-import { cn } from "@/lib/utils"
 import useGetCurrentUser from "@/hooks/useGetCurrentUser"
-
-import  MotionButton from "../animations/MotionButton"
+import MotionButton from "../animations/MotionButton"
 import { ThemeToggle } from "../theme-toggle"
-import { buttonVariants } from "../ui/button"
 
 const HeaderButtons = () => {
   const baseUrl = useUIStore((state) => state.baseUrl)
@@ -23,10 +19,8 @@ const HeaderButtons = () => {
   })
 
   if (loading) {
-    return <span></span>
-  }
-
-  if (!!currentUser) {
+    return <div></div>
+  } else if (!!currentUser) {
     if (currentUser.role === USER_TYPES.SUPER_ADMIN) {
       return (
         <div className="flex items-center">
@@ -75,6 +69,8 @@ const HeaderButtons = () => {
           <ThemeToggle />
         </div>
       )
+    } else {
+      return <div></div>
     }
   } else {
     return (

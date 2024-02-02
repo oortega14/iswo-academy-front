@@ -6,6 +6,7 @@ import { EditLessonsModalProps } from "@/types/modals"
 import useGetLesson from "@/hooks/useGetLesson"
 import { Checkbox } from "@/components/ui/checkbox"
 
+import MotionButton from "../animations/MotionButton"
 import Modal from "../ui/Modal"
 import { Button } from "../ui/button"
 import {
@@ -19,7 +20,6 @@ import {
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 import { Textarea } from "../ui/textarea"
-import { MotionButton } from "../animations/MotionButton"
 
 const EditLessonsModal = ({
   modalOpen,
@@ -29,14 +29,14 @@ const EditLessonsModal = ({
   const [loading, setLoading] = useState(true)
   const [file, setFile] = useState()
   const [data, setData] = useState({
-    title: '',
-    description: '',
-    visible: 'f',
-    video: '',
+    title: "",
+    description: "",
+    visible: "f",
+    video: "",
   })
   const lesson = useGetLesson({
     lessonId: lessonId,
-    setLoadingCallback: setLoading
+    setLoadingCallback: setLoading,
   })
 
   if (loading) {
@@ -81,52 +81,46 @@ const EditLessonsModal = ({
                     <div className="flex flex-col space-y-2">
                       <Label htmlFor="video">Video</Label>
                       {!!file ? (
-                      <div className=" mx-auto flex max-w-[220px] overflow-hidden rounded-lg shadow-lg">
-                        {
-                          <video
-                            id="video"
-                            className="w-100 "
-                            src={URL.createObjectURL(file)}
-                            controls
-                          />
-                        }
-                      </div>
-                    ) : (
-                      <div className=" mx-auto flex max-w-[220px] rounded-lg shadow-lg">
-                        {
-                          <video
-                            id="video"
-                            className="w-100"
-                            src={lesson?.url_video}
-                            controls
-                          />
-                        }
-                      </div>
-                    )}
-                      <Input id="video" type="file" className="border-2"/>
+                        <div className=" mx-auto flex max-w-[220px] overflow-hidden rounded-lg shadow-lg">
+                          {
+                            <video
+                              id="video"
+                              className="w-100 "
+                              src={URL.createObjectURL(file)}
+                              controls
+                            />
+                          }
+                        </div>
+                      ) : (
+                        <div className=" mx-auto flex max-w-[220px] rounded-lg shadow-lg">
+                          {
+                            <video
+                              id="video"
+                              className="w-100"
+                              src={lesson?.url_video || ''}
+                              controls
+                            />
+                          }
+                        </div>
+                      )}
+                      <Input id="video" type="file" className="border-2" />
                     </div>
                     <div className="flex items-center gap-x-3">
                       <Label htmlFor="visible">Es visible</Label>
-                      <Checkbox checked={lesson?.visible} id="visible" name="checkbox" />
+                      <Checkbox
+                        checked={lesson?.visible}
+                        id="visible"
+                        name="checkbox"
+                      />
                     </div>
                   </div>
                 </form>
               </CardContent>
               <CardFooter className="flex justify-between">
-                <MotionButton
-                  whileHover={{ scale: 0.95}}
-                  whileTap={{ scale: 1.15}}
-                >
-                  <Button onClick={close} variant="outline">
-                    Cancelar
-                  </Button>
+                <MotionButton onClick={close} variant="outline">
+                  Cancelar
                 </MotionButton>
-                <MotionButton
-                  whileHover={{ scale: 0.95}}
-                  whileTap={{ scale: 1.15}}
-                >
-                  <Button>Editar</Button>
-                </MotionButton>
+                <MotionButton>Editar</MotionButton>
               </CardFooter>
             </Card>
           </Modal>

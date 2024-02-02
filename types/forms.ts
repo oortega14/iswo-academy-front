@@ -7,6 +7,7 @@ export interface InputWithIconProps {
   name: string
   defaultValue?: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  value?: string
 }
 
 export interface TextareaWithIconProps {
@@ -28,6 +29,15 @@ export interface InputFileWithImageProps {
   setImage: React.Dispatch<React.SetStateAction<Blob>>
 }
 
+export interface InputFileWithListProps {
+  Icon:  React.ComponentType<{ className?: string }>
+  label: string
+  name: string
+  files: File[]
+  setFiles: React.Dispatch<React.SetStateAction<File[]>>
+  defaultFiles?: File[]
+}
+
 export interface InputFileWithVideoProps {
   Icon:  React.ComponentType<{ className?: string }>
   label: string
@@ -35,7 +45,7 @@ export interface InputFileWithVideoProps {
     name: string
   }
   name: string
-  defaultVideo?: string
+  defaultVideo?: string | null
   setVideo: React.Dispatch<React.SetStateAction<{ name: string }>>
 }
 

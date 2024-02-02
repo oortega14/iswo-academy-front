@@ -20,28 +20,28 @@ const CoursesCard = ({
       whileHover={{ scale: 0.95 }}
       whileTap={{ scale: 1.05 }}
       className="
-        h-96 w-72 bg-gray-100 shadow-lg shadow-slate-500 rounded-xl my-6 mx-5 relative
-        dark:shadow-slate-800 cursor-pointer
+        relative mx-5 my-6 h-96 w-72 cursor-pointer rounded-xl bg-gray-100 shadow-lg
+        shadow-slate-500 dark:shadow-slate-800
       "
     >
       {!!imageUrl ? (
         <img
           src={imageUrl}
           alt="imagen-course"
-          className="w-full h-full object-cover opacity-80 rounded-xl"
+          className="h-full w-full rounded-xl object-cover opacity-80"
         />
       ) : (
         <img
           src="https://images.pexels.com/photos/207691/pexels-photo-207691.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           alt="imagen-course"
-          className="w-full h-full object-cover opacity-80 rounded-xl"
+          className="h-full w-full rounded-xl object-cover opacity-80"
         />
       )}
 
-      <div className="absolute top-0 left-0 w-full h-full bg-black/80 rounded-xl text-white flex flex-col items-center justify-center py-10 space-y-5 dark:bg-black/80">
-        <span className="font-semibold px-5 text-center text-3xl">{title}</span>
-        <span className="text-center px-5 text-sm">{truncarTexto(description, 120)}</span>
-        <div className="rounded-xl dark:bg-slate-200 dark:text-blue-dark bg-blue-dark text-white p-3">Precio: {price} COP</div>
+      <div className="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center space-y-5 rounded-xl bg-black/80 py-10 text-white dark:bg-black/80">
+        <span className="px-5 text-center text-3xl font-semibold">{title}</span>
+        <span className="px-5 text-center text-sm">{truncarTexto(description, 120)}</span>
+        <div className="dark:text-blue-dark bg-blue-dark rounded-xl p-3 text-white dark:bg-slate-200">Precio: {price} COP</div>
       </div>
     </MotionDiv>
   )

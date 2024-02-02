@@ -2,7 +2,6 @@ import { IconAlertCircle, IconTrash } from "@tabler/icons-react"
 import { AnimatePresence } from "framer-motion"
 import { DeleteAccountModalProps } from "@/types/modals"
 import { cn } from "@/lib/utils"
-import { MotionButton } from "../animations/MotionButton"
 import Modal from "../ui/Modal"
 import { buttonVariants } from "../ui/button"
 import { Toaster, toast } from 'sonner'
@@ -16,6 +15,7 @@ import {
 } from "../ui/card"
 import { DeleteAccountRequest } from "@/lib/requests"
 import { useRouter } from "next/navigation"
+import MotionButton from "../animations/MotionButton"
 
 const DeleteAccountModal = ({
   modalOpen,
@@ -54,8 +54,6 @@ const DeleteAccountModal = ({
             </CardContent>
             <CardFooter className="flex justify-between">
               <MotionButton
-                whileHover={{ scale: 0.95 }}
-                whileTap={{ scale: 1.15 }}
                 onClick={close}
                 className={cn(
                   buttonVariants({ variant: "outline" }),
@@ -65,8 +63,6 @@ const DeleteAccountModal = ({
                 Cancelar
               </MotionButton>
               <MotionButton
-                whileHover={{ scale: 0.95 }}
-                whileTap={{ scale: 1.15 }}
                 onClick={handleDelete}
                 className={cn(
                   buttonVariants({ variant: "destructive" }),

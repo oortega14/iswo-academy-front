@@ -1,4 +1,12 @@
 import React, { SetStateAction } from "react"
+import { Lesson } from "./sidebar";
+
+export interface CourseSection {
+  id:       number;
+  name:     string;
+  position: number;
+  lessons:  Lesson[];
+}
 
 export interface EditLessonsModalProps {
   modalOpen: boolean
@@ -10,6 +18,16 @@ export interface DeleteLessonsModalProps {
   modalOpen: boolean
   lessonId: number
   close: () => void
+  flag: boolean
+  setFlag: React.Dispatch<SetStateAction<boolean>>
+}
+
+export interface DeleteSectionModalProps {
+  modalOpen: boolean
+  sectionId: number
+  close: () => void
+  deleteFlag: boolean
+  setDeleteFlag: React.Dispatch<SetStateAction<boolean>>
 }
 
 export interface DeleteCourseModalProps {
@@ -35,24 +53,48 @@ export interface EditQuestionModalProps {
   modalOpen: boolean
   close: () => void
   questionId: number
+  flag: boolean
+  setFlag: React.Dispatch<SetStateAction<boolean>>
+}
+
+export interface EditSectionModalProps {
+  modalOpen: boolean
+  close: () => void
+  sectionId: number
+  flag: boolean
+  setFlag: React.Dispatch<SetStateAction<boolean>>
 }
 
 export interface DeleteQuestionModalProps {
   modalOpen: boolean
   questionId: number
   close: () => void
+  flag: boolean
+  setFlag: React.Dispatch<SetStateAction<boolean>>
+}
+
+export interface DeleteAnswerModalProps {
+  modalOpen: boolean
+  answerId: number
+  close: () => void
+  flag: boolean
+  setFlag: React.Dispatch<SetStateAction<boolean>>
 }
 
 export interface EditAnswersModalProps {
   modalOpen: boolean
   close: () => void
   questionId: number
+  flag: boolean
+  setFlag: React.Dispatch<SetStateAction<boolean>>
 }
 
 export interface EditAnswerModalProps {
   modalOpen: boolean
   close: () => void
   answerId: number
+  flag: boolean
+  setFlag: React.Dispatch<SetStateAction<boolean>>
 }
 
 export interface EditCourseModalProps {

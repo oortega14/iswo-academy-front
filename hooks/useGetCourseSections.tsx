@@ -1,6 +1,6 @@
 import { useUIStore } from '@/store/ui/ui-store';
 import {GetCourseSectionsProps}  from '@/types/hooks';
-import { CourseSection } from '@/types/sidebar';
+import { CourseSection } from '@/types/modals';
 import { useEffect, useState } from 'react';
 
 const useGetCourseSections = ({courseId, setLoadingCallback, flag}: GetCourseSectionsProps) => {

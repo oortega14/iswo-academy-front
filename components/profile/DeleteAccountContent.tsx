@@ -44,7 +44,7 @@ export const DeleteAccountContent = () => {
             permanente.
           </h1>
         </div>
-        <div className="flex justify-center items-center">
+        <div className="flex items-center justify-center">
           <Button
             className="mt-3"
             variant={"destructive"}

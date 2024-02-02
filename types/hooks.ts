@@ -14,6 +14,12 @@ export type GetCourseProps = {
   setLoadingCallback: CallbackFunction
 }
 
+export type GetCourseSectionProps = {
+  sectionId: string
+  setLoadingCallback: CallbackFunction
+  flag: boolean
+}
+
 export type GetCoursesProps = {
   academyId: string
   setLoadingCallback: CallbackFunction
@@ -42,8 +48,9 @@ export type GetLessonsProps = {
 }
 
 export type GetQuestionsProps = {
-  courseId: string
+  evaluationId: string
   setLoadingCallback: CallbackFunction
+  flag: boolean
 }
 
 export type GetLessonProps = {
@@ -54,11 +61,13 @@ export type GetLessonProps = {
 export type GetQuestionProps = {
   questionId: number
   setLoadingCallback: CallbackFunction
+  flag: boolean
 }
 
 export type GetAnswersProps = {
   questionId: string
   setLoadingCallback: CallbackFunction
+  flag: boolean
 }
 
 export type GetCategoriesProps = {
@@ -68,6 +77,7 @@ export type GetCategoriesProps = {
 export type GetAnswerProps = {
   answerId: number
   setLoadingCallback: CallbackFunction
+  flag: boolean
 }
 
 export type GetLearningRoutesProps = {

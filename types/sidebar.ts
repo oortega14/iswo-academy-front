@@ -23,13 +23,6 @@ export interface Course {
   course_goals: CourseGoal[];
 }
 
-export interface CourseSection {
-  id: number;
-  name:     string;
-  position: number;
-  lessons:  Lesson[];
-}
-
 export interface Lesson {
   id:          number;
   title:       string;
@@ -71,10 +64,10 @@ export interface AcademyConfiguration {
 
 export interface LearningRoute {
   id: number;
-  name: String;
-  academy_id: Number;
-  created_at: String;
-  updated_at: String;
+  name: string;
+  academy_id: number;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface SidebarLink {

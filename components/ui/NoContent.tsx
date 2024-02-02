@@ -4,7 +4,7 @@ import React from 'react'
 const NoContent = () => {
   return (
     <>
-      <div className='h-full w-full flex flex-col items-center justify-center'>
+      <div className='flex h-full w-full flex-col items-center justify-center'>
         <Image
           src={'/images/no_content.webp'}
           width={500}

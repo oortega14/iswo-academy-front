@@ -36,7 +36,7 @@ export const StudentsMainContent = () => {
           cursos:
         </h1>
       </div>
-      <div className="mb-12 grid grid-cols-1 gap-y-10 gap-x-6 md:grid-cols-2 px-4 mt-10">
+      <div className="mb-12 mt-10 grid grid-cols-1 gap-x-6 gap-y-10 px-4 md:grid-cols-2">
         <Link href={`/student/${params.userId}/dashboard/in_progress`}>
           <MotionDiv
             whileHover={{ scale: 0.98 }}
@@ -44,17 +44,17 @@ export const StudentsMainContent = () => {
             id="lessons"
             className="cursor-pointer"
           >
-            <div className="relative flex flex-col bg-clip-border rounded-xl shadow-md border-2">
-              <div className="bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr from-orange-600 to-orange-400 text-white shadow-orange-500/40 shadow-lg relative -mt-4 grid h-16 w-16 place-items-center">
+            <div className="relative flex flex-col rounded-xl border-2 bg-clip-border shadow-md">
+              <div className="relative mx-4 -mt-4 grid h-16 w-16 place-items-center overflow-hidden rounded-xl bg-gradient-to-tr from-orange-600 to-orange-400 bg-clip-border text-white shadow-lg shadow-orange-500/40">
                 <IconProgressBolt />
               </div>
               <div className="p-4 ">
-                <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
+                <h4 className="text-blue-gray-900 block font-sans text-2xl font-semibold leading-snug tracking-normal antialiased">
                   Cursos en progreso: {courseStatus?.in_progress}
                 </h4>
               </div>
-              <div className="border-t border-blue-gray-50 p-4">
-                <p className="block antialiased font-sans text-base leading-relaxed font-normal text-blue-gray-600 text-muted-foreground">
+              <div className="border-blue-gray-50 border-t p-4">
+                <p className="text-blue-gray-600 block font-sans text-base font-normal leading-relaxed text-muted-foreground antialiased">
                   Aqui podras ver tus cursos en progreso
                 </p>
               </div>
@@ -68,17 +68,17 @@ export const StudentsMainContent = () => {
             className="cursor-pointer"
             id="evaluation"
           >
-            <div className="relative flex flex-col bg-clip-border rounded-xl border-2 shadow-md">
-              <div className="bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr from-green-600 to-green-400 text-white shadow-green-500/40 shadow-lg relative -mt-4 grid h-16 w-16 place-items-center">
+            <div className="relative flex flex-col rounded-xl border-2 bg-clip-border shadow-md">
+              <div className="relative mx-4 -mt-4 grid h-16 w-16 place-items-center overflow-hidden rounded-xl bg-gradient-to-tr from-green-600 to-green-400 bg-clip-border text-white shadow-lg shadow-green-500/40">
                 <IconProgressCheck />
               </div>
               <div className="p-4">
-                <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
+                <h4 className="text-blue-gray-900 block font-sans text-2xl font-semibold leading-snug tracking-normal antialiased">
                   Cursos Finalizados: {courseStatus?.ended}
                 </h4>
               </div>
-              <div className="border-t border-blue-gray-50 p-4">
-                <p className="block antialiased font-sans text-base leading-relaxed font-normal text-blue-gray-600 text-muted-foreground">
+              <div className="border-blue-gray-50 border-t p-4">
+                <p className="text-blue-gray-600 block font-sans text-base font-normal leading-relaxed text-muted-foreground antialiased">
                   Aqui podras ver tus cursos finalizados
                 </p>
               </div>
@@ -92,17 +92,17 @@ export const StudentsMainContent = () => {
             className="cursor-pointer"
             id="evaluation"
           >
-            <div className="relative flex flex-col bg-clip-border rounded-xl border-2 shadow-md">
-              <div className="bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr from-blue-600 to-blue-400 text-white shadow-blue-500/40 shadow-lg relative -mt-4 grid h-16 w-16 place-items-center">
+            <div className="relative flex flex-col rounded-xl border-2 bg-clip-border shadow-md">
+              <div className="relative mx-4 -mt-4 grid h-16 w-16 place-items-center overflow-hidden rounded-xl bg-gradient-to-tr from-blue-600 to-blue-400 bg-clip-border text-white shadow-lg shadow-blue-500/40">
                 <IconProgressHelp />
               </div>
               <div className="p-4">
-                <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
+                <h4 className="text-blue-gray-900 block font-sans text-2xl font-semibold leading-snug tracking-normal antialiased">
                   Cursos de interes: {courseStatus?.acquired}
                 </h4>
               </div>
-              <div className="border-t border-blue-gray-50 p-4">
-                <p className="block antialiased font-sans text-base leading-relaxed font-normal text-blue-gray-600 text-muted-foreground">
+              <div className="border-blue-gray-50 border-t p-4">
+                <p className="text-blue-gray-600 block font-sans text-base font-normal leading-relaxed text-muted-foreground antialiased">
                   Aqui podras ver los cursos en los que has estado interesado
                 </p>
               </div>

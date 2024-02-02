@@ -3,7 +3,7 @@ import { Answer } from '@/types/courses';
 import { GetAnswerProps } from '@/types/hooks';
 import { useEffect, useState } from 'react';
 
-const useGetAnswer = ({answerId, setLoadingCallback}: GetAnswerProps) => {
+const useGetAnswer = ({answerId, setLoadingCallback, flag}: GetAnswerProps) => {
   const baseUrl = useUIStore((state) => state.baseUrl);
   const [answer, setAnswer] = useState<Answer>();
 
@@ -32,7 +32,7 @@ const useGetAnswer = ({answerId, setLoadingCallback}: GetAnswerProps) => {
     if (answerId) {
       getAnswer();
     }
-  }, [answerId, setLoadingCallback]);
+  }, [answerId, setLoadingCallback, flag]);
 
   return answer;
 };

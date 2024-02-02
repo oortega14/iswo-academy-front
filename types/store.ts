@@ -36,7 +36,7 @@ export interface SocialNetwork {
   facebook_profile_url: null
   instagram_profile_url: null
   linked_in_profile_url: null
-  twitter_profile_url: null
+  x_profile_url: null
   youtube_profile_url: null
   tiktok_profile_url: null
 }

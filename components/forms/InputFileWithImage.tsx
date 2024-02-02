@@ -68,7 +68,7 @@ const InputFileWithImage = ({
             })}
           >
             {!!previewImage && (
-              <div className="flex justify-start items-center rounded-xl overflow-hidden my-4 max-w-[250px]">
+              <div className="my-4 flex max-w-[250px] items-center justify-start overflow-hidden rounded-xl">
                 <div>
                   <img
                     src={previewImage}

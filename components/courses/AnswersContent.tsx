@@ -3,11 +3,7 @@
 import { useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import {
-  IconArticle,
   IconEdit,
-  IconEyeCheck,
-  IconEyeX,
-  IconList,
   IconTrash,
 } from "@tabler/icons-react"
 import {
@@ -16,8 +12,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { MotionButton } from "../animations/MotionButton"
-import { Button, buttonVariants } from "../ui/button"
+import { Button } from "../ui/button"
 import {
   Table,
   TableBody,
@@ -28,12 +23,13 @@ import {
 } from "../ui/table"
 import useGetAnswers from "@/hooks/useGetAnswers"
 import EditAnswerModal from "@/components/modals/EditAnswerModal"
-
+import DeleteAnswerModal from "../modals/DeleteAnswerModal"
 const AnswersContent = () => {
   const params = useParams()
   const router = useRouter()
   const [loading, setLoading] = useState<boolean>()
   const [editModalOpen, setEditModalOpen] = useState(false)
+  const [changeFlag, setChangeFlag] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const [accordionOn, setAccordionOn] = useState(false)
   const [selectedQuestionId, setSelectedQuestionId] = useState(0)
@@ -43,6 +39,7 @@ const AnswersContent = () => {
       ? params.questionId[0]
       : params.questionId,
     setLoadingCallback: setLoading,
+    flag: changeFlag
   })
 
   const close = (
@@ -92,13 +89,8 @@ const AnswersContent = () => {
                   <TableCell className="flex gap-x-2">
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <MotionButton
-                          whileHover={{ scale: 1.15 }}
-                          whileTap={{ scale: 0.9 }}
-                        >
-                          <Button
+                        <Button
                             variant="ghost"
-                            size="icon"
                             onClick={() =>
                               editModalOpen
                                 ? close(setEditModalOpen)
@@ -107,11 +99,28 @@ const AnswersContent = () => {
                             className=" border-[1px]"
                           >
                             <IconEdit className=" size-6 " />
-                          </Button>
-                        </MotionButton>
+                        </Button>
                       </TooltipTrigger>
                       <TooltipContent>
                         <p>Editar respuesta</p>
+                      </TooltipContent>
+                    </Tooltip>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                            variant="destructive"
+                            onClick={() =>
+                              deleteModalOpen
+                                ? close(setDeleteModalOpen)
+                                : open(setDeleteModalOpen, answer.id)
+                            }
+                            className=" border-[1px]"
+                          >
+                            <IconTrash className=" size-6 " />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Eliminar respuesta</p>
                       </TooltipContent>
                     </Tooltip>
                   </TableCell>
@@ -128,6 +137,15 @@ const AnswersContent = () => {
           modalOpen={editModalOpen}
           close={() => close(setEditModalOpen)}
           answerId={answerSelected}
+          flag={changeFlag}
+          setFlag={setChangeFlag}
+        />
+        <DeleteAnswerModal
+          modalOpen={deleteModalOpen}
+          close={() => close(setDeleteModalOpen)}
+          answerId={answerSelected}
+          flag={changeFlag}
+          setFlag={setChangeFlag}
         />
       </TooltipProvider>
     </>

@@ -1,11 +1,23 @@
-import { ConfigurateAcademyParams, FetchRegisterParams, TokenResetProps, UpdateAccountParams, CreateLearningRouteParams, UpdateLearningRouteParams } from "@/types/requests"
-import { UpdateInfoUserParams } from '../types/requests';
+import { Answer } from "@/types/courses"
+import {
+  ConfigurateAcademyParams,
+  CreateCourseSectionRequestProps,
+  CreateLearningRouteParams,
+  FetchRegisterParams,
+  TokenResetProps,
+  UpdateAccountParams,
+  UpdateLearningRouteParams,
+  UpdateSectionRequestParams,
+} from "@/types/requests"
+
+import { Question } from "../types/courses"
+import { UpdateInfoUserParams } from "../types/requests"
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
 // Register
 
-export async function RegisterNewUser(data: FetchRegisterParams){
+export async function RegisterNewUser(data: FetchRegisterParams) {
   try {
     const request = await fetch(`${baseUrl}/users`, {
       method: "POST",
@@ -18,8 +30,8 @@ export async function RegisterNewUser(data: FetchRegisterParams){
     const response = await request.json()
     return [request, response]
   } catch (e) {
-    throw new Error("Error al realizar la solicitud");
-   }
+    throw new Error("Error al realizar la solicitud")
+  }
 }
 
 //email-verification
@@ -81,7 +93,7 @@ export async function FetchAcademiesByCategory() {
     const response = await request.json()
     return [request, response]
   } catch (e) {
-    throw new Error("Error al realizar la solicitud");
+    throw new Error("Error al realizar la solicitud")
   }
 }
 
@@ -96,7 +108,7 @@ export async function ConfigurateAcademy(userData: ConfigurateAcademyParams) {
     const response = await request.json()
     return [request, response]
   } catch (e) {
-    throw new Error("Error al realizar la solicitud");
+    throw new Error("Error al realizar la solicitud")
   }
 }
 
@@ -109,27 +121,31 @@ export async function FetchCoursesByAcademyId(id: string) {
     const response = await request.json()
     return [request, response]
   } catch (e) {
-    throw new Error("Error al realizar la solicitud");
+    throw new Error("Error al realizar la solicitud")
   }
 }
 
 //logout
 export async function Logout() {
   try {
-    const request = await fetch(`${baseUrl}/logout`,{
-      method: 'POST',
-      credentials: 'include'
-    });
+    const request = await fetch(`${baseUrl}/logout`, {
+      method: "POST",
+      credentials: "include",
+    })
     const response = await request.json()
-    return [request, response];
+    return [request, response]
   } catch (e) {
-    throw new Error("Error al realizar la solicitud");
+    throw new Error("Error al realizar la solicitud")
   }
 }
 
 //user-profile
 
-export async function UpdateInfoUser({userConfiguration, userSocialNetwork, userId}: UpdateInfoUserParams){
+export async function UpdateInfoUser({
+  userConfiguration,
+  userSocialNetwork,
+  userId,
+}: UpdateInfoUserParams) {
   let data3 = {
     user: {
       ...userConfiguration,
@@ -149,11 +165,14 @@ export async function UpdateInfoUser({userConfiguration, userSocialNetwork, user
     const response = await request.json()
     return [request, response]
   } catch (e) {
-    throw new Error("Error al realizar la solicitud");
+    throw new Error("Error al realizar la solicitud")
   }
 }
 
-export async function UpdateAccountRequest({data, userId}: UpdateAccountParams){
+export async function UpdateAccountRequest({
+  data,
+  userId,
+}: UpdateAccountParams) {
   let data2 = {
     user: { ...data },
     section: "account_params",
@@ -168,27 +187,28 @@ export async function UpdateAccountRequest({data, userId}: UpdateAccountParams){
     const response = await request.json()
     return [request, response]
   } catch (e) {
-    throw new Error("Error al realizar la solicitud");
+    throw new Error("Error al realizar la solicitud")
   }
 }
 
-export async function DeleteAccountRequest(userId: number){
+export async function DeleteAccountRequest(userId: number) {
   try {
-    const request = await fetch(`${baseUrl}/users/${userId}`,
-    {
-      method: 'DELETE',
-      headers: { 'Content-type': 'application/json;charset=UTF-8' },
-      credentials: 'include',
-    });
+    const request = await fetch(`${baseUrl}/users/${userId}`, {
+      method: "DELETE",
+      headers: { "Content-type": "application/json;charset=UTF-8" },
+      credentials: "include",
+    })
 
     const response = await request.json()
-    return [request, response];
+    return [request, response]
   } catch (e) {
-    throw new Error("Error al realizar la solicitud");
+    throw new Error("Error al realizar la solicitud")
   }
 }
 
-export async function CreateLearningRoute(learningRouteData: CreateLearningRouteParams) {
+export async function CreateLearningRoute(
+  learningRouteData: CreateLearningRouteParams
+) {
   try {
     const request = await fetch(`${baseUrl}/learning_routes`, {
       method: "POST",
@@ -199,22 +219,50 @@ export async function CreateLearningRoute(learningRouteData: CreateLearningRoute
     const response = await request.json()
     return [request, response]
   } catch (e) {
-    throw new Error("Error al realizar la solicitud");
+    throw new Error("Error al realizar la solicitud")
   }
 }
 
-export async function DeleteCourseRequest( courseId: number ) {
+export async function DeleteCourseRequest(courseId: number) {
   try {
-    const request = await fetch(`${baseUrl}/courses/${courseId}`,
-    {
-      method: 'DELETE',
-      headers: { 'Content-type': 'application/json;charset=UTF-8' },
-      credentials: 'include',
-    });
+    const request = await fetch(`${baseUrl}/courses/${courseId}`, {
+      method: "DELETE",
+      headers: { "Content-type": "application/json;charset=UTF-8" },
+      credentials: "include",
+    })
     const response = await request.json()
     return [request, response]
   } catch (e) {
-    throw new Error('Error al realizar la solicitud')
+    throw new Error("Error al realizar la solicitud")
+  }
+}
+
+export async function DeleteLessonRequest(lessonId: number) {
+  try {
+    const request = await fetch(`${baseUrl}/lessons/${lessonId}`, {
+      method: "DELETE",
+      headers: { "Content-type": "application/json;charset=UTF-8" },
+      credentials: "include",
+    })
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud")
+  }
+}
+
+export async function DeleteSectionRequest(sectionId: number) {
+  try {
+    const request = await fetch(`${baseUrl}/course_sections/${sectionId}`, {
+      method: "DELETE",
+      headers: { "Content-type": "application/json;charset=UTF-8" },
+      credentials: "include",
+    })
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    console.log(e)
+    throw new Error("Error al realizar la solicitud")
   }
 }
 
@@ -222,40 +270,159 @@ export async function CreateCourseSectionRequest({
   courseId,
   position,
   name,
-} : CreateCourseSectionRequestProps ) {
+}: CreateCourseSectionRequestProps) {
   const data = {
     position: position,
     name: name,
     course_id: courseId,
   }
   const data2 = {
-    course_section: {...data}
+    course_section: { ...data },
   }
   try {
-    const request = await fetch(`${baseUrl}/course_sections`,
-    {
-      method: 'POST',
-      headers: { 'Content-type': 'application/json;charset=UTF-8' },
-      credentials: 'include',
-      body: JSON.stringify(data2),
-    });
-    const response = await request.json()
-    return [request, response]
-  } catch (e) {
-    throw new Error('Error al realizar la solicitud')
-  }
-}
-export async function UpdateLearningRoute({ learningRouteData, learningRouteId }: UpdateLearningRouteParams ) {
-  try {
-    const request = await fetch(`${baseUrl}/learning_routes/${learningRouteId}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
+    const request = await fetch(`${baseUrl}/course_sections`, {
+      method: "POST",
+      headers: { "Content-type": "application/json;charset=UTF-8" },
       credentials: "include",
-      body: JSON.stringify(learningRouteData),
+      body: JSON.stringify(data2),
     })
     const response = await request.json()
     return [request, response]
   } catch (e) {
-    throw new Error("Error al realizar la solicitud");
+    throw new Error("Error al realizar la solicitud")
+  }
+}
+
+export async function UpdateLearningRoute({
+  learningRouteData,
+  learningRouteId,
+}: UpdateLearningRouteParams) {
+  try {
+    const request = await fetch(
+      `${baseUrl}/learning_routes/${learningRouteId}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(learningRouteData),
+      }
+    )
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud")
+  }
+}
+
+export async function UpdateSectionRequest({
+  sectionData,
+  sectionId,
+}: UpdateSectionRequestParams) {
+  try {
+    const request = await fetch(`${baseUrl}/course_sections/${sectionId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(sectionData),
+    })
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud")
+  }
+}
+
+export async function addNewQuestionRequest(question: string, courseId: string) {
+  const newQuestion = {
+    course_test_id: courseId,
+    question: question,
+  }
+  try {
+    const request = await fetch(`${baseUrl}/test_questions`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(newQuestion),
+    })
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud")
+  }
+}
+
+export async function sendAnswersRequest(answers: Answer[], questionId: number) {
+  try {
+    const request = await fetch(`${baseUrl}/question_options/create_answers?question_id=${questionId}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ answers: answers}),
+    })
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud")
+  }
+}
+
+export async function EditQuestionRequest(question: { question: string }, questionId: number) {
+  try {
+    const request = await fetch(`${baseUrl}/test_questions/${questionId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(question),
+    })
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud")
+  }
+}
+
+export async function DeleteQuestionRequest(questionId: number) {
+  try {
+    const request = await fetch(`${baseUrl}/test_questions/${questionId}`, {
+      method: "DELETE",
+      headers: { "Content-type": "application/json;charset=UTF-8" },
+      credentials: "include",
+    })
+
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud")
+  }
+}
+
+export async function EditAnswerRequest(answer: { option_text: string }, answerId: number) {
+  try {
+    const request = await fetch(`${baseUrl}/question_options/${answerId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(answer),
+    })
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud")
+  }
+}
+
+
+export async function DeleteAnswerRequest(answerId: number) {
+  try {
+    const request = await fetch(`${baseUrl}/question_options/${answerId}`, {
+      method: "DELETE",
+      headers: { "Content-type": "application/json;charset=UTF-8" },
+      credentials: "include",
+    })
+
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud")
   }
 }

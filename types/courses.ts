@@ -26,6 +26,7 @@ export interface QuestionOption {
 export interface Answer {
   id: number;
   option_text: string;
+  right_answer: boolean;
 }
 
 export interface Category {

@@ -1,17 +1,36 @@
 "use client"
 
-import useGetLearningRoutes from "@/hooks/useGetLearningRoutes"
-import { LearningRoute } from "@/types/sidebar"
-import LearningRouteModal from "./learningRoutes/LearningRouteModal"
-import { useParams } from "next/navigation"
 import { useState } from "react"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../ui/table"
-import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip"
-import { IconEdit, IconList, IconTrash, IconCalendarMonth } from "@tabler/icons-react"
-import { MotionButton } from "../../animations/MotionButton"
-import { buttonVariants } from "../../ui/button"
-import { cn } from "@/lib/utils"
 import Link from "next/link"
+import { useParams } from "next/navigation"
+import {
+  IconCalendarMonth,
+  IconEdit,
+  IconList,
+  IconTrash,
+} from "@tabler/icons-react"
+
+import { LearningRoute } from "@/types/sidebar"
+import { cn } from "@/lib/utils"
+import useGetLearningRoutes from "@/hooks/useGetLearningRoutes"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+import MotionButton from "@/components/animations/MotionButton"
+
+import { Button, buttonVariants } from "../../ui/button"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../../ui/table"
+import LearningRouteModal from "./learningRoutes/LearningRouteModal"
 
 const LearningRoutesContent = () => {
   const [loading, setLoading] = useState<boolean>()
@@ -25,54 +44,55 @@ const LearningRoutesContent = () => {
     setLoadingCallback: setLoading,
   })
 
-  const close = ( setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>> ) => {
+  const close = (
+    setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
     setModalOpenFunction(false)
   }
 
-  const open = ( setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>>, learningRouteId: number) => {
+  const open = (
+    setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>>,
+    learningRouteId: number
+  ) => {
     setModalOpenFunction(true)
     setLearningRouteId(learningRouteId)
   }
 
-  return(
+  return (
     <>
       <div>
         <TooltipProvider>
           <Table className="w-full">
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-1/6 "></TableHead>
-                  <TableHead className="w-2/6 ">Nombre</TableHead>
-                  <TableHead className="w-1/6 ">Cursos</TableHead>
-                  <TableHead className="w-1/6">Creado</TableHead>
-                  <TableHead className="w-1/6">
-                    <MotionButton
-                      whileHover={{ scale: 1.15 }}
-                      whileTap={{ scale: 0.9 }}
-                      className={cn(
-                        buttonVariants({ variant: "default", size: "lg" }),
-                        "border-[1px] px-2"
-                      )}
-                      onClick={() => {
-                        editModalOpen
-                          ? close(setEditModalOpen)
-                          : open(setEditModalOpen, 0)
-                      }}
-                    >
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-1/6 "></TableHead>
+                <TableHead className="w-2/6 ">Nombre</TableHead>
+                <TableHead className="w-1/6 ">Cursos</TableHead>
+                <TableHead className="w-1/6">Creado</TableHead>
+                <TableHead className="w-1/6">
+                  <Button
+                    className={cn(
+                      buttonVariants({ variant: "default", size: "lg" }),
+                      "border-[1px] px-2"
+                    )}
+                    onClick={() => {
+                      editModalOpen
+                        ? close(setEditModalOpen)
+                        : open(setEditModalOpen, 0)
+                    }}
+                  >
                     <p>Nueva Ruta</p>
-                    </MotionButton>
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-              { learningRoutes.map((LearningRoute: LearningRoute) => (
+                  </Button>
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {learningRoutes.map((LearningRoute: LearningRoute) => (
                 <TableRow key={LearningRoute.id}>
                   <TableCell className="flex gap-x-2">
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <MotionButton
-                          whileHover={{ scale: 1.15 }}
-                          whileTap={{ scale: 0.9 }}
+                        <Button
                           className={cn(
                             buttonVariants({ variant: "ghost" }),
                             "border-[1px] px-2"
@@ -84,7 +104,7 @@ const LearningRoutesContent = () => {
                           }}
                         >
                           <IconEdit />
-                        </MotionButton>
+                        </Button>
                       </TooltipTrigger>
                       <TooltipContent>
                         <p>Editar Ruta</p>
@@ -92,9 +112,7 @@ const LearningRoutesContent = () => {
                     </Tooltip>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <MotionButton
-                          whileHover={{ scale: 1.15 }}
-                          whileTap={{ scale: 0.9 }}
+                        <Button
                           className={cn(
                             buttonVariants({ variant: "ghost" }),
                             "border-[1px] px-2"
@@ -106,7 +124,7 @@ const LearningRoutesContent = () => {
                           }}
                         >
                           <IconTrash />
-                        </MotionButton>
+                        </Button>
                       </TooltipTrigger>
                       <TooltipContent>
                         <p>Eliminar Ruta</p>
@@ -114,17 +132,17 @@ const LearningRoutesContent = () => {
                     </Tooltip>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Link href={`/admin/${params.id}/academies/${params.academyId}/courses/${LearningRoute.id}/main`}>
-                        <MotionButton
-                          whileHover={{ scale: 1.15 }}
-                          whileTap={{ scale: 0.9 }}
-                          className={cn(
-                            buttonVariants({ variant: "ghost" }),
-                            "border-[1px] px-2"
-                          )}
+                        <Link
+                          href={`/admin/${params.id}/academies/${params.academyId}/courses/${LearningRoute.id}/main`}
                         >
-                          <IconList />
-                        </MotionButton>
+                          <Button
+                            className={cn(
+                              buttonVariants({ variant: "ghost" }),
+                              "border-[1px] px-2"
+                            )}
+                          >
+                            <IconList />
+                          </Button>
                         </Link>
                       </TooltipTrigger>
                       <TooltipContent>
@@ -132,11 +150,13 @@ const LearningRoutesContent = () => {
                       </TooltipContent>
                     </Tooltip>
                   </TableCell>
-                  <TableCell className="font-medium">{LearningRoute.name}</TableCell>
+                  <TableCell className="font-medium">
+                    {LearningRoute.name}
+                  </TableCell>
                   <TableCell className="font-medium">
                     {LearningRoute.id}
                   </TableCell>
-                  <TableCell className="font-medium flex gap-x-2 ml-5">
+                  <TableCell className="ml-5 flex gap-x-2 font-medium">
                     <IconCalendarMonth />
                     {LearningRoute.created_at}
                   </TableCell>
