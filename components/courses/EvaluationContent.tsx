@@ -147,12 +147,12 @@ const EvaluationContent = () => {
                 <IconQuestionMark />
               </div>
               <div className="p-4 ">
-                <h4 className="text-blue-gray-900 block font-sans text-2xl font-semibold leading-snug tracking-normal antialiased">
+                <h4 className="text-blue-gray-900 block text-2xl font-semibold leading-snug tracking-normal antialiased">
                   Preguntas
                 </h4>
               </div>
               <div className="border-blue-gray-50 border-t p-4">
-                <p className="text-blue-gray-600 block font-sans text-base font-normal leading-relaxed text-muted-foreground antialiased">
+                <p className="text-blue-gray-600 block text-base font-normal leading-relaxed text-muted-foreground antialiased">
                   Aqui podras crear o modificar las preguntas de tu evaluación
                 </p>
               </div>

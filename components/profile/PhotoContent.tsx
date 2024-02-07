@@ -145,7 +145,6 @@ export const PhotoContent = () => {
           </Card>
         </div>
       </main>
-      <Toaster theme="system" position="top-right" richColors/>
     </div>
   )
 }

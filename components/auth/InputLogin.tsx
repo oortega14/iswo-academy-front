@@ -110,7 +110,6 @@ export const InputLogin = () => {
           <Button className="mt-3 w-full">Iniciar Sesión</Button>
         </MotionDiv>
       </form>
-      <Toaster theme="system" position="top-right" richColors />
     </>
   )
 }

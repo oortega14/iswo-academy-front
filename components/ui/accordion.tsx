@@ -32,7 +32,6 @@ const AccordionTrigger = React.forwardRef<
       {...props}
     >
       <div className="flex items-center justify-start gap-x-2">
-        <IconCircle className="size-2 shrink-0 "/>
         {children}
       </div>
     </AccordionPrimitive.Trigger>

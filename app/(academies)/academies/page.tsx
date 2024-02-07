@@ -22,12 +22,12 @@ export default function AcademiesPage() {
           <p className="mt-3 text-pretty text-left ">
             Aqui podras encontrar las diferentes academias segun sus categorias
             para que encuentres un espacio grato hacia tus objetivos la idea es
-            que pueda expresar mucho de lo que quieres aprender en jaja{" "}
+            que pueda expresar mucho de lo que quieres aprender en
           </p>
         </MotionDiv>
         <div className="flex w-1/2 justify-center pr-24 ">
           <div className="flex w-2/3 justify-center">
-            <div className="flex h-[450px] w-full justify-center overflow-hidden rounded-full">
+            <div className="flex 2xl:h-[400px] h-[280px] w-full justify-center overflow-hidden rounded-full">
               <img
                 src="/images/academies_banner.webp"
                 alt="academies"

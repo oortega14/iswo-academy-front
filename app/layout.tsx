@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site"
 import { fontMono } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
 import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "sonner"
 
 export const metadata: Metadata = {
   title: siteConfig.name,
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
+            <Toaster theme="system" position="top-right" richColors />
           </ThemeProvider>
         </body>
       </html>

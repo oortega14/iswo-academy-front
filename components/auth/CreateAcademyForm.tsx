@@ -102,7 +102,6 @@ export const CreateAcademyForm = () => {
           Crear academia
         </Button>
       </form>
-      <Toaster theme="system" position="top-right" richColors />
     </>
   )
 }

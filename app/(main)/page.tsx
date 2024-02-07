@@ -19,16 +19,6 @@ export default function IndexPage() {
           <strong className="font-extrabold">Soporte Técnico en Tiempo Real.</strong>
           </p>
         </div>
-        <div className="flex">
-          <Link
-            href={siteConfig.buttons.login}
-            target="_blank"
-            rel="noreferrer"
-            className={buttonVariants()}
-          >
-            Adquirir Demo
-          </Link>
-        </div>
       </div>
       <div className="overflow-auto rounded-md">
         <Image src={"/image_hero.webp"} width={500} height={500} alt="banner" className="h-auto w-auto"/>

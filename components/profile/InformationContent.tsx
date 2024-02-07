@@ -251,7 +251,6 @@ export const InformationContent = () => {
           <Button className="mt-3">Actualizar Academia</Button>
         </form>
       </main>
-      <Toaster theme="system" position="top-right" richColors />
     </div>
   )
 }

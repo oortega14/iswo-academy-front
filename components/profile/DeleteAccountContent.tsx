@@ -63,7 +63,6 @@ export const DeleteAccountContent = () => {
         close={() => close(setDeleteModalOpen)}
         userId={userSelectedId}
       />
-      <Toaster theme="system" position="top-right" richColors/>
     </div>
   )
 }

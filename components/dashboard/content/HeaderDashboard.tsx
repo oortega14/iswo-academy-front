@@ -23,11 +23,13 @@ import styles from "@/styles/dashboard.module.css"
 
 import HeaderProfileDropdown from "./HeaderProfileDropdown"
 import HideSidebarButton from "./HideSidebarButton"
+import SearchModal from "@/components/modals/SearchModal"
 
 export const HeaderDashboard = () => {
   const router = useRouter()
   const baseUrl = useUIStore((state) => state.baseUrl)
   const [loading, setLoading] = useState(true)
+  const [searchFlag, setSearchFlag] = useState(false)
   const isSearchBoxOpen = useUIStore((state) => state.isSearchBoxOpen)
   const isNotificationsOpen = useUIStore((state) => state.isNotificationsOpen)
   const isServicesOpen = useUIStore((state) => state.isServicesOpen)
@@ -42,6 +44,19 @@ export const HeaderDashboard = () => {
     baseUrl: baseUrl,
     setLoadingCallback: setLoading,
   })
+  const [data, setData] = useState({})
+
+  const close = (
+    setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    setModalOpenFunction(false)
+  }
+
+  const open = (
+    setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    setModalOpenFunction(true)
+  }
 
   const toggleButton = (flag: string) => {
     if (flag === "notifications") {
@@ -66,6 +81,12 @@ export const HeaderDashboard = () => {
       isServicesOpen && changeServices()
       isUsersSettingsOpen && changeUserSettings()
     }
+  }
+
+  const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    console.log(value)
+    setData({ ...data, [name]: value })
   }
 
   const handleLogout = async () => {
@@ -108,14 +129,17 @@ export const HeaderDashboard = () => {
               </div>
             </div>
           )}
-          <div className="hidden items-center space-x-2 px-2 md:ml-5 md:mr-auto md:flex md:flex-1">
-            <IconSearch />
-            <Input
-              type="text"
-              placeholder="Search"
-              className="rounded-md border-[1px] px-4 py-3 focus:outline-none md:flex-1 md:py-2 md:focus:border-2 md:focus:shadow lg:w-full"
-            />
-          </div>
+          <MotionDiv
+            whileTap={{ scale: 0.98 }}
+            whileHover={{ scale: 1.01 }}
+            className="hidden items-center space-x-2 px-2 md:ml-5 md:mr-auto md:flex md:flex-1 bg-slate-200 p-3 rounded-xl dark:text-blue-dark cursor-pointer"
+            onClick={()=>setSearchFlag(!searchFlag)}
+          >
+            <IconSearch className="mx-3" />
+            <div>
+              <span className="font-bold">Buscar cursos..</span>
+            </div>
+          </MotionDiv>
           <div className="relative flex items-center space-x-3">
             <button
               onClick={() => toggleButton("search")}
@@ -252,7 +276,7 @@ export const HeaderDashboard = () => {
                       />
                     ) : (
                       <AvatarImage
-                        src='/images/avatar_singenero.webp'
+                        src="/images/avatar_singenero.webp"
                         alt="foto de perfil"
                       />
                     )}
@@ -271,6 +295,10 @@ export const HeaderDashboard = () => {
           </div>
         </div>
       </header>
+      <SearchModal
+        modalOpen={searchFlag}
+        close={() => close(setSearchFlag)}
+      />
     </div>
   )
 }

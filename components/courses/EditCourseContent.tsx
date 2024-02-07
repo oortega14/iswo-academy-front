@@ -282,7 +282,6 @@ const EditCourseContent = () => {
           </DialogContent>
         </Dialog>
       </form>
-      <Toaster />
     </>
   )
 }

@@ -35,7 +35,6 @@ const ConfirmEmailButton = () => {
           Verificar mi e-mail
         </Button>
       </MotionDiv>
-      <Toaster theme="system" position="top-right" richColors />
     </>
   )
 }

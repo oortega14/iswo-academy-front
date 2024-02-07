@@ -30,7 +30,6 @@ export const VerifyButton = () => {
           Ya lo he verificado!
         </Button>
       </MotionDiv>
-      <Toaster theme="system" position="top-right" richColors  />
     </>
   )
 }

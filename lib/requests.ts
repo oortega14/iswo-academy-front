@@ -411,7 +411,6 @@ export async function EditAnswerRequest(answer: { option_text: string }, answerI
   }
 }
 
-
 export async function DeleteAnswerRequest(answerId: number) {
   try {
     const request = await fetch(`${baseUrl}/question_options/${answerId}`, {
@@ -420,6 +419,19 @@ export async function DeleteAnswerRequest(answerId: number) {
       credentials: "include",
     })
 
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud")
+  }
+}
+
+export async function FetchCoursesByKeywordRequest(data: { keyword: string}) {
+  try {
+    const request = await fetch(`${baseUrl}/courses/search?keyword=${data.keyword}`, {
+      method: "GET",
+      credentials: "include",
+    })
     const response = await request.json()
     return [request, response]
   } catch (e) {

@@ -166,7 +166,6 @@ export default function RegisterDiv() {
 
         <Button className="mb-4 mt-3">Registrarse</Button>
       </form>
-      <Toaster theme="system" position="top-right" richColors />
     </div>
   )
 }

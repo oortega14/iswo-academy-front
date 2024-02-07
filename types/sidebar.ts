@@ -1,3 +1,5 @@
+import { CourseSection } from "./modals";
+
 export interface CourseGoal {
   id: number
   description: string
@@ -83,22 +85,21 @@ export interface SidebarNavigationProps {
   handleClick: (categoryLabel: string, subcategoryLabel: string ) => void
 }
 
-export interface SidebarNavigationAdminProps {
-  sidebarLinks?: SidebarLink[]
-  isSidebarOpen: boolean
-  handleClick: (categoryLabel: string, subcategoryLabel: string ) => void
-  courses: Course[]
+export interface SidebarNavigationVideoPlayerProps {
+  sections?: CourseSection[]
+  handleClick: (sectionId: number, lessonId: number ) => void
 }
 
 export interface SidebarCategoryProps {
   category: SidebarLink
   handleClick: (categoryLabel: string, subcategoryLabel: string ) => void
+  courses: Course[]
+
 }
 
-export interface SidebarCategoryAdminProps {
-  category: SidebarLink
-  handleClick: (categoryLabel: string, subcategoryLabel: string ) => void
-  courses: Course[]
+export interface SidebarSectionProps {
+  section: CourseSection
+  handleClick: (sectionId: number, lessonId: number ) => void
 }
 
 export type SidebarProps = {
@@ -114,3 +115,10 @@ export type BuildRouteProps = {
   courseId: string
   academyId: string
 }
+
+export type BuildRouteVPlayerProps = {
+  sectionId: number
+  courseId: string
+  lessonId: number
+}
+

@@ -75,7 +75,6 @@ export const InputResetMain = () => {
           <Button className="mt-3 w-full">Actualizar mi contraseña</Button>
         </MotionDiv>
       </form>
-      <Toaster theme="system" position="top-right" richColors />
     </>
   )
 }

@@ -57,6 +57,11 @@ export interface EditQuestionModalProps {
   setFlag: React.Dispatch<SetStateAction<boolean>>
 }
 
+export interface SearchModalProps {
+  modalOpen: boolean
+  close: () => void
+}
+
 export interface EditSectionModalProps {
   modalOpen: boolean
   close: () => void

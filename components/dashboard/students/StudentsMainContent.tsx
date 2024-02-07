@@ -49,12 +49,12 @@ export const StudentsMainContent = () => {
                 <IconProgressBolt />
               </div>
               <div className="p-4 ">
-                <h4 className="text-blue-gray-900 block font-sans text-2xl font-semibold leading-snug tracking-normal antialiased">
+                <h4 className="text-blue-gray-900 block text-2xl font-semibold leading-snug tracking-normal antialiased">
                   Cursos en progreso: {courseStatus?.in_progress}
                 </h4>
               </div>
               <div className="border-blue-gray-50 border-t p-4">
-                <p className="text-blue-gray-600 block font-sans text-base font-normal leading-relaxed text-muted-foreground antialiased">
+                <p className="text-blue-gray-600 block text-base font-normal leading-relaxed text-muted-foreground antialiased">
                   Aqui podras ver tus cursos en progreso
                 </p>
               </div>
@@ -73,12 +73,12 @@ export const StudentsMainContent = () => {
                 <IconProgressCheck />
               </div>
               <div className="p-4">
-                <h4 className="text-blue-gray-900 block font-sans text-2xl font-semibold leading-snug tracking-normal antialiased">
+                <h4 className="text-blue-gray-900 block text-2xl font-semibold leading-snug tracking-normal antialiased">
                   Cursos Finalizados: {courseStatus?.ended}
                 </h4>
               </div>
               <div className="border-blue-gray-50 border-t p-4">
-                <p className="text-blue-gray-600 block font-sans text-base font-normal leading-relaxed text-muted-foreground antialiased">
+                <p className="text-blue-gray-600 block text-base font-normal leading-relaxed text-muted-foreground antialiased">
                   Aqui podras ver tus cursos finalizados
                 </p>
               </div>
@@ -97,12 +97,12 @@ export const StudentsMainContent = () => {
                 <IconProgressHelp />
               </div>
               <div className="p-4">
-                <h4 className="text-blue-gray-900 block font-sans text-2xl font-semibold leading-snug tracking-normal antialiased">
+                <h4 className="text-blue-gray-900 block text-2xl font-semibold leading-snug tracking-normal antialiased">
                   Cursos de interes: {courseStatus?.acquired}
                 </h4>
               </div>
               <div className="border-blue-gray-50 border-t p-4">
-                <p className="text-blue-gray-600 block font-sans text-base font-normal leading-relaxed text-muted-foreground antialiased">
+                <p className="text-blue-gray-600 block text-base font-normal leading-relaxed text-muted-foreground antialiased">
                   Aqui podras ver los cursos en los que has estado interesado
                 </p>
               </div>

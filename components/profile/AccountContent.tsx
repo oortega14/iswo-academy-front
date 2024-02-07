@@ -31,7 +31,7 @@ export const AccountContent = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    
+
     const [request, response] = await UpdateAccountRequest({
       data: data,
       userId: params.userId,
@@ -101,7 +101,6 @@ export const AccountContent = () => {
           <Button className="mt-3">Actualizar Academia</Button>
         </form>
       </main>
-      <Toaster theme="system" position="top-right" richColors/>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import { BuildRouteProps } from "@/types/sidebar"
+import { BuildRouteProps, BuildRouteVPlayerProps } from "@/types/sidebar"
 
 export const buildRoute = ({
   category,
@@ -123,4 +123,20 @@ export const buildRoute = ({
   }
 }
 
-export default buildRoute
+export const buildRouteVPlayer = ({
+  sectionId,
+  lessonId,
+  courseId,
+}: BuildRouteVPlayerProps) => {
+
+  console.log(lessonId)
+
+  return `/courses/${courseId}/video-player/sections/${sectionId}/lessons/${lessonId}`
+}
+
+const sidebarNavigation = {
+  buildRoute,
+  buildRouteVPlayer,
+};
+
+export default sidebarNavigation;

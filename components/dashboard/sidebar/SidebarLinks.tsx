@@ -9,10 +9,10 @@ import {
   TEACHER_SIDEBAR_LINKS,
 } from "@/constants/sidebar-constants"
 import { useUIStore } from "@/store/ui/ui-store"
-import buildRoute from "@/lib/sidebar-navigation"
 import { SidebarNavigation } from "./SidebarNavigation"
 import useGetCurrentUser from "@/hooks/useGetCurrentUser"
 import { USER_TYPES } from "@/types/users"
+import { buildRoute } from "@/lib/sidebarNavigation"
 
 export const SidebarLinks = () => {
   const params = useParams<{ userId: string; courseId:string; academyId: string }>()

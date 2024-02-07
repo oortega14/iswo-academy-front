@@ -6,9 +6,9 @@ import {
   PROFILE_SIDEBAR_LINKS,
 } from "@/constants/sidebar-constants"
 import { useUIStore } from "@/store/ui/ui-store"
-import buildRoute from "@/lib/sidebar-navigation"
 import useGetCurrentUser from "@/hooks/useGetCurrentUser"
 import { SidebarNavigation } from "./SidebarNavigation"
+import { buildRoute } from "@/lib/sidebarNavigation"
 
 export const SidebarProfileLinks = () => {
   const params = useParams<{

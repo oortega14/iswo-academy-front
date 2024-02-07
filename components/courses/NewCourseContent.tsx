@@ -233,7 +233,6 @@ const NewCoursesContent = () => {
           </DialogContent>
         </Dialog>
       </form>
-      <Toaster />
     </>
   )
 }
