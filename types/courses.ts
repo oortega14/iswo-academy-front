@@ -1,5 +1,6 @@
 import React from "react";
 import { Course } from "./sidebar";
+import { User } from "./store";
 
 export interface File {
   id:   number;
@@ -32,6 +33,23 @@ export interface Answer {
 export interface Category {
   id: number;
   name: string;
+}
+
+export interface TotalComments {
+  comments: LessonComment[];
+  total:    number;
+}
+
+export interface UserComment {
+  name:    string;
+  picture: null | string;
+}
+
+
+export interface LessonComment {
+  id:      number;
+  comment: string;
+  user:    UserComment;
 }
 
 export interface ButtonTooltipProps {

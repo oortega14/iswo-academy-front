@@ -42,7 +42,7 @@ const InputFileWithImage = ({
     }
   }
   return (
-    <div>
+    <div className="mb-2">
       {!!defaultImage && !previewImage ? (
         <>
           <div className="mt-3 flex w-full items-center justify-start rounded-full">
@@ -52,7 +52,7 @@ const InputFileWithImage = ({
           <div className="flex w-full items-center justify-start space-x-3">
             <Figure image={defaultImage} />
             <div className="mt-3 grid w-full items-center gap-1.5">
-              <Input id="logo" type="file" onChange={(e) => handleFile(e)} />
+              <Input id="logo" type="file" className="cursor-pointer" onChange={(e) => handleFile(e)} />
             </div>
           </div>
         </>
@@ -82,7 +82,7 @@ const InputFileWithImage = ({
               type="file"
               id={name}
               onChange={(e) => handleFile(e)}
-              className={cn("mt-2", {
+              className={cn("mt-2 cursor-pointer", {
                 "flex space-x-5 items-center ml-3": !!previewImage,
               })}
             />

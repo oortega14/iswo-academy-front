@@ -128,9 +128,6 @@ export const buildRouteVPlayer = ({
   lessonId,
   courseId,
 }: BuildRouteVPlayerProps) => {
-
-  console.log(lessonId)
-
   return `/courses/${courseId}/video-player/sections/${sectionId}/lessons/${lessonId}`
 }
 

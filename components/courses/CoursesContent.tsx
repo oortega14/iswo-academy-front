@@ -4,7 +4,6 @@ import { useState } from "react"
 import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
 import { IconEdit, IconList, IconTrash, IconUser } from "@tabler/icons-react"
-
 import { cn, truncarTexto } from "@/lib/utils"
 import useGetCourses from "@/hooks/useGetCourses"
 import {
@@ -13,11 +12,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-
-import MotionButton from "../animations/MotionButton"
 import DeleteCourseModal from "../modals/DeleteCourseModal"
 import NoContent from "../ui/NoContent"
-import { Button, buttonVariants } from "../ui/button"
+import { Button } from "../ui/button"
 import {
   Table,
   TableBody,
@@ -26,6 +23,7 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table"
+import LoadingModal from "../modals/LoadingModal"
 
 const CoursesContent = () => {
   const [loading, setLoading] = useState<boolean>()
@@ -55,6 +53,12 @@ const CoursesContent = () => {
     setCourseSelectedId(courseId)
   }
 
+  if (loading) {
+    return (
+      <LoadingModal/>
+    )
+  }
+
   return (
     <>
       {courses.length > 0 ? (
@@ -64,7 +68,7 @@ const CoursesContent = () => {
               Los cursos disponibles en tu academia son
             </h1>
           </div>
-          <Table className="w-full">
+          <Table className="w-full ">
             <TableHeader>
               <TableRow>
                 <TableHead className="w-1/5 ">Acciones</TableHead>

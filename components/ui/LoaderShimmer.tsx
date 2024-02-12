@@ -6,7 +6,7 @@ interface Props {
   height?: string
 }
 
-const Loader = ({ width, height }: Props) => {
+const LoaderShimmer = ({ width, height }: Props) => {
   const shimmerStyle = {
     width: width || "100%", // Usa el ancho proporcionado o 100% por defecto
     height: height || "16px", // Usa la altura proporcionada o 16px por defecto
@@ -20,9 +20,9 @@ const Loader = ({ width, height }: Props) => {
   )
 }
 
-Loader.propTypes = {
+LoaderShimmer.propTypes = {
   width: PropTypes.string, // Propiedad para el ancho del efecto shimmer
   height: PropTypes.string, // Propiedad para la altura del efecto shimmer
 }
 
-export { Loader }
+export { LoaderShimmer }

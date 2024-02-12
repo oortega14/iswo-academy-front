@@ -40,7 +40,7 @@ const ListItemsFromInput = ({
   const filteredData = data.filter((goal) => goal.description.trim() !== "");
 
   return (
-    <div>
+    <div className="mb-2">
       <div className="my-2 flex w-full items-center justify-start rounded-full">
         <Icon className="mr-2 size-5" />
         <label htmlFor="course_goals">{label}</label>

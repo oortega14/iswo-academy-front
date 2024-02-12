@@ -1,45 +1,18 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import {
   IconArticle,
-  IconEdit,
-  IconEyeCheck,
-  IconEyeX,
-  IconList,
   IconQuestionMark,
-  IconSchool,
-  IconTextRecognition,
-  IconTrash,
 } from "@tabler/icons-react"
-
 import useGetCourse from "@/hooks/useGetCourse"
-import useGetQuestions from "@/hooks/useGetQuestions"
 import { Separator } from "@/components/ui/separator"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
-
 import MotionButton from "../animations/MotionButton"
 import { MotionDiv } from "../animations/MotionDiv"
-import DeleteLessonsModal from "../modals/DeleteLessonsModal"
-import DeleteQuestionModal from "../modals/DeleteQuestionModal"
-import EditLessonsModal from "../modals/EditLessonsModal"
-import EditQuestionModal from "../modals/EditQuestionModal"
-import { Button, buttonVariants } from "../ui/button"
 import { Input } from "../ui/input"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../ui/table"
+import { toast } from "sonner"
+import { ConfigurateEvaluationRequest } from "@/lib/requests"
 
 const EvaluationContent = () => {
   const { courseId, userId, academyId } = useParams<{
@@ -53,36 +26,25 @@ const EvaluationContent = () => {
     courseId: courseId,
     setLoadingCallback: setLoading,
   })
-  const [editModalOpen, setEditModalOpen] = useState(false)
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false)
-  const [accordionOn, setAccordionOn] = useState(false)
-  const [selectedQuestionId, setSelectedQuestionId] = useState(0)
+  const [data, setData] = useState({
+    time_limit: 0,
+    approve_with: 0
+  })
 
-  const close = (
-    setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>>
-  ) => {
-    setModalOpenFunction(false)
-  }
-  const open = (
-    setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>>,
-    questionId: number
-  ) => {
-    setModalOpenFunction(true)
-    setSelectedQuestionId(questionId)
-  }
-
-  const handleSubmit = (e: any) => {
-    console.log(e)
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const courseTestId = course?.course_test?.id || 0
+    const [request, response] = await ConfigurateEvaluationRequest(data, courseTestId)
+    if (request.status === 200) {
+      toast.success('Evaluación configurada correctamente')
+    } else {
+      toast.error('No se pudo enviar la configuración')
+    }
   }
 
   const handleChange = (e: any) => {
-    console.log(e)
-  }
-
-  const handleClickQuestion = (id: number) => {
-    router.push(
-      `/admin/${userId}/academies/${academyId}/courses/${courseId}/evaluation/${id}/question/answers`
-    )
+    const {value, name} = e.target
+    setData({...data, [name]: value})
   }
 
   const handleNavigate = (e: string) => {
@@ -90,6 +52,17 @@ const EvaluationContent = () => {
       `/admin/${userId}/academies/${academyId}/courses/${courseId}/evaluation/${course?.course_test?.id}/${e}`
     )
   }
+
+  useEffect(() => {
+    if (!!course) {
+      setData((prevConfig) => ({
+        ...prevConfig,
+        time_limit: course?.course_test?.time_limit || 0,
+        approve_with: course?.course_test?.approve_with || 0,
+      }))
+    }
+  }, [course])
+
 
   return (
     <>
@@ -111,7 +84,7 @@ const EvaluationContent = () => {
         <Input
           type="number"
           placeholder="Escribe aqui el tiempo en minutos"
-          name="title"
+          name="time_limit"
           onChange={(e) => handleChange(e)}
           className="mt-2"
           defaultValue={course?.course_test?.time_limit || ""}
@@ -125,7 +98,7 @@ const EvaluationContent = () => {
         <Input
           type="number"
           placeholder="Escribe aqui el numero minimo de respuestas"
-          name="title"
+          name="approve_with"
           onChange={(e) => handleChange(e)}
           className="mt-2"
           defaultValue={course?.course_test?.approve_with || ""}

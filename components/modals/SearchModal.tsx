@@ -1,38 +1,23 @@
 import React, {
-  ChangeEventHandler,
-  FormEvent,
   useEffect,
   useState,
 } from "react"
-import { IconEdit, IconSearch } from "@tabler/icons-react"
+import { IconSearch } from "@tabler/icons-react"
 import { AnimatePresence } from "framer-motion"
-import { toast } from "sonner"
-
 import {
-  EditQuestionModalProps,
-  EditSectionModalProps,
   SearchModalProps,
 } from "@/types/modals"
 import {
   FetchCoursesByKeywordRequest,
-  UpdateSectionRequest,
 } from "@/lib/requests"
-import useGetCourseSection from "@/hooks/useGetCourseSection"
-import useGetQuestion from "@/hooks/useGetQuestion"
-
-import MotionButton from "../animations/MotionButton"
 import Modal from "../ui/Modal"
-import { Button } from "../ui/button"
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "../ui/card"
 import { Input } from "../ui/input"
-import { Label } from "../ui/label"
 import { Course } from "@/types/sidebar"
 import { useParams, useRouter } from "next/navigation"
 

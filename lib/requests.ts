@@ -438,3 +438,56 @@ export async function FetchCoursesByKeywordRequest(data: { keyword: string}) {
     throw new Error("Error al realizar la solicitud")
   }
 }
+
+export async function CompleteLessonRequest(lessonId: number) {
+  const data = {
+    lesson_id: lessonId,
+    completed: true
+  }
+  try {
+    const request = await fetch(`${baseUrl}/user_lesson_completions`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(data)
+    })
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud")
+  }
+}
+
+export async function DescompleteLessonRequest(lessonId: number) {
+  const data = {
+    lesson_id: lessonId,
+    completed: false
+  }
+  try {
+    const request = await fetch(`${baseUrl}/user_lesson_completions`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(data)
+    })
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud")
+  }
+}
+
+export async function ConfigurateEvaluationRequest(data: { approve_with: number, time_limit: number }, courseTestId: number) {
+  try {
+    const request = await fetch(`${baseUrl}/course_tests/${courseTestId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(data)
+    })
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud")
+  }
+}

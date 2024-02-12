@@ -1,10 +1,7 @@
 "use client"
 
-import { useParams } from "next/navigation"
-
 import { MotionDiv } from "@/components/animations/MotionDiv"
 import Evaluation from "@/components/courses/Evaluation"
-import Sidebar from "@/components/dashboard/sidebar/Sidebar"
 
 const variants = {
   hidden: { opacity: 0 },
@@ -12,7 +9,6 @@ const variants = {
 }
 
 export default function EvaluationsPage() {
-  const params = useParams<{ id: string }>()
   return (
     <MotionDiv
       className="w-full"
@@ -25,10 +21,7 @@ export default function EvaluationsPage() {
       }}
       viewport={{ amount: 0 }}
     >
-      <section className="flex min-h-screen overflow-y-hidden">
-        <Sidebar />
-        <Evaluation />
-      </section>
+      <Evaluation />
     </MotionDiv>
   )
 }

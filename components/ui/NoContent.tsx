@@ -1,17 +1,16 @@
-import Image from 'next/image'
-import React from 'react'
+import data from "@/animations/FilesNotFoundAnimation.json"
+import Lottier from "lottie-react"
 
 const NoContent = () => {
   return (
     <>
-      <div className='flex h-full w-full flex-col items-center justify-center'>
-        <Image
-          src={'/images/no_content.webp'}
-          width={500}
-          height={500}
-          alt='NoContentImage'
-        />
-        <h2 className='text-2xl font-bold'>Aún no tienes registros disponibles</h2>
+      <div className="flex h-full w-full flex-col items-center justify-center">
+        <div className="w-1/3">
+          <Lottier animationData={data} />
+        </div>
+        <h2 className="text-xl xl:text-4xl font-bold">
+          Aún no tienes registros disponibles
+        </h2>
       </div>
     </>
   )

@@ -20,12 +20,7 @@ export default function DashboardMainPage() {
       }}
       viewport={{ amount: 0 }}
     >
-      <section>
-        <div className="flex min-h-screen overflow-y-hidden ">
-          <Sidebar />
-          <DashboardContent />
-        </div>
-      </section>
+      <DashboardContent />
     </MotionDiv>
   )
 }

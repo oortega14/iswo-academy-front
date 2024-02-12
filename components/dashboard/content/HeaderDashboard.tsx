@@ -99,7 +99,7 @@ export const HeaderDashboard = () => {
 
   return (
     <div className="w-full">
-      <header className="dark:bg-blue-dark z-20 w-full shrink-0 border-b bg-white">
+      <header className="dark:bg-blue-dark w-full shrink-0 border-b bg-white">
         <div className="flex items-center justify-between p-2">
           <div className="flex items-center space-x-3">
             {/* TODO: poner el icono */}
@@ -109,7 +109,7 @@ export const HeaderDashboard = () => {
             <HideSidebarButton />
           </div>
           {isSearchBoxOpen && (
-            <div className={cn("fixed inset-0 z-10 opacity-20", styles.blur)}>
+            <div className={cn("fixed inset-0 opacity-20 z-40", styles.blur)}>
               <div className="absolute inset-x-0 flex items-center justify-between p-2 shadow-md">
                 <div className="flex flex-1 items-center space-x-2 px-2">
                   <IconSearch />
@@ -132,7 +132,7 @@ export const HeaderDashboard = () => {
           <MotionDiv
             whileTap={{ scale: 0.98 }}
             whileHover={{ scale: 1.01 }}
-            className="hidden items-center space-x-2 px-2 md:ml-5 md:mr-auto md:flex md:flex-1 bg-slate-200 p-3 rounded-xl dark:text-blue-dark cursor-pointer"
+            className="hidden items-center space-x-2 px-2 md:ml-5 md:mr-auto md:flex md:flex-1 bg-slate-200 p-3 rounded-xl dark:text-blue-dark cursor-pointer z-40"
             onClick={()=>setSearchFlag(!searchFlag)}
           >
             <IconSearch className="mx-3" />
@@ -140,7 +140,7 @@ export const HeaderDashboard = () => {
               <span className="font-bold">Buscar cursos..</span>
             </div>
           </MotionDiv>
-          <div className="relative flex items-center space-x-3">
+          <div className="relative z-40 flex items-center space-x-3">
             <button
               onClick={() => toggleButton("search")}
               className="dark:bg-blue-dark hover:text-blue-dark rounded-full border-[1px] border-slate-200 p-2 focus:outline-none focus:ring dark:hover:bg-slate-200 md:hidden"

@@ -1,8 +1,6 @@
 "use client"
 
-import Sidebar from "@/components/dashboard/sidebar/Sidebar"
-import Sections from "@/components/courses/Sections"
-import { MotionDiv } from '@/components/animations/MotionDiv'
+import { MotionDiv } from "@/components/animations/MotionDiv"
 import NewLesson from "@/components/courses/NewLesson"
 
 const variants = {
@@ -23,12 +21,7 @@ export default function newLessonPage() {
       }}
       viewport={{ amount: 0 }}
     >
-      <section>
-        <div className="flex min-h-screen overflow-y-hidden ">
-          <Sidebar />
-          <NewLesson/>
-        </div>
-      </section>
+      <NewLesson />
     </MotionDiv>
   )
 }

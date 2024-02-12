@@ -1,8 +1,7 @@
 "use client"
 
-import Sidebar from "@/components/dashboard/sidebar/Sidebar"
+import { MotionDiv } from "@/components/animations/MotionDiv"
 import Sections from "@/components/courses/Sections"
-import { MotionDiv } from '@/components/animations/MotionDiv'
 
 const variants = {
   hidden: { opacity: 0 },
@@ -22,12 +21,7 @@ export default function SectionsPage() {
       }}
       viewport={{ amount: 0 }}
     >
-      <section>
-        <div className="flex min-h-screen overflow-y-hidden ">
-          <Sidebar />
-          <Sections/>
-        </div>
-      </section>
+      <Sections />
     </MotionDiv>
   )
 }

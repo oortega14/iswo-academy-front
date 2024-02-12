@@ -119,7 +119,7 @@ const SectionsContent = () => {
                       <Button
                         className="max-h-10 max-w-10 border-[1px] border-red-600 px-2 py-1"
                         variant="ghost"
-                        onClick={() =>
+                        onClick={(e) =>
                           deleteModalOpen
                             ? close(setDeleteModalOpen)
                             : open(setDeleteModalOpen, section.id)

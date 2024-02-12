@@ -197,7 +197,7 @@ const NewCoursesContent = () => {
           <label htmlFor="password_confirmation">Escoje el instructor</label>
         </div>
         <Select onValueChange={(e) => handleSelect(e)}>
-          <SelectTrigger className="mt-2 w-full">
+          <SelectTrigger className="my-2 w-full">
             <SelectValue placeholder="Escoge al instructor" />
           </SelectTrigger>
           <SelectContent>

@@ -27,6 +27,7 @@ export interface Course {
 
 export interface Lesson {
   id:          number;
+  completed:   boolean;
   title:       string;
   description: string;
   visible:     boolean;
@@ -75,7 +76,7 @@ export interface LearningRoute {
 export interface SidebarLink {
   category_key: string;
   label: string;
-  icon?: React.ComponentType;
+  icon?: React.ComponentType< { className?: string }>;
   links?: Array<{ subcategory_key: string; label: string; }>;
 }
 
@@ -93,8 +94,7 @@ export interface SidebarNavigationVideoPlayerProps {
 export interface SidebarCategoryProps {
   category: SidebarLink
   handleClick: (categoryLabel: string, subcategoryLabel: string ) => void
-  courses: Course[]
-
+  courses?: Course[]
 }
 
 export interface SidebarSectionProps {

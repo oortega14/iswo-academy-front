@@ -34,7 +34,6 @@ export const SidebarVideoPlayerLinks = () => {
       lessonId: lessonId,
       courseId: courseId,
     })
-    console.log(route)
     router.push(route)
   }
 

@@ -33,7 +33,7 @@ export const SidebarNavigation = ({ sidebarLinks, isSidebarOpen, handleClick }: 
                       className="dark:hover:text-blue-dark hover:bg-blue-dark mb-2 box-content flex size-8 w-full cursor-pointer justify-center overflow-hidden rounded-lg p-1 hover:text-white dark:hover:bg-white"
                       onClick={()=>(openSidebar())}
                     >
-                      <category.icon />
+                      <category.icon className='size-7'/>
                     </div>
                   )}
                 </div>

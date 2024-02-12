@@ -23,7 +23,7 @@ const InputFileWithList = ({
   }
 
   return (
-    <div>
+    <div className="mb-2">
       {!!defaultFiles && defaultFiles.length > 0 && files.length === 0 ? (
         <>
           <div className={cn("flex items-center space-x-5")}>

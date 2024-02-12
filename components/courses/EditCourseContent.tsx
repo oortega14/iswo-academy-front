@@ -32,7 +32,7 @@ import InputNumberWithIcon from "../forms/InputNumberWithIcon"
 import InputTextWithIcon from "../forms/InputTextWithIcon"
 import ListItemsFromInput from "../forms/ListItemsFromInput"
 import TextareaWithIcon from "../forms/TextareaWithIcon"
-import { Button, buttonVariants } from "../ui/button"
+import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import {
   Select,

@@ -21,7 +21,7 @@ const InputFileWithVideo = ({
   }
 
   return (
-    <div>
+    <div className="mb-2">
       {!!defaultVideo && !video?.name ? (
         <div>
           <div className="mt-3 flex w-full items-center justify-start rounded-full">
@@ -38,7 +38,7 @@ const InputFileWithVideo = ({
               type="file"
               id={name}
               onChange={(e) => handleVideo(e)}
-              className="mt-2"
+              className="mt-2 cursor-pointer"
             />
           </div>
         </div>
@@ -64,7 +64,7 @@ const InputFileWithVideo = ({
               type="file"
               id={name}
               onChange={(e) => handleVideo(e)}
-              className="mt-2"
+              className="mt-2 cursor-pointer"
             />
           </div>
         </>

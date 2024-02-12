@@ -74,6 +74,11 @@ export type GetCategoriesProps = {
   setLoadingCallback: CallbackFunction
 }
 
+export type GetCommentsProps = {
+  lessonId: string
+  setLoadingCallback: CallbackFunction
+}
+
 export type GetAnswerProps = {
   answerId: number
   setLoadingCallback: CallbackFunction
