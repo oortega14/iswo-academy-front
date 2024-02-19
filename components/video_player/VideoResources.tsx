@@ -40,7 +40,7 @@ const VideoResources = ({ lesson }: any) => {
                     href={file.file}
                     className={cn(buttonVariants({ variant: "default" }))}
                   >
-                    Archivo #{index}
+                    Archivo #{index + 1}
                   </a>
                 </div>
               ))}
