@@ -8,7 +8,7 @@ const NoContent = () => {
         <div className="w-1/3">
           <Lottier animationData={data} />
         </div>
-        <h2 className="text-xl xl:text-4xl font-bold">
+        <h2 className="text-xl font-bold xl:text-4xl">
           Aún no tienes registros disponibles
         </h2>
       </div>

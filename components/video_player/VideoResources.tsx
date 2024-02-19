@@ -32,13 +32,13 @@ const VideoResources = ({ lesson }: any) => {
             Los recursos de esta clase los puedes encontrar dando click aqui
           </AccordionTrigger>
           <AccordionContent>
-            <div className="w-full mt-2 flex bg-slate-200 dark:bg-slate-900 rounded-lg ">
+            <div className="mt-2 flex w-full rounded-lg bg-slate-200 dark:bg-slate-900 ">
               {files?.map((file, index) => (
                 <div key={file.id} className="p-2">
                   <a
                     target="_blank"
                     href={file.file}
-                    className={cn(buttonVariants({ variant: "default" }))}
+                    className={cn(buttonVariants({ variant: "default" }))} rel="noreferrer"
                   >
                     Archivo #{index + 1}
                   </a>

@@ -109,7 +109,7 @@ export const HeaderDashboard = () => {
             <HideSidebarButton />
           </div>
           {isSearchBoxOpen && (
-            <div className={cn("fixed inset-0 opacity-20 z-40", styles.blur)}>
+            <div className={cn("fixed inset-0 z-40 opacity-20", styles.blur)}>
               <div className="absolute inset-x-0 flex items-center justify-between p-2 shadow-md">
                 <div className="flex flex-1 items-center space-x-2 px-2">
                   <IconSearch />
@@ -132,7 +132,7 @@ export const HeaderDashboard = () => {
           <MotionDiv
             whileTap={{ scale: 0.98 }}
             whileHover={{ scale: 1.01 }}
-            className="hidden items-center space-x-2 px-2 md:ml-5 md:mr-auto md:flex md:flex-1 bg-slate-200 p-3 rounded-xl dark:text-blue-dark cursor-pointer z-40"
+            className="dark:text-blue-dark z-40 hidden cursor-pointer items-center space-x-2 rounded-xl bg-slate-200 p-3 px-2 md:ml-5 md:mr-auto md:flex md:flex-1"
             onClick={()=>setSearchFlag(!searchFlag)}
           >
             <IconSearch className="mx-3" />

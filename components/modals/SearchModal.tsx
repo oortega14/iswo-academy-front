@@ -89,13 +89,13 @@ const SearchModal = ({ modalOpen, close }: SearchModalProps) => {
                   {courses.map((course) => (
                     <div
                       key={course.id}
-                      className="my-2 cursor-pointer z-50"
+                      className="z-50 my-2 cursor-pointer"
                       onClick={() => handleNavigate(course.id)}
                     >
-                      <div className="w-full bg-slate-300 dark:bg-slate-900 rounded-lg p-2 flex items-center">
-                        <div className=" w-[50px] h-[50px] rounded-full overflow-hidden relative p-1 mr-2">
+                      <div className="flex w-full items-center rounded-lg bg-slate-300 p-2 dark:bg-slate-900">
+                        <div className=" relative mr-2 h-[50px] w-[50px] overflow-hidden rounded-full p-1">
                           <img
-                            className="w-full h-auto block absolute top-[50%] left-[50%] -translate-y-1/2 -translate-x-1/2"
+                            className="absolute left-[50%] top-[50%] block h-auto w-full -translate-x-1/2 -translate-y-1/2"
                             src={course.banner}
                             alt="preview"
                           />

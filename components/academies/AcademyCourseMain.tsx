@@ -5,7 +5,7 @@ import { Course } from "@/types/sidebar"
 
 const AcademyCourseMain = ({ course }: { course: Course }) => {
   return (
-    <div className="flex min-h-[280px] w-full flex-col rounded-l-xl bg-slate-200 dark:bg-slate-900 p-4 dark:text-slate-200">
+    <div className="flex min-h-[280px] w-full flex-col rounded-l-xl bg-slate-200 p-4 dark:bg-slate-900 dark:text-slate-200">
       <div className="w-full">
         <span className="cursor-pointer hover:text-blue-700">
           {course.academy_name}

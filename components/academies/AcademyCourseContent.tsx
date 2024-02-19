@@ -29,7 +29,7 @@ const AcademyCourseContent = ({ course }: { course: Course }) => {
       <Accordion type="single" collapsible className="w-full ">
         {courseSections.map((section) => (
           <AccordionItem value={section.name} key={section.id} >
-            <AccordionTrigger className="w-full flex px-3 justify-between items-center rounded-xl border">
+            <AccordionTrigger className="flex w-full items-center justify-between rounded-xl border px-3">
               <IconLetterISmall className="size-5 rotate-90 "/>
               <span>{section.name}</span>
             </AccordionTrigger>
@@ -38,8 +38,8 @@ const AcademyCourseContent = ({ course }: { course: Course }) => {
                 <TableBody>
                   {section.lessons.map((lesson) => (
                     <TableRow key={lesson.id} >
-                      <TableCell className="mt-2 ml-3 border rounded-xl flex items-center px-3">
-                        <IconCircleFilled className="size-2 mr-4" />
+                      <TableCell className="ml-3 mt-2 flex items-center rounded-xl border px-3">
+                        <IconCircleFilled className="mr-4 size-2" />
                         {lesson.title}
                       </TableCell>
                     </TableRow>

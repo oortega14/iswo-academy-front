@@ -24,7 +24,7 @@ export const SidebarCategory = ({
           {category.links?.map((subcategory) => (
             <div
               key={subcategory.subcategory_key}
-              className="font-semibold flex space-x-2 items-center cursor-pointer dark:hover:bg-slate-200 dark:hover:text-blue-dark rounded-lg p-2"
+              className="dark:hover:text-blue-dark flex cursor-pointer items-center space-x-2 rounded-lg p-2 font-semibold dark:hover:bg-slate-200"
               onClick={handleClick.bind(
                 null,
                 category.category_key,

@@ -52,8 +52,8 @@ const VideoInfo = ({ lessons, selectedLesson }: any) => {
   return (
     <div>
       <TooltipProvider>
-        <div className="w-full flex justify-evenly items-center bg-slate-200 dark:bg-slate-900 min-h-20">
-          <div className="w-1/2 flex items-center min-h-20 p-4 space-x-3">
+        <div className="flex min-h-20 w-full items-center justify-evenly bg-slate-200 dark:bg-slate-900">
+          <div className="flex min-h-20 w-1/2 items-center space-x-3 p-4">
             <div className="flex h-full items-start">
               <IconAlignBoxBottomLeft className="size-12" />
             </div>
@@ -68,7 +68,7 @@ const VideoInfo = ({ lessons, selectedLesson }: any) => {
             <Tooltip>
               <TooltipTrigger asChild>
                 <button
-                  className="h-10 bg-slate-300 border-slate-500 hover:bg-slate-400 hover:border-slate-400 dark:bg-slate-800 dark:border-slate-800 rounded-l-lg px-2  dark:hover:bg-slate-950 dark:hover:border-slate-950"
+                  className="h-10 rounded-l-lg border-slate-500 bg-slate-300 px-2 hover:border-slate-400 hover:bg-slate-400 dark:border-slate-800 dark:bg-slate-800  dark:hover:border-slate-950 dark:hover:bg-slate-950"
                   onClick={() => handlePrevVideo()}
                 >
                   <IconArrowLeft />
@@ -81,7 +81,7 @@ const VideoInfo = ({ lessons, selectedLesson }: any) => {
             <Tooltip>
               <TooltipTrigger asChild>
                 <button
-                  className="h-10 bg-slate-300 border-slate-500 hover:bg-slate-400 hover:border-slate-400 dark:bg-slate-800 dark:border-slate-800 rounded-r-lg px-2  dark:hover:bg-slate-950 dark:hover:border-slate-950"
+                  className="h-10 rounded-r-lg border-slate-500 bg-slate-300 px-2 hover:border-slate-400 hover:bg-slate-400 dark:border-slate-800 dark:bg-slate-800  dark:hover:border-slate-950 dark:hover:bg-slate-950"
                   onClick={() => handleNextVideo()}
                 >
                   <IconArrowRight />

@@ -27,7 +27,7 @@ export default function AcademiesPage() {
         </MotionDiv>
         <div className="flex w-1/2 justify-center pr-24 ">
           <div className="flex w-2/3 justify-center">
-            <div className="flex 2xl:h-[400px] h-[280px] w-full justify-center overflow-hidden rounded-full">
+            <div className="flex h-[280px] w-full justify-center overflow-hidden rounded-full 2xl:h-[400px]">
               <img
                 src="/images/academies_banner.webp"
                 alt="academies"

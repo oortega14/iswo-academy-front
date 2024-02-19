@@ -1,5 +1,3 @@
-import { Loader } from "@/components/ui/loader"
-import Image from "next/image"
 import { useState } from "react"
 
 interface FigureProps {

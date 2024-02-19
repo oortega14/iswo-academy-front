@@ -76,11 +76,11 @@ export const SidebarSection = ({
           {section?.lessons?.map((lesson: Lesson) => {
             return (
             <li
-              className="dark:hover:bg-slate-800 py-3 pl-3 cursor-pointer"
+              className="cursor-pointer py-3 pl-3 dark:hover:bg-slate-800"
               onClick={handleClick.bind(null, section.id, lesson.id)}
               key={lesson.id}
             >
-              <div className="flex items-center p-0 space-x-3">
+              <div className="flex items-center space-x-3 p-0">
                 <Checkbox
                   onClick={(e) => handleCheckboxClick(e, lesson.id)}
                   checked={(completedStates as CompletedStates)[lesson.id]}

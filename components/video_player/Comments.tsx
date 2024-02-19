@@ -14,13 +14,13 @@ const Comments = () => {
   })
   return (
     <div>
-      <h3 className="ml-3 text-xl mb-1">{comments.total} Comentarios</h3>
+      <h3 className="mb-1 ml-3 text-xl">{comments.total} Comentarios</h3>
       {comments?.comments?.map((comment) => (
         <div
-          className="w-full flex justify-start items-center px-3 py-2"
+          className="flex w-full items-center justify-start px-3 py-2"
           key={comment.id}
         >
-          <div className="flex item-center items-center p-4 space-x-3 bg-slate-200 dark:bg-slate-900 w-full rounded-lg">
+          <div className="item-center flex w-full items-center space-x-3 rounded-lg bg-slate-200 p-4 dark:bg-slate-900">
             <Avatar>
               <AvatarImage
                 src={comment.user.picture || ""}
