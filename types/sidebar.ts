@@ -25,6 +25,39 @@ export interface Course {
   course_goals: CourseGoal[];
 }
 
+export interface Exam {
+  id:             number;
+  approved:       boolean;
+  right_answers:  number;
+  course_test_id: number;
+  exam_answers:   ExamAnswer[];
+}
+
+export interface ExamAnswer {
+  id:                 number;
+  test_question_id:   number;
+  question_option_id: null;
+}
+
+export interface Evaluation {
+  id:           number;
+  time_limit:   number;
+  approve_with: number;
+  questions:    Question[];
+}
+
+export interface Question {
+  id:               number;
+  question:         string;
+  question_options: QuestionOption[];
+}
+
+export interface QuestionOption {
+  id:          number;
+  option_text: string;
+}
+
+
 export interface Lesson {
   id:          number;
   completed:   boolean;

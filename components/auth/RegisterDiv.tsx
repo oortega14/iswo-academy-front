@@ -28,7 +28,7 @@ export default function RegisterDiv() {
   const baseUrl = useUIStore((state) => state.baseUrl)
   const router = useRouter()
   const [userData, setUserData] = useState<RegisterParams>({
-    name: "",
+    first_name: "",
     last_name: "",
     email: "",
     password: "",
@@ -96,12 +96,12 @@ export default function RegisterDiv() {
       >
         <div className="mt-3 flex w-full items-center justify-start rounded-full">
           <IconPencilPlus className="mr-2 size-5" />
-          <label htmlFor="name">Nombre(s)</label>
+          <label htmlFor="first_name">Nombre(s)</label>
         </div>
         <Input
           type="text"
           placeholder="Pon tu nombre aqui"
-          name="name"
+          name="first_name"
           onChange={(e) => handleChange(e)}
           className="mt-2"
         />

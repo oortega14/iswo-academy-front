@@ -491,3 +491,19 @@ export async function ConfigurateEvaluationRequest(data: { approve_with: number,
     throw new Error("Error al realizar la solicitud")
   }
 }
+
+export async function SendQuestionOptionRequest(optionId: number, answerId: number) {
+  const data = { question_option_id: optionId };
+  try {
+    const request = await fetch(`${baseUrl}/exam_answers/${answerId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(data)
+    })
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud")
+  }
+}

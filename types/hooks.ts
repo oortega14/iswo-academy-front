@@ -14,6 +14,17 @@ export type GetCourseProps = {
   setLoadingCallback: CallbackFunction
 }
 
+export type GetExamProps = {
+  evaluationId: string
+  userId: string
+  setLoadingCallback: CallbackFunction
+}
+
+export type GetEvaluationProps = {
+  evaluationId: string
+  setLoadingCallback: CallbackFunction
+}
+
 export type GetCourseSectionProps = {
   sectionId: string
   setLoadingCallback: CallbackFunction

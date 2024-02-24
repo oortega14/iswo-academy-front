@@ -120,7 +120,7 @@ const SectionLessons = ({ lessons, flag, setFlag, sectionId }: any) => {
             key={item.id}
             className="cursor-grab rounded-lg bg-slate-100 p-2 dark:bg-slate-800"
           >
-            <div className="flex w-1/5 items-center space-x-3 p-1">
+            <div className="flex w-full items-center space-x-3 p-1">
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link
@@ -156,7 +156,7 @@ const SectionLessons = ({ lessons, flag, setFlag, sectionId }: any) => {
                   <p>Eliminar Lección</p>
                 </TooltipContent>
               </Tooltip>
-              <span>{item.title}</span>
+              <span className="w-full">{item.title}</span>
             </div>
           </Reorder.Item>
         ))}

@@ -2,7 +2,7 @@
 
 export type FetchRegisterParams = {
   user: {
-    name: string
+    first_name: string
     last_name: string
     email: string
     password: string
@@ -13,7 +13,7 @@ export type FetchRegisterParams = {
 }
 
 export type RegisterParams = {
-  name: string
+  first_name: string
   last_name: string
   email: string
   password: string

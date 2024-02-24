@@ -21,12 +21,7 @@ export default function StudentPage() {
       }}
       viewport={{ amount: 0 }}
     >
-      <section>
-        <div className="flex min-h-screen overflow-y-hidden ">
-          <Sidebar />
-          <StudentsMain />
-        </div>
-      </section>
+      <StudentsMain />
     </MotionDiv>
   )
 }

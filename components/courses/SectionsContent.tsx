@@ -1,12 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
-import { IconEdit, IconListTree, IconTrash } from "@tabler/icons-react"
-
+import { IconEdit, IconTrash } from "@tabler/icons-react"
 import useGetCourseSections from "@/hooks/useGetCourseSections"
-
 import MotionButton from "../animations/MotionButton"
 import CreateSectionsModal from "../modals/CreateSectionsModal"
 import DeleteSectionsModal from "../modals/DeleteSectionsModal"

@@ -1,11 +1,11 @@
 import SidebarEvaluation from "./SidebarEvaluation"
 import { SidebarLogout } from "./SidebarLogout"
 
-export const SidebarFooter = () => {
+export const SidebarFooterVideoPlayer = () => {
   return (
     <div className="max-h-14 shrink-0 border-t p-2">
-      <SidebarLogout />
+      <SidebarEvaluation />
     </div>
   )
 }
-export default SidebarFooter
+export default SidebarFooterVideoPlayer

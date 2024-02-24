@@ -1,13 +1,16 @@
 import { MotionDiv } from "@/components/animations/MotionDiv"
-import Sidebar from "@/components/dashboard/sidebar/Sidebar"
-import Ended from "@/components/dashboard/students/Ended"
+import Header from "@/components/evaluation/Header"
 
 const variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
 }
 
-export default function StudentPage() {
+export default function EvaluationLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <MotionDiv
       className="w-full"
@@ -20,7 +23,10 @@ export default function StudentPage() {
       }}
       viewport={{ amount: 0 }}
     >
-      <Ended />
+    <div className="relative flex min-h-screen flex-col">
+      <Header />
+      <main className="relative top-20 overflow-hidden">{children}</main>
+    </div>
     </MotionDiv>
   )
 }

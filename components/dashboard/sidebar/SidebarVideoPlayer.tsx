@@ -4,10 +4,10 @@ import { useUIStore } from "@/store/ui/ui-store"
 import { useMotionValueEvent, useScroll } from "framer-motion"
 import { MotionDiv } from "@/components/animations/MotionDiv"
 import { cn } from "../../../lib/utils"
-import SidebarFooter from "./SidebarFooter"
 import SidebarHeader from "./SidebarHeader"
 import { useState } from "react"
 import { SidebarVideoPlayerLinks } from "./SidebarVideoPlayerLinks"
+import SidebarFooterVideoPlayer from "./SidebarFooterVideoPlayer"
 
 
 
@@ -35,7 +35,7 @@ export const SidebarVideoPlayer = () => {
         >
           <SidebarHeader />
           <SidebarVideoPlayerLinks />
-          <SidebarFooter />
+          <SidebarFooterVideoPlayer />
         </aside>
       </MotionDiv>
     </>
