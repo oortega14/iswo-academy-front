@@ -13,8 +13,7 @@ import {
   IconReceipt2,
 } from "@tabler/icons-react"
 import axios from "axios"
-import { Toaster, toast } from "sonner"
-
+import { toast } from "sonner"
 import useGetCourse from "@/hooks/useGetCourse"
 import {
   Dialog,
@@ -25,7 +24,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Progress } from "@/components/ui/progress"
-
 import InputFileWithImage from "../forms/InputFileWithImage"
 import InputFileWithVideo from "../forms/InputFileWithVideo"
 import InputNumberWithIcon from "../forms/InputNumberWithIcon"
@@ -33,7 +31,6 @@ import InputTextWithIcon from "../forms/InputTextWithIcon"
 import ListItemsFromInput from "../forms/ListItemsFromInput"
 import TextareaWithIcon from "../forms/TextareaWithIcon"
 import { Button } from "../ui/button"
-import { Input } from "../ui/input"
 import {
   Select,
   SelectContent,
@@ -125,8 +122,6 @@ const EditCourseContent = () => {
       if (response.status === 200) {
         router.push(`/admin/${userId}/academies/${academyId}/courses/content`)
         toast.success("Curso Creado con exito")
-      } else {
-        //toast.error(response)
       }
     } catch (e) {}
   }

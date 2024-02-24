@@ -23,8 +23,8 @@ export const Header = () => {
             <IswoIconLarge className="h-24 w-24 dark:invert" />
           </MotionDiv>
         </Link>
-        <div className="w-full flex justify-center">
-          <div className="h-full md:flex items-center">
+        <div className="flex w-full justify-center">
+          <div className="h-full items-center md:flex">
             <IconFileCertificate className="mr-5 size-8"/>
             <span className="text-2xl font-extrabold"> Evaluación Final - {course?.title}</span>
           </div>

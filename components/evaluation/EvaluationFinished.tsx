@@ -11,24 +11,24 @@ import { buttonVariants } from "../ui/button"
 const EvaluationFinished = ({ approved }: any) => {
   const { userId} = useParams<{ userId: string }>()
   return (
-    <div className="min-h-screen w-full dark-mode">
+    <div className="dark-mode min-h-screen w-full">
       <div className="flex">
-        <div className="w-screen flex justify-center text-xl font-semibold">
+        <div className="flex w-screen justify-center text-xl font-semibold">
           <span className="text-2xl">
             {approved ? (
               <>
-                <div className="w-full flex justify-center relative -top-14 ">
-                  <div className="w-1/2 flex justify-center">
+                <div className="relative -top-14 flex w-full justify-center ">
+                  <div className="flex w-1/2 justify-center">
                     <Lottier animationData={data} />
                   </div>
                 </div>
-                <div className="w-full relative -top-14">
+                <div className="relative -top-14 w-full">
                   <h1 className="mb-6 w-full text-center text-4xl">
                     ¡Felicitaciones Aprobaste!
                   </h1>
                   <Link
                     href={`/student/${userId}/dashboard/main`}
-                    className="w-full flex justify-center"
+                    className="flex w-full justify-center"
                   >
                     Ir a cursos para empezar una nueva aventura
                   </Link>
@@ -36,25 +36,25 @@ const EvaluationFinished = ({ approved }: any) => {
               </>
             ) : (
               <>
-                <div className="w-full flex justify-center relative -top-10 ">
-                  <div className="w-1/2 flex justify-center">
+                <div className="relative -top-10 flex w-full justify-center ">
+                  <div className="flex w-1/2 justify-center">
                     <Lottier animationData={dataSad} />
                   </div>
                 </div>
-                <div className="w-full flex justify-center items-center relative -top-14">
-                  <div className='flex flex-col justify-center items-center'>
+                <div className="relative -top-14 flex w-full items-center justify-center">
+                  <div className='flex flex-col items-center justify-center'>
                     <h2 className="font-bold">
                       Sentimos mucho decirte esto pero no aprobaste
                     </h2>
-                    <div className='flex justify-center items-center'>
+                    <div className='flex items-center justify-center'>
                       <h3 className="font-bold">
                         Pero recuerda que tienes muchas oportunidades más
                       </h3>
-                      <IconMoodHappyFilled className="size-8 ml-4" />
+                      <IconMoodHappyFilled className="ml-4 size-8" />
                     </div>
                   </div>
                 </div>
-                <div className="w-full flex justify-center">
+                <div className="flex w-full justify-center">
                   <MotionDiv
                     whileTap={{ scale: 1.02 }}
                     whileHover={{ scale: 0.98 }}

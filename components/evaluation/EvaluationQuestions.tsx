@@ -81,25 +81,25 @@ const EvaluationQuestions = ({
         <Stopwatch tiempoTotal={evaluation.time_limit} />
         <Separator className="my-4" />
       </div>
-      <div className="flex flex-col w-full">
-        <div className="w-full flex justify-start text-xl">
+      <div className="flex w-full flex-col">
+        <div className="flex w-full justify-start text-xl">
           <span>
             Pregunta {questionIndex + 1} de {questionsLength}
           </span>
         </div>
-        <Progress value={progressValue} className="w-full my-4" />
-        <div className="w-full flex justify-center">
+        <Progress value={progressValue} className="my-4 w-full" />
+        <div className="flex w-full justify-center">
           <span className="text-xl">
             {evaluation.questions[questionIndex].question}
           </span>
         </div>
-        <div className="flex flex-col w-full">
+        <div className="flex w-full flex-col">
           {evaluation.questions[questionIndex].question_options.map(
             (option) => {
               return (
                 <MotionDiv
                   key={option.id}
-                  className="w-full my-3 cursor-pointer"
+                  className="my-3 w-full cursor-pointer"
                   whileTap={{ scale: 1.02 }}
                   whileHover={{ scale: 0.99 }}
                   onClick={() =>
@@ -109,8 +109,8 @@ const EvaluationQuestions = ({
                     )
                   }
                 >
-                  <div className="w-full flex dark:bg-slate-200 rounded-lg">
-                    <div className="text-black p-2 dark:bg-slate-300 w-14 rounded-l-xl flex justify-center items-center">
+                  <div className="flex w-full rounded-lg dark:bg-slate-200">
+                    <div className="flex w-14 items-center justify-center rounded-l-xl p-2 text-black dark:bg-slate-300">
                       <IconCircleDotFilled className="size-4" />
                     </div>
                     <span className=" dark:text-blue-dark p-2">
