@@ -3,7 +3,7 @@ import { Answer, Category, LessonComment, TotalComments } from '@/types/courses'
 import { GetCommentsProps } from '@/types/hooks';
 import { useEffect, useState } from 'react';
 
-const useGetComments = ({lessonId, setLoadingCallback}: GetCommentsProps) => {
+const useGetComments = ({lessonId, setLoadingCallback, flag}: GetCommentsProps) => {
   const baseUrl = useUIStore((state) => state.baseUrl);
   const initialCommentsState: TotalComments = {
     comments: [],
@@ -32,7 +32,7 @@ const useGetComments = ({lessonId, setLoadingCallback}: GetCommentsProps) => {
       }
     };
       getComments();
-  }, [setLoadingCallback]);
+  }, [setLoadingCallback, flag]);
 
   return comments;
 };

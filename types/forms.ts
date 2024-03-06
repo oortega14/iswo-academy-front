@@ -50,7 +50,10 @@ export interface InputFileWithVideoProps {
 }
 
 interface Goal {
-  description: string;
+  id?: number
+  index?: number
+  description: string
+  _destroy?: boolean
 }
 
 export interface ListItemsFromInputProps {

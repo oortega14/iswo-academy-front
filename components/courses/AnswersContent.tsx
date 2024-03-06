@@ -2,16 +2,16 @@
 
 import { useState } from "react"
 import { useParams, useRouter } from "next/navigation"
-import {
-  IconEdit,
-  IconTrash,
-} from "@tabler/icons-react"
+import { IconCheck, IconEdit, IconTrash, IconX } from "@tabler/icons-react"
+import useGetAnswers from "@/hooks/useGetAnswers"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import EditAnswerModal from "@/components/modals/EditAnswerModal"
+import DeleteAnswerModal from "../modals/DeleteAnswerModal"
 import { Button } from "../ui/button"
 import {
   Table,
@@ -21,25 +21,21 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table"
-import useGetAnswers from "@/hooks/useGetAnswers"
-import EditAnswerModal from "@/components/modals/EditAnswerModal"
-import DeleteAnswerModal from "../modals/DeleteAnswerModal"
+import useGetComplexAnswers from "@/hooks/useGetComplexAnswers"
+
 const AnswersContent = () => {
-  const params = useParams()
-  const router = useRouter()
+  const { questionId } = useParams<{
+    questionId: string
+  }>()
   const [loading, setLoading] = useState<boolean>()
   const [editModalOpen, setEditModalOpen] = useState(false)
   const [changeFlag, setChangeFlag] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
-  const [accordionOn, setAccordionOn] = useState(false)
-  const [selectedQuestionId, setSelectedQuestionId] = useState(0)
   const [answerSelected, setAnswerSelected] = useState(0)
-  const answers = useGetAnswers({
-    questionId: Array.isArray(params.questionId)
-      ? params.questionId[0]
-      : params.questionId,
+  const answers = useGetComplexAnswers({
+    questionId: questionId,
     setLoadingCallback: setLoading,
-    flag: changeFlag
+    flag: changeFlag,
   })
 
   const close = (
@@ -55,18 +51,6 @@ const AnswersContent = () => {
     setAnswerSelected(answerId)
   }
 
-  const handleSubmit = (e: any) => {
-    console.log(e)
-  }
-
-  const handleChange = (e: any) => {
-    console.log(e)
-  }
-
-  const handleClickQuestion = (id: number) => {
-    router.push(`/academies/${params.id}/courses/${params.courseId}/evaluation/${id}/question/answers`)
-  }
-
   return (
     <>
       <TooltipProvider>
@@ -79,7 +63,8 @@ const AnswersContent = () => {
           <TableHeader>
             <TableRow>
               <TableHead className="w-1/5 ">Acciones</TableHead>
-              <TableHead className="w-4/5 ">Respuesta</TableHead>
+              <TableHead className="w-3/5 ">Respuesta</TableHead>
+              <TableHead className="w-1/5 ">¿Es correcta?</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -90,15 +75,15 @@ const AnswersContent = () => {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Button
-                            variant="ghost"
-                            onClick={() =>
-                              editModalOpen
-                                ? close(setEditModalOpen)
-                                : open(setEditModalOpen, answer.id)
-                            }
-                            className=" border-[1px]"
-                          >
-                            <IconEdit className=" size-6 " />
+                          variant="ghost"
+                          onClick={() =>
+                            editModalOpen
+                              ? close(setEditModalOpen)
+                              : open(setEditModalOpen, answer.id)
+                          }
+                          className=" border-[1px]"
+                        >
+                          <IconEdit className=" size-6 " />
                         </Button>
                       </TooltipTrigger>
                       <TooltipContent>
@@ -108,15 +93,15 @@ const AnswersContent = () => {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Button
-                            variant="destructive"
-                            onClick={() =>
-                              deleteModalOpen
-                                ? close(setDeleteModalOpen)
-                                : open(setDeleteModalOpen, answer.id)
-                            }
-                            className=" border-[1px]"
-                          >
-                            <IconTrash className=" size-6 " />
+                          variant="destructive"
+                          onClick={() =>
+                            deleteModalOpen
+                              ? close(setDeleteModalOpen)
+                              : open(setDeleteModalOpen, answer.id)
+                          }
+                          className=" border-[1px]"
+                        >
+                          <IconTrash className=" size-6 " />
                         </Button>
                       </TooltipTrigger>
                       <TooltipContent>
@@ -126,6 +111,13 @@ const AnswersContent = () => {
                   </TableCell>
                   <TableCell className="font-medium">
                     {answer.option_text}
+                  </TableCell>
+                  <TableCell className="font-medium">
+                    {answer.right_answer ? (
+                      <IconCheck className="ml-10 size-8 rounded-lg border border-green-600 p-1 text-green-600" />
+                    ) : (
+                      <IconX className="ml-10 size-8 rounded-lg border border-red-600 p-1 text-red-600" />
+                    )}
                   </TableCell>
                 </TableRow>
               </>

@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { IconEdit } from "@tabler/icons-react"
 import { AnimatePresence } from "framer-motion"
+import { toast } from "sonner"
 
 import { EditAnswerModalProps } from "@/types/modals"
+import { EditAnswerRequest } from "@/lib/requests"
 import useGetAnswer from "@/hooks/useGetAnswer"
+import useGetComplexAnswer from "@/hooks/useGetComplexAnswer"
 
 import MotionButton from "../animations/MotionButton"
 import Modal from "../ui/Modal"
@@ -16,31 +19,32 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card"
+import { Checkbox } from "../ui/checkbox"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
-import { EditAnswerRequest } from "@/lib/requests"
-import { toast } from "sonner"
 
 const EditAnswerModal = ({
   modalOpen,
   close,
   answerId,
   flag,
-  setFlag
+  setFlag,
 }: EditAnswerModalProps) => {
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState({
     option_text: "",
+    right_answer: false,
   })
-  const answer = useGetAnswer({
+
+  const answer = useGetComplexAnswer({
     answerId: answerId,
     setLoadingCallback: setLoading,
-    flag: flag
+    flag: flag,
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    setData({...data, [name]: value })
+    setData({ ...data, [name]: value })
   }
 
   useEffect(() => {
@@ -48,17 +52,22 @@ const EditAnswerModal = ({
       setData((prevConfig) => ({
         ...prevConfig,
         option_text: answer?.option_text,
+        right_answer: answer?.right_answer
       }))
     }
   }, [answer])
 
   const handleSubmit = async () => {
-    const [request, response ] = await EditAnswerRequest(data, answerId)
+    const [request, response] = await EditAnswerRequest(data, answerId)
     if (request.status === 200) {
-      toast.success('Respuesta editada correctamente')
+      toast.success("Respuesta editada correctamente")
       close()
       setFlag(!flag)
     }
+  }
+
+  const handleCheck = (e: boolean) => {
+    setData({ ...data, right_answer: e })
   }
 
   if (loading) {
@@ -88,8 +97,19 @@ const EditAnswerModal = ({
                         className="border-2"
                         id="option_text"
                         name="option_text"
-                        onChange={(e)=>{handleChange(e)}}
+                        onChange={(e) => {
+                          handleChange(e)
+                        }}
                       />
+                    </div>
+                    <div className="flex space-x-3">
+                      <Checkbox
+                        id="visible"
+                        className="h-5 w-5"
+                        onCheckedChange={(e) => handleCheck(e as boolean)}
+                        checked={data.right_answer}
+                      />
+                      <Label htmlFor="right_answer">¿ Es correcta ?</Label>
                     </div>
                   </div>
                 </form>

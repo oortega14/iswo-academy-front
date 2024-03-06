@@ -4,12 +4,14 @@ import data from "@/animations/CongratulationsAnimation.json"
 import dataSad from "@/animations/sadAnimation.json"
 import { IconMoodHappyFilled } from "@tabler/icons-react"
 import Lottier from "lottie-react"
+
 import { cn } from "@/lib/utils"
+
 import { MotionDiv } from "../animations/MotionDiv"
 import { buttonVariants } from "../ui/button"
 
 const EvaluationFinished = ({ approved }: any) => {
-  const { userId} = useParams<{ userId: string }>()
+  const { userId } = useParams<{ userId: string }>()
   return (
     <div className="dark-mode min-h-screen w-full">
       <div className="flex">
@@ -28,7 +30,10 @@ const EvaluationFinished = ({ approved }: any) => {
                   </h1>
                   <Link
                     href={`/student/${userId}/dashboard/main`}
-                    className="flex w-full justify-center"
+                    className={cn(
+                      buttonVariants({ variant: "ghost" }),
+                      "flex w-full justify-center"
+                    )}
                   >
                     Ir a cursos para empezar una nueva aventura
                   </Link>
@@ -42,11 +47,11 @@ const EvaluationFinished = ({ approved }: any) => {
                   </div>
                 </div>
                 <div className="relative -top-14 flex w-full items-center justify-center">
-                  <div className='flex flex-col items-center justify-center'>
+                  <div className="flex flex-col items-center justify-center">
                     <h2 className="font-bold">
                       Sentimos mucho decirte esto pero no aprobaste
                     </h2>
-                    <div className='flex items-center justify-center'>
+                    <div className="flex items-center justify-center">
                       <h3 className="font-bold">
                         Pero recuerda que tienes muchas oportunidades más
                       </h3>

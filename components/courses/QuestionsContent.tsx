@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
 import {
   IconArticle,
@@ -49,7 +50,6 @@ import EditQuestionModal from "../modals/EditQuestionModal"
 import { Button, buttonVariants } from "../ui/button"
 import { Checkbox } from "../ui/checkbox"
 import { Input } from "../ui/input"
-import Link from "next/link"
 
 const QuestionsContent = () => {
   const [data, setData] = useState({})
@@ -73,6 +73,7 @@ const QuestionsContent = () => {
   const [isCorrect, setIsCorrect] = useState(false)
   const [inputValue, setInputValue] = useState("")
   const [changeFlag, setChangeFlag] = useState(false)
+  const [typingTimeout, setTypingTimeout] = useState<number | null>(null)
   const questions = useGetQuestions({
     evaluationId: evaluationId,
     setLoadingCallback: setLoading,
@@ -135,6 +136,39 @@ const QuestionsContent = () => {
     setAnswers(newAnswers)
   }
 
+
+  const changeRightness = (idToEdit: number, state: boolean) => {
+    const updatedAnswers = answers.map(answer => {
+      if (answer.id === idToEdit) {
+        return { ...answer, right_answer: state };
+      }
+      return answer;
+    })
+    setAnswers(updatedAnswers)
+  }
+
+  const changeAnswer = (idToEdit: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target
+    const updatedAnswers = answers.map(answer => {
+      if (answer.id === idToEdit) {
+        return { ...answer, option_text: value };
+      }
+      return answer;
+    })
+    setAnswers(updatedAnswers)
+  }
+
+  const handleInputChange = (idToEdit: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    if (typingTimeout !== null) {
+      clearTimeout(typingTimeout);
+    }
+    const newTypingTimeout = setTimeout(() => {
+      changeAnswer(idToEdit, e)
+    }, 1000) as unknown as number
+
+    setTypingTimeout(newTypingTimeout)
+  }
+
   const addAnswer = (e: any) => {
     e.preventDefault()
     const answerToAddToState = {
@@ -154,6 +188,7 @@ const QuestionsContent = () => {
       toast.success(response.message)
     }
   }
+
 
   return (
     <>
@@ -202,15 +237,15 @@ const QuestionsContent = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-1/3">Acciones</TableHead>
-                <TableHead className="w-1/3">Contenido</TableHead>
-                <TableHead className="w-1/3">¿ Es correcta ?</TableHead>
+                <TableHead className="w-1/4">Acciones</TableHead>
+                <TableHead className="w-2/4">Contenido</TableHead>
+                <TableHead className="w-1/4">¿ Es correcta ?</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {answers.map((answer) => (
                 <TableRow key={answer.option_text}>
-                  <TableCell className="w-1/3 font-medium">
+                  <TableCell className="w-1/4 font-medium">
                     <MotionButton
                       variant={"ghost"}
                       className="border"
@@ -218,18 +253,29 @@ const QuestionsContent = () => {
                         eraseAnswer(answer.id)
                       }}
                     >
-                      <IconTrash className="mr-2"></IconTrash>
-                      Eliminar Respuesta
+                      <IconTrash></IconTrash>
                     </MotionButton>
                   </TableCell>
-                  <TableCell className="w-1/3 font-medium">
-                    <Input defaultValue={answer.option_text}></Input>
+                  <TableCell className="w-2/4 font-medium">
+                    <Input
+                      name="option_text"
+                      defaultValue={answer.option_text}
+                      onChange={(e) => {
+                        handleInputChange(answer.id, e)
+                      }}
+                    />
                   </TableCell>
-                  <TableCell className="w-1/3 font-medium">
+                  <TableCell className="w-1/4 font-medium">
                     {answer.right_answer ? (
-                      <IconCheck className="ml-10 size-8 rounded-lg border border-green-600 p-1 text-green-600" />
+                      <IconCheck
+                        className="cursor-pointer ml-10 size-8 rounded-lg border border-green-600 p-1 text-green-600"
+                        onClick={()=> changeRightness(answer.id, false)}
+                      />
                     ) : (
-                      <IconX className="ml-10 size-8 rounded-lg border border-red-600 p-1 text-red-600" />
+                      <IconX
+                        className="cursor-pointer ml-10 size-8 rounded-lg border border-red-600 p-1 text-red-600"
+                        onClick={()=> changeRightness(answer.id, true)}
+                      />
                     )}
                   </TableCell>
                 </TableRow>
@@ -316,7 +362,9 @@ const QuestionsContent = () => {
                       </Tooltip>
                       <Tooltip>
                         <TooltipTrigger asChild className="ml-4">
-                          <Link href={`/admin/${userId}/academies/${academyId}/courses/${courseId}/evaluation/${evaluationId}/questions/${question.id}/answers`}>
+                          <Link
+                            href={`/admin/${userId}/academies/${academyId}/courses/${courseId}/evaluation/${evaluationId}/questions/${question.id}/answers`}
+                          >
                             <Button variant="ghost" className=" border-[1px]">
                               <IconList className=" size-6 " />
                             </Button>

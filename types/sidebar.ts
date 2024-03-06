@@ -3,6 +3,7 @@ import { CourseSection } from "./modals";
 export interface CourseGoal {
   id: number
   description: string
+  _destroy: boolean
 }
 
 export interface Course {

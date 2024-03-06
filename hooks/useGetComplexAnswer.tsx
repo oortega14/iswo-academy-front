@@ -1,24 +1,24 @@
 import { useUIStore } from '@/store/ui/ui-store';
 import { Answer } from '@/types/courses';
-import { GetAnswersProps } from '@/types/hooks';
+import { GetAnswerProps } from '@/types/hooks';
 import { useEffect, useState } from 'react';
 
-const useGetAnswers = ({questionId, setLoadingCallback, flag}: GetAnswersProps) => {
+const useGetComplexAnswer = ({answerId, setLoadingCallback, flag}: GetAnswerProps) => {
   const baseUrl = useUIStore((state) => state.baseUrl);
-  const [answers, setAnswers] = useState<Answer[]>([]);
+  const [answer, setAnswer] = useState<Answer>();
 
   useEffect(() => {
-    const getAnswers = async () => {
+    const getAnswer = async () => {
       try {
         setLoadingCallback(true);
-        const request = await fetch(`${baseUrl}/question_options?test_question_id=${questionId}`, {
+        const request = await fetch(`${baseUrl}/question_options/${answerId}/complex_answer`, {
           method: 'GET',
           credentials: 'include',
         });
         const response = await request.json();
 
         if (request.status === 200) {
-          setAnswers(response);
+          setAnswer(response);
         } else {
           console.error('Error al obtener cursos:', response);
         }
@@ -29,12 +29,12 @@ const useGetAnswers = ({questionId, setLoadingCallback, flag}: GetAnswersProps) 
       }
     };
 
-    if (questionId) {
-      getAnswers();
+    if (answerId) {
+      getAnswer();
     }
-  }, [questionId, flag]);
+  }, [answerId, setLoadingCallback, flag]);
 
-  return answers;
+  return answer;
 };
 
-export default useGetAnswers;
+export default useGetComplexAnswer;

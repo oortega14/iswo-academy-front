@@ -88,6 +88,7 @@ export type GetCategoriesProps = {
 export type GetCommentsProps = {
   lessonId: string
   setLoadingCallback: CallbackFunction
+  flag: boolean
 }
 
 export type GetAnswerProps = {

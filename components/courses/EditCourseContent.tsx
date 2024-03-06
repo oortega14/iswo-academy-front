@@ -28,7 +28,7 @@ import InputFileWithImage from "../forms/InputFileWithImage"
 import InputFileWithVideo from "../forms/InputFileWithVideo"
 import InputNumberWithIcon from "../forms/InputNumberWithIcon"
 import InputTextWithIcon from "../forms/InputTextWithIcon"
-import ListItemsFromInput from "../forms/ListItemsFromInput"
+import ListItemsFromInputEdit from "../forms/ListItemsFromInputEdit"
 import TextareaWithIcon from "../forms/TextareaWithIcon"
 import { Button } from "../ui/button"
 import {
@@ -67,9 +67,9 @@ const EditCourseContent = () => {
     academy_id: academyId,
     course_id: courseId,
     teacher_id: null,
-    banner: '',
-    promotional_video: '',
-    promotional_image: '',
+    banner: "",
+    promotional_video: "",
+    promotional_image: "",
   })
 
   const [dataGoals, setDataGoals] = useState([{ description: "" }])
@@ -96,19 +96,22 @@ const EditCourseContent = () => {
     if (video instanceof Blob) {
       fd.append("course[promotional_video]", video)
     }
-    fd.append("course[teacher_id]", !!data.teacher_id ? data.teacher_id : '' )
+    fd.append("course[teacher_id]", !!data.teacher_id ? data.teacher_id : "")
     fd.append("course[academy_id]", academyId)
     fd.append("course[description]", data.description)
     fd.append("course[price]", data.price)
     fd.append("course[subtitle]", data.subtitle)
     fd.append("course[title]", data.title)
-    fd.append("course[course_goals]", JSON.stringify(dataGoals))
+    dataGoals.forEach((goal, index) => {
+      Object.entries(goal).forEach(([key, value]) => {
+        fd.append(`course[course_goals_attributes][${index}][${key}]`, value)
+      })
+    })
 
     try {
       const response = await axios({
-        url: `${baseUrl}/courses`,
-        method: "POST",
-        headers: { "Content-type": "multipart/form-data" },
+        url: `${baseUrl}/courses/${courseId}`,
+        method: "PATCH",
         withCredentials: true,
         data: fd,
         onUploadProgress: (progressEvent) => {
@@ -131,7 +134,7 @@ const EditCourseContent = () => {
   }
 
   useEffect(() => {
-    if (!!course) {
+    if (!!course && dataGoals.length === 0) {
       setData((prevConfig) => ({
         ...prevConfig,
         title: course?.title,
@@ -143,12 +146,9 @@ const EditCourseContent = () => {
         teacher_id: course?.teacher_id,
         banner: course?.banner,
         promotional_video: course?.promotional_video,
-        promotional_image: course?.promotional_image
+        promotional_image: course?.promotional_image,
       }))
-      setDataGoals((prevConfig) => ([
-        ...prevConfig,
-        ...course?.course_goals
-      ]))
+      setDataGoals((prevConfig) => [...prevConfig, ...course?.course_goals])
     }
   }, [course])
 
@@ -191,7 +191,7 @@ const EditCourseContent = () => {
           onChange={(e) => handleChange(e)}
           defaultValue={!!course?.description ? course.description : ""}
         />
-        <ListItemsFromInput
+        <ListItemsFromInputEdit
           data={dataGoals}
           setData={setDataGoals}
           Icon={IconList}
@@ -248,7 +248,7 @@ const EditCourseContent = () => {
         </Select>
         <Dialog>
           <DialogTrigger className="dark:text-blue-dark bg-blue-dark my-4 w-full rounded-md p-2 font-bold text-slate-200 dark:bg-white">
-            Crear curso
+            Editar curso
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>

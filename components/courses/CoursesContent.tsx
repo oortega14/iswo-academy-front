@@ -4,6 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
 import { IconEdit, IconList, IconTrash, IconUser } from "@tabler/icons-react"
+
 import { cn, truncarTexto } from "@/lib/utils"
 import useGetCourses from "@/hooks/useGetCourses"
 import {
@@ -12,7 +13,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+
 import DeleteCourseModal from "../modals/DeleteCourseModal"
+import LoadingModal from "../modals/LoadingModal"
 import NoContent from "../ui/NoContent"
 import { Button } from "../ui/button"
 import {
@@ -23,7 +26,6 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table"
-import LoadingModal from "../modals/LoadingModal"
 
 const CoursesContent = () => {
   const [loading, setLoading] = useState<boolean>()
@@ -54,9 +56,7 @@ const CoursesContent = () => {
   }
 
   if (loading) {
-    return (
-      <LoadingModal/>
-    )
+    return <LoadingModal />
   }
 
   return (
