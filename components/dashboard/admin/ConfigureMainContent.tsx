@@ -30,7 +30,7 @@ import InputFileWithImage from "@/components/forms/InputFileWithImage"
 import InputTextWithIcon from "@/components/forms/InputTextWithIcon"
 import TextareaWithIcon from "@/components/forms/TextareaWithIcon"
 
-export const MainContent = () => {
+export const ConfigureMainContent = () => {
   const baseUrl = useUIStore((state) => state.baseUrl)
   const { userId, academyId } = useParams<{
     userId: string
@@ -215,4 +215,4 @@ export const MainContent = () => {
   )
 }
 
-export default MainContent
+export default ConfigureMainContent

@@ -1,5 +1,5 @@
 import { SidebarLink } from "@/types/sidebar";
-import { IconCamera, IconCertificate, IconFileSpreadsheet, IconTrash, IconUser } from "@tabler/icons-react";
+import { IconCamera, IconCertificate, IconFileSpreadsheet, IconSettings, IconSettings2, IconTrash, IconUser } from "@tabler/icons-react";
 import { IconAddressBook, IconClock, IconLayoutDashboard } from "@tabler/icons-react";
 
 //MimeTypes
@@ -25,7 +25,7 @@ export const ADMIN_SIDEBAR_LINKS: SidebarLink[] = [
     label: 'Dashboard',
     icon: IconLayoutDashboard,
     links: [
-      { subcategory_key: 'home', label: 'Inicio' },
+      { subcategory_key: 'home', label: 'Resumen' },
       { subcategory_key: 'learning-routes', label: 'Rutas de Aprendizaje' },
       { subcategory_key: 'messages', label: 'Mensajes' }
     ]
@@ -40,12 +40,19 @@ export const ADMIN_SIDEBAR_LINKS: SidebarLink[] = [
     ]
   },
   {
+    category_key: 'admin-configure',
+    label: 'Configuración',
+    icon: IconSettings,
+    links: [
+      { subcategory_key: 'configure-academy', label: 'Configurar academia' }
+    ]
+  },
+  {
     category_key: 'admin-help',
-    label: 'ContactUs',
+    label: 'Contáctanos',
     icon: IconAddressBook,
     links: [
-      { subcategory_key: 'home', label: 'Inicio' },
-      { subcategory_key: 'messages', label: 'Mensajes' }
+      { subcategory_key: 'home', label: 'Nuestro contacto' }
     ]
   }
 ];
@@ -85,7 +92,7 @@ export const STUDENT_SIDEBAR_LINKS: SidebarLink[] = [
   },
   {
     category_key: 'student-certificates',
-    label: 'Certificates',
+    label: 'Certificados',
     icon: IconCertificate,
     links: [
       { subcategory_key: 'home', label: 'Tus certificados' },
@@ -93,11 +100,10 @@ export const STUDENT_SIDEBAR_LINKS: SidebarLink[] = [
   },
   {
     category_key: 'student-help',
-    label: 'ContactUs',
+    label: 'Contáctanos',
     icon: IconAddressBook,
     links: [
-      { subcategory_key: 'home', label: 'Inicio' },
-      { subcategory_key: 'messages', label: 'Mensajes' }
+      { subcategory_key: 'home', label: 'Nuestro contacto' }
     ]
   }
 ];

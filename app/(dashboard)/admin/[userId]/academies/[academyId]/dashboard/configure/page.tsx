@@ -1,4 +1,5 @@
 import { MotionDiv } from "@/components/animations/MotionDiv"
+import ConfigureMain from "@/components/dashboard/admin/ConfigureMain"
 import DashboardContent from "@/components/dashboard/content/DashboardContent"
 
 const variants = {
@@ -6,7 +7,7 @@ const variants = {
   visible: { opacity: 1 },
 }
 
-export default function DashboardMainPage() {
+export default function DashboardConfigurePage() {
   return (
     <MotionDiv
       className="w-full"
@@ -19,7 +20,7 @@ export default function DashboardMainPage() {
       }}
       viewport={{ amount: 0 }}
     >
-      <DashboardContent />
+      <ConfigureMain />
     </MotionDiv>
   )
 }

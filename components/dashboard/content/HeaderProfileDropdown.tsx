@@ -1,17 +1,23 @@
 import React, { useState } from "react"
-import Link from "next/link"
 import { useUIStore } from "@/store/ui/ui-store"
-
 import useGetCurrentUser from "@/hooks/useGetCurrentUser"
 import { MotionDiv } from "@/components/animations/MotionDiv"
+import { useRouter } from "next/navigation"
 
 const HeaderProfileDropdown = ({ handleLogout }: any) => {
   const baseUrl = useUIStore((state) => state.baseUrl)
+  const router = useRouter()
   const [loading, setLoading] = useState(true)
   const currentUser = useGetCurrentUser({
     baseUrl: baseUrl,
     setLoadingCallback: setLoading,
   })
+  const navigateProfile = () => {
+    router.push(`/users/${currentUser?.id}/profile/info`)
+    changeUserSettings()
+  }
+  const changeUserSettings = useUIStore((state) => state.changeUserSettings)
+
   return (
     <MotionDiv
       initial={{ x: 0, scale: 0 }}
@@ -32,12 +38,12 @@ const HeaderProfileDropdown = ({ handleLogout }: any) => {
         </div>
         <ul className="my-2 flex flex-col space-y-1 p-2">
           <li>
-            <Link
-              href={`/users/${currentUser?.id}/profile/info`}
-              className="dark:hover:bg-blue-dark block rounded-md px-3 py-1 transition hover:bg-slate-200"
+            <button
+              onClick={()=>navigateProfile()}
+              className="dark:hover:bg-blue-dark block rounded-md px-3 py-1 transition hover:bg-slate-200 w-full"
             >
               Mi Perfil
-            </Link>
+            </button>
           </li>
         </ul>
         <div

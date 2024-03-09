@@ -1,13 +1,16 @@
 "use client"
 
 import React, { FormEvent, useState } from "react"
+import { useRouter } from "next/navigation"
 import {
   IconLockOpen,
   IconMail,
-  IconUser,
+  IconPencilPlus,
   IconUserCircle,
 } from "@tabler/icons-react"
-import { Toaster, toast } from "sonner"
+import { toast } from "sonner"
+import { RegisterParams } from "@/types/requests"
+import { RegisterNewUser } from "@/lib/requests"
 import {
   Select,
   SelectContent,
@@ -15,17 +18,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+
 import { MotionDiv } from "../animations/MotionDiv"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
-import { IconPencilPlus } from "@tabler/icons-react"
-import { useUIStore } from "@/store/ui/ui-store"
-import { useRouter } from "next/navigation"
-import { RegisterNewUser } from "@/lib/requests"
-import { RegisterParams } from "@/types/requests"
 
 export default function RegisterDiv() {
-  const baseUrl = useUIStore((state) => state.baseUrl)
+
   const router = useRouter()
   const [userData, setUserData] = useState<RegisterParams>({
     first_name: "",
@@ -36,7 +35,9 @@ export default function RegisterDiv() {
     username: "",
     role: null,
   })
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target
     setUserData({ ...userData, [name]: value })
   }
@@ -45,9 +46,6 @@ export default function RegisterDiv() {
     switch (e) {
       case "student":
         value = 0
-        break
-      case "teacher":
-        value = 1
         break
       case "admin":
         value = 2
@@ -67,6 +65,7 @@ export default function RegisterDiv() {
       toast.error(response.errors)
     }
   }
+
   return (
     <div
       className="
@@ -159,7 +158,6 @@ export default function RegisterDiv() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="student">Estudiante</SelectItem>
-            <SelectItem value="teacher">Profesor</SelectItem>
             <SelectItem value="admin">Administrador</SelectItem>
           </SelectContent>
         </Select>

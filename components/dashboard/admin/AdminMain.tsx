@@ -1,9 +1,8 @@
 "use client"
+import { HeaderDashboard } from "../content/HeaderDashboard"
+import { AdminMainContent } from "./AdminMainContent"
 
-import { HeaderDashboard } from "./HeaderDashboard"
-import AdminMainContent from "../admin/AdminMainContent"
-
-export const DashboardContent = () => {
+export const AdminMain = () => {
   return (
     <>
       <div className="flex h-full flex-1 flex-col overflow-hidden">
@@ -13,4 +12,4 @@ export const DashboardContent = () => {
     </>
   )
 }
-export default DashboardContent
+export default AdminMain

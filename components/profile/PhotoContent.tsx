@@ -1,11 +1,10 @@
 "use client"
 
-import { FormEvent, useEffect, useState } from "react"
+import { FormEvent, useState } from "react"
 import Image from "next/image"
-import { useParams } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 import { useUIStore } from "@/store/ui/ui-store"
-import { Toaster, toast } from "sonner"
-import { useGetAcademy } from "@/hooks/useGetAcademy"
+import { toast } from "sonner"
 import useGetCurrentUser from "@/hooks/useGetCurrentUser"
 import { Button } from "@/components/ui/button"
 import {
@@ -18,18 +17,25 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+
 import Figure from "../dashboard/content/Figure"
+import { MotionDiv } from "../animations/MotionDiv"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog"
+import { Progress } from "../ui/progress"
+import axios from "axios"
 
 export const PhotoContent = () => {
+  const router = useRouter()
   const baseUrl = useUIStore((state) => state.baseUrl)
-  const params = useParams<{ userId: string; academyId: string }>()
-  const [file, setFile] = useState({});
+  const {userId, academyId} = useParams<{ userId: string; academyId: string }>()
+  const [file, setFile] = useState({})
   const [loading, setLoading] = useState(true)
   const currentUser = useGetCurrentUser({
     baseUrl: baseUrl,
     setLoadingCallback: setLoading,
   })
   const [previewImage, setPreviewImage] = useState("")
+  const [uploadProgress, setUploadProgress] = useState(0)
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -57,29 +63,37 @@ export const PhotoContent = () => {
     }
   }
 
-
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    const fd = new FormData();
-      fd.append('section', 'profile_picture');
-      if (file instanceof Blob) {
-        fd.append('user[profile_picture]', file);
+    const fd = new FormData()
+    fd.append("section", "profile_picture")
+    if (file instanceof Blob) {
+      fd.append("user[profile_picture]", file)
+    }
+    try {
+      const response = await axios({
+        url: `${baseUrl}/users/${userId}`,
+        method: "PATCH",
+        headers: { "Content-type": "multipart/form-data" },
+        withCredentials: true,
+        data: fd,
+        onUploadProgress: (progressEvent) => {
+          const percentCompleted = Math.round(
+            (progressEvent?.loaded * 100) /
+              (!!progressEvent.total ? progressEvent.total : 1)
+          )
+          setUploadProgress(percentCompleted)
+        },
+      })
+      if (response.status === 200) {
+        toast.success(`Datos Actualizados`)
+        router.push(`/users/${userId}/profile/info`)
+      } else {
+        toast.error("No se pudo actualizar perfil")
       }
-      try {
-        const request = await fetch(`${baseUrl}/users/${params.userId}`,
-        {
-          method: 'PATCH',
-          credentials: 'include',
-          body: fd,
-        });
-        const response = await request.json()
-        if (response.status === 200) {
-          toast.success(`Datos Actualizados`);
-        }
-        return response;
-      } catch (e) {
-        console.log(e)
-      }
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   return (
@@ -96,7 +110,11 @@ export const PhotoContent = () => {
               <CardTitle>Foto de perfil</CardTitle>
               <CardDescription>Sube una foto tuya</CardDescription>
             </CardHeader>
-            <form onSubmit={(e)=>{handleSubmit(e)}}>
+            <form
+              onSubmit={(e) => {
+                handleSubmit(e)
+              }}
+            >
               <CardContent>
                 <div className="grid w-full items-center gap-4">
                   {!!currentUser?.profile_picture && !previewImage ? (
@@ -134,12 +152,57 @@ export const PhotoContent = () => {
                   )}
                   <div className="flex flex-col space-y-1.5">
                     <Label htmlFor="photo">Foto</Label>
-                    <Input type="file" id="photo" onChange={(e) => handleFile(e)}/>
+                    <Input
+                      type="file"
+                      id="photo"
+                      onChange={(e) => handleFile(e)}
+                    />
                   </div>
                 </div>
               </CardContent>
               <CardFooter className="flex justify-center">
-                <Button className="mt-3">Actualizar Academia</Button>
+                <MotionDiv
+                  whileHover={{ scale: 0.99 }}
+                  whileTap={{ scale: 1.01 }}
+                  className="w-full"
+                >
+                  <Dialog>
+                    <DialogTrigger className="dark:text-blue-dark bg-blue-dark my-4 w-full rounded-md p-2 font-bold text-slate-200 dark:bg-white">
+                      Actualizar Foto de perfil
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        {uploadProgress === 0 ? (
+                          <>
+                            <DialogTitle className="text-2xl">
+                              ¿La foto ingresada es correcta?
+                            </DialogTitle>
+                            <DialogDescription className="flex justify-center">
+                              <Button
+                                onClick={handleSubmit}
+                                className="mt-4 font-bold"
+                              >
+                                ¡Si, Seguro!{" "}
+                              </Button>
+                            </DialogDescription>
+                          </>
+                        ) : (
+                          <>
+                            <DialogTitle className="text-2xl">
+                              Progreso de carga
+                            </DialogTitle>
+                            <DialogDescription>
+                              <Progress
+                                className="mt-2"
+                                value={uploadProgress}
+                              />
+                            </DialogDescription>
+                          </>
+                        )}
+                      </DialogHeader>
+                    </DialogContent>
+                  </Dialog>
+                </MotionDiv>
               </CardFooter>
             </form>
           </Card>

@@ -60,6 +60,11 @@ export const buildRoute = ({
         case "messages":
           return `/admin/${userId}/academies/${academyId}/dashboard/messages`
       }
+    case "admin-configure":
+      switch (normalizedSubcategory) {
+        case "configure-academy":
+          return `/admin/${userId}/academies/${academyId}/dashboard/configure`
+      }
 
     case "admin-get-courses":
       switch (normalizedSubcategory) {
@@ -134,6 +139,6 @@ export const buildRouteVPlayer = ({
 const sidebarNavigation = {
   buildRoute,
   buildRouteVPlayer,
-};
+}
 
-export default sidebarNavigation;
+export default sidebarNavigation

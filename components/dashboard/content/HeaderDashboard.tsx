@@ -1,29 +1,25 @@
 "use client"
 
 import React, { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 import { useUIStore } from "@/store/ui/ui-store"
 import {
   IconBell,
-  IconBrandGitlab,
-  IconBrandTabler,
   IconSearch,
   IconServer,
   IconX,
 } from "@tabler/icons-react"
-
 import { Logout } from "@/lib/requests"
 import { cn } from "@/lib/utils"
 import useGetCurrentUser from "@/hooks/useGetCurrentUser"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Input } from "@/components/ui/input"
 import { MotionDiv } from "@/components/animations/MotionDiv"
+import SearchModal from "@/components/modals/SearchModal"
 import { ThemeToggle } from "@/components/theme-toggle"
 import styles from "@/styles/dashboard.module.css"
-
 import HeaderProfileDropdown from "./HeaderProfileDropdown"
 import HideSidebarButton from "./HideSidebarButton"
-import SearchModal from "@/components/modals/SearchModal"
 
 export const HeaderDashboard = () => {
   const router = useRouter()
@@ -45,17 +41,31 @@ export const HeaderDashboard = () => {
     setLoadingCallback: setLoading,
   })
   const [data, setData] = useState({})
-
   const close = (
     setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
     setModalOpenFunction(false)
   }
 
+  const {userId, academyId} = useParams<{userId: string, academyId: string}>();
+
   const open = (
     setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
     setModalOpenFunction(true)
+  }
+
+  const toggleButtonDashboard = () => {
+    isSettingsBarOpen && changeSettingsBar()
+    isUsersSettingsOpen && changeUserSettings()
+    isNotificationsOpen && changeNotifications()
+    if (currentUser?.role === 'Administrador') {
+      router.push(`/admin/${userId}/academies/${currentUser?.academy?.id}/dashboard/main`)
+    } else if (currentUser?.role === 'Estudiante') {
+      router.push(`/student/${userId}/dashboard/main`)
+    } else if (currentUser?.role === 'Super Administrador') {
+      router.push(`/super-admin/${userId}/dashboard/main`)
+    }
   }
 
   const toggleButton = (flag: string) => {
@@ -64,11 +74,6 @@ export const HeaderDashboard = () => {
       isSettingsBarOpen && changeSettingsBar()
       isServicesOpen && changeServices()
       isUsersSettingsOpen && changeUserSettings()
-    } else if (flag === "services") {
-      changeServices()
-      isSettingsBarOpen && changeSettingsBar()
-      isUsersSettingsOpen && changeUserSettings()
-      isNotificationsOpen && changeNotifications()
     } else if (flag === "userSettings") {
       changeUserSettings()
       isSettingsBarOpen && changeSettingsBar()
@@ -133,7 +138,7 @@ export const HeaderDashboard = () => {
             whileTap={{ scale: 0.98 }}
             whileHover={{ scale: 1.01 }}
             className="dark:text-blue-dark z-40 hidden cursor-pointer items-center space-x-2 rounded-xl bg-slate-200 p-3 px-2 md:ml-5 md:mr-auto md:flex md:flex-1"
-            onClick={()=>setSearchFlag(!searchFlag)}
+            onClick={() => setSearchFlag(!searchFlag)}
           >
             <IconSearch className="mx-3" />
             <div>
@@ -201,67 +206,11 @@ export const HeaderDashboard = () => {
               </div>
               <div>
                 <button
-                  onClick={() => toggleButton("services")}
+                  onClick={() => toggleButtonDashboard()}
                   className="rounded-full border-[1px] p-2 hover:bg-slate-200 focus:outline-none focus:ring dark:hover:bg-slate-800"
                 >
                   <IconServer />
                 </button>
-                {isServicesOpen && (
-                  <MotionDiv
-                    initial={{ x: 0, scale: 0 }}
-                    animate={{ scale: 1, x: -80 }}
-                    transition={{
-                      duration: 1,
-                      type: "spring",
-                      stiffness: 260,
-                      damping: 20,
-                    }}
-                  >
-                    <div className="absolute mt-3 w-48 min-w-max max-w-md -translate-x-3/4 rounded-lg bg-white shadow-lg dark:bg-slate-800">
-                      <div className="border-b p-4 text-lg font-medium dark:border-slate-200">
-                        Web apps & services
-                      </div>
-                      <ul className="my-3 flex flex-col space-y-3 p-2">
-                        <li>
-                          <a
-                            href="#"
-                            className="dark:hover:bg-blue-dark flex items-start space-x-2 rounded-md px-2 py-1 hover:bg-slate-200"
-                          >
-                            <span className="mt-1 block">
-                              <IconBrandTabler />
-                            </span>
-                            <span className="flex flex-col">
-                              <span className="text-lg">Atlassian</span>
-                              <span className="text-sm text-gray-400">
-                                Lorem ipsum dolor sit.
-                              </span>
-                            </span>
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="#"
-                            className="dark:hover:bg-blue-dark flex items-start space-x-2 rounded-md px-2 py-1 hover:bg-slate-200"
-                          >
-                            <span className="mt-1 block">
-                              <IconBrandGitlab />
-                            </span>
-                            <span className="flex flex-col">
-                              <span className="text-lg">Slack</span>
-                              <span className="text-sm text-gray-400">
-                                Lorem ipsum, dolor sit amet consectetur
-                                adipisicing elit.
-                              </span>
-                            </span>
-                          </a>
-                        </li>
-                      </ul>
-                      <div className="flex items-center justify-center border-t p-4 dark:border-slate-200">
-                        <a href="#">Show all apps</a>
-                      </div>
-                    </div>
-                  </MotionDiv>
-                )}
               </div>
               <div className="relative">
                 <button
@@ -295,10 +244,7 @@ export const HeaderDashboard = () => {
           </div>
         </div>
       </header>
-      <SearchModal
-        modalOpen={searchFlag}
-        close={() => close(setSearchFlag)}
-      />
+      <SearchModal modalOpen={searchFlag} close={() => close(setSearchFlag)} />
     </div>
   )
 }

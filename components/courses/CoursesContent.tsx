@@ -79,8 +79,8 @@ const CoursesContent = () => {
             </TableHeader>
             <TableBody>
               {courses.map((course) => (
-                <TableRow key={course.id}>
-                  <TableCell className=" flex space-x-2">
+                <TableRow key={course.id} >
+                  <TableCell className="space-x-2">
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Button
