@@ -16,7 +16,7 @@ deploy_production:
   image: node:14.18.2
   stage: deploy_prod
   script:
-    - git push https://$HEROKU_USER:$HEROKU_API_KEY@git.heroku.com/production-iswo-academy-front.git HEAD:master
+    - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/production-iswo-academy-front.git HEAD:master
     - echo "Deployed to production server"
   environment:
     name: production
