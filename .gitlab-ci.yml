@@ -1,0 +1,25 @@
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - init
+  - deploy_production
+
+init:
+  stage: init
+  image: node:14.18.2
+  script:
+    - npm install
+
+production:
+  image: node:14.18.2
+  stage: deploy_prod
+  script:
+    - git push https://$HEROKU_USER:$HEROKU_API_KEY@git.heroku.com/production-iswo-academy-front.git HEAD:master
+    - echo "Deployed to production server"
+  environment:
+    name: production
+    url: https://julia-test-prod.herokuapp.com/
+  only:
+    - main
