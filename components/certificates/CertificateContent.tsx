@@ -70,7 +70,7 @@ const CertificateContent = () => {
                       className={cn(
                         buttonVariants({ variant: "default" }),
                         "border-[1px] px-2"
-                      )}
+                      )} rel="noreferrer"
                     >Descargar Certificado</a>
                   </TableCell>
                 </TableRow>

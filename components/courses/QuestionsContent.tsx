@@ -268,12 +268,12 @@ const QuestionsContent = () => {
                   <TableCell className="w-1/4 font-medium">
                     {answer.right_answer ? (
                       <IconCheck
-                        className="cursor-pointer ml-10 size-8 rounded-lg border border-green-600 p-1 text-green-600"
+                        className="ml-10 size-8 cursor-pointer rounded-lg border border-green-600 p-1 text-green-600"
                         onClick={()=> changeRightness(answer.id, false)}
                       />
                     ) : (
                       <IconX
-                        className="cursor-pointer ml-10 size-8 rounded-lg border border-red-600 p-1 text-red-600"
+                        className="ml-10 size-8 cursor-pointer rounded-lg border border-red-600 p-1 text-red-600"
                         onClick={()=> changeRightness(answer.id, true)}
                       />
                     )}

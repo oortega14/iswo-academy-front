@@ -66,7 +66,7 @@ const LearningRoutesContent = () => {
   return (
     <>
       <div>
-        <div className="w-full border-b py-2 flex justify-end">
+        <div className="flex w-full justify-end border-b py-2">
           <MotionButton
             className={cn(
               buttonVariants({ variant: "default", size: "lg" }),
@@ -133,7 +133,7 @@ const LearningRoutesContent = () => {
                     {LearningRoute.id}
                   </TableCell>
                   <TableCell className="ml-5 font-medium">
-                    <div className="w-full gap-x-2 flex justify-center items-center">
+                    <div className="flex w-full items-center justify-center gap-x-2">
                       <IconCalendarMonth />
                       {LearningRoute.created_at}
                     </div>

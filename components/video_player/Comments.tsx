@@ -59,7 +59,7 @@ const Comments = () => {
   return (
     <div>
       <h3 className="mb-1 ml-3 text-xl">{comments.total} Comentarios</h3>
-      <form className="px-3 flex space-x-3 mt-2" onSubmit={handleSubmitComment}>
+      <form className="mt-2 flex space-x-3 px-3" onSubmit={handleSubmitComment}>
         <Avatar>
           <AvatarImage
             src={currentUser?.profile_picture || ""}
