@@ -20,8 +20,8 @@ export default function AcademiesPage() {
             academia para tí
           </h2>
           <p className="mt-3 text-pretty text-left ">
-            Aqui podras encontrar las diferentes academias segun sus categorias
-            para que encuentres un espacio grato hacia tus objetivos la idea es
+            Aqui podrás encontrar las diferentes academias segun sus categorias
+            para que encuentres un espacio grato hacia tus objetivos. La idea es
             que pueda expresar mucho de lo que quieres aprender en
           </p>
         </MotionDiv>
