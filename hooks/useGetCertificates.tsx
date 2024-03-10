@@ -1,11 +1,12 @@
 import { useUIStore } from '@/store/ui/ui-store';
 import { Answer, Category } from '@/types/courses';
 import { GetCategoriesProps } from '@/types/hooks';
+import { Certificate } from '@/types/courses';
 import { useEffect, useState } from 'react';
 
 const useGetCertificates = ({setLoadingCallback}: GetCategoriesProps) => {
   const baseUrl = useUIStore((state) => state.baseUrl);
-  const [certificates, setCertificates] = useState<Category[]>([]);
+  const [certificates, setCertificates] = useState<Certificate[]>([]);
 
   useEffect(() => {
     const getCertificates = async () => {

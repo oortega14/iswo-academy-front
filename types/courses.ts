@@ -35,6 +35,12 @@ export interface Category {
   name: string;
 }
 
+export interface Certificate {
+  id: number,
+  course_title: string,
+  file_url: string
+}
+
 export interface TotalComments {
   comments: LessonComment[];
   total:    number;
