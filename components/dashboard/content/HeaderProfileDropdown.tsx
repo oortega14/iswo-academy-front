@@ -40,7 +40,7 @@ const HeaderProfileDropdown = ({ handleLogout }: any) => {
           <li>
             <button
               onClick={()=>navigateProfile()}
-              className="dark:hover:bg-blue-dark block rounded-md px-3 py-1 transition hover:bg-slate-200 w-full"
+              className="dark:hover:bg-blue-dark block rounded-md px-3 py-1 transition hover:bg-slate-200 w-full "
             >
               Mi Perfil
             </button>

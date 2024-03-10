@@ -3,7 +3,7 @@ import { GetLearningRoutesProps }  from '@/types/hooks';
 import { LearningRoute } from '@/types/sidebar';
 import { useEffect, useState } from 'react';
 
-const useGetLearningRoutes = ({academyId, setLoadingCallback}: GetLearningRoutesProps) => {
+const useGetLearningRoutes = ({academyId, setLoadingCallback, changeFlag}: GetLearningRoutesProps) => {
   const baseUrl = useUIStore((state) => state.baseUrl);
   const [learningRoutes, setLearningRoutes] = useState<LearningRoute[]>([]);
 
@@ -32,7 +32,7 @@ const useGetLearningRoutes = ({academyId, setLoadingCallback}: GetLearningRoutes
     if (academyId) {
       getLearningRoutes();
     }
-  }, [academyId, baseUrl, setLoadingCallback]);
+  }, [academyId, changeFlag]);
 
   return learningRoutes;
 };

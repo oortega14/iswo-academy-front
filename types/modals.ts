@@ -22,6 +22,14 @@ export interface DeleteLessonsModalProps {
   setFlag: React.Dispatch<SetStateAction<boolean>>
 }
 
+export interface DeleteLearningRoutesModalProps {
+  modalOpen: boolean
+  learningRouteId: number
+  close: () => void
+  flag: boolean
+  setFlag: React.Dispatch<SetStateAction<boolean>>
+}
+
 export interface DeleteSectionModalProps {
   modalOpen: boolean
   sectionId: number
@@ -112,6 +120,8 @@ export interface UploadProgressModalProps{
   modalOpen: boolean
   close: () => void
   uploadProgress: number
+  selectedSection: boolean
+  handleSubmit: (e: any) => void
 }
 
 export interface CreateSectionsModalProps {

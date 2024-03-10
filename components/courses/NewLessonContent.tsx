@@ -6,51 +6,27 @@ import { useUIStore } from "@/store/ui/ui-store"
 import {
   IconDeviceImacCog,
   IconFileDescription,
-  IconLayoutCollage,
   IconList,
   IconListTree,
-  IconPhotoScan,
-  IconReceipt2,
 } from "@tabler/icons-react"
 import axios from "axios"
-import { Toaster, toast } from "sonner"
-
+import { toast } from "sonner"
 import useGetCourseSections from "@/hooks/useGetCourseSections"
 import { Checkbox } from "@/components/ui/checkbox"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import { Progress } from "@/components/ui/progress"
-
-import InputFileWithImage from "../forms/InputFileWithImage"
 import InputFileWithList from "../forms/InputFileWithList"
 import InputFileWithVideo from "../forms/InputFileWithVideo"
-import InputNumberWithIcon from "../forms/InputNumberWithIcon"
 import InputTextWithIcon from "../forms/InputTextWithIcon"
-import ListItemsFromInput from "../forms/ListItemsFromInput"
 import TextareaWithIcon from "../forms/TextareaWithIcon"
-import { Button, buttonVariants } from "../ui/button"
-import { Input } from "../ui/input"
+import UploadProgressModal from "../modals/UploadProgressModal"
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "../ui/select"
-
-interface Lesson {
-  id: string
-  title: string
-  position: number
-}
+import MotionButton from "../animations/MotionButton"
 
 const NewLessonContent = () => {
   const router = useRouter()
@@ -61,6 +37,9 @@ const NewLessonContent = () => {
     courseId: string
   }>()
   const [loading, setLoading] = useState(true)
+  const [selectedSection, setSelectedSection] = useState(false)
+  const [error, setError] = useState(false)
+  const [progressFlag, setProgressFlag] = useState(false)
   const [flag, setFlag] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
   const [video, setVideo] = useState({ name: "" })
@@ -69,8 +48,14 @@ const NewLessonContent = () => {
     title: "",
     description: "",
     visible: false,
-    courseSectionId: ''
+    courseSectionId: "",
   })
+
+  const close = (
+    setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    setModalOpenFunction(false)
+  }
 
   const CourseSections = useGetCourseSections({
     flag: flag,
@@ -90,6 +75,7 @@ const NewLessonContent = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
+
     const fd = new FormData()
     if (video instanceof Blob) {
       fd.append("lesson[video]", video)
@@ -124,7 +110,9 @@ const NewLessonContent = () => {
       })
       if (response.status === 200) {
         toast.success(`Clase creada`)
-        router.push(`/admin/${userId}/academies/${academyId}/courses/${courseId}/sections/`)
+        router.push(
+          `/admin/${userId}/academies/${academyId}/courses/${courseId}/sections/`
+        )
       }
       return response
     } catch (e) {}
@@ -137,6 +125,7 @@ const NewLessonContent = () => {
 
   const handleSelect = (e: string) => {
     setData({ ...data, courseSectionId: e })
+    setSelectedSection(true)
   }
 
   return (
@@ -180,10 +169,10 @@ const NewLessonContent = () => {
         />
         <div className="my-3 flex w-full items-center justify-start rounded-full">
           <IconList className="mr-2 size-5" />
-          <label htmlFor={'select'}>Selecciona una sección</label>
+          <label htmlFor={"select"}>Selecciona una sección</label>
         </div>
         <Select onValueChange={handleSelect}>
-          <SelectTrigger className="w-full" id='select'>
+          <SelectTrigger className="w-full" id="select">
             <SelectValue placeholder="Seleccionar" />
           </SelectTrigger>
           <SelectContent>
@@ -209,38 +198,21 @@ const NewLessonContent = () => {
             ¿Es visible para los estudiantes?
           </label>
         </div>
-
-        <Dialog>
-          <DialogTrigger className="dark:text-blue-dark bg-blue-dark my-4 w-full rounded-md p-2 font-bold text-slate-200 dark:bg-white">
-            Crear Lección
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              {uploadProgress === 0 ? (
-                <>
-                  <DialogTitle className="text-2xl">
-                    ¿Todos los datos ingresados son correctos?
-                  </DialogTitle>
-                  <DialogDescription className="flex justify-center">
-                    <Button onClick={handleSubmit} className="mt-4 font-bold">
-                      ¡Si, Seguro!{" "}
-                    </Button>
-                  </DialogDescription>
-                </>
-              ) : (
-                <>
-                  <DialogTitle className="text-2xl">
-                    Progreso de carga
-                  </DialogTitle>
-                  <DialogDescription>
-                    <Progress className="mt-2" value={uploadProgress} />
-                  </DialogDescription>
-                </>
-              )}
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
+        <MotionButton
+          className="w-full"
+          onClick={()=>setProgressFlag(true)}
+        >
+          Crear lección
+        </MotionButton>
+        
       </form>
+      <UploadProgressModal
+        uploadProgress={uploadProgress}
+        modalOpen={progressFlag}
+        close={() => close(setProgressFlag)}
+        handleSubmit={handleSubmit}
+        selectedSection={selectedSection}
+      />
     </>
   )
 }

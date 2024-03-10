@@ -1,10 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { useGetAcademyByCategories } from "@/hooks/useGetAcademyByCategories"
-import AcademyCard from "./AcademyCard"
-import { MotionDiv } from "../animations/MotionDiv"
 import { useRouter } from "next/navigation"
+
+import { useGetAcademyByCategories } from "@/hooks/useGetAcademyByCategories"
+
+import { MotionDiv } from "../animations/MotionDiv"
+import AcademyCard from "./AcademyCard"
 
 const CategoriesSection = () => {
   const router = useRouter()
@@ -31,13 +33,13 @@ const CategoriesSection = () => {
           <div className="my-8 flex items-center justify-start gap-x-4">
             {category?.academies.map((academy) => (
               <MotionDiv
-                whileHover={{scale: 0.95}}
-                whileTap={{scale: 1.05}}
+                key={academy?.id}
+                whileHover={{ scale: 0.95 }}
+                whileTap={{ scale: 1.05 }}
                 className="cursor-pointer"
-                onClick={()=>handleNavigate(academy.id)}
+                onClick={() => handleNavigate(academy.id)}
               >
                 <AcademyCard
-                  key={academy?.id}
                   imageUrl={academy?.logo}
                   name={academy?.name}
                   description={academy?.description}

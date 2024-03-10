@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/tooltip"
 import MotionButton from "@/components/animations/MotionButton"
 
+import EditLearningRouteModal from "../../modals/EditLearningRouteModal"
 import { Button, buttonVariants } from "../../ui/button"
 import {
   Table,
@@ -30,18 +31,22 @@ import {
   TableHeader,
   TableRow,
 } from "../../ui/table"
-import LearningRouteModal from "./learningRoutes/LearningRouteModal"
+import DeleteLearningRouteModal from "@/components/modals/DeleteLearningRouteModal"
+import CreateLearningRouteModal from "@/components/modals/CreateLearningRouteModal"
 
 const LearningRoutesContent = () => {
   const [loading, setLoading] = useState<boolean>()
   const { academyId } = useParams<{ academyId: string }>()
+  const [createModalOpen, setCreateModalOpen] = useState(false)
   const [editModalOpen, setEditModalOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const [learningRouteId, setLearningRouteId] = useState(0)
+  const [changeFlag, setChangeFlag] = useState(false)
   const params = useParams()
   const learningRoutes = useGetLearningRoutes({
-    academyId,
+    academyId: academyId,
     setLoadingCallback: setLoading,
+    changeFlag: changeFlag,
   })
 
   const close = (
@@ -61,46 +66,40 @@ const LearningRoutesContent = () => {
   return (
     <>
       <div>
+        <div className="w-full border-b py-2 flex justify-end">
+          <MotionButton
+            className={cn(
+              buttonVariants({ variant: "default", size: "lg" }),
+              "border-[1px] px-2"
+            )}
+            onClick={() => {
+              open(setCreateModalOpen, 0)
+            }}
+          >
+            <p>Crear una nueva ruta</p>
+          </MotionButton>
+        </div>
         <TooltipProvider>
-          <Table className="w-full">
+          <Table className="w-full text-center">
             <TableHeader>
               <TableRow>
                 <TableHead className="w-1/6 "></TableHead>
-                <TableHead className="w-2/6 ">Nombre</TableHead>
-                <TableHead className="w-1/6 ">Cursos</TableHead>
-                <TableHead className="w-1/6">Creado</TableHead>
-                <TableHead className="w-1/6">
-                  <Button
-                    className={cn(
-                      buttonVariants({ variant: "default", size: "lg" }),
-                      "border-[1px] px-2"
-                    )}
-                    onClick={() => {
-                      editModalOpen
-                        ? close(setEditModalOpen)
-                        : open(setEditModalOpen, 0)
-                    }}
-                  >
-                    <p>Nueva Ruta</p>
-                  </Button>
-                </TableHead>
+                <TableHead className="w-2/6 text-center">Nombre</TableHead>
+                <TableHead className="w-1/6 text-center">Cursos</TableHead>
+                <TableHead className="w-2/6 text-center">Creado</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {learningRoutes.map((LearningRoute: LearningRoute) => (
                 <TableRow key={LearningRoute.id}>
-                  <TableCell className="flex gap-x-2">
+                  <TableCell className=" space-x-1">
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Button
-                          className={cn(
-                            buttonVariants({ variant: "ghost" }),
-                            "border-[1px] px-2"
-                          )}
+                          variant={"ghost"}
+                          className="border-[1px] px-2"
                           onClick={() => {
-                            editModalOpen
-                              ? close(setEditModalOpen)
-                              : open(setEditModalOpen, LearningRoute.id)
+                            open(setEditModalOpen, LearningRoute.id)
                           }}
                         >
                           <IconEdit />
@@ -113,14 +112,10 @@ const LearningRoutesContent = () => {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Button
-                          className={cn(
-                            buttonVariants({ variant: "ghost" }),
-                            "border-[1px] px-2"
-                          )}
+                          variant={"destructive"}
+                          className="border-[1px] px-2"
                           onClick={() => {
-                            editModalOpen
-                              ? close(setDeleteModalOpen)
-                              : open(setDeleteModalOpen, LearningRoute.id)
+                            open(setDeleteModalOpen, LearningRoute.id)
                           }}
                         >
                           <IconTrash />
@@ -130,25 +125,6 @@ const LearningRoutesContent = () => {
                         <p>Eliminar Ruta</p>
                       </TooltipContent>
                     </Tooltip>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Link
-                          href={`/admin/${params.id}/academies/${params.academyId}/courses/${LearningRoute.id}/main`}
-                        >
-                          <Button
-                            className={cn(
-                              buttonVariants({ variant: "ghost" }),
-                              "border-[1px] px-2"
-                            )}
-                          >
-                            <IconList />
-                          </Button>
-                        </Link>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Administrar Ruta</p>
-                      </TooltipContent>
-                    </Tooltip>
                   </TableCell>
                   <TableCell className="font-medium">
                     {LearningRoute.name}
@@ -156,20 +132,38 @@ const LearningRoutesContent = () => {
                   <TableCell className="font-medium">
                     {LearningRoute.id}
                   </TableCell>
-                  <TableCell className="ml-5 flex gap-x-2 font-medium">
-                    <IconCalendarMonth />
-                    {LearningRoute.created_at}
+                  <TableCell className="ml-5 font-medium">
+                    <div className="w-full gap-x-2 flex justify-center items-center">
+                      <IconCalendarMonth />
+                      {LearningRoute.created_at}
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TooltipProvider>
-        <LearningRouteModal
+        <CreateLearningRouteModal
+          modalOpen={createModalOpen}
+          close={() => close(setCreateModalOpen)}
+          academyId={academyId}
+          changeFlag={changeFlag}
+          setChangeFlag={setChangeFlag}
+        />
+        <EditLearningRouteModal
           modalOpen={editModalOpen}
           close={() => close(setEditModalOpen)}
           learningRouteId={learningRouteId}
           academyId={academyId}
+          changeFlag={changeFlag}
+          setChangeFlag={setChangeFlag}
+        />
+        <DeleteLearningRouteModal
+          modalOpen={deleteModalOpen}
+          close={() => close(setDeleteModalOpen)}
+          learningRouteId={learningRouteId}
+          flag={changeFlag}
+          setFlag={setChangeFlag}
         />
       </div>
     </>

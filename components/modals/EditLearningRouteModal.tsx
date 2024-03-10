@@ -1,56 +1,72 @@
 "use client"
 
-import Modal from "@/components/ui/Modal"
-import { AnimatePresence } from "framer-motion"
+import { useState } from "react"
 import { IconEdit } from "@tabler/icons-react"
-import { Input } from "../../../ui/input"
-import { Label } from "../../../ui/label"
-import { Textarea } from "../../../ui/textarea"
-import { buttonVariants } from "../../../ui/button"
+import { AnimatePresence } from "framer-motion"
+
+import { CreateLearningRoute, UpdateLearningRoute } from "@/lib/requests"
 import { cn } from "@/lib/utils"
 import useGetLearningRoute from "@/hooks/useGetLearningRoute"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../../ui/card"
-import { useState } from "react"
-import { CreateLearningRoute, UpdateLearningRoute } from "@/lib/requests"
+import Modal from "@/components/ui/Modal"
 import MotionButton from "@/components/animations/MotionButton"
 
-const LearningRouteModal = ({ modalOpen, close, learningRouteId, academyId }: any) => {
+import { buttonVariants } from "../ui/button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../ui/card"
+import { Input } from "../ui/input"
+import { Label } from "../ui/label"
+import { Textarea } from "../ui/textarea"
+
+const EditLearningRouteModal = ({
+  modalOpen,
+  close,
+  learningRouteId,
+  academyId,
+  changeFlag,
+  setChangeFlag,
+}: any) => {
   const [loading, setLoading] = useState(true)
-  const modalTitle = !!learningRouteId ? 'Editar Ruta de Aprendizaje' : 'Nueva Ruta de Aprendizaje'
-  const [data, setData] = useState({ learning_route: {
+  const [data, setData] = useState({
+    learning_route: {
       name: "",
-      academy_id: academyId
-    }
+      academy_id: academyId,
+    },
   })
 
   const learningRoute = useGetLearningRoute({
     learningRouteId: learningRouteId?.toString(),
     setLoadingCallback: setLoading,
+    changeFlag: changeFlag
   })
 
+  console.log(learningRoute)
   const handleSubmit = async () => {
     const learningRouteData = data
-    if (!!learningRouteId) {
-      const [request, response] = await UpdateLearningRoute({learningRouteData, learningRouteId })
-      if (request.status == 200) {
-        close()
-      }
-    } else {
-      const [request, response] = await CreateLearningRoute({learningRouteData})
-      if (request.status == 200) {
-        close()
-      }
+    const [request, response] = await UpdateLearningRoute({
+      learningRouteData,
+      learningRouteId,
+    })
+    if (request.status == 200) {
+      setChangeFlag(!changeFlag)
+      close()
     }
   }
 
   return (
     <AnimatePresence>
-      { modalOpen && (<Modal modalOpen={modalOpen} handleClose={close}>
-          <Card className="lg:h-2/3 lg:w-3/4">
+      {modalOpen && (
+        <Modal modalOpen={modalOpen} handleClose={close}>
+          <Card className="w-full">
             <CardHeader>
               <div className="flex items-center gap-x-3">
                 <IconEdit className="size-8" />
-                <CardTitle>{modalTitle}</CardTitle>
+                <CardTitle>Editar Ruta de Aprendizaje</CardTitle>
               </div>
               <CardDescription>
                 A continuación edita los campos de la ruta
@@ -64,7 +80,14 @@ const LearningRouteModal = ({ modalOpen, close, learningRouteId, academyId }: an
                     <Input
                       defaultValue={learningRoute?.name}
                       className="border-2"
-                      onChange={(e)=> setData({ learning_route: { ...data.learning_route, name: e.target.value}})}
+                      onChange={(e) =>
+                        setData({
+                          learning_route: {
+                            ...data.learning_route,
+                            name: e.target.value,
+                          },
+                        })
+                      }
                       name="name"
                     />
                   </div>
@@ -72,7 +95,8 @@ const LearningRouteModal = ({ modalOpen, close, learningRouteId, academyId }: an
               </form>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <MotionButton onClick={close}
+              <MotionButton
+                onClick={close}
                 className={cn(
                   buttonVariants({ variant: "outline" }),
                   "border-[1px] px-2"
@@ -80,7 +104,8 @@ const LearningRouteModal = ({ modalOpen, close, learningRouteId, academyId }: an
               >
                 Cancelar
               </MotionButton>
-              <MotionButton onClick={handleSubmit}
+              <MotionButton
+                onClick={handleSubmit}
                 className={cn(
                   buttonVariants({ variant: "default" }),
                   "border-[1px] px-2"
@@ -96,4 +121,4 @@ const LearningRouteModal = ({ modalOpen, close, learningRouteId, academyId }: an
   )
 }
 
-export default LearningRouteModal
+export default EditLearningRouteModal

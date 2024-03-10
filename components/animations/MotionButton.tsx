@@ -19,6 +19,7 @@ const MotionButton = ({ children, className, variant, onClick, ...otherProps }: 
       <Button
       className={`${className}`}
       variant={variant}
+      type='button'
       >
         {children}
       </Button>

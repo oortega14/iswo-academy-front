@@ -100,11 +100,13 @@ export type GetAnswerProps = {
 export type GetLearningRoutesProps = {
   academyId: String
   setLoadingCallback: CallbackFunction
+  changeFlag: boolean
 }
 
 export type GetLearningRouteProps = {
   learningRouteId: string
   setLoadingCallback: CallbackFunction
+  changeFlag: boolean
 }
 export type GetAcademyByCategoryProps = {
   setLoadingCallback: CallbackFunction
