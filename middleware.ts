@@ -10,9 +10,7 @@ export async function middleware(req: NextRequest) {
   //     body: JSON.stringify(cookie),
   //   })
   //   const response = await request.json()
-  //   console.log(response)
   // } catch (error) {
-  //   console.log(error)
   // }
 
   // const { pathname } = req.nextUrl;

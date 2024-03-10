@@ -68,7 +68,7 @@ const ListItemsFromInput = ({
           className=""
         />
         <button
-          className="bg-blue-dark dark:text-blue-dark text-nowrap rounded-lg px-3 py-2 font-bold text-slate-200 hover:scale-95 dark:bg-slate-200"
+          className="bg-blue-dark dark:text-blue-dark text-nowrap rounded-lg px-3 py-2 font-semibold text-slate-200 hover:scale-95 dark:bg-slate-200"
           onClick={insertNewGoal}
         >
           {buttonLabel}

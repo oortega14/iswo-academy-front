@@ -96,9 +96,13 @@ export const buildRoute = ({
     case "superadmin-back-office":
       switch (normalizedSubcategory) {
         case "home":
-          return `/super-admin/${userId}/back-office/main`
-        case "messages":
-          return `/super-admin/${userId}/back-office/messages`
+          return `/super-admin/${userId}/dashboard/main`
+        case "courses":
+          return `/super-admin/${userId}/back-office/courses`
+        case "learning-routes":
+          return `/super-admin/${userId}/back-office/learning-routes`
+        case "academies":
+          return `/super-admin/${userId}/back-office/academies`
       }
 
     // profile_routes

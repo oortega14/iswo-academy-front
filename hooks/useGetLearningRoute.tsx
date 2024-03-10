@@ -29,7 +29,7 @@ const useGetLearningRoute = ({learningRouteId, setLoadingCallback, changeFlag}: 
       }
     };
 
-    if (learningRouteId) {
+    if (learningRouteId !== '0') {
       getLearningRoute();
     }
   }, [learningRouteId, changeFlag]);

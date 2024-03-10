@@ -1,12 +1,12 @@
-import { MotionDiv } from "@/components/animations/MotionDiv"
-import SuperAdminDashboard from "@/components/dashboard/superadmin/SuperAdminDashboard"
+import { MotionDiv } from "@/components/animations/MotionDiv";
+import CourseStatistics from "@/components/dashboard/superadmin/CourseStatistics";
 
 const variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
 }
 
-export default function SuperAdminDashboardPage() {
+export default function SuperAdminAcademiesPage() {
   return (
     <MotionDiv
       className="w-full"
@@ -19,7 +19,7 @@ export default function SuperAdminDashboardPage() {
       }}
       viewport={{ amount: 0 }}
     >
-      <SuperAdminDashboard />
+      <CourseStatistics />
     </MotionDiv>
-  )
+  );
 }

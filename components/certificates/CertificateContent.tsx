@@ -35,8 +35,6 @@ const CertificateContent = () => {
     setLoadingCallback: setLoading,
   })
 
-  console.log(certificates)
-
   if (loading) {
     return <LoadingModal />
   }

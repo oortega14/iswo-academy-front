@@ -47,7 +47,6 @@ export const SidebarEvaluation = () => {
       }
       return response
     } catch (e) {
-      console.log("error", e)
     }
 
   }

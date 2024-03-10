@@ -92,7 +92,6 @@ export const PhotoContent = () => {
         toast.error("No se pudo actualizar perfil")
       }
     } catch (e) {
-      console.log(e)
     }
   }
 

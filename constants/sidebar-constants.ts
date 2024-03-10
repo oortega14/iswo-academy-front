@@ -13,8 +13,10 @@ export const SUPER_ADMIN_SIDEBAR_LINKS: SidebarLink[] = [
     label: 'BackOffice',
     icon: IconClock,
     links: [
-      { subcategory_key: 'home', label: 'Inicio' },
-      { subcategory_key: 'messages', label: 'Mensajes' }
+      { subcategory_key: 'home', label: 'Resumen' },
+      { subcategory_key: 'courses', label: 'Cursos' },
+      { subcategory_key: 'learning-routes', label: 'Rutas de aprendizaje' },
+      { subcategory_key: 'academies', label: 'Academias' }
     ]
   }
 ];

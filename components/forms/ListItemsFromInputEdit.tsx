@@ -29,8 +29,8 @@ const ListItemsFromInputEdit = ({
   }
   const removeGoal = (indexToRemove
     : number) => {
-    const newData = [...data]
-    const newArray = newData.map((item) => {
+    const newData: any = [...data]
+    const newArray = newData.map((item: any) => {
       if (item.index === indexToRemove) {
         return { ...item, _destroy: "1" }
       }
@@ -39,7 +39,6 @@ const ListItemsFromInputEdit = ({
     setData(newArray)
   }
   const filteredData = data.filter((goal) => !goal._destroy)
-  console.log(data)
 
   return (
     <div className="mb-2">

@@ -53,7 +53,6 @@ const SectionsContent = () => {
     .sort((a, b) => a.position - b.position)
 
   const handleNavigate = (e: any) => {
-    console.log(e.currentTarget.id)
   }
 
   return (

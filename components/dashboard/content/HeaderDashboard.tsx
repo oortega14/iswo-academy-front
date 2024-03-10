@@ -90,7 +90,6 @@ export const HeaderDashboard = () => {
 
   const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    console.log(value)
     setData({ ...data, [name]: value })
   }
 

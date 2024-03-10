@@ -10,11 +10,9 @@ import MotionButton from "../animations/MotionButton"
 const CreateClassContent = () => {
 
   const handleSubmit = (e: any) => {
-    console.log(e)
   }
 
   const handleChange = (e: any) => {
-    console.log(e)
   }
 
   return (

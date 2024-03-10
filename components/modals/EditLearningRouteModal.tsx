@@ -45,7 +45,6 @@ const EditLearningRouteModal = ({
     changeFlag: changeFlag
   })
 
-  console.log(learningRoute)
   const handleSubmit = async () => {
     const learningRouteData = data
     const [request, response] = await UpdateLearningRoute({
@@ -78,7 +77,7 @@ const EditLearningRouteModal = ({
                   <div className="flex flex-col space-y-1.5">
                     <Label htmlFor="name">Nombre</Label>
                     <Input
-                      defaultValue={learningRoute?.name}
+                      value={learningRoute?.name}
                       className="border-2"
                       onChange={(e) =>
                         setData({

@@ -25,12 +25,12 @@ const Comments = () => {
     setLoadingCallback: setLoading
   })
 
-  const handleCreateComment = async (e) => {
+  const handleCreateComment = async (e: any) => {
     const { name, value } = e.target
     setComment({ ...comment, [name]: value })
   }
 
-  const handleSubmitComment = async (e) => {
+  const handleSubmitComment = async (e: any) => {
     e.preventDefault()
     try {
       const request = await fetch(`${baseUrl}/lesson_comments`, {
@@ -52,7 +52,6 @@ const Comments = () => {
       }
       return response
     } catch (e) {
-      console.log("error", e)
     }
   }
 

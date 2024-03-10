@@ -16,6 +16,7 @@ export interface Course {
   teacher_id:   null;
   teacher:      null;
   academy_id:   number;
+  learning_route_id:   number;
   academy_name: string;
   banner:       string;
   promotional_video: string;

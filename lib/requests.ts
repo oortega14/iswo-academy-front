@@ -275,7 +275,6 @@ export async function DeleteSectionRequest(sectionId: number) {
     const response = await request.json()
     return [request, response]
   } catch (e) {
-    console.log(e)
     throw new Error("Error al realizar la solicitud")
   }
 }

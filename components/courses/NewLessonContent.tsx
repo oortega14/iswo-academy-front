@@ -120,7 +120,6 @@ const NewLessonContent = () => {
 
   const handleCheck = (e: boolean) => {
     setData({ ...data, visible: e })
-    console.log(typeof e)
   }
 
   const handleSelect = (e: string) => {
@@ -204,7 +203,7 @@ const NewLessonContent = () => {
         >
           Crear lección
         </MotionButton>
-        
+
       </form>
       <UploadProgressModal
         uploadProgress={uploadProgress}

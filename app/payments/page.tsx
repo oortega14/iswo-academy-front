@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useContext } from 'react';
 import { useUIStore } from '@/store/ui/ui-store';
+import { toast } from 'sonner';
 
 const GetBanks = async (baseUrl: any) => {
   try {
@@ -60,12 +61,11 @@ const Payments = () => {
       });
       const response = await request.json()
       if (request.status == 200) {
-        console.log("success")
+        toast.success("se realizo el pago")
       } else {
       }
       return response;
     } catch (e) {
-      console.log("error", e)
     }
   };
 

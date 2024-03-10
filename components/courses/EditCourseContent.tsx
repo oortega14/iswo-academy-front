@@ -14,7 +14,9 @@ import {
 } from "@tabler/icons-react"
 import axios from "axios"
 import { toast } from "sonner"
+
 import useGetCourse from "@/hooks/useGetCourse"
+import useGetLearningRoutes from "@/hooks/useGetLearningRoutes"
 import {
   Dialog,
   DialogContent,
@@ -24,6 +26,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Progress } from "@/components/ui/progress"
+
 import InputFileWithImage from "../forms/InputFileWithImage"
 import InputFileWithVideo from "../forms/InputFileWithVideo"
 import InputNumberWithIcon from "../forms/InputNumberWithIcon"
@@ -54,6 +57,7 @@ const EditCourseContent = () => {
   const [promotionalImage, setPromotionalImage] = useState({})
   const [video, setVideo] = useState({ name: "" })
   const [uploadProgress, setUploadProgress] = useState(0)
+  const [changeFlag, setChangeFlag] = useState(false)
   const course = useGetCourse({
     courseId: courseId,
     setLoadingCallback: setLoading,
@@ -83,6 +87,12 @@ const EditCourseContent = () => {
     const { name, value } = e.target
     setData({ ...data, [name]: value })
   }
+
+  const learningRoutes = useGetLearningRoutes({
+    academyId: academyId,
+    setLoadingCallback: setLoading,
+    changeFlag: changeFlag,
+  })
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -130,7 +140,6 @@ const EditCourseContent = () => {
   }
 
   const handleSelect = (e: any) => {
-    console.log(e)
   }
 
   useEffect(() => {
@@ -147,6 +156,7 @@ const EditCourseContent = () => {
         banner: course?.banner,
         promotional_video: course?.promotional_video,
         promotional_image: course?.promotional_image,
+        learning_route_id: course?.learning_route_id,
       }))
       setDataGoals((prevConfig) => [...prevConfig, ...course?.course_goals])
     }
@@ -234,16 +244,26 @@ const EditCourseContent = () => {
         />
         <div className="mt-3 flex w-full items-center justify-start rounded-full">
           <IconList className="mr-2 size-5" />
-          <label htmlFor="password_confirmation">Escoje el instructor</label>
+          <label htmlFor="password_confirmation">
+            Escoje la ruta de aprendizaje
+          </label>
         </div>
-        <Select onValueChange={(e) => handleSelect(e)}>
-          <SelectTrigger className="mt-2 w-full">
-            <SelectValue placeholder="Escoge al instructor" />
+        <Select
+          onValueChange={(e) => handleSelect(e)}
+          value={JSON.stringify(course?.learning_route_id)}
+        >
+          <SelectTrigger className="my-2">
+            <SelectValue
+              className="text-muted-foreground"
+              placeholder="Escoge una ruta de aprendizaje"
+            />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="student">Estudiante</SelectItem>
-            <SelectItem value="teacher">Profesor</SelectItem>
-            <SelectItem value="admin">Administrador</SelectItem>
+            {learningRoutes.map((route) => (
+              <SelectItem key={route.id} value={JSON.stringify(route.id)}>
+                {route.name}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
         <Dialog>

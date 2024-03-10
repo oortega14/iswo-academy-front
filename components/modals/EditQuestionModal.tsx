@@ -48,7 +48,6 @@ const EditQuestionModal = ({
     e.preventDefault()
     const [request, response] = await EditQuestionRequest(data, questionId)
     if (request.status === 200) {
-      console.log(response)
       toast.success('Pregunta actualizada correctamente')
       setFlag(!flag)
       close()
