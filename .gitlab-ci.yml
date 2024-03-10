@@ -4,7 +4,7 @@ cache:
 
 stages:
   - init
-  - production
+  - deploy_prod
 
 init:
   stage: init
@@ -12,7 +12,7 @@ init:
   script:
     - npm install
 
-production:
+deploy_production:
   image: node:14.18.2
   stage: deploy_prod
   script:
