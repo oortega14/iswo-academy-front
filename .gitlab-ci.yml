@@ -20,6 +20,6 @@ production:
     - echo "Deployed to production server"
   environment:
     name: production
-    url: https://julia-test-prod.herokuapp.com/
+    url: https://production-iswo-academy-front.herokuapp.com/
   only:
     - main
