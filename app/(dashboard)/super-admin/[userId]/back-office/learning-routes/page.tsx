@@ -1,5 +1,5 @@
 import { MotionDiv } from "@/components/animations/MotionDiv";
-import CourseStatistics from "@/components/dashboard/superadmin/CourseStatistics";
+import LearningRoutesStatistics from "@/components/dashboard/superadmin/LearningRoutesStatistics";
 
 const variants = {
   hidden: { opacity: 0 },
@@ -19,7 +19,7 @@ export default function SuperAdminLearningRoutesPage() {
       }}
       viewport={{ amount: 0 }}
     >
-      <CourseStatistics />
+      <LearningRoutesStatistics />
     </MotionDiv>
   );
 }

@@ -13,6 +13,8 @@ import { Bar, Doughnut, Line } from "react-chartjs-2"
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip)
 
 export const CourseStatisticsContent = () => {
+
+  
   return (
     <div className="mt-4">
       <div className="flex flex-col items-start justify-between border-b pb-6 lg:flex-row lg:items-center lg:space-y-0">
