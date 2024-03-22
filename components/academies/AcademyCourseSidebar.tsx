@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import {
   IconCertificate,
   IconDeviceTv,
@@ -11,9 +12,11 @@ import { Course } from "@/types/sidebar"
 import { cn } from "@/lib/utils"
 
 import { MotionDiv } from "../animations/MotionDiv"
-import { Button } from "../ui/button"
+import { Button, buttonVariants } from "../ui/button"
+import { useParams } from "next/navigation"
 
 const AcademyCourseSidebar = ({ course }: { course: Course }) => {
+  const {academyId, courseId} = useParams<{academyId: string, courseId: string}>()
   function formatCurrency(value: number): string {
     const formattedValue = new Intl.NumberFormat("es-CO", {
       style: "currency",
@@ -47,7 +50,12 @@ const AcademyCourseSidebar = ({ course }: { course: Course }) => {
             whileHover={{ scale: 0.95 }}
             whileTap={{ scale: 1.05 }}
           >
-            <Button className="w-full"> Comprar ahora</Button>
+            <Link href={`/order?academyId=${academyId}&courseId=${courseId}`} className={cn(
+              buttonVariants({ variant: "default" }),
+              "border-[1px] px-2 w-full"
+            )}>
+              Comprar ahora
+            </Link>
           </MotionDiv>
           <MotionDiv
             whileHover={{ scale: 0.95 }}

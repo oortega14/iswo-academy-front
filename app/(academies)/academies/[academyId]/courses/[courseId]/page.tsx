@@ -8,6 +8,7 @@ import AcademyCourseContent from "@/components/academies/AcademyCourseContent"
 import AcademyCourseLearning from "@/components/academies/AcademyCourseLearning"
 import AcademyCourseSidebar from "@/components/academies/AcademyCourseSidebar"
 import AcademyCourseMain from "@/components/academies/AcademyCourseMain"
+import LoadingModal from "@/components/modals/LoadingModal"
 
 export default function CoursePage() {
   const params = useParams<{ academyId: string; courseId: string }>()
@@ -16,7 +17,7 @@ export default function CoursePage() {
     courseId: params.courseId,
     setLoadingCallback: setLoading,
   })
-  if (loading) return <span />
+  if (loading) return <LoadingModal/>
   else if (!!course) {
     return (
       <section className="flex px-20 ">

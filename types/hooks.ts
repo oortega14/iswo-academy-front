@@ -81,6 +81,10 @@ export type GetAnswersProps = {
   flag: boolean
 }
 
+export type GetBanksProps = {
+  setLoadingCallback: CallbackFunction
+}
+
 export type GetCategoriesProps = {
   setLoadingCallback: CallbackFunction
 }

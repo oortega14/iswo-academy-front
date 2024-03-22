@@ -27,6 +27,11 @@ export interface Course {
   course_goals: CourseGoal[];
 }
 
+export interface Bank {
+  bankCode: string,
+  bankName: string
+}
+
 export interface Exam {
   id:             number;
   approved:       boolean;
