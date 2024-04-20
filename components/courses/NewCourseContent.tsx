@@ -122,7 +122,7 @@ const NewCoursesContent = () => {
       fd.append("course[promotional_video]", video)
     }
     fd.append("course[teacher_id]", userId)
-    fd.append("course[learning_route_id]", userId)
+    fd.append("course[learning_route_id]", data.learning_route_id)
     fd.append("course[academy_id]", academyId)
     fd.append("course[description]", data.description)
     fd.append("course[price]", data.price)
