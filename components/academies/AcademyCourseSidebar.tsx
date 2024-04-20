@@ -52,7 +52,7 @@ const AcademyCourseSidebar = ({ course }: { course: Course }) => {
           >
             <Link href={`/order?academyId=${academyId}&courseId=${courseId}`} className={cn(
               buttonVariants({ variant: "default" }),
-              "border-[1px] px-2 w-full"
+              "w-full border-[1px] px-2"
             )}>
               Comprar ahora
             </Link>

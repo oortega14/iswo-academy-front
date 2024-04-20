@@ -26,7 +26,7 @@ export const CourseStatisticsContent = () => {
       <div className="flex w-full flex-col items-start justify-center ">
         <div className="m-5 flex w-full space-x-16">
           <div className="flex w-1/2 flex-col items-center justify-center">
-            <h2 className="mb-3 text-2xl text-center">
+            <h2 className="mb-3 text-center text-2xl">
               Cursos inscritos a la largo de los años
             </h2>
             <Bar
@@ -67,7 +67,7 @@ export const CourseStatisticsContent = () => {
           </div>
         </div>
         <div className="my-10 ml-5 w-2/3">
-          <h2 className="mb-3 text-2xl text-center">
+          <h2 className="mb-3 text-center text-2xl">
             Cursos inscritos a la largo de los años
           </h2>
           <Line

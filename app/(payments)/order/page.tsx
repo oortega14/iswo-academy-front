@@ -117,17 +117,17 @@ export default function orderPage() {
   } else {
     return (
       <div className="flex">
-        <div className="w-1/2 min-h-screen py-10 px-10">
+        <div className="min-h-screen w-1/2 p-10">
           <h3 className="text-xl font-semibold">
             Complete su compra para comenzar a aprender
           </h3>
           <img src={course?.promotional_image} alt="promotional_image" />
-          <h3 className="text-xl font-semibold mt-3 mb-2">{course?.title}</h3>
-          <span className="text-4xl font-bold w-full ml-20">
+          <h3 className="mb-2 mt-3 text-xl font-semibold">{course?.title}</h3>
+          <span className="ml-20 w-full text-4xl font-bold">
             {formatCurrency(JSON.parse(course?.price || "0"))} COP
           </span>
         </div>
-        <div className="w-1/2 shadow-xl min-h-screen px-10 py-10 border-2 rounded-lg">
+        <div className="min-h-screen w-1/2 rounded-lg border-2 p-10 shadow-xl">
           <form onSubmit={(e) => handleSubmit(e)}>
             <div className="mt-2 flex w-full items-center justify-start rounded-full">
               <IconUser className="mr-2 size-5" />
@@ -204,7 +204,7 @@ export default function orderPage() {
                 ))}
               </SelectContent>
             </Select>
-            <Button className="w-full mt-3">Pagar</Button>
+            <Button className="mt-3 w-full">Pagar</Button>
           </form>
         </div>
       </div>
