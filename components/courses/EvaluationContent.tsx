@@ -73,7 +73,6 @@ const EvaluationContent = () => {
       </div>
       <form
         className="flex w-full flex-col p-0 px-3"
-        onSubmit={(e) => handleSubmit(e)}
       >
         <div className="mt-3 flex w-full items-center justify-start rounded-full">
           <IconArticle className="mr-2 size-5" />
@@ -103,7 +102,7 @@ const EvaluationContent = () => {
           className="mt-2"
           defaultValue={course?.course_test?.approve_with || ""}
         />
-        <MotionButton className="mt-3 w-full">
+        <MotionButton className="mt-3 w-full" onClick={(e) => handleSubmit(e)}>
           Actualizar información
         </MotionButton>
       </form>

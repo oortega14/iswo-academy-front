@@ -108,7 +108,7 @@ const QuestionsContent = () => {
   //Questions
 
   const addNewQuestion = async () => {
-    const [request, response] = await addNewQuestionRequest(question, courseId)
+    const [request, response] = await addNewQuestionRequest(question, evaluationId)
     if (request.status === 200) {
       setQuestionFlag(true)
       setNewQuestionId(response.id)
@@ -225,7 +225,7 @@ const QuestionsContent = () => {
                   className="h-5 w-5"
                 />
               </div>
-              <MotionButton className="ml-20 w-full">
+              <MotionButton className="ml-20 w-full" onClick={(e) => addAnswer(e)}>
                 Agregar respuesta
               </MotionButton>
             </div>
