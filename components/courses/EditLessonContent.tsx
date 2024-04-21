@@ -68,7 +68,8 @@ const EditLessonContent = () => {
     title: "",
     description: "",
     visible: false,
-    courseSectionId: ''
+    courseSectionId: '',
+    externalVideoUrl: ''
   })
 
   const CourseSections = useGetCourseSections({
@@ -101,6 +102,7 @@ const EditLessonContent = () => {
     fd.append("lesson[title]", data.title)
     fd.append("lesson[description]", data.description)
     fd.append("lesson[course_section_id]", data.courseSectionId)
+    fd.append("lesson[external_video_url]", data.externalVideoUrl)
     fd.append("lesson[visible]", data.visible ? "t" : "f")
     files.forEach((element, index) => {
       fd.append(`lesson[archives_attributes][${index}][archivable_id]`, "")
@@ -177,14 +179,23 @@ const EditLessonContent = () => {
           setVideo={setVideo}
           defaultVideo={Lesson?.url_video}
         />
+        <InputTextWithIcon
+          Icon={IconListTree}
+          label={"O puedes poner una url externa"}
+          name={"externalVideoUrl"}
+          defaultValue={Lesson?.external_video_url}
+          placeholder={"Enlace del vídeo"}
+          onChange={(e) => handleChange(e)}
+        />
         <InputFileWithList
           Icon={IconListTree}
-          label={"Archivos la clase"}
+          label={"Archivos de la clase"}
           name={"files"}
           files={files}
           setFiles={setFiles}
           defaultFiles={Lesson?.files}
         />
+
         <div className="my-3 flex w-full items-center justify-start rounded-full">
           <IconList className="mr-2 size-5" />
           <label htmlFor={'select'}>Selecciona una sección</label>

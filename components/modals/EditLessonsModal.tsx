@@ -31,6 +31,7 @@ const EditLessonsModal = ({
   const [data, setData] = useState({
     title: "",
     description: "",
+    external_video_url: "",
     visible: "f",
     video: "",
   })

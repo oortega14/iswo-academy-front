@@ -72,6 +72,7 @@ export interface Lesson {
   description: string;
   visible:     boolean;
   url_video:   null;
+  external_video_url?: string;
   files:       any[];
 }
 
