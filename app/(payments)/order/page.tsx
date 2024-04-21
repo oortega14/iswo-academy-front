@@ -71,8 +71,10 @@ export default function orderPage() {
   })
 
   useEffect(() => {
-    const banksF: Bank[] = banks.filter((item) => item.bankCode !== "0")
-    setBanksFiltered(banksF)
+    if (banks !== undefined) {
+      const banksF: Bank[] = banks.filter((item) => item.bankCode !== "0")
+      setBanksFiltered(banksF)
+    }
   }, [banks])
 
   const handleChange = (
