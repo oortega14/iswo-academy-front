@@ -162,6 +162,8 @@ const EditCourseContent = () => {
     }
   }, [course])
 
+  console.log(course)
+
   return (
     <>
       <div className="flex flex-col items-start justify-between space-y-4 border-b px-3 pb-6 lg:flex-row lg:items-center lg:space-y-0">
@@ -250,7 +252,7 @@ const EditCourseContent = () => {
         </div>
         <Select
           onValueChange={(e) => handleSelect(e)}
-          value={JSON.stringify(course?.learning_route_id)}
+          defaultValue={JSON.stringify(course?.learning_route_id)}
         >
           <SelectTrigger className="my-2">
             <SelectValue
