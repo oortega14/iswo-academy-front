@@ -33,6 +33,7 @@ import {
 } from "../../ui/table"
 import DeleteLearningRouteModal from "@/components/modals/DeleteLearningRouteModal"
 import CreateLearningRouteModal from "@/components/modals/CreateLearningRouteModal"
+import { formatDate } from '../../../lib/utils';
 
 const LearningRoutesContent = () => {
   const [loading, setLoading] = useState<boolean>()
@@ -86,7 +87,7 @@ const LearningRoutesContent = () => {
                 <TableHead className="w-1/6 "></TableHead>
                 <TableHead className="w-2/6 text-center">Nombre</TableHead>
                 <TableHead className="w-1/6 text-center">Cursos</TableHead>
-                <TableHead className="w-2/6 text-center">Creado</TableHead>
+                <TableHead className="w-2/6 text-center">Creada</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -135,7 +136,7 @@ const LearningRoutesContent = () => {
                   <TableCell className="ml-5 font-medium">
                     <div className="flex w-full items-center justify-center gap-x-2">
                       <IconCalendarMonth />
-                      {LearningRoute.created_at}
+                      {formatDate(LearningRoute.created_at)}
                     </div>
                   </TableCell>
                 </TableRow>
