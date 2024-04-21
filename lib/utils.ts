@@ -12,3 +12,13 @@ export function truncarTexto(texto: string, longitudMaxima: number) {
     return texto
   }
 }
+
+export function formatCurrency(value: number): string {
+  const formattedValue = new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP",
+    minimumFractionDigits: 0,
+  }).format(value)
+
+  return formattedValue
+}

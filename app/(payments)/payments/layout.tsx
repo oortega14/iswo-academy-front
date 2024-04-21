@@ -25,8 +25,7 @@ export default function AcademiesLayout({
       viewport={{ amount: 0 }}
     >
     <div className="relative flex min-h-screen flex-col">
-      <Header />
-      <main className="relative top-28 overflow-hidden">{children}</main>
+      {children}
     </div>
     </MotionDiv>
   )

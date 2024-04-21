@@ -11,6 +11,7 @@ export interface Student {
   id:        number;
   user_id:   number;
   user_name: string;
+  course_status : string;
 }
 
 export interface Question {
