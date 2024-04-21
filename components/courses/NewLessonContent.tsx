@@ -49,6 +49,7 @@ const NewLessonContent = () => {
     description: "",
     visible: false,
     courseSectionId: "",
+    externalVideoUrl: ''
   })
 
   const close = (
@@ -83,6 +84,7 @@ const NewLessonContent = () => {
     fd.append("lesson[title]", data.title)
     fd.append("lesson[description]", data.description)
     fd.append("lesson[course_section_id]", data.courseSectionId)
+    fd.append("lesson[external_video_url]", data.externalVideoUrl)
     fd.append("lesson[visible]", data.visible ? "t" : "f")
     files.forEach((element, index) => {
       fd.append(`lesson[archives_attributes][${index}][archivable_id]`, "")
@@ -158,6 +160,13 @@ const NewLessonContent = () => {
           name="promotional_video"
           video={video}
           setVideo={setVideo}
+        />
+        <InputTextWithIcon
+          Icon={IconListTree}
+          label={"O puedes poner una url externa"}
+          name={"externalVideoUrl"}
+          placeholder={"Enlace del vídeo"}
+          onChange={(e) => handleChange(e)}
         />
         <InputFileWithList
           Icon={IconListTree}
