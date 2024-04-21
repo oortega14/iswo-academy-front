@@ -8,7 +8,7 @@ export const Help = () => {
   return (
     <>
       <div className="mt-5 flex flex-col items-start justify-between border-b pb-6 lg:flex-row lg:items-center lg:space-y-0 ">
-        <h1 className="ml-3 whitespace-nowrap text-4xl font-semibold ">
+        <h1 className="ml-3 whitespace-nowrap text-2xl font-semibold ">
           Nuestros canales de contacto son:
         </h1>
       </div>
