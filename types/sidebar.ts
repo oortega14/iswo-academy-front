@@ -76,7 +76,7 @@ export interface Lesson {
 }
 
 export interface CoursesStatus {
-  acquired:    number;
+  of_interest:    number;
   in_progress: number;
   ended:       number;
 }

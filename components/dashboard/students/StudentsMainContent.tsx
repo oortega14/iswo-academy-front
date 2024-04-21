@@ -28,6 +28,7 @@ export const StudentsMainContent = () => {
     setLoadingCallback: setLoading,
   })
 
+
   return (
     <div className="mt-4">
       <div className="flex flex-col items-start justify-between border-b pb-6 lg:flex-row lg:items-center lg:space-y-0">
@@ -85,7 +86,7 @@ export const StudentsMainContent = () => {
             </div>
           </MotionDiv>
         </Link>
-        <Link href={`/student/${params.userId}/dashboard/acquired`}>
+        <Link href={`/student/${params.userId}/dashboard/of_interest`}>
           <MotionDiv
             whileHover={{ scale: 0.98 }}
             whileTap={{ scale: 0.99 }}
@@ -98,7 +99,7 @@ export const StudentsMainContent = () => {
               </div>
               <div className="p-4">
                 <h4 className="text-blue-gray-900 block text-2xl font-semibold leading-snug tracking-normal antialiased">
-                  Cursos de interes: {courseStatus?.acquired}
+                  Cursos de interes: {courseStatus?.of_interest}
                 </h4>
               </div>
               <div className="border-blue-gray-50 border-t p-4">

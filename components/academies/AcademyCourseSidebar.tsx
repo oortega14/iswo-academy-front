@@ -1,31 +1,82 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import Link from "next/link"
+import { useParams, useRouter } from "next/navigation"
+import { useUIStore } from "@/store/ui/ui-store"
 import {
   IconCertificate,
   IconDeviceTv,
   IconHeart,
   IconHeartBolt,
+  IconHeartbeat,
 } from "@tabler/icons-react"
+import { toast } from "sonner"
 
 import { Course } from "@/types/sidebar"
-import { cn } from "@/lib/utils"
+import { CreateInterestStudentRequest } from "@/lib/requests"
+import { cn, formatCurrency } from "@/lib/utils"
+import useGetStudent from "@/hooks/useGetStudent"
 
 import { MotionDiv } from "../animations/MotionDiv"
 import { Button, buttonVariants } from "../ui/button"
-import { useParams } from "next/navigation"
 
 const AcademyCourseSidebar = ({ course }: { course: Course }) => {
-  const {academyId, courseId} = useParams<{academyId: string, courseId: string}>()
-  function formatCurrency(value: number): string {
-    const formattedValue = new Intl.NumberFormat("es-CO", {
-      style: "currency",
-      currency: "COP",
-      minimumFractionDigits: 0,
-    }).format(value)
 
-    return formattedValue
+  const baseUrl = useUIStore((state) => state.baseUrl);
+  const router = useRouter()
+  const { academyId, courseId } = useParams<{
+    academyId: string
+    courseId: string
+  }>()
+  const [loading, setLoading] = useState(true)
+  const [changeFlag, setChangeFlag] = useState(false)
+  const [courseState, setCourseState] = useState({
+    in_progress: false,
+    of_interest: false,
+  })
+
+  const checkSections = async () => {
+    const request = await fetch(`${baseUrl}/course_sections?course_id=${courseId}`, {
+      method: 'GET',
+      credentials: 'include',
+    })
+    const response = await request.json()
+    router.push(`/courses/${courseId}/video-player/sections/${response[0].id}/lessons/${response[0].lessons[0].id}`)
   }
+
+  const handleCreateInterestStudent = async () => {
+    const [request, response] = await CreateInterestStudentRequest(courseId)
+    if (request.status === 200) {
+      toast.success("Se ha agregado a tus cursos de interes")
+      setChangeFlag(true)
+    } else {
+      toast.error("No se pudo agregar a favoritos")
+    }
+  }
+
+  const student = useGetStudent({
+    setLoadingCallback: setLoading,
+    flag: changeFlag,
+    courseId: courseId,
+  })
+
+  useEffect(() => {
+    if (!!student?.length && student?.length > 0) {
+      const isInProgress = student.some(
+        (item) => item.course_status === "in_progress"
+      )
+      const isOfInterest = student.some(
+        (item) => item.course_status === "of_interest"
+      )
+      setCourseState({
+        in_progress: isInProgress,
+        of_interest: isOfInterest,
+      })
+    }
+  }, [student])
+
+  console.log(courseState)
 
   return (
     <aside
@@ -44,29 +95,68 @@ const AcademyCourseSidebar = ({ course }: { course: Course }) => {
         <span className="mt-3 text-4xl font-bold">
           {formatCurrency(JSON.parse(course.price))} COP
         </span>
-        <div className="mt-3 flex w-full items-center gap-x-3">
-          <MotionDiv
-            className=" w-4/5"
-            whileHover={{ scale: 0.95 }}
-            whileTap={{ scale: 1.05 }}
-          >
-            <Link href={`/order?academyId=${academyId}&courseId=${courseId}`} className={cn(
-              buttonVariants({ variant: "default" }),
-              "w-full border-[1px] px-2"
-            )}>
-              Comprar ahora
-            </Link>
-          </MotionDiv>
-          <MotionDiv
-            whileHover={{ scale: 0.95 }}
-            whileTap={{ scale: 1.05 }}
-            className=" w-1/5"
-          >
-            <Button className=" w-full">
-              <IconHeart />
-            </Button>
-          </MotionDiv>
-        </div>
+        {courseState.in_progress === true ? (
+          <div className="mt-3 flex w-full items-center gap-x-3">
+            <MotionDiv
+              className=" w-4/5"
+              whileHover={{ scale: 0.95 }}
+              whileTap={{ scale: 1.05 }}
+            >
+              <Button
+                onClick={()=>checkSections()}
+                className={cn(
+                  buttonVariants({ variant: "default" }),
+                  "border-[1px] px-2 w-full"
+                )}
+              >
+                Ir al curso
+              </Button>
+            </MotionDiv>
+            <MotionDiv
+              whileHover={{ scale: 0.95 }}
+              whileTap={{ scale: 1.05 }}
+              className=" w-1/5"
+            >
+              <Button
+                onClick={() => handleCreateInterestStudent()}
+                className=" w-full"
+              >
+                <IconHeartBolt />
+              </Button>
+            </MotionDiv>
+          </div>
+        ) : (
+          <div className="mt-3 flex w-full items-center gap-x-3">
+            <MotionDiv
+              className=" w-4/5"
+              whileHover={{ scale: 0.95 }}
+              whileTap={{ scale: 1.05 }}
+            >
+              <Link
+                href={`/order?academyId=${academyId}&courseId=${courseId}`}
+                className={cn(
+                  buttonVariants({ variant: "default" }),
+                  "border-[1px] px-2 w-full"
+                )}
+              >
+                Comprar ahora
+              </Link>
+            </MotionDiv>
+            <MotionDiv
+              whileHover={{ scale: 0.95 }}
+              whileTap={{ scale: 1.05 }}
+              className=" w-1/5"
+            >
+              <Button
+                onClick={() => handleCreateInterestStudent()}
+                className=" w-full"
+              >
+                <IconHeartBolt />
+              </Button>
+            </MotionDiv>
+          </div>
+        )}
+
         <span className="my-3 w-full text-left text-2xl font-bold">
           Este curso incluye:
         </span>

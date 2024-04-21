@@ -75,6 +75,12 @@ export type GetQuestionProps = {
   flag: boolean
 }
 
+export type GetStudentProps = {
+  setLoadingCallback: CallbackFunction
+  flag: boolean
+  courseId: string
+}
+
 export type GetAnswersProps = {
   questionId: string
   setLoadingCallback: CallbackFunction

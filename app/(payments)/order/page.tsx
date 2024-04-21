@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { useSearchParams } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useUIStore } from "@/store/ui/ui-store"
 import {
   IconDialpad,
@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/select"
 import InputNumberWithIcon from "@/components/forms/InputNumberWithIcon"
 import InputTextWithIcon from "@/components/forms/InputTextWithIcon"
+import Header from "@/components/home/Header"
 import LoadingModal from "@/components/modals/LoadingModal"
 
 export default function orderPage() {
@@ -46,8 +47,19 @@ export default function orderPage() {
   const searchParams = useSearchParams()
   const courseId = searchParams.get("courseId") || ""
   const academyId = searchParams.get("academyId")
+  const router = useRouter()
   const [loading, setLoading] = useState(true)
-  const [userData, setUserData] = useState({})
+  const [isFull, setIsFull] = useState(false)
+  const [userData, setUserData] = useState({
+    type_person: "",
+    doc_type: "",
+    doc_number: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone: "",
+    bank_code: "",
+  })
   const [banksFiltered, setBanksFiltered] = useState<Bank[]>([])
   const baseUrl = useUIStore((state) => state.baseUrl)
   const course = useGetCourse({
@@ -86,6 +98,7 @@ export default function orderPage() {
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
+    setLoading(true)
     e.preventDefault()
     let payment_item_attributes = { course_id: courseId }
     let transaction_params = { ...userData }
@@ -102,112 +115,144 @@ export default function orderPage() {
       })
       const response = await request.json()
       if (request.status == 200) {
-        console.log(response)
-        toast.success("se realizo el pago")
+        const finalUrl =
+          response.bank_url === null
+            ? `/order?academyId=${academyId}&courseId=${courseId}`
+            : `${response.bank_url}`
+        router.push(`${finalUrl}`)
+        if (response.bank_url === null) {
+          toast.error('No se pudo procesar tu pago')
+          setLoading(false)
+        }
       } else {
       }
       return response
     } catch (e) {}
   }
 
-  console.log(userData)
+  useEffect(() => {
+    const areAllFieldsFilled = Object.values(userData).every(
+      (value) => value !== ""
+    )
+    setIsFull(areAllFieldsFilled)
+  }, [userData])
 
   if (loading) {
     return <LoadingModal />
   } else {
     return (
-      <div className="flex">
-        <div className="min-h-screen w-1/2 p-10">
-          <h3 className="text-xl font-semibold">
-            Complete su compra para comenzar a aprender
-          </h3>
-          <img src={course?.promotional_image} alt="promotional_image" />
-          <h3 className="mb-2 mt-3 text-xl font-semibold">{course?.title}</h3>
-          <span className="ml-20 w-full text-4xl font-bold">
-            {formatCurrency(JSON.parse(course?.price || "0"))} COP
-          </span>
+      <>
+        <div className="flex w-full">
+          <Header />
+          <div className="flex w-full mt-24">
+            <div className="w-1/2 min-h-screen py-10 px-10">
+              <h3 className="text-2xl font-extrabold w-full text-center">
+                Complete su compra para comenzar a aprender
+              </h3>
+              <img
+                src={course?.promotional_image}
+                alt="promotional_image"
+                className="w-full text-center rounded-lg overflow-hidden mt-4"
+              />
+              <h3 className="text-xl font-semibold mt-3 mb-2 w-full text-center">
+                {course?.title}
+              </h3>
+              <div className="flex justify-center items-center w-full">
+                <span className="text-4xl font-bold">
+                  {formatCurrency(JSON.parse(course?.price || "0"))} COP
+                </span>
+              </div>
+            </div>
+            <div className="w-1/2 shadow-xl min-h-screen px-10 py-10 border-2 rounded-lg">
+              <form onSubmit={(e) => handleSubmit(e)}>
+                <div className="mt-2 flex w-full items-center justify-start rounded-full">
+                  <IconUser className="mr-2 size-5" />
+                  <label htmlFor="password_confirmation">Tipo de Persona</label>
+                </div>
+                <Select
+                  name="type_person"
+                  onValueChange={(e) => handleSelectPerson(e)}
+                >
+                  <SelectTrigger className="mt-2 w-full">
+                    <SelectValue placeholder="Escoge el tipo de persona" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="0">Persona Jurídica</SelectItem>
+                    <SelectItem value="1">Persona Natural</SelectItem>
+                  </SelectContent>
+                </Select>
+                <div className="mt-2 flex w-full items-center justify-start rounded-full">
+                  <IconUserCircle className="mr-2 size-5" />
+                  <label htmlFor="password_confirmation">
+                    Tipo de documento
+                  </label>
+                </div>
+                <Select onValueChange={(e) => handleSelectDocument(e)}>
+                  <SelectTrigger className="mt-2 w-full">
+                    <SelectValue placeholder="Escoge el tipo de documento" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="CC">CC</SelectItem>
+                    <SelectItem value="NIT">NIT</SelectItem>
+                  </SelectContent>
+                </Select>
+                <InputNumberWithIcon
+                  Icon={IconNumber12Small}
+                  label={"Numero de documento"}
+                  name={"doc_number"}
+                  onChange={(e) => handleChange(e)}
+                />
+                <InputTextWithIcon
+                  Icon={IconList}
+                  label={"Nombres"}
+                  name={"first_name"}
+                  onChange={(e) => handleChange(e)}
+                />
+                <InputTextWithIcon
+                  Icon={IconList}
+                  label={"Apellidos"}
+                  name={"last_name"}
+                  onChange={(e) => handleChange(e)}
+                />
+                <InputTextWithIcon
+                  Icon={IconMail}
+                  label={"Correo electrónico"}
+                  name={"email"}
+                  onChange={(e) => handleChange(e)}
+                />
+                <InputNumberWithIcon
+                  Icon={IconDialpad}
+                  label={"Numero de celular"}
+                  name={"phone"}
+                  onChange={(e) => handleChange(e)}
+                />
+                <div className="mt-2 flex w-full items-center justify-start rounded-full">
+                  <IconWallet className="mr-2 size-5" />
+                  <label htmlFor="password_confirmation">Bancos</label>
+                </div>
+                <Select onValueChange={(e) => handleSelectBank(e)}>
+                  <SelectTrigger className="mt-2 w-full">
+                    <SelectValue placeholder="Escoge tu banco" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {banksFiltered.map((bank) => (
+                      <SelectItem key={bank.bankCode} value={bank.bankCode}>
+                        {bank.bankName}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Button
+                  className="w-full mt-3 disabled:opacity-75"
+                  disabled={!isFull}
+                >
+                  Pagar
+                </Button>
+              </form>
+            </div>
+          </div>
         </div>
-        <div className="min-h-screen w-1/2 rounded-lg border-2 p-10 shadow-xl">
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <div className="mt-2 flex w-full items-center justify-start rounded-full">
-              <IconUser className="mr-2 size-5" />
-              <label htmlFor="password_confirmation">Tipo de Persona</label>
-            </div>
-            <Select
-              name="type_person"
-              onValueChange={(e) => handleSelectPerson(e)}
-            >
-              <SelectTrigger className="mt-2 w-full">
-                <SelectValue placeholder="Escoge el tipo de persona" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="0">Persona Jurídica</SelectItem>
-                <SelectItem value="1">Persona Natural</SelectItem>
-              </SelectContent>
-            </Select>
-            <div className="mt-2 flex w-full items-center justify-start rounded-full">
-              <IconUserCircle className="mr-2 size-5" />
-              <label htmlFor="password_confirmation">Tipo de documento</label>
-            </div>
-            <Select onValueChange={(e) => handleSelectDocument(e)}>
-              <SelectTrigger className="mt-2 w-full">
-                <SelectValue placeholder="Escoge el tipo de documento" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="CC">CC</SelectItem>
-                <SelectItem value="NIT">NIT</SelectItem>
-              </SelectContent>
-            </Select>
-            <InputNumberWithIcon
-              Icon={IconNumber12Small}
-              label={"Numero de documento"}
-              name={"doc_number"}
-              onChange={(e) => handleChange(e)}
-            />
-            <InputTextWithIcon
-              Icon={IconList}
-              label={"Nombres"}
-              name={"first_name"}
-              onChange={(e) => handleChange(e)}
-            />
-            <InputTextWithIcon
-              Icon={IconList}
-              label={"Apellidos"}
-              name={"last_name"}
-              onChange={(e) => handleChange(e)}
-            />
-            <InputTextWithIcon
-              Icon={IconMail}
-              label={"Correo electrónico"}
-              name={"email"}
-              onChange={(e) => handleChange(e)}
-            />
-            <InputNumberWithIcon
-              Icon={IconDialpad}
-              label={"Numero de celular"}
-              name={"phone"}
-              onChange={(e) => handleChange(e)}
-            />
-            <div className="mt-2 flex w-full items-center justify-start rounded-full">
-              <IconWallet className="mr-2 size-5" />
-              <label htmlFor="password_confirmation">Bancos</label>
-            </div>
-            <Select onValueChange={(e) => handleSelectBank(e)}>
-              <SelectTrigger className="mt-2 w-full">
-                <SelectValue placeholder="Escoge tu banco" />
-              </SelectTrigger>
-              <SelectContent>
-                {banksFiltered.map((bank) => (
-                  <SelectItem key={bank.bankCode} value={bank.bankCode}>
-                    {bank.bankName}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Button className="mt-3 w-full">Pagar</Button>
-          </form>
-        </div>
-      </div>
+      </>
     )
   }
 }

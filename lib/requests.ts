@@ -15,6 +15,23 @@ import { UpdateInfoUserParams } from "../types/requests"
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
+export async function ConfirmPayment(invoiceId: string) {
+  try {
+    const request = await fetch(`${baseUrl}/payments/confirm`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({invoice: invoiceId}),
+    })
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud")
+  }
+}
+
 // Register
 
 export async function RegisterNewUser(data: FetchRegisterParams) {
@@ -513,6 +530,25 @@ export async function SendQuestionOptionRequest(optionId: number, answerId: numb
       headers: { "Content-Type": "application/json" },
       credentials: "include",
       body: JSON.stringify(data)
+    })
+    const response = await request.json()
+    return [request, response]
+  } catch (e) {
+    throw new Error("Error al realizar la solicitud")
+  }
+}
+
+export async function CreateInterestStudentRequest(
+  courseId: string
+) {
+  try {
+    const request = await fetch(`${baseUrl}/students`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({course_id: courseId}),
     })
     const response = await request.json()
     return [request, response]
