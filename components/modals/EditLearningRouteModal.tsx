@@ -77,7 +77,7 @@ const EditLearningRouteModal = ({
                   <div className="flex flex-col space-y-1.5">
                     <Label htmlFor="name">Nombre</Label>
                     <Input
-                      value={learningRoute?.name}
+                      defaultValue={learningRoute?.name}
                       className="border-2"
                       onChange={(e) =>
                         setData({
