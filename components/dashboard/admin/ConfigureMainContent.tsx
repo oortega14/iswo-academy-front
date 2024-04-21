@@ -82,7 +82,7 @@ export const ConfigureMainContent = () => {
 
     try {
       const response = await axios({
-        url: `${baseUrl}/academies/${userId}`,
+        url: `${baseUrl}/academies/${academyId}`,
         method: "PATCH",
         headers: { "Content-type": "multipart/form-data" },
         withCredentials: true,
