@@ -1,13 +1,10 @@
-import React, { ChangeEventHandler, useEffect, useState } from "react"
+import React, { useState } from "react"
 import { IconEdit } from "@tabler/icons-react"
 import { AnimatePresence } from "framer-motion"
-
 import { EditQuestionModalProps } from "@/types/modals"
 import useGetQuestion from "@/hooks/useGetQuestion"
-
 import MotionButton from "../animations/MotionButton"
 import Modal from "../ui/Modal"
-import { Button } from "../ui/button"
 import {
   Card,
   CardContent,
@@ -29,7 +26,6 @@ const EditQuestionModal = ({
   setFlag
 }: EditQuestionModalProps) => {
   const [loading, setLoading] = useState(true)
-  const [file, setFile] = useState()
   const [data, setData] = useState({
     question: "",
   })

@@ -22,6 +22,7 @@ import {
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 import { Textarea } from "../ui/textarea"
+import { toast } from "sonner"
 
 const CreateLearningRouteModal = ({
   modalOpen,
@@ -44,6 +45,7 @@ const CreateLearningRouteModal = ({
       learningRouteData,
     })
     if (request.status == 200) {
+      toast.success('Ruta de aprendizaje creada satisfactoriamente')
       setChangeFlag(!changeFlag)
       close()
     }

@@ -27,6 +27,7 @@ export interface InputFileWithImageProps {
   setPreviewImage: React.Dispatch<React.SetStateAction<string>>
   defaultImage?: string
   setImage: React.Dispatch<React.SetStateAction<Blob>>
+  description?: string
 }
 
 export interface InputFileWithListProps {
@@ -47,6 +48,7 @@ export interface InputFileWithVideoProps {
   name: string
   defaultVideo?: string | null
   setVideo: React.Dispatch<React.SetStateAction<{ name: string }>>
+  description?: string
 }
 
 interface Goal {

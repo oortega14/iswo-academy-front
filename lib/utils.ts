@@ -22,3 +22,11 @@ export function formatCurrency(value: number): string {
 
   return formattedValue
 }
+
+export function formatDate(value: string) {
+  const fecha = new Date(value);
+  const options: any = { day: 'numeric', month: 'long', year: 'numeric' };
+  const formattedDate: any = fecha.toLocaleDateString('es-ES', options);
+
+  return formattedDate;
+}

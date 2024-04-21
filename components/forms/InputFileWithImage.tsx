@@ -10,6 +10,7 @@ import { Input } from "../ui/input"
 const InputFileWithImage = ({
   Icon,
   label,
+  description,
   name,
   defaultImage,
   previewImage,
@@ -52,13 +53,18 @@ const InputFileWithImage = ({
           <div className="flex w-full items-center justify-start space-x-3">
             <Figure image={defaultImage} />
             <div className="mt-3 grid w-full items-center gap-1.5">
-              <Input id="logo" type="file" className="cursor-pointer" onChange={(e) => handleFile(e)} />
+              <Input
+                id="logo"
+                type="file"
+                className="cursor-pointer"
+                onChange={(e) => handleFile(e)}
+              />
             </div>
           </div>
         </>
       ) : (
         <>
-          <div className="mt-3 flex w-full items-center justify-start rounded-full">
+          <div className="mt-3 mb-2 flex w-full items-center justify-start rounded-full">
             <Icon className="mr-2 size-5" />
             <label htmlFor={name}>{label}</label>
           </div>
@@ -78,14 +84,27 @@ const InputFileWithImage = ({
                 </div>
               </div>
             )}
-            <Input
-              type="file"
-              id={name}
-              onChange={(e) => handleFile(e)}
-              className={cn("mt-2 cursor-pointer", {
-                "flex space-x-5 items-center ml-3": !!previewImage,
-              })}
-            />
+            <div className="w-full">
+              {!!description && (
+                <div
+                  className={cn("w-full", {
+                    "flex justify-center": !!previewImage,
+                  })}
+                >
+                  <span className="text-muted-foreground text-sm ">
+                    {description}
+                  </span>
+                </div>
+              )}
+              <Input
+                type="file"
+                id={name}
+                onChange={(e) => handleFile(e)}
+                className={cn("mt-2 cursor-pointer", {
+                  "flex space-x-5 items-center ml-3": !!previewImage,
+                })}
+              />
+            </div>
           </div>
         </>
       )}

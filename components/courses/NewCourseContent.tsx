@@ -216,6 +216,7 @@ const NewCoursesContent = () => {
           previewImage={previewPromImage}
           setPreviewImage={setPreviewPromImage}
           setImage={setPromotionalImage}
+          description={'Te recomendamos una relación de aspecto 16:9 y maximo 3840px por 2160px'}
         />
         <InputFileWithVideo
           Icon={IconDeviceImacCog}
@@ -223,6 +224,7 @@ const NewCoursesContent = () => {
           name="promotional_video"
           video={video}
           setVideo={setVideo}
+          description={'Te recomendamos una relación de aspecto 16:9 y maximo 3840px por 2160px'}
         />
         <div className="mt-3 flex w-full items-center justify-start rounded-full">
           <IconList className="mr-2 size-5" />

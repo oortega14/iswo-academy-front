@@ -383,8 +383,8 @@ const QuestionsContent = () => {
           </TooltipProvider>
           <EditQuestionModal
             modalOpen={editModalOpen}
-            questionId={selectedQuestionId}
             close={() => close(setEditModalOpen)}
+            questionId={selectedQuestionId}
             flag={changeFlag}
             setFlag={setChangeFlag}
           />

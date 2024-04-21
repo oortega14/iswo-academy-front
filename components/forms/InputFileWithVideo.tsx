@@ -12,6 +12,7 @@ const InputFileWithVideo = ({
   defaultVideo,
   video,
   setVideo,
+  description,
 }: InputFileWithVideoProps) => {
   const handleVideo = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -60,12 +61,25 @@ const InputFileWithVideo = ({
                 </video>
               </div>
             )}
+            <div className="w-full">
+            {!!description && (
+                <div
+                  className={cn("w-full", {
+                    "flex justify-center": !!video?.name,
+                  })}
+                >
+                  <span className="text-muted-foreground text-sm ">
+                    {description}
+                  </span>
+                </div>
+              )}
             <Input
               type="file"
               id={name}
               onChange={(e) => handleVideo(e)}
               className="mt-2 cursor-pointer"
             />
+            </div>
           </div>
         </>
       )}
