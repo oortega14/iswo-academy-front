@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 import { useUIStore } from "@/store/ui/ui-store"
 
 import { SharedContentProps } from "@/types/courses"
@@ -10,6 +10,7 @@ import CoursesCard from "@/components/ui/CoursesCard"
 
 export const SharedContent = ({ courses, title }: SharedContentProps) => {
   const baseUrl = useUIStore((state) => state.baseUrl)
+  const {academyId} = useParams<{ academyId: string }>()
   const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [changeFlag, setChangeFlag] = useState(false)
@@ -30,7 +31,7 @@ export const SharedContent = ({ courses, title }: SharedContentProps) => {
     console.log(first_response)
 
     if (first_response.course_status === 'of_interest') {
-      
+
       router.push(`/academies/${academyId}/courses/${courseId}`)
     } else if (first_response.course_status === 'in_progress') {
       const request = await fetch(`${baseUrl}/course_sections?course_id=${courseId}`, {
