@@ -44,9 +44,6 @@ const EditLearningRouteModal = ({
     setLoadingCallback: setLoading,
     changeFlag: changeFlag,
   })
-  console.log(learningRouteId)
-  console.log(learningRoute)
-  console.log(data)
 
   const handleSubmit = async () => {
     const learningRouteData = data
