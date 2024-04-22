@@ -28,10 +28,7 @@ export const SharedContent = ({ courses, title }: SharedContentProps) => {
       }
     )
     const first_response = await first_request.json()
-    console.log(first_response)
-
     if (first_response.course_status === 'of_interest') {
-
       router.push(`/academies/${academyId}/courses/${courseId}`)
     } else if (first_response.course_status === 'in_progress') {
       const request = await fetch(`${baseUrl}/course_sections?course_id=${courseId}`, {
@@ -39,8 +36,7 @@ export const SharedContent = ({ courses, title }: SharedContentProps) => {
         credentials: 'include',
       })
       const response = await request.json()
-      console.log(response)
-      // router.push(`/courses/${courseId}/video-player/sections/${response[0].id}/lessons/${response[0].lessons[0].id}`)
+      router.push(`/courses/${courseId}/video-player/sections/${response[0].id}/lessons/${response[0].lessons[0].id}`)
     } else if (first_response.course_status === 'ended') {
 
     }
