@@ -21,10 +21,10 @@ export const Ended = () => {
     <>
       <div className="flex h-full flex-1 flex-col overflow-hidden">
         <HeaderDashboard />
-
         <SharedContent
           courses={inProgressCourses}
           title={COURSE_CARD_TITLES.ended_title}
+          course_condition={'Ended'}
         />
       </div>
     </>

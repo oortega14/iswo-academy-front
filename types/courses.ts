@@ -68,6 +68,7 @@ export interface ButtonTooltipProps {
 export interface SharedContentProps {
   title: string
   courses: Course[]
+  course_condition: string
 }
 
 export interface CoursesCardProps {
@@ -75,4 +76,5 @@ export interface CoursesCardProps {
   price: string
   description: string
   imageUrl: string
+  course_condition: string
 }

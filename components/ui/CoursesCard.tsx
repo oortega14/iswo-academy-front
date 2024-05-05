@@ -7,6 +7,7 @@ const CoursesCard = ({
   price,
   description,
   imageUrl,
+  course_condition
 }: CoursesCardProps) => {
   function truncarTexto(texto: string, longitudMaxima: number) {
     if (texto.length > longitudMaxima) {
@@ -41,7 +42,14 @@ const CoursesCard = ({
       <div className="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center space-y-5 rounded-xl bg-black/80 py-10 text-white dark:bg-black/80">
         <span className="px-5 text-center text-3xl font-semibold">{title}</span>
         <span className="px-5 text-center text-sm">{truncarTexto(description, 120)}</span>
-        <div className="dark:text-blue-dark bg-blue-dark rounded-xl p-3 text-white dark:bg-slate-200">Precio: {price} COP</div>
+        <div className="dark:text-blue-dark bg-blue-dark rounded-xl p-3 text-white dark:bg-slate-200">
+          {course_condition === 'ofInterest' ? (
+            <span>Precio: {price} COP</span>
+          ) : (
+            <span>Curso Adquirido</span>
+          )}
+
+        </div>
       </div>
     </MotionDiv>
   )

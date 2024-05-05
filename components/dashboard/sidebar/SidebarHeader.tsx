@@ -8,8 +8,8 @@ import { IconTruckLoading, IconX } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
 import { useGetAcademy } from "@/hooks/useGetAcademy"
 import useGetCurrentUser from "@/hooks/useGetCurrentUser"
-import { MotionDiv } from "@/components/animations/MotionDiv"
 import { LoaderShimmer } from "@/components/ui/LoaderShimmer"
+import { MotionDiv } from "@/components/animations/MotionDiv"
 
 export const SidebarHeader = () => {
   const [loading, setLoading] = useState(true)
@@ -48,7 +48,9 @@ export const SidebarHeader = () => {
                 }}
               >
                 <Link
-                  href={`/${user?.role === 'Estudiante' ? 'student': 'super-admin'}/${user?.id}/dashboard/main`}
+                  href={`/${
+                    user?.role === "Estudiante" ? "student" : "super-admin"
+                  }/${user?.id}/dashboard/main`}
                   className="max-h-fit rounded-xl overflow-hidden"
                 >
                   <IswoIconLarge className="size-28 dark:invert" />
@@ -73,7 +75,9 @@ export const SidebarHeader = () => {
                   {loading ? (
                     <LoaderShimmer width="15rem" height="8rem" />
                   ) : (
-                    <img src={academy?.logo} className="max-h-32" />
+                    <div className="flex min-h-32 justify-center items-center">
+                      <img src={academy?.logo} className="max-h-32 " />
+                    </div>
                   )}
                 </Link>
               </MotionDiv>

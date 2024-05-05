@@ -7,6 +7,7 @@ import {
   IconBadgeTm,
   IconBrandCodepen,
   IconColorPicker,
+  IconNumber,
   IconSignature,
   IconZoomInArea,
 } from "@tabler/icons-react"
@@ -29,6 +30,9 @@ import { MotionDiv } from "@/components/animations/MotionDiv"
 import InputFileWithImage from "@/components/forms/InputFileWithImage"
 import InputTextWithIcon from "@/components/forms/InputTextWithIcon"
 import TextareaWithIcon from "@/components/forms/TextareaWithIcon"
+import { IconWritingSign } from "@tabler/icons-react"
+import { IconDeviceMobileVibration } from "@tabler/icons-react"
+import { IconMail } from "@tabler/icons-react"
 
 export const ConfigureMainContent = () => {
   const baseUrl = useUIStore((state) => state.baseUrl)
@@ -51,6 +55,9 @@ export const ConfigureMainContent = () => {
     slogan: "",
     description: "",
     name: "",
+    contact_name: "",
+    contact_phone: "",
+    contact_email: "",
   })
   const academy = useGetAcademy({
     academyId: academyId,
@@ -78,6 +85,18 @@ export const ConfigureMainContent = () => {
     fd.append(
       "academy[academy_configuration_attributes][domain]",
       academyConfiguration.domain
+    )
+    fd.append(
+      "academy[academy_configuration_attributes][contact_name]",
+      academyConfiguration.contact_name
+    )
+    fd.append(
+      "academy[academy_configuration_attributes][contact_phone]",
+      academyConfiguration.contact_phone
+    )
+    fd.append(
+      "academy[academy_configuration_attributes][contact_email]",
+      academyConfiguration.contact_email
     )
 
     try {
@@ -168,6 +187,30 @@ export const ConfigureMainContent = () => {
             placeholder="Escribe aqui tu descripción"
             defaultValue={academy?.description}
             onChange={(e) => handleChange(e)}
+          />
+          <InputTextWithIcon
+            Icon={IconWritingSign}
+            label="Nombre de contacto"
+            name="contact_name"
+            placeholder="Escribe aqui tu nombre de contacto"
+            onChange={(e) => handleChange(e)}
+            defaultValue={academy?.academy_configuration?.contact_name}
+          />
+          <InputTextWithIcon
+            Icon={IconDeviceMobileVibration}
+            label="Número de contacto"
+            name="contact_phone"
+            placeholder="Escribe aqui tu número de contacto"
+            onChange={(e) => handleChange(e)}
+            defaultValue={academy?.academy_configuration?.contact_phone}
+          />
+          <InputTextWithIcon
+            Icon={IconMail}
+            label="Correo de contacto"
+            name="contact_email"
+            placeholder="Escribe aqui tu correo de contacto"
+            onChange={(e) => handleChange(e)}
+            defaultValue={academy?.academy_configuration?.contact_email}
           />
           <MotionDiv
             whileHover={{ scale: 0.99 }}
