@@ -46,7 +46,7 @@ export const SharedContent = ({ courses, title, course_condition }: SharedConten
       </div>
       <div className="m-4 flex items-center justify-start gap-x-3">
         {courses.map((course) => (
-          <div onClick={() => checkSections(course.id)}>
+          <div onClick={() => checkSections(course.id)} key={course.id}>
             <CoursesCard
               imageUrl={course.banner}
               title={course.title}

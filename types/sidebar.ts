@@ -74,6 +74,7 @@ export interface Lesson {
   url_video:   null;
   external_video_url?: string;
   files:       any[];
+  course_section_id: string;
 }
 
 export interface CoursesStatus {

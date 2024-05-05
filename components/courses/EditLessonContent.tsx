@@ -1,6 +1,6 @@
 "use client"
 
-import React, { FormEvent, useState } from "react"
+import React, { FormEvent, useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { useUIStore } from "@/store/ui/ui-store"
 import {
@@ -16,6 +16,7 @@ import axios from "axios"
 import { Toaster, toast } from "sonner"
 
 import useGetCourseSections from "@/hooks/useGetCourseSections"
+import useGetLesson from "@/hooks/useGetLesson"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
   Dialog,
@@ -26,6 +27,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Progress } from "@/components/ui/progress"
+
 import InputFileWithImage from "../forms/InputFileWithImage"
 import InputFileWithList from "../forms/InputFileWithList"
 import InputFileWithVideo from "../forms/InputFileWithVideo"
@@ -42,13 +44,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select"
-import useGetLesson from "@/hooks/useGetLesson"
-
-interface Lesson {
-  id: string
-  title: string
-  position: number
-}
 
 const EditLessonContent = () => {
   const router = useRouter()
@@ -64,12 +59,14 @@ const EditLessonContent = () => {
   const [uploadProgress, setUploadProgress] = useState(0)
   const [video, setVideo] = useState({ name: "" })
   const [files, setFiles] = useState<File[]>([])
+  const [courseSectionSelected, setCourseSectionSelected] = useState("")
+
   const [data, setData] = useState({
     title: "",
     description: "",
     visible: false,
-    courseSectionId: '',
-    externalVideoUrl: ''
+    courseSectionId: "",
+    externalVideoUrl: "",
   })
 
   const CourseSections = useGetCourseSections({
@@ -78,9 +75,9 @@ const EditLessonContent = () => {
     setLoadingCallback: setLoading,
   })
 
-  const Lesson = useGetLesson({
+  const lesson = useGetLesson({
     lessonId: JSON.parse(lessonId),
-    setLoadingCallback: setLoading
+    setLoadingCallback: setLoading,
   })
 
   const handleChange = (
@@ -101,7 +98,7 @@ const EditLessonContent = () => {
     }
     fd.append("lesson[title]", data.title)
     fd.append("lesson[description]", data.description)
-    fd.append("lesson[course_section_id]", data.courseSectionId)
+    fd.append("lesson[course_section_id]", courseSectionSelected)
     fd.append("lesson[external_video_url]", data.externalVideoUrl)
     fd.append("lesson[visible]", data.visible ? "t" : "f")
     files.forEach((element, index) => {
@@ -115,8 +112,8 @@ const EditLessonContent = () => {
 
     try {
       const response = await axios({
-        url: `${baseUrl}/lessons`,
-        method: "POST",
+        url: `${baseUrl}/lessons/${lesson?.id}`,
+        method: "PATCH",
         headers: { "Content-type": "multipart/form-data" },
         withCredentials: true,
         data: fd,
@@ -130,7 +127,9 @@ const EditLessonContent = () => {
       })
       if (response.status === 200) {
         toast.success(`Clase creada`)
-        router.push(`/admin/${userId}/academies/${academyId}/courses/${courseId}/sections/`)
+        router.push(
+          `/admin/${userId}/academies/${academyId}/courses/${courseId}/sections/`
+        )
       }
       return response
     } catch (e) {}
@@ -141,8 +140,31 @@ const EditLessonContent = () => {
   }
 
   const handleSelect = (e: string) => {
-    setData({ ...data, courseSectionId: e })
+    setCourseSectionSelected(e)
   }
+
+  console.log(lesson)
+
+  useEffect(() => {
+    if (!!lesson) {
+      setData((prevConfig) => ({
+        ...prevConfig,
+        title: lesson?.title,
+        description: lesson?.description,
+        visible: lesson?.visible,
+        courseSectionId: lesson?.course_section_id,
+        externalVideoUrl: !!lesson?.external_video_url
+          ? lesson?.external_video_url
+          : "",
+      }))
+    }
+  }, [lesson])
+
+  useEffect(() => {
+    if (!!lesson) {
+      setCourseSectionSelected(JSON.stringify(lesson.course_section_id))
+    }
+  }, [lesson])
 
   return (
     <>
@@ -159,7 +181,7 @@ const EditLessonContent = () => {
           Icon={IconListTree}
           label={"Titulo de la clase"}
           name={"title"}
-          defaultValue={Lesson?.title}
+          defaultValue={lesson?.title}
           placeholder={"Escribe aqui el titulo de tu clase"}
           onChange={(e) => handleChange(e)}
         />
@@ -168,7 +190,7 @@ const EditLessonContent = () => {
           label={"Descripción de la clase"}
           name={"description"}
           placeholder={"Escribe aqui la descripción de tu clase"}
-          defaultValue={Lesson?.description}
+          defaultValue={lesson?.description}
           onChange={(e) => handleChange(e)}
         />
         <InputFileWithVideo
@@ -177,13 +199,13 @@ const EditLessonContent = () => {
           name="promotional_video"
           video={video}
           setVideo={setVideo}
-          defaultVideo={Lesson?.url_video}
+          defaultVideo={lesson?.url_video}
         />
         <InputTextWithIcon
           Icon={IconListTree}
           label={"O puedes poner una url externa"}
           name={"externalVideoUrl"}
-          defaultValue={Lesson?.external_video_url}
+          defaultValue={lesson?.external_video_url}
           placeholder={"Enlace del vídeo"}
           onChange={(e) => handleChange(e)}
         />
@@ -193,25 +215,29 @@ const EditLessonContent = () => {
           name={"files"}
           files={files}
           setFiles={setFiles}
-          defaultFiles={Lesson?.files}
+          defaultFiles={lesson?.files}
         />
 
         <div className="my-3 flex w-full items-center justify-start rounded-full">
           <IconList className="mr-2 size-5" />
-          <label htmlFor={'select'}>Selecciona una sección</label>
+          <label htmlFor={"select"}>Selecciona una sección</label>
         </div>
-        <Select onValueChange={handleSelect} >
-          <SelectTrigger className="w-full" id='select'>
-            <SelectValue placeholder="Seleccionar" />
+        <Select
+          onValueChange={(e) => handleSelect(e)}
+          value={courseSectionSelected}
+        >
+          <SelectTrigger className="w-full" id="select">
+            <SelectValue
+              className="text-muted-foreground"
+              placeholder="Seleccionar"
+            />
           </SelectTrigger>
           <SelectContent>
-            <SelectGroup>
-              {CourseSections.map((section) => (
-                <SelectItem key={section.id} value={JSON.stringify(section.id)}>
-                  {section.name}
-                </SelectItem>
-              ))}
-            </SelectGroup>
+            {CourseSections.map((section) => (
+              <SelectItem key={section.id} value={JSON.stringify(section.id)}>
+                {section.name}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
         <div className="my-4 flex items-center space-x-2">
@@ -219,7 +245,7 @@ const EditLessonContent = () => {
             id="visible"
             className="h-5 w-5"
             onCheckedChange={(e) => handleCheck(e as boolean)}
-            checked={Lesson?.visible}
+            checked={lesson?.visible}
           />
           <label
             htmlFor="visible"
@@ -231,7 +257,7 @@ const EditLessonContent = () => {
 
         <Dialog>
           <DialogTrigger className="dark:text-blue-dark bg-blue-dark my-4 w-full rounded-md p-2 font-bold text-slate-200 dark:bg-white">
-            Crear Lección
+            Editar Lección
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>

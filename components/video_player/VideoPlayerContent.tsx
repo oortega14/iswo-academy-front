@@ -31,11 +31,12 @@ const VideoPlayerContent = () => {
     const selectedLesson = selectedSection?.lessons?.find(
       (lesson) => lesson.id === selectedLessonId
     )
+    console.log(selectedLesson)
     return (
       <div className="w-full">
         {selectedLesson!! && (
           <>
-            <VideoPlayer video={selectedLesson?.url_video || ""} />
+            <VideoPlayer video={selectedLesson?.url_video || selectedLesson?.external_video_url || ""} />
             <VideoInfo lessons={selectedSection?.lessons} selectedLesson={selectedLesson} />
             <VideoResources lesson={selectedLesson} />
             <Comments />
