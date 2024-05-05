@@ -24,6 +24,7 @@ export const Acquired = () => {
         <SharedContent
           courses={inProgressCourses}
           title={COURSE_CARD_TITLES.acquired_title}
+          course_condition={'ofInterest'}
         />
       </div>
     </>

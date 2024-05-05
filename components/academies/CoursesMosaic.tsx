@@ -36,6 +36,7 @@ const CoursesMosaic = () => {
               title={course.title}
               price={course.price}
               description={course.description}
+              course_condition='ofInterest'
             />
           </div>
         ))}

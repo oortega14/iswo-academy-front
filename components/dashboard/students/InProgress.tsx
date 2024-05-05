@@ -22,6 +22,7 @@ export const InProgress = () => {
         <SharedContent
           courses={inProgressCourses}
           title={COURSE_CARD_TITLES.in_progress_title}
+          course_condition={'inProgress'}
         />
       </div>
     </>

@@ -3,14 +3,11 @@
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { useUIStore } from "@/store/ui/ui-store"
-
 import { SharedContentProps } from "@/types/courses"
-import useGetStudent from "@/hooks/useGetStudent"
 import CoursesCard from "@/components/ui/CoursesCard"
 
-export const SharedContent = ({ courses, title }: SharedContentProps) => {
+export const SharedContent = ({ courses, title, course_condition }: SharedContentProps) => {
   const baseUrl = useUIStore((state) => state.baseUrl)
-  const {academyId} = useParams<{ academyId: string }>()
   const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [changeFlag, setChangeFlag] = useState(false)
@@ -29,16 +26,14 @@ export const SharedContent = ({ courses, title }: SharedContentProps) => {
     )
     const first_response = await first_request.json()
     if (first_response.course_status === 'of_interest') {
-      router.push(`/academies/${academyId}/courses/${courseId}`)
-    } else if (first_response.course_status === 'in_progress') {
+      router.push(`/academies/${first_response.academy_id}/courses/${courseId}`)
+    } else if (first_response.course_status === 'in_progress' || 'ended') {
       const request = await fetch(`${baseUrl}/course_sections?course_id=${courseId}`, {
         method: 'GET',
         credentials: 'include',
       })
       const response = await request.json()
       router.push(`/courses/${courseId}/video-player/sections/${response[0].id}/lessons/${response[0].lessons[0].id}`)
-    } else if (first_response.course_status === 'ended') {
-
     }
   }
 
@@ -57,6 +52,7 @@ export const SharedContent = ({ courses, title }: SharedContentProps) => {
               title={course.title}
               description={course.description}
               price={course.price}
+              course_condition={course_condition}
             />
           </div>
         ))}

@@ -98,12 +98,18 @@ export interface Academy {
   description:           string;
   slogan:                string;
   academy_configuration: AcademyConfiguration;
+  contact_name:          string;
+  contact_phone:         string;
+  contact_email:         string;
 }
 
 export interface AcademyConfiguration {
   id:     number;
   colors: string;
   domain: string;
+  contact_name:          string;
+  contact_phone:         string;
+  contact_email:         string;
 }
 
 export interface LearningRoute {
