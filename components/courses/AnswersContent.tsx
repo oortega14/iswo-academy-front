@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { IconCheck, IconEdit, IconTrash, IconX } from "@tabler/icons-react"
-import useGetAnswers from "@/hooks/useGetAnswers"
+import useGetQuestion from "@/hooks/useGetQuestion"
 import {
   Tooltip,
   TooltipContent,
@@ -27,6 +27,7 @@ const AnswersContent = () => {
   const { questionId } = useParams<{
     questionId: string
   }>()
+
   const [loading, setLoading] = useState<boolean>()
   const [editModalOpen, setEditModalOpen] = useState(false)
   const [changeFlag, setChangeFlag] = useState(false)
@@ -37,6 +38,13 @@ const AnswersContent = () => {
     setLoadingCallback: setLoading,
     flag: changeFlag,
   })
+
+  const question = useGetQuestion({
+    questionId: questionId,
+    setLoadingCallback: setLoading,
+    flag: changeFlag
+  })
+
 
   const close = (
     setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>>
@@ -54,10 +62,11 @@ const AnswersContent = () => {
   return (
     <>
       <TooltipProvider>
-        <div className="flex flex-col items-start justify-between space-y-4 border-b px-3 pb-6 lg:flex-row lg:items-center lg:space-y-0">
-          <h1 className="ml-3 mt-4 whitespace-nowrap text-2xl font-semibold">
+        <div className="flex flex-col items-start justify-between space-y-4 border-b px-3 pb-6">
+          <h1 className="ml-3 mt-4 text-2xl font-semibold">{question?.question}</h1>
+          <h2 className="ml-3 mt-4 whitespace-nowrap font-semibold">
             Editemos las respuestas de la pregunta seleccionada
-          </h1>
+          </h2>
         </div>
         <Table className="w-full">
           <TableHeader>
