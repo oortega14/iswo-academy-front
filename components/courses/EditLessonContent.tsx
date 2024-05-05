@@ -161,9 +161,7 @@ const EditLessonContent = () => {
   }, [lesson])
 
   useEffect(() => {
-    if (!!lesson) {
-      setCourseSectionSelected(JSON.stringify(lesson.course_section_id))
-    }
+    setCourseSectionSelected(JSON.stringify(lesson?.course_section_id))
   }, [lesson])
 
   return (
@@ -226,7 +224,7 @@ const EditLessonContent = () => {
           onValueChange={(e) => handleSelect(e)}
           value={courseSectionSelected}
         >
-          <SelectTrigger className="w-full" id="select">
+          <SelectTrigger className="w-full">
             <SelectValue
               className="text-muted-foreground"
               placeholder="Seleccionar"

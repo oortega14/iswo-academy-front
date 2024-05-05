@@ -40,19 +40,18 @@ const InputFileWithVideo = ({
               </span>
             </div>
           )}
-          <div className="flex items-center space-x-5">
-            <div className="my-4 flex max-w-[250px] items-center justify-start overflow-hidden rounded-xl ">
-              <video controls>
-                <source src={defaultVideo} />
-              </video>
-            </div>
-
+          <div className="flex-col items-center space-x-5">
             <Input
               type="file"
               id={name}
               onChange={(e) => handleVideo(e)}
               className="mt-2 cursor-pointer"
             />
+            <div className="my-4 flex max-w-[250px] items-center justify-start overflow-hidden rounded-xl ">
+              <video controls>
+                <source src={defaultVideo} />
+              </video>
+            </div>
           </div>
         </div>
       ) : (
@@ -74,16 +73,9 @@ const InputFileWithVideo = ({
           )}
           <div
             className={cn({
-              "flex space-x-5 items-center": !!video?.name,
+              "flex-col space-x-5 items-center": !!video?.name,
             })}
           >
-            {!!video?.name && (
-              <div className="my-4 flex max-w-[250px] items-center justify-start overflow-hidden rounded-xl ">
-                <video controls>
-                  <source src={URL.createObjectURL(video as any)} />
-                </video>
-              </div>
-            )}
             <div className="w-full">
               <Input
                 type="file"
@@ -92,6 +84,13 @@ const InputFileWithVideo = ({
                 className="mt-2 cursor-pointer"
               />
             </div>
+            {!!video?.name && (
+              <div className="my-4 flex max-w-[250px] items-center justify-start overflow-hidden rounded-xl ">
+                <video controls>
+                  <source src={URL.createObjectURL(video as any)} />
+                </video>
+              </div>
+            )}
           </div>
         </>
       )}

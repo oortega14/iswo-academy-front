@@ -88,6 +88,7 @@ export interface CourseTest {
   id:           number;
   approve_with: number;
   time_limit:   number | null;
+  name:         string;
 }
 
 export interface Academy {

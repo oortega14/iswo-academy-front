@@ -26,15 +26,11 @@ const InputFileWithList = ({
     <div className="mb-2">
       {!!defaultFiles && defaultFiles.length > 0 && files.length === 0 ? (
         <>
-          <div className={cn("flex items-center space-x-5")}>
-            <ul>
-              {defaultFiles.map((file: File, index: number) => (
-                <li key={index} className="my-4">
-                  {index + 1}. {file.name}
-                </li>
-              ))}
-            </ul>
-
+          <div className="mt-3 flex w-full items-center justify-start rounded-full">
+            <Icon className="mr-2 size-5" />
+            <label htmlFor={name}>{label}</label>
+          </div>
+          <div className={cn(" items-center space-x-5")}>
             <Input
               type="file"
               id={name}
@@ -43,6 +39,13 @@ const InputFileWithList = ({
                 "flex space-x-5 items-center ml-3": files.length > 0,
               })}
             />
+            <ul>
+              {defaultFiles.map((file: File, index: number) => (
+                <li key={index} className="my-4">
+                  {index + 1}. {file.name}
+                </li>
+              ))}
+            </ul>
           </div>
         </>
       ) : (

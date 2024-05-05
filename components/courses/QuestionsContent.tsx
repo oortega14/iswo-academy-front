@@ -108,7 +108,10 @@ const QuestionsContent = () => {
   //Questions
 
   const addNewQuestion = async () => {
-    const [request, response] = await addNewQuestionRequest(question, evaluationId)
+    const [request, response] = await addNewQuestionRequest(
+      question,
+      evaluationId
+    )
     if (request.status === 200) {
       setQuestionFlag(true)
       setNewQuestionId(response.id)
@@ -136,31 +139,36 @@ const QuestionsContent = () => {
     setAnswers(newAnswers)
   }
 
-
   const changeRightness = (idToEdit: number, state: boolean) => {
-    const updatedAnswers = answers.map(answer => {
+    const updatedAnswers = answers.map((answer) => {
       if (answer.id === idToEdit) {
-        return { ...answer, right_answer: state };
+        return { ...answer, right_answer: state }
       }
-      return answer;
+      return answer
     })
     setAnswers(updatedAnswers)
   }
 
-  const changeAnswer = (idToEdit: number, e: React.ChangeEvent<HTMLInputElement>) => {
+  const changeAnswer = (
+    idToEdit: number,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { value, name } = e.target
-    const updatedAnswers = answers.map(answer => {
+    const updatedAnswers = answers.map((answer) => {
       if (answer.id === idToEdit) {
-        return { ...answer, option_text: value };
+        return { ...answer, option_text: value }
       }
-      return answer;
+      return answer
     })
     setAnswers(updatedAnswers)
   }
 
-  const handleInputChange = (idToEdit: number, e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    idToEdit: number,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     if (typingTimeout !== null) {
-      clearTimeout(typingTimeout);
+      clearTimeout(typingTimeout)
     }
     const newTypingTimeout = setTimeout(() => {
       changeAnswer(idToEdit, e)
@@ -189,13 +197,12 @@ const QuestionsContent = () => {
     }
   }
 
-
   return (
     <>
       <div className="flex flex-col items-start justify-between space-y-4 border-b px-3 pb-6">
-        <h1 className="ml-3 mt-4 text-2xl font-semibold">
-          {question}
-        </h1>
+        {questionFlag && (
+          <h1 className="ml-3 mt-4 text-2xl font-semibold">{question}</h1>
+        )}
         <h2 className="ml-3 mt-4 font-semibold">
           A continuación puedes crear o modificar las preguntas de tu
           evaluación:
@@ -228,7 +235,10 @@ const QuestionsContent = () => {
                   className="h-5 w-5"
                 />
               </div>
-              <MotionButton className="ml-20 w-full" onClick={(e) => addAnswer(e)}>
+              <MotionButton
+                className="ml-20 w-full"
+                onClick={(e) => addAnswer(e)}
+              >
                 Agregar respuesta
               </MotionButton>
             </div>
@@ -272,12 +282,12 @@ const QuestionsContent = () => {
                     {answer.right_answer ? (
                       <IconCheck
                         className="ml-10 size-8 cursor-pointer rounded-lg border border-green-600 p-1 text-green-600"
-                        onClick={()=> changeRightness(answer.id, false)}
+                        onClick={() => changeRightness(answer.id, false)}
                       />
                     ) : (
                       <IconX
                         className="ml-10 size-8 cursor-pointer rounded-lg border border-red-600 p-1 text-red-600"
-                        onClick={()=> changeRightness(answer.id, true)}
+                        onClick={() => changeRightness(answer.id, true)}
                       />
                     )}
                   </TableCell>

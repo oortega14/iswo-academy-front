@@ -95,7 +95,7 @@ export const SidebarHeader = () => {
                 damping: 20,
               }}
             >
-              <Link href={`/${user?.role}/dashboard/main`}>
+              <Link href={`/admin/${user?.id}/academies/${user?.academy?.id}/dashboard/main`}>
                 <IswoIconSmall className="mb-4 size-12 dark:invert" />
               </Link>
             </MotionDiv>

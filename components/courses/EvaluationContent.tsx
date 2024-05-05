@@ -76,8 +76,22 @@ const EvaluationContent = () => {
       >
         <div className="mt-3 flex w-full items-center justify-start rounded-full">
           <IconArticle className="mr-2 size-5" />
+          <label htmlFor="description">
+            ¿Cuál es el nombre de la evaluación?
+          </label>
+        </div>
+        <Input
+          type="text"
+          placeholder="Escribe aqui el nombre de tu evaluación"
+          name="name"
+          onChange={(e) => handleChange(e)}
+          className="mt-2"
+          defaultValue={course?.course_test?.name || ""}
+        />
+        <div className="mt-3 flex w-full items-center justify-start rounded-full">
+          <IconArticle className="mr-2 size-5" />
           <label htmlFor="title">
-            ¿Cual es el tiempo limite para realizar la evaluacion?
+            ¿Cuál es el tiempo limite para realizar la evaluación?
           </label>
         </div>
         <Input
@@ -91,17 +105,18 @@ const EvaluationContent = () => {
         <div className="mt-3 flex w-full items-center justify-start rounded-full">
           <IconArticle className="mr-2 size-5" />
           <label htmlFor="description">
-            ¿Cuantas respuestas correctas son requeridas para aprobar el examen?
+            ¿Cuántas respuestas correctas son requeridas para aprobar el examen?
           </label>
         </div>
         <Input
           type="number"
-          placeholder="Escribe aqui el numero minimo de respuestas"
+          placeholder="Escribe aqui el numero mínimo de respuestas"
           name="approve_with"
           onChange={(e) => handleChange(e)}
           className="mt-2"
           defaultValue={course?.course_test?.approve_with || ""}
         />
+
         <MotionButton className="mt-3 w-full" onClick={(e) => handleSubmit(e)}>
           Actualizar información
         </MotionButton>
