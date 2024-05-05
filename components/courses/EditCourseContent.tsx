@@ -58,6 +58,7 @@ const EditCourseContent = () => {
   const [video, setVideo] = useState({ name: "" })
   const [uploadProgress, setUploadProgress] = useState(0)
   const [changeFlag, setChangeFlag] = useState(false)
+  const [selectedOption, setSelectedOption] = useState('')
   const course = useGetCourse({
     courseId: courseId,
     setLoadingCallback: setLoading,
@@ -108,6 +109,7 @@ const EditCourseContent = () => {
     }
     fd.append("course[teacher_id]", !!data.teacher_id ? data.teacher_id : "")
     fd.append("course[academy_id]", academyId)
+    fd.append("course[learning_route_id]", selectedOption)
     fd.append("course[description]", data.description)
     fd.append("course[price]", data.price)
     fd.append("course[subtitle]", data.subtitle)
@@ -140,6 +142,7 @@ const EditCourseContent = () => {
   }
 
   const handleSelect = (e: any) => {
+    setSelectedOption(e)
   }
 
   useEffect(() => {
@@ -162,7 +165,11 @@ const EditCourseContent = () => {
     }
   }, [course])
 
-  console.log(course)
+  useEffect(() => {
+    if (!!course){
+      setSelectedOption(JSON.stringify(course.learning_route_id))
+    }
+  }, [course])
 
   return (
     <>
@@ -252,7 +259,7 @@ const EditCourseContent = () => {
         </div>
         <Select
           onValueChange={(e) => handleSelect(e)}
-          defaultValue={JSON.stringify(course?.learning_route_id)}
+          value={selectedOption}
         >
           <SelectTrigger className="my-2">
             <SelectValue
