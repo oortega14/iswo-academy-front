@@ -33,7 +33,7 @@ export const StudentsMainContent = () => {
     <div className="mt-4">
       <div className="flex flex-col items-start justify-between border-b pb-6 lg:flex-row lg:items-center lg:space-y-0">
         <h1 className="ml-3 whitespace-nowrap text-2xl font-semibold ">
-          Hola {currentUser?.first_name}, A continuación un resumen de tus
+          Hola {currentUser?.first_name}, a continuación un resumen de tus
           cursos:
         </h1>
       </div>
