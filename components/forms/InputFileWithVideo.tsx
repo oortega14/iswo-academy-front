@@ -29,12 +29,24 @@ const InputFileWithVideo = ({
             <Icon className="mr-2 size-5" />
             <label htmlFor={name}>{label}</label>
           </div>
+          {!!description && (
+            <div
+              className={cn("w-full", {
+                "flex justify-center": !!video?.name,
+              })}
+            >
+              <span className="text-muted-foreground text-sm ">
+                {description}
+              </span>
+            </div>
+          )}
           <div className="flex items-center space-x-5">
             <div className="my-4 flex max-w-[250px] items-center justify-start overflow-hidden rounded-xl ">
               <video controls>
                 <source src={defaultVideo} />
               </video>
             </div>
+
             <Input
               type="file"
               id={name}
@@ -49,6 +61,17 @@ const InputFileWithVideo = ({
             <Icon className="mr-2 size-5" />
             <label htmlFor={name}>{label}</label>
           </div>
+          {!!description && (
+            <div
+              className={cn("w-full", {
+                "flex justify-center": !!video?.name,
+              })}
+            >
+              <span className="text-muted-foreground text-sm ">
+                {description}
+              </span>
+            </div>
+          )}
           <div
             className={cn({
               "flex space-x-5 items-center": !!video?.name,
@@ -62,23 +85,12 @@ const InputFileWithVideo = ({
               </div>
             )}
             <div className="w-full">
-            {!!description && (
-                <div
-                  className={cn("w-full", {
-                    "flex justify-center": !!video?.name,
-                  })}
-                >
-                  <span className="text-muted-foreground text-sm ">
-                    {description}
-                  </span>
-                </div>
-              )}
-            <Input
-              type="file"
-              id={name}
-              onChange={(e) => handleVideo(e)}
-              className="mt-2 cursor-pointer"
-            />
+              <Input
+                type="file"
+                id={name}
+                onChange={(e) => handleVideo(e)}
+                className="mt-2 cursor-pointer"
+              />
             </div>
           </div>
         </>

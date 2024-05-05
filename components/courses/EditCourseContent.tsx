@@ -219,8 +219,6 @@ const EditCourseContent = () => {
           buttonLabel="Agregar Objetivo"
         />
 
-        {/* previewImage y setPreviewImage es un estado inicializado como un string vacio para guardar las miniaturas de la imagenes que se suban y setImage es el setter de la imagen que se va a subir a la plataforma */}
-
         <InputFileWithImage
           Icon={IconPhotoScan}
           label={"Banner del Curso"}
@@ -240,6 +238,7 @@ const EditCourseContent = () => {
           previewImage={previewPromImage}
           setPreviewImage={setPreviewPromImage}
           setImage={setPromotionalImage}
+          description={'Te recomendamos una relación de aspecto 16:9 y maximo 3840px por 2160px'}
         />
         <InputFileWithVideo
           Icon={IconDeviceImacCog}
@@ -250,6 +249,7 @@ const EditCourseContent = () => {
           }
           video={video}
           setVideo={setVideo}
+          description={'Te recomendamos una relación de aspecto 16:9 y maximo 3840px por 2160px'}
         />
         <div className="mt-3 flex w-full items-center justify-start rounded-full">
           <IconList className="mr-2 size-5" />

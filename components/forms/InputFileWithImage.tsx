@@ -50,6 +50,17 @@ const InputFileWithImage = ({
             <Icon className="mr-2 size-5" />
             <label htmlFor={name}>{label}</label>
           </div>
+          {!!description && (
+            <div
+              className={cn("w-full", {
+                "flex justify-start": !!previewImage,
+              })}
+            >
+              <span className="text-muted-foreground text-sm ">
+                {description}
+              </span>
+            </div>
+          )}
           <div className="flex w-full items-center justify-start space-x-3">
             <Figure image={defaultImage} />
             <div className="mt-3 grid w-full items-center gap-1.5">
@@ -68,6 +79,17 @@ const InputFileWithImage = ({
             <Icon className="mr-2 size-5" />
             <label htmlFor={name}>{label}</label>
           </div>
+          {!!description && (
+            <div
+              className={cn("w-full", {
+                "flex justify-start": !!previewImage,
+              })}
+            >
+              <span className="text-muted-foreground text-sm ">
+                {description}
+              </span>
+            </div>
+          )}
           <div
             className={cn({
               "flex space-x-5 items-center": !!previewImage,
@@ -85,17 +107,6 @@ const InputFileWithImage = ({
               </div>
             )}
             <div className="w-full">
-              {!!description && (
-                <div
-                  className={cn("w-full", {
-                    "flex justify-center": !!previewImage,
-                  })}
-                >
-                  <span className="text-muted-foreground text-sm ">
-                    {description}
-                  </span>
-                </div>
-              )}
               <Input
                 type="file"
                 id={name}
