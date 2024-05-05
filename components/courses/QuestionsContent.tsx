@@ -192,11 +192,14 @@ const QuestionsContent = () => {
 
   return (
     <>
-      <div className="flex flex-col items-start justify-between space-y-4 border-b px-3 pb-6 lg:flex-row lg:items-center lg:space-y-0">
+      <div className="flex flex-col items-start justify-between space-y-4 border-b px-3 pb-6">
         <h1 className="ml-3 mt-4 text-2xl font-semibold">
+          {question}
+        </h1>
+        <h2 className="ml-3 mt-4 font-semibold">
           A continuación puedes crear o modificar las preguntas de tu
           evaluación:
-        </h1>
+        </h2>
       </div>
       {questionFlag ? (
         <>
