@@ -55,8 +55,6 @@ export const buildRoute = ({
       switch (normalizedSubcategory) {
         case "home":
           return `/admin/${userId}/academies/${academyId}/dashboard/main`
-        case "learning-routes":
-          return `/admin/${userId}/academies/${academyId}/dashboard/learning-routes`
         case "messages":
           return `/admin/${userId}/academies/${academyId}/dashboard/messages`
       }

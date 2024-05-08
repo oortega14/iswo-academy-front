@@ -29,7 +29,6 @@ export const ADMIN_SIDEBAR_LINKS: SidebarLink[] = [
     icon: IconLayoutDashboard,
     links: [
       { subcategory_key: 'home', label: 'Resumen' },
-      { subcategory_key: 'learning-routes', label: 'Rutas de Aprendizaje' },
       { subcategory_key: 'messages', label: 'Mensajes' }
     ]
   },
