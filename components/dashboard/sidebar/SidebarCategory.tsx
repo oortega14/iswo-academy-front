@@ -17,7 +17,7 @@ export const SidebarCategory = ({
     <AccordionItem value={category.category_key} key={category.category_key}>
       <AccordionTrigger>
         {!!category.icon && <category.icon className="size-8" />}
-        <span className="text-lg">{category.label}</span>
+        <span className="text-left text-lg">{category.label}</span>
       </AccordionTrigger>
       <AccordionContent>
         <ul className="space-y-1">

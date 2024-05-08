@@ -66,6 +66,12 @@ export const buildRoute = ({
           return `/admin/${userId}/academies/${academyId}/dashboard/configure`
       }
 
+    case "admin-get-learning-routes":
+      switch (normalizedSubcategory) {
+        case "content":
+          return `/admin/${userId}/academies/${academyId}/dashboard/learning-routes`
+      }
+
     case "admin-get-courses":
       switch (normalizedSubcategory) {
         case "content":

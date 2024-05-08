@@ -1,4 +1,5 @@
 import { SidebarLink } from "@/types/sidebar";
+import { IconRoute } from "@tabler/icons-react";
 import { IconCamera, IconCertificate, IconFileSpreadsheet, IconSettings, IconSettings2, IconTrash, IconUser } from "@tabler/icons-react";
 import { IconAddressBook, IconClock, IconLayoutDashboard } from "@tabler/icons-react";
 
@@ -30,6 +31,14 @@ export const ADMIN_SIDEBAR_LINKS: SidebarLink[] = [
       { subcategory_key: 'home', label: 'Resumen' },
       { subcategory_key: 'learning-routes', label: 'Rutas de Aprendizaje' },
       { subcategory_key: 'messages', label: 'Mensajes' }
+    ]
+  },
+  {
+    category_key: 'admin-get-learning-routes',
+    label: 'Rutas de aprendizaje',
+    icon: IconRoute,
+    links: [
+      { subcategory_key: 'content', label: 'Contenido' },
     ]
   },
   {
