@@ -24,8 +24,8 @@ export default function successPage() {
   }, [])
 
   return (
-    <div className="flex justify-center items-center h-min-screen">
-      <span className="text-4xl font-extrabold mr-20">Transacción exitosa</span>
+    <div className="h-min-screen flex items-center justify-center">
+      <span className="mr-20 text-4xl font-extrabold">Transacción exitosa</span>
       <Lottier animationData={data} className="relative top-10 size-96" />
     </div>
   )

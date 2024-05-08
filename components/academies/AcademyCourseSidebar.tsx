@@ -106,7 +106,7 @@ const AcademyCourseSidebar = ({ course }: { course: Course }) => {
                 onClick={()=>checkSections()}
                 className={cn(
                   buttonVariants({ variant: "default" }),
-                  "border-[1px] px-2 w-full"
+                  "w-full border-[1px] px-2"
                 )}
               >
                 Ir al curso
@@ -136,7 +136,7 @@ const AcademyCourseSidebar = ({ course }: { course: Course }) => {
                 href={`/order?academyId=${academyId}&courseId=${courseId}`}
                 className={cn(
                   buttonVariants({ variant: "default" }),
-                  "border-[1px] px-2 w-full"
+                  "w-full border-[1px] px-2"
                 )}
               >
                 Comprar ahora

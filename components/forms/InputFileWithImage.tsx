@@ -56,7 +56,7 @@ const InputFileWithImage = ({
                 "flex justify-start": !!previewImage,
               })}
             >
-              <span className="text-muted-foreground text-sm ">
+              <span className="text-sm text-muted-foreground ">
                 {description}
               </span>
             </div>
@@ -75,7 +75,7 @@ const InputFileWithImage = ({
         </>
       ) : (
         <>
-          <div className="mt-3 mb-2 flex w-full items-center justify-start rounded-full">
+          <div className="mb-2 mt-3 flex w-full items-center justify-start rounded-full">
             <Icon className="mr-2 size-5" />
             <label htmlFor={name}>{label}</label>
           </div>
@@ -85,7 +85,7 @@ const InputFileWithImage = ({
                 "flex justify-start": !!previewImage,
               })}
             >
-              <span className="text-muted-foreground text-sm ">
+              <span className="text-sm text-muted-foreground ">
                 {description}
               </span>
             </div>

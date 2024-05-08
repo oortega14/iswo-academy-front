@@ -146,26 +146,26 @@ export default function orderPage() {
       <>
         <div className="flex w-full">
           <Header />
-          <div className="flex w-full mt-24">
-            <div className="w-1/2 min-h-screen py-10 px-10">
-              <h3 className="text-2xl font-extrabold w-full text-center">
+          <div className="mt-24 flex w-full">
+            <div className="min-h-screen w-1/2 p-10">
+              <h3 className="w-full text-center text-2xl font-extrabold">
                 Complete su compra para comenzar a aprender
               </h3>
               <img
                 src={course?.promotional_image}
                 alt="promotional_image"
-                className="w-full text-center rounded-lg overflow-hidden mt-4"
+                className="mt-4 w-full overflow-hidden rounded-lg text-center"
               />
-              <h3 className="text-xl font-semibold mt-3 mb-2 w-full text-center">
+              <h3 className="mb-2 mt-3 w-full text-center text-xl font-semibold">
                 {course?.title}
               </h3>
-              <div className="flex justify-center items-center w-full">
+              <div className="flex w-full items-center justify-center">
                 <span className="text-4xl font-bold">
                   {formatCurrency(JSON.parse(course?.price || "0"))} COP
                 </span>
               </div>
             </div>
-            <div className="w-1/2 shadow-xl min-h-screen px-10 py-10 border-2 rounded-lg">
+            <div className="min-h-screen w-1/2 rounded-lg border-2 p-10 shadow-xl">
               <form onSubmit={(e) => handleSubmit(e)}>
                 <div className="mt-2 flex w-full items-center justify-start rounded-full">
                   <IconUser className="mr-2 size-5" />
@@ -245,7 +245,7 @@ export default function orderPage() {
                   </SelectContent>
                 </Select>
                 <Button
-                  className="w-full mt-3 disabled:opacity-75"
+                  className="mt-3 w-full disabled:opacity-75"
                   disabled={!isFull}
                 >
                   Pagar

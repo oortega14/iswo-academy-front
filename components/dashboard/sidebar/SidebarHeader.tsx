@@ -56,7 +56,7 @@ export const SidebarHeader = () => {
                     href={`/${
                       user?.role === "Estudiante" ? "student" : "super-admin"
                     }/${user?.id}/dashboard/main`}
-                    className="max-h-fit rounded-xl overflow-hidden"
+                    className="max-h-fit overflow-hidden rounded-xl"
                   >
                     <IswoIconLarge className="size-28 dark:invert" />
                   </Link>
@@ -75,12 +75,12 @@ export const SidebarHeader = () => {
                 >
                   <Link
                     href={`/admin/${user?.id}/academies/${user?.academy?.id}/dashboard/main`}
-                    className="max-h-fit rounded-xl overflow-hidden"
+                    className="max-h-fit overflow-hidden rounded-xl"
                   >
                     {loading ? (
                       <LoaderShimmer width="15rem" height="8rem" />
                     ) : (
-                      <div className="flex min-h-32 justify-center items-center">
+                      <div className="flex min-h-32 items-center justify-center">
                         <img src={academy?.logo} className="max-h-32 " />
                       </div>
                     )}

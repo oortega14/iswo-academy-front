@@ -35,7 +35,7 @@ const InputFileWithVideo = ({
                 "flex justify-center": !!video?.name,
               })}
             >
-              <span className="text-muted-foreground text-sm ">
+              <span className="text-sm text-muted-foreground ">
                 {description}
               </span>
             </div>
@@ -66,7 +66,7 @@ const InputFileWithVideo = ({
                 "flex justify-center": !!video?.name,
               })}
             >
-              <span className="text-muted-foreground text-sm ">
+              <span className="text-sm text-muted-foreground ">
                 {description}
               </span>
             </div>

@@ -4,7 +4,7 @@ export const BannerSection = () => {
   return (
     <section className="relative top-20 flex justify-center bg-slate-100 px-5 pt-20 dark:bg-slate-900 md:px-24">
       <div>
-        <div className="flex-col justify-center items-center max-w-[750px]">
+        <div className="max-w-[750px] flex-col items-center justify-center">
         <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
           Una solucion integral para tu empresa
           <br className="hidden sm:inline" />
