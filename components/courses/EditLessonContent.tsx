@@ -168,7 +168,7 @@ const EditLessonContent = () => {
     <>
       <div className="flex flex-col items-start justify-between space-y-4 border-b px-3 pb-6 lg:flex-row lg:items-center lg:space-y-0">
         <h1 className="ml-3 mt-4 whitespace-nowrap text-2xl font-semibold">
-          Puedes crear una lección a continuación:
+          Puedes editar la clase a continuación:
         </h1>
       </div>
       <form

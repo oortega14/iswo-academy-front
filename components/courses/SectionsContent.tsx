@@ -60,7 +60,7 @@ const SectionsContent = () => {
       <TooltipProvider>
         <div className="flex flex-col items-start justify-between space-y-4 border-b pb-6 lg:flex-row lg:items-center lg:space-y-0">
           <h1 className="ml-3 mt-4 whitespace-nowrap text-2xl font-semibold">
-            Creemos tus secciones y lecciones
+            Creemos tus secciones y clases
           </h1>
         </div>
         <div className="flex flex-col items-start justify-between space-y-4 border-b py-2 pr-4 lg:flex-row lg:items-center lg:space-y-0">

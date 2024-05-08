@@ -31,7 +31,6 @@ const VideoPlayerContent = () => {
     const selectedLesson = selectedSection?.lessons?.find(
       (lesson) => lesson.id === selectedLessonId
     )
-    console.log(selectedLesson)
     return (
       <div className="w-full">
         {selectedLesson!! && (

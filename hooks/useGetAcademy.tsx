@@ -19,7 +19,7 @@ const useGetAcademy = ({academyId, setLoadingCallback}: getAcademyProps ) => {
         if (request.status === 200) {
           setAcademy(response);
         } else {
-          console.error('Error al obtener cursos:', response);
+          console.error('Error al obtener academia:', response);
         }
       } catch (e) {
         console.error('Error de red:', e);

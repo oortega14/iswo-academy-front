@@ -16,7 +16,8 @@ import {
 
 const VideoInfo = ({ lessons, selectedLesson }: any) => {
   const router = useRouter()
-  const { sectionId, lessonId } = useParams<{
+  const { sectionId, lessonId, courseId } = useParams<{
+    courseId: string
     sectionId: string
     lessonId: string
   }>()
@@ -30,7 +31,7 @@ const VideoInfo = ({ lessons, selectedLesson }: any) => {
     if (prevLessonIndex >= 0) {
       const prevLesson = lessons[prevLessonIndex]
       router.push(
-        `/courses/1/video-player/sections/${sectionId}/lessons/${prevLesson.id}`
+        `/courses/${courseId}/video-player/sections/${sectionId}/lessons/${prevLesson.id}`
       )
     } else {
       toast.error("No hay lección anterior disponible.")
@@ -42,7 +43,7 @@ const VideoInfo = ({ lessons, selectedLesson }: any) => {
     if (nextLessonIndex < lessons.length) {
       const nextLesson = lessons[nextLessonIndex]
       router.push(
-        `/courses/1/video-player/sections/${sectionId}/lessons/${nextLesson.id}`
+        `/courses/${courseId}/video-player/sections/${sectionId}/lessons/${nextLesson.id}`
       )
     } else {
       toast.error("No hay siguiente lección disponible.")

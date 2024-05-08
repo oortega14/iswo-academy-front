@@ -20,7 +20,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import MotionButton from "@/components/animations/MotionButton"
+import CreateLearningRouteModal from "@/components/modals/CreateLearningRouteModal"
+import DeleteLearningRouteModal from "@/components/modals/DeleteLearningRouteModal"
 
+import { formatDate } from "../../../lib/utils"
 import EditLearningRouteModal from "../../modals/EditLearningRouteModal"
 import { Button, buttonVariants } from "../../ui/button"
 import {
@@ -31,9 +34,6 @@ import {
   TableHeader,
   TableRow,
 } from "../../ui/table"
-import DeleteLearningRouteModal from "@/components/modals/DeleteLearningRouteModal"
-import CreateLearningRouteModal from "@/components/modals/CreateLearningRouteModal"
-import { formatDate } from '../../../lib/utils';
 
 const LearningRoutesContent = () => {
   const [loading, setLoading] = useState<boolean>()
@@ -67,6 +67,11 @@ const LearningRoutesContent = () => {
   return (
     <>
       <div>
+        <div className="flex flex-col items-start justify-between space-y-4 border-b px-3 pb-6 lg:flex-row lg:items-center lg:space-y-0">
+          <h1 className="ml-3 mt-4 whitespace-nowrap text-2xl font-semibold">
+            Las rutas de aprendizaje disponibles en tu academia son
+          </h1>
+        </div>
         <div className="flex w-full justify-end border-b py-2">
           <MotionButton
             className={cn(

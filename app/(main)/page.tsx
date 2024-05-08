@@ -12,6 +12,7 @@ export default function IndexPage() {
           <p className="max-w-[700px] text-pretty text-lg text-muted-foreground">
           <strong className="font-extrabold">Ahorra más del 50% en gastos de capacitación. </strong>
           Planea, ejecuta, controla, evalúa y mejora las capacitaciones específicas para tu organización, en una plataforma fácil de usar.
+          <br/>
           <strong className="font-extrabold"> Soporte Técnico en Tiempo Real.</strong>
           </p>
         </div>

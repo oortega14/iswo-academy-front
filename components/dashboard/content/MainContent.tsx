@@ -121,7 +121,7 @@ export const MainContent = () => {
       <main className="z-20 h-auto flex-1 overflow-hidden p-5">
         <div className="flex flex-col items-start justify-between space-y-4 border-b pb-6 lg:flex-row lg:items-center lg:space-y-0">
           <h1 className="whitespace-nowrap text-2xl font-semibold">
-            Hola {currentUser?.first_name} Configuremos tu academia
+            Hola {currentUser?.first_name}, configuremos tu academia
           </h1>
         </div>
         <form

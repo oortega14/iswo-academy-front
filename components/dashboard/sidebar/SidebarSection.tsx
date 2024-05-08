@@ -63,7 +63,7 @@ export const SidebarSection = ({
     <AccordionItem value={section.name} key={section.name}>
       <div className="flex items-center">
         <AccordionTrigger
-          className={`${isOpen ? "open" : ""}`}
+          className={`${isOpen ? "open" : ""} text-left`}
           onClick={handleAccordionToggle}
         >
           <IconChevronUp className={cn("size-5", { "rotate-180": !isOpen })} />
