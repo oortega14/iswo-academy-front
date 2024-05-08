@@ -40,7 +40,7 @@ const AnswersContent = () => {
   })
 
   const question = useGetQuestion({
-    questionId: questionId,
+    questionId: JSON.parse(questionId),
     setLoadingCallback: setLoading,
     flag: changeFlag
   })
