@@ -14,6 +14,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
+import MotionButton from "../animations/MotionButton"
 import DeleteCourseModal from "../modals/DeleteCourseModal"
 import LoadingModal from "../modals/LoadingModal"
 import NoContent from "../ui/NoContent"
@@ -26,11 +27,13 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table"
-import MotionButton from "../animations/MotionButton"
 
 const CoursesContent = () => {
   const [loading, setLoading] = useState<boolean>()
-  const { academyId, userId } = useParams<{ userId: string, academyId: string }>()
+  const { academyId, userId } = useParams<{
+    userId: string
+    academyId: string
+  }>()
   const [deleteFlag, setDeleteFlag] = useState(false)
   const router = useRouter()
   const params = useParams()
@@ -70,18 +73,20 @@ const CoursesContent = () => {
             </h1>
           </div>
           <div className="flex w-full justify-end border-b py-2">
-          <MotionButton
-            className={cn(
-              buttonVariants({ variant: "default", size: "lg" }),
-              "border-[1px] px-2"
-            )}
-            onClick={() => {
-              router.push(`/admin/${userId}/academies/${academyId}/courses/new-course`)
-            }}
-          >
-            <p>Crear un nuevo curso</p>
-          </MotionButton>
-        </div>
+            <MotionButton
+              className={cn(
+                buttonVariants({ variant: "default", size: "lg" }),
+                "border-[1px] px-2"
+              )}
+              onClick={() => {
+                router.push(
+                  `/admin/${userId}/academies/${academyId}/courses/new-course`
+                )
+              }}
+            >
+              <p>Crear un nuevo curso</p>
+            </MotionButton>
+          </div>
           <Table className="w-full ">
             <TableHeader>
               <TableRow>
@@ -93,7 +98,7 @@ const CoursesContent = () => {
             </TableHeader>
             <TableBody>
               {courses.map((course) => (
-                <TableRow key={course.id} >
+                <TableRow key={course.id}>
                   <TableCell className="space-x-2">
                     <Tooltip>
                       <TooltipTrigger asChild>
@@ -172,7 +177,24 @@ const CoursesContent = () => {
           />
         </TooltipProvider>
       ) : (
-        <NoContent />
+        <>
+          <div className="w-full border-b-2 flex justify-end p-2 ">
+            <MotionButton
+              className={cn(
+                buttonVariants({ variant: "default", size: "lg" }),
+                "border-[1px] px-2 mr-5"
+              )}
+              onClick={() => {
+                router.push(
+                  `/admin/${userId}/academies/${academyId}/courses/new-course`
+                )
+              }}
+            >
+              <p>Crear un nuevo curso</p>
+            </MotionButton>
+          </div>
+          <NoContent />
+        </>
       )}
     </>
   )

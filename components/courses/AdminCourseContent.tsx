@@ -40,7 +40,7 @@ const CourseContent = () => {
               </div>
               <div className="p-4 ">
                 <h4 className="text-blue-gray-900 block text-2xl font-semibold leading-snug tracking-normal antialiased">
-                  Secciones y lecciones
+                  Secciones y clases
                 </h4>
               </div>
               <div className="border-blue-gray-50 border-t p-4">

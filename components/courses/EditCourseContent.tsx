@@ -41,6 +41,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select"
+import useGetCourseLearningRoute from "@/hooks/useGetCourseLearningRoute"
 
 const EditCourseContent = () => {
   const baseUrl = useUIStore((state) => state.baseUrl)
@@ -64,6 +65,11 @@ const EditCourseContent = () => {
     setLoadingCallback: setLoading,
   })
 
+  const learningRoutes = useGetCourseLearningRoute({
+    courseId: courseId,
+    setLoadingCallback: setLoading,
+  })
+  console.log(learningRoutes)
   const [data, setData] = useState({
     title: "",
     subtitle: "",
@@ -258,6 +264,8 @@ const EditCourseContent = () => {
             Escoje la ruta de aprendizaje
           </label>
         </div>
+        {!!learningRoutes && learningRoutes.map((route)=> (
+
         <Select
           onValueChange={(e) => handleSelect(e)}
           value={selectedOption}
@@ -269,13 +277,12 @@ const EditCourseContent = () => {
             />
           </SelectTrigger>
           <SelectContent>
-            {learningRoutes.map((route) => (
               <SelectItem key={route.id} value={JSON.stringify(route.id)}>
                 {route.name}
               </SelectItem>
-            ))}
           </SelectContent>
         </Select>
+        ))}
         <Dialog>
           <DialogTrigger className="dark:text-blue-dark bg-blue-dark my-4 w-full rounded-md p-2 font-bold text-slate-200 dark:bg-white">
             Editar curso

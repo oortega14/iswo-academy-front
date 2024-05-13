@@ -94,12 +94,12 @@ const SectionLessons = ({ lessons, flag, setFlag, sectionId }: any) => {
 
       const response = await request.json()
       if (request.ok) {
-        toast.success("Lecciones actualizadas correctamente")
+        toast.success("Clases actualizadas correctamente")
       } else {
-        console.error("Error al enviar datos al backend")
+        console.error("Error al enviar datos al servidor")
       }
     } catch (error) {
-      console.error("Error en la petición al backend:", error)
+      console.error("Error en la petición al servidor:", error)
     }
   }
 

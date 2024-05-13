@@ -24,7 +24,7 @@ const AcademyCourseContent = ({ course }: { course: Course }) => {
   return (
     <div className="flex min-h-[280px] w-full flex-col rounded-l-xl p-4">
       <h2 className="mb-3 mt-8 text-3xl font-extrabold">
-        Las lecciones de este curso son:
+        Las clases de este curso son:
       </h2>
       <Accordion type="single" collapsible className="w-full ">
         {courseSections.map((section) => (

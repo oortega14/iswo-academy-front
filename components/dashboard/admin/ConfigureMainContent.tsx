@@ -155,6 +155,7 @@ export const ConfigureMainContent = () => {
             previewImage={previewImage}
             setPreviewImage={setPreviewImage}
             setImage={setLogo}
+            description='Te recomendamos una relación de aspecto 16:9 y maximo 240px por 128px'
           />
           <InputTextWithIcon
             Icon={IconSignature}

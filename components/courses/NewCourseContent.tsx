@@ -33,17 +33,16 @@ import InputFileWithVideo from "../forms/InputFileWithVideo"
 import InputNumberWithIcon from "../forms/InputNumberWithIcon"
 import InputTextWithIcon from "../forms/InputTextWithIcon"
 import ListItemsFromInput from "../forms/ListItemsFromInput"
+import SelectWithList from "../forms/SelectWithList"
 import TextareaWithIcon from "../forms/TextareaWithIcon"
 import CreateLearningRouteModal from "../modals/CreateLearningRouteModal"
 import { Button, buttonVariants } from "../ui/button"
 import { Input } from "../ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select"
+
+interface LearningRoute {
+  id: number;
+  description: string;
+}
 
 const NewCoursesContent = () => {
   const baseUrl = useUIStore((state) => state.baseUrl)
@@ -61,6 +60,7 @@ const NewCoursesContent = () => {
   const [loading, setLoading] = useState(true)
   const [changeFlag, setChangeFlag] = useState(false)
   const [createModalOpen, setCreateModalOpen] = useState(false)
+  const [selectedLearningRoutes, setSelectedLearningRoutes] = useState<LearningRoute[]>([])
 
   const [data, setData] = useState({
     title: "",
@@ -76,6 +76,7 @@ const NewCoursesContent = () => {
   })
 
   const [dataGoals, setDataGoals] = useState([{ description: "" }])
+  console.log(dataGoals)
 
   const learningRoutes = useGetLearningRoutes({
     academyId: academyId,
@@ -105,12 +106,9 @@ const NewCoursesContent = () => {
     setData({ ...data, [name]: value })
   }
 
-  const handleSelect = (e: any) => {
-    setData({ ...data, learning_route_id: e })
-  }
-
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
+    const learningRouteIds = selectedLearningRoutes.map(route => route.id);
     const fd = new FormData()
     if (banner instanceof Blob) {
       fd.append("course[banner]", banner)
@@ -122,17 +120,21 @@ const NewCoursesContent = () => {
       fd.append("course[promotional_video]", video)
     }
     fd.append("course[teacher_id]", userId)
-    fd.append("course[learning_route_id]", data.learning_route_id)
     fd.append("course[academy_id]", academyId)
     fd.append("course[description]", data.description)
     fd.append("course[price]", data.price)
     fd.append("course[subtitle]", data.subtitle)
     fd.append("course[title]", data.title)
-    fd.append("course[course_goals]", JSON.stringify(dataGoals))
+    dataGoals.forEach((goal, index) => {
+      fd.append(
+        `course[course_goals_attributes][${index}][description]`,
+        goal.description
+      )
+    })
 
     try {
       const response = await axios({
-        url: `${baseUrl}/courses`,
+        url: `${baseUrl}/courses?learning_route_ids=${JSON.stringify(learningRouteIds)}`,
         method: "POST",
         headers: { "Content-type": "multipart/form-data" },
         withCredentials: true,
@@ -216,7 +218,9 @@ const NewCoursesContent = () => {
           previewImage={previewPromImage}
           setPreviewImage={setPreviewPromImage}
           setImage={setPromotionalImage}
-          description={'Te recomendamos una relación de aspecto 16:9 y maximo 3840px por 2160px'}
+          description={
+            "Te recomendamos una relación de aspecto 16:9 y maximo 3840px por 2160px"
+          }
         />
         <InputFileWithVideo
           Icon={IconDeviceImacCog}
@@ -224,43 +228,30 @@ const NewCoursesContent = () => {
           name="promotional_video"
           video={video}
           setVideo={setVideo}
-          description={'Te recomendamos una relación de aspecto 16:9 y maximo 3840px por 2160px'}
+          description={
+            "Te recomendamos una relación de aspecto 16:9 y maximo 3840px por 2160px"
+          }
         />
-        <div className="mt-3 flex w-full items-center justify-start rounded-full">
-          <IconList className="mr-2 size-5" />
-          <label htmlFor="password_confirmation">
-            Escoje la ruta de aprendizaje
-          </label>
-        </div>
-        <div className="flex items-center justify-start space-x-3">
-          <Select onValueChange={(e) => handleSelect(e)}>
-            <SelectTrigger className="my-2">
-              <SelectValue
-                className="text-muted-foreground"
-                placeholder="Escoge una ruta de aprendizaje"
-              />
-            </SelectTrigger>
-            <SelectContent>
-              {learningRoutes.map((route) => (
-                <SelectItem key={route.id} value={JSON.stringify(route.id)}>
-                  {route.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <MotionButton
-            className="whitespace-nowrap font-semibold"
-            onClick={() => {
-              open(setCreateModalOpen)
-            }}
-          >
-            Crear una ruta nueva
-          </MotionButton>
-        </div>
+        <SelectWithList
+          Icon={IconList}
+          info={learningRoutes}
+          data={selectedLearningRoutes}
+          setData={setSelectedLearningRoutes}
+          label={"Escoje una o más ruta de aprendizaje"}
+          placeholder={"Selecciona una ruta de aprendizaje"}
+          buttonLabel={"Crear una nueva ruta"}
+          modalSetter={setCreateModalOpen}
+        />
         <Dialog>
-          <DialogTrigger className="dark:text-blue-dark bg-blue-dark my-4 w-full rounded-md p-2 font-bold text-slate-200 dark:bg-white">
-            Crear curso
-          </DialogTrigger>
+          <MotionDiv
+            whileHover={{ scale: 0.97}}
+            whileTap={{ scale: 1.02}}
+            className="w-full"
+          >
+            <DialogTrigger className="dark:text-blue-dark bg-blue-dark my-4 w-full rounded-md p-2 font-bold text-slate-200 dark:bg-white">
+              Crear curso
+            </DialogTrigger>
+          </MotionDiv>
           <DialogContent>
             <DialogHeader>
               {uploadProgress === 0 ? (

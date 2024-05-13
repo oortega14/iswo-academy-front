@@ -10,6 +10,17 @@ export interface InputWithIconProps {
   value?: string
 }
 
+export interface SelectWithListProps {
+  Icon:  React.ComponentType<{ className?: string }>
+  info: any
+  data: any
+  setData: any
+  label: string
+  placeholder?: string
+  buttonLabel: string
+  modalSetter: any
+}
+
 export interface TextareaWithIconProps {
   Icon:  React.ComponentType<{ className?: string }>
   label: string
