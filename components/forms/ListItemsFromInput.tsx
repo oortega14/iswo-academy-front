@@ -47,18 +47,18 @@ const ListItemsFromInput = ({
       </div>
       {filteredData.map((goal, index) => (
         <div key={index} className="flex w-full items-center gap-3 ">
-          <span className="my-2 w-full rounded-md border p-2">
+          <span className="my-2 w-full rounded-md border p-2 text-sm">
             {goal.description}
           </span>
           <div
             onClick={() => removeGoal(index)}
-            className=" hover:text-blue-dark cursor-pointer rounded-lg border border-red-600 p-2 text-red-600 hover:bg-red-600"
+            className=" hover:text-white cursor-pointer rounded-lg border border-red-600 p-2 text-red-600 hover:bg-red-600"
           >
             <IconX className="size-6" />
           </div>
         </div>
       ))}
-      <div className="flex space-x-3">
+      <div className="flex space-x-3 mt-2">
         <Input
           type="text"
           name="description"
@@ -68,7 +68,7 @@ const ListItemsFromInput = ({
           className=""
         />
         <button
-          className="bg-blue-dark dark:text-blue-dark text-nowrap rounded-lg px-3 py-2 font-semibold text-slate-200 hover:scale-95 dark:bg-slate-200"
+          className="bg-blue-dark dark:text-blue-dark text-nowrap rounded-lg px-3 py-2 font-semibold text-slate-200 hover:scale-95 dark:bg-slate-200 text-sm"
           onClick={insertNewGoal}
         >
           {buttonLabel}

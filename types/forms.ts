@@ -19,6 +19,16 @@ export interface SelectWithListProps {
   placeholder?: string
   buttonLabel: string
   modalSetter: any
+  setFinalData?: any
+}
+
+export interface SelectWithListEditProps {
+  Icon:  React.ComponentType<{ className?: string }>
+  info: any
+  data: any
+  setData: any
+  label: string
+  placeholder?: string
 }
 
 export interface TextareaWithIconProps {
@@ -76,4 +86,5 @@ export interface ListItemsFromInputProps {
   label: string
   placeholder: string
   buttonLabel: string
+  setFinalData?: any
 }

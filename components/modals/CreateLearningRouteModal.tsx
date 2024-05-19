@@ -97,6 +97,7 @@ const CreateLearningRouteModal = ({
                   Cancelar
                 </MotionButton>
                 <MotionButton
+                  onClick={(e)=>handleSubmit(e)}
                   className={cn(
                     buttonVariants({ variant: "default" }),
                     "border-[1px] px-2"

@@ -11,8 +11,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select"
+import { useParams } from "next/navigation"
 
-const SelectWithList = ({
+interface CourseLearningRoute {
+  id:                   string | null;
+  course_id:            string;
+  learning_route_id:    string;
+  learning_route_name:  string;
+  _destroy:             string;
+}
+
+const SelectWithListEdit = ({
   Icon,
   info,
   data,
@@ -21,24 +30,59 @@ const SelectWithList = ({
   placeholder,
   buttonLabel,
   modalSetter,
+  setFinalData
 }: SelectWithListProps) => {
+  const { courseId } = useParams<{courseId: string}>()
+  const [courseLearningRoutes, setCourseLearningRoutes] = useState<CourseLearningRoute[]>([])
+
+  useEffect(() => {
+    const dataWithDestroy = data.map((item: any) => {
+      return { ...item, _destroy: '0' }
+    })
+    setCourseLearningRoutes(dataWithDestroy)
+  }, [data])
+
   const handleSelect = (e: string) => {
     const parsed_e = JSON.parse(e)
-    setData([
-      ...data,
+    setCourseLearningRoutes([
+      ...courseLearningRoutes,
       {
-        name: parsed_e.name,
-        id: JSON.stringify(parsed_e.id),
-        academy_id: JSON.stringify(parsed_e.academy_id),
+        id: null,
+        course_id: courseId,
+        learning_route_id: JSON.stringify(parsed_e.id),
+        learning_route_name: parsed_e.name,
+        _destroy: '0'
       },
     ])
   }
 
-  const removeItem = (index: number) => {
-    const newData = [...data]
-    newData.splice(index, 1)
-    setData(newData)
+  const removeItem = (indexToRemove
+    : number) => {
+    const newData: any = [...courseLearningRoutes]
+    const newArray = newData.map((item: any, index: number) => {
+      if (index === indexToRemove) {
+        return { ...item, _destroy: "1" }
+      }
+      return item
+    })
+    setCourseLearningRoutes(newArray)
   }
+
+  useEffect(() => {
+    const newData: any = [...courseLearningRoutes]
+    let filteredArray = newData
+      .filter((item: any) => !(item.id === null && item._destroy === '1'))
+      .map((item: any) => {
+        if (item.id === null) {
+          return { learning_route_id: item.learning_route_id };
+        } else {
+          let { learning_route_name, ...rest } = item;
+          return rest;
+        }
+      });
+    setFinalData(filteredArray)
+  }, [courseLearningRoutes])
+
 
   return (
     <div className="mb-2">
@@ -46,10 +90,10 @@ const SelectWithList = ({
         <Icon className="mr-2 size-5" />
         <label htmlFor="course_learning_routes">{label}</label>
       </div>
-      {data.map((data_child: any, index: number) => (
-        <div key={index} className="flex w-full items-center gap-3 ">
+      {courseLearningRoutes.map((data_child: any, index: number) => (
+        <div key={index} className={`flex w-full items-center gap-3 ${data_child._destroy === '1' ? 'hidden' : ''}`}>
           <span className="my-2 w-full font-semibold rounded-md border p-2 text-sm bg-blue-dark text-white dark:bg-white dark:text-blue-dark">
-            {data_child.name}
+            {data_child.learning_route_name}
           </span>
           <div
             onClick={() => removeItem(index)}
@@ -74,7 +118,6 @@ const SelectWithList = ({
                 value={JSON.stringify({
                   id: info_child?.id,
                   name: info_child?.name,
-                  academy_id: info_child?.academy_id,
                 })}
               >
                 {info_child.name}
@@ -95,4 +138,4 @@ const SelectWithList = ({
   )
 }
 
-export default SelectWithList
+export default SelectWithListEdit

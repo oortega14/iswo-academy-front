@@ -40,8 +40,9 @@ import { Button, buttonVariants } from "../ui/button"
 import { Input } from "../ui/input"
 
 interface LearningRoute {
-  id: number;
-  description: string;
+  id: string;
+  name: string;
+  academy_id: string;
 }
 
 const NewCoursesContent = () => {
@@ -76,7 +77,6 @@ const NewCoursesContent = () => {
   })
 
   const [dataGoals, setDataGoals] = useState([{ description: "" }])
-  console.log(dataGoals)
 
   const learningRoutes = useGetLearningRoutes({
     academyId: academyId,
@@ -108,7 +108,6 @@ const NewCoursesContent = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    const learningRouteIds = selectedLearningRoutes.map(route => route.id);
     const fd = new FormData()
     if (banner instanceof Blob) {
       fd.append("course[banner]", banner)
@@ -131,10 +130,16 @@ const NewCoursesContent = () => {
         goal.description
       )
     })
+    selectedLearningRoutes.forEach((learning_route, index) => {
+      fd.append(
+        `course[course_learning_routes_attributes][${index}][learning_route_id]`,
+        learning_route.id
+      )
+    })
 
     try {
       const response = await axios({
-        url: `${baseUrl}/courses?learning_route_ids=${JSON.stringify(learningRouteIds)}`,
+        url: `${baseUrl}/courses`,
         method: "POST",
         headers: { "Content-type": "multipart/form-data" },
         withCredentials: true,

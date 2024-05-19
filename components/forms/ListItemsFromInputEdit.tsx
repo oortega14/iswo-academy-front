@@ -12,33 +12,73 @@ const ListItemsFromInputEdit = ({
   label,
   placeholder,
   buttonLabel,
+  setFinalData,
 }: ListItemsFromInputProps) => {
+  const [newDescription, setNewDescription] = useState("")
+  const [goals, setGoals] = useState<any>([])
+
   useEffect(() => {
     setData(data.filter((goal) => goal.description.trim() !== ""))
   }, [])
-  const [newDescription, setNewDescription] = useState("")
-  const handleChangeGoal = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewDescription(e.target.value)
+
+  useEffect(() => {
+    const dataWithDestroy = data.map((item: any) => {
+      return { ...item, _destroy: "0" }
+    })
+    setGoals(dataWithDestroy)
+  }, [data])
+
+  console.log(goals)
+
+  const handleChangeGoal = (e: string) => {
+    const parsed_e = JSON.parse(e)
+    const updatedGoals = goals.map((goal: any, index: number) =>
+      index === parsed_e.indexGoal ? { ...goal, description: parsed_e.value } : goal
+    )
+    setGoals(updatedGoals)
   }
+
+  const handleChangeInputNewGoal = (e: any) => {
+    e.preventDefault()
+    const { value } = e.target
+    setNewDescription(value)
+  }
+
   const insertNewGoal = (e: any) => {
     e.preventDefault()
-    if (newDescription.trim() !== "") {
-      setData([...data, { index: data.length, description: newDescription }])
+    if (newDescription !== "") {
+      setGoals([
+        ...goals,
+        { id: null, description: newDescription, _destroy: "0" },
+      ])
       setNewDescription("")
     }
   }
-  const removeGoal = (indexToRemove
-    : number) => {
-    const newData: any = [...data]
-    const newArray = newData.map((item: any) => {
-      if (item.index === indexToRemove) {
+
+  const removeGoal = (indexToRemove: number) => {
+    const newData: any = [...goals]
+    const newArray = newData.map((item: any, index: number) => {
+      if (index === indexToRemove) {
         return { ...item, _destroy: "1" }
       }
       return item
     })
-    setData(newArray)
+    setGoals(newArray)
   }
-  const filteredData = data.filter((goal) => !goal._destroy)
+
+  useEffect(() => {
+    const newData: any = [...goals]
+    let filteredArray = newData
+      .filter((item: any) => !(item.id === null && item._destroy === '1'))
+      .map((item: any) => {
+        if (item.id === null) {
+          return { description: item.description };
+        } else {
+          return item;
+        }
+      });
+    setFinalData(filteredArray)
+  }, [goals])
 
   return (
     <div className="mb-2">
@@ -46,30 +86,43 @@ const ListItemsFromInputEdit = ({
         <Icon className="mr-2 size-5" />
         <label htmlFor="course_goals">{label}</label>
       </div>
-      {filteredData.map((goal) => (
-        <div key={goal.index} className="flex w-full items-center gap-3 ">
-          <span className="my-2 w-full rounded-md border p-2">
-            {goal.description}
-          </span>
+      {goals.map((goal: any, index: number) => (
+        <div
+          key={goal.id}
+          className={`flex w-full items-center gap-3 ${
+            goal._destroy === "1" ? "hidden" : ""
+          }`}
+        >
+          <Input
+            type="text"
+            name="description"
+            value={goal.description}
+            onChange={(e) =>
+              handleChangeGoal(
+                JSON.stringify({ value: e.target.value, indexGoal: index })
+              )
+            }
+            className="text-sm my-1"
+          />
           <div
-            onClick={() => removeGoal(goal?.index || 0)}
+            onClick={() => removeGoal(index)}
             className=" hover:text-blue-dark cursor-pointer rounded-lg border border-red-600 p-2 text-red-600 hover:bg-red-600"
           >
             <IconX className="size-6" />
           </div>
         </div>
       ))}
-      <div className="flex space-x-3">
+      <div className="flex space-x-3 mt-2">
         <Input
           type="text"
           name="description"
           value={newDescription}
-          onChange={(e) => handleChangeGoal(e)}
+          onChange={(e) => handleChangeInputNewGoal(e)}
           placeholder={placeholder}
-          className=""
+          className="text-sm"
         />
         <button
-          className="bg-blue-dark dark:text-blue-dark text-nowrap rounded-lg px-3 py-2 font-bold text-slate-200 hover:scale-95 dark:bg-slate-200"
+          className="bg-blue-dark dark:text-blue-dark text-nowrap rounded-lg px-3 py-2 font-bold text-slate-200 hover:scale-95 dark:bg-slate-200 text-sm"
           onClick={insertNewGoal}
         >
           {buttonLabel}
