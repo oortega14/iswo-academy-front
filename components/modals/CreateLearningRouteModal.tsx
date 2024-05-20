@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { IconEdit } from "@tabler/icons-react"
 import { AnimatePresence } from "framer-motion"
+import { toast } from "sonner"
 
 import { CreateLearningRoute, UpdateLearningRoute } from "@/lib/requests"
 import { cn } from "@/lib/utils"
@@ -22,7 +23,6 @@ import {
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 import { Textarea } from "../ui/textarea"
-import { toast } from "sonner"
 
 const CreateLearningRouteModal = ({
   modalOpen,
@@ -39,13 +39,14 @@ const CreateLearningRouteModal = ({
     },
   })
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: any) => {
+    e.preventDefault()
     const learningRouteData = data
     const [request, response] = await CreateLearningRoute({
       learningRouteData,
     })
     if (request.status == 200) {
-      toast.success('Ruta de aprendizaje creada satisfactoriamente')
+      toast.success("Ruta de aprendizaje creada satisfactoriamente")
       setChangeFlag(!changeFlag)
       close()
     }
@@ -55,18 +56,18 @@ const CreateLearningRouteModal = ({
     <AnimatePresence>
       {modalOpen && (
         <Modal modalOpen={modalOpen} handleClose={close}>
-          <Card className="w-full">
-            <CardHeader>
-              <div className="flex items-center gap-x-3">
-                <IconEdit className="size-8" />
-                <CardTitle>Nueva Ruta de Aprendizaje</CardTitle>
-              </div>
-              <CardDescription>
-                A continuación ingresa los campos de la ruta
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form>
+          <form className="w-full" onSubmit={handleSubmit}>
+            <Card>
+              <CardHeader>
+                <div className="flex items-center gap-x-3">
+                  <IconEdit className="size-8" />
+                  <CardTitle>Nueva Ruta de Aprendizaje</CardTitle>
+                </div>
+                <CardDescription>
+                  A continuación ingresa los campos de la ruta
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
                 <div className="grid w-full items-center gap-4">
                   <div className="flex flex-col space-y-1.5">
                     <Label htmlFor="name">Nombre</Label>
@@ -84,29 +85,29 @@ const CreateLearningRouteModal = ({
                     />
                   </div>
                 </div>
-              </form>
-            </CardContent>
-            <CardFooter className="flex justify-between">
-              <MotionButton
-                onClick={close}
-                className={cn(
-                  buttonVariants({ variant: "outline" }),
-                  "border-[1px] px-2"
-                )}
-              >
-                Cancelar
-              </MotionButton>
-              <MotionButton
-                onClick={handleSubmit}
-                className={cn(
-                  buttonVariants({ variant: "default" }),
-                  "border-[1px] px-2"
-                )}
-              >
-                Guardar
-              </MotionButton>
-            </CardFooter>
-          </Card>
+              </CardContent>
+              <CardFooter className="flex justify-between">
+                <MotionButton
+                  onClick={close}
+                  className={cn(
+                    buttonVariants({ variant: "outline" }),
+                    "border-[1px] px-2"
+                  )}
+                >
+                  Cancelar
+                </MotionButton>
+                <MotionButton
+                  onClick={(e)=>handleSubmit(e)}
+                  className={cn(
+                    buttonVariants({ variant: "default" }),
+                    "border-[1px] px-2"
+                  )}
+                >
+                  Guardar
+                </MotionButton>
+              </CardFooter>
+            </Card>
+          </form>
         </Modal>
       )}
     </AnimatePresence>

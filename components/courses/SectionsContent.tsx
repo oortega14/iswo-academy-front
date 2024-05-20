@@ -26,6 +26,7 @@ const SectionsContent = () => {
   const [sectionsModalOpen, setSectionsModalOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const [selectedSectionId, setSelectedSectionId] = useState(0)
+  const [adminFlag, setAdminFlag] = useState(true)
 
   const close = (
     setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>>
@@ -46,14 +47,12 @@ const SectionsContent = () => {
       : params.courseId,
     setLoadingCallback: setLoading,
     flag: changeFlag,
+    adminFlag: adminFlag,
   })
 
   const sortedSections = courseSections
     .slice()
     .sort((a, b) => a.position - b.position)
-
-  const handleNavigate = (e: any) => {
-  }
 
   return (
     <>

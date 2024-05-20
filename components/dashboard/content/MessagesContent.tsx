@@ -1,119 +1,139 @@
 "use client"
 
-import { FormEvent, useEffect, useState } from "react"
-import Image from "next/image"
+import { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
 import { useUIStore } from "@/store/ui/ui-store"
+
+import useGetCurrentUser from "@/hooks/useGetCurrentUser"
+import useGetLessonComments from "@/hooks/useGetLessonComments"
 import {
-  IconBadgeTm,
-  IconBrandCodepen,
-  IconColorPicker,
-  IconZoomInArea,
-} from "@tabler/icons-react"
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import MotionButton from "@/components/animations/MotionButton"
 import { toast } from "sonner"
 
-import { useGetAcademy } from "@/hooks/useGetAcademy"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import  Figure  from "./Figure"
-
-export const MessagesContent = () => {
-  const currentUser = useUIStore((state) => state.currentUser)
+const MessagesContent = () => {
   const baseUrl = useUIStore((state) => state.baseUrl)
-  const params = useParams<{ id: string, academyId: string }>()
-  const [loading, setLoading] = useState(true)
-  const [previewImage, setPreviewImage] = useState("")
-  const [logo, setLogo] = useState({})
-  const [academyConfiguration, setAcademyConfiguration] = useState({
-    domain: "",
-    slogan: "",
-    description: "",
+  const { academyId } = useParams<{ academyId: string }>()
+  const [loadingUser, setLoadingUser] = useState(true)
+  const [loadingComments, setLoadingComments] = useState(true)
+  const [changeFlag, setChangeFlag] = useState(true)
+
+  const currentUser = useGetCurrentUser({
+    setLoadingCallback: setLoadingUser,
+    baseUrl: baseUrl,
   })
-  const academy = useGetAcademy({
-    academyId: params.academyId,
-    setLoadingCallback: setLoading})
 
-  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    const file = e.target.files?.[0]
-    if (file) {
-      setLogo(file)
-      let fileReader: FileReader | null
-      let isCancel = false
+  const lessonComments = useGetLessonComments({
+    setLoadingCallback: setLoadingComments,
+    academyId: academyId,
+    flag: changeFlag,
+  })
 
-      fileReader = new FileReader()
-      fileReader.onload = (e) => {
-        const { result } = e.target as FileReader
-        if (result && !isCancel) {
-          setPreviewImage(result.toString())
-        }
-      }
-      fileReader.readAsDataURL(file)
-
-      return () => {
-        isCancel = true
-        if (fileReader && fileReader.readyState === 1) {
-          fileReader.abort()
-        }
-      }
-    }
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setAcademyConfiguration({ ...academyConfiguration, [name]: value })
-  }
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault()
-    const fd = new FormData()
-    if (logo instanceof Blob) {
-      fd.append("academy[logo]", logo)
-    }
-    fd.append("academy[description]", academyConfiguration.description)
-    fd.append("academy[slogan]", academyConfiguration.slogan)
-    fd.append(
-      "academy[academy_configuration_attributes][domain]",
-      academyConfiguration.domain
-    )
-
+  const handleSolveComment = async (comment_id: number) => {
     try {
-      const request = await fetch(`${baseUrl}/academies/${params.id}`, {
-        method: "PATCH",
+      const request = await fetch(`${baseUrl}/lesson_comments/${comment_id}/update_status`, {
+        method: "POST",
+        headers: { "Content-type": "application/json;charset=UTF-8" },
         credentials: "include",
-        body: fd,
       })
       const response = await request.json()
       if (request.status === 200) {
-        toast.success("exitoso")
-      } else {
-        toast.error(response.message)
+        toast.success('Comentario Actualizado correctamente')
+        setChangeFlag(!changeFlag)
       }
+      return response
     } catch (e) {}
   }
 
-  useEffect(() => {
-    if (!!academy) {
-      setAcademyConfiguration((prevConfig) => ({
-        ...prevConfig,
-        domain: academy?.academy_configuration?.domain,
-        slogan: academy?.slogan,
-        description: academy?.description,
-      }));
-    }
-  }, [academy])
 
+  if (loadingComments) {
+    return <span></span>
+  }
   return (
     <div>
-      <main className="h-auto flex-1 overflow-hidden p-5 ">
-        <div className="flex flex-col items-start justify-between space-y-4 border-b pb-6 lg:flex-row lg:items-center lg:space-y-0">
-          <h1 className="whitespace-nowrap text-2xl font-semibold">
-            Hola {currentUser?.first_name} A continuación veremos los mensajes de tus estudiantes
-          </h1>
-        </div>
-
-      </main>
+      <div className="flex flex-col items-start justify-between space-y-4 border-b pb-6 lg:flex-row lg:items-center lg:space-y-0 px-5 pt-5">
+        <h1 className="whitespace-nowrap text-2xl font-semibold">
+          Hola {currentUser?.first_name}, a continuación podrás ver los mensajes
+          y comentarios de tu academia
+        </h1>
+      </div>
+      <div>
+        <Accordion type="single" collapsible className="w-full mb-3">
+          <AccordionItem value="item-1">
+            <AccordionTrigger className="bg-slate-200 rounded-md px-3 dark:bg-slate-900">
+              Comentarios No resueltos
+            </AccordionTrigger>
+            <AccordionContent className="py-3">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-[20%]">Curso</TableHead>
+                    <TableHead className="w-[20%]">Usuario</TableHead>
+                    <TableHead className="w-[40%]">Comentario</TableHead>
+                    <TableHead className="text-right pr-36">Acciones</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {lessonComments?.comments_unsolved.map((comment) => (
+                    <TableRow>
+                      <TableCell className="font-medium">{comment.course_title}</TableCell>
+                      <TableCell>{comment.user.name}</TableCell>
+                      <TableCell>{comment.comment}</TableCell>
+                      <TableCell className="text-right">
+                        <MotionButton
+                          onClick={()=>handleSolveComment(comment.id)}
+                        >
+                          Marcar como resuelto
+                        </MotionButton>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="item-1">
+            <AccordionTrigger className="bg-slate-200 rounded-md px-3 dark:bg-slate-900">
+              Comentarios Resueltos
+            </AccordionTrigger>
+            <AccordionContent className="py-3">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-[30%]">Curso</TableHead>
+                    <TableHead className="w-[30%]">Usuario</TableHead>
+                    <TableHead className="w-[40%]">Comentario</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {lessonComments?.comments_solved.map((comment) => (
+                    <TableRow>
+                      <TableCell className="font-medium">{comment.course_title}</TableCell>
+                      <TableCell>{comment.user.name}</TableCell>
+                      <TableCell>{comment.comment}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </div>
     </div>
   )
 }

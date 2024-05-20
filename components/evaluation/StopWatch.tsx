@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-const Stopwatch = ({tiempoTotal}: any) => {
+const Stopwatch = ({tiempoTotal, setIsFinished}: any) => {
   const [tiempoRestante, setTiempoRestante] = useState(0);
 
   const iniciarCuentaRegresiva = (tiempoInicial: number) => {
@@ -11,6 +11,7 @@ const Stopwatch = ({tiempoTotal}: any) => {
       if (tiempoActual < 0) {
         clearInterval(intervalId);
         setTiempoRestante(0);
+        setIsFinished(true);
       }
     }, 1000);
   };

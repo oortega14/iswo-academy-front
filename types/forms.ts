@@ -10,6 +10,27 @@ export interface InputWithIconProps {
   value?: string
 }
 
+export interface SelectWithListProps {
+  Icon:  React.ComponentType<{ className?: string }>
+  info: any
+  data: any
+  setData: any
+  label: string
+  placeholder?: string
+  buttonLabel: string
+  modalSetter: any
+  setFinalData?: any
+}
+
+export interface SelectWithListEditProps {
+  Icon:  React.ComponentType<{ className?: string }>
+  info: any
+  data: any
+  setData: any
+  label: string
+  placeholder?: string
+}
+
 export interface TextareaWithIconProps {
   Icon:  React.ComponentType<{ className?: string }>
   label: string
@@ -65,4 +86,5 @@ export interface ListItemsFromInputProps {
   label: string
   placeholder: string
   buttonLabel: string
+  setFinalData?: any
 }

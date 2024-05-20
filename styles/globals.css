@@ -82,11 +82,11 @@
 
 @layer utilities {
   .bg-blue-dark {
-    @apply bg-[#030711]
+    @apply bg-[#080e1f]
   }
 
   .text-blue-dark {
-    @apply text-[#030711]
+    @apply text-[#080e1f]
   }
 
   .bg-light-dotted {

@@ -50,7 +50,7 @@ const HeaderProfileDropdown = ({ handleLogout }: any) => {
           className="flex items-center justify-center border-t p-4 dark:border-slate-200"
           onClick={handleLogout}
         >
-          <a href="#">Logout</a>
+          <a href="#">Salir</a>
         </div>
       </div>
     </MotionDiv>

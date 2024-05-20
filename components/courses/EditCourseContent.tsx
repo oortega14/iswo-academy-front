@@ -34,13 +34,10 @@ import InputTextWithIcon from "../forms/InputTextWithIcon"
 import ListItemsFromInputEdit from "../forms/ListItemsFromInputEdit"
 import TextareaWithIcon from "../forms/TextareaWithIcon"
 import { Button } from "../ui/button"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select"
+import useGetCourseLearningRoute from "@/hooks/useGetCourseLearningRoute"
+import SelectWithListEdit from "../forms/SelectWithListEdit"
+import { Course } from "@/types/sidebar"
+import CreateLearningRouteModal from "../modals/CreateLearningRouteModal"
 
 const EditCourseContent = () => {
   const baseUrl = useUIStore((state) => state.baseUrl)
@@ -58,8 +55,17 @@ const EditCourseContent = () => {
   const [video, setVideo] = useState({ name: "" })
   const [uploadProgress, setUploadProgress] = useState(0)
   const [changeFlag, setChangeFlag] = useState(false)
-  const [selectedOption, setSelectedOption] = useState('')
+  const [selectedLearningRoutes, setSelectedLearningRoutes] = useState<Course[]>([])
+  const [dataLearning, setDataLearning] = useState<Course[]>([])
+  const [dataCourseGoals, setDataCourseGoals] = useState<Course[]>([])
+  const [createModalOpen, setCreateModalOpen] = useState(false)
+
   const course = useGetCourse({
+    courseId: courseId,
+    setLoadingCallback: setLoading,
+  })
+
+  const courseLearningRoutes = useGetCourseLearningRoute({
     courseId: courseId,
     setLoadingCallback: setLoading,
   })
@@ -95,6 +101,12 @@ const EditCourseContent = () => {
     changeFlag: changeFlag,
   })
 
+  const close = (
+    setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    setModalOpenFunction(false)
+  }
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     const fd = new FormData()
@@ -109,14 +121,18 @@ const EditCourseContent = () => {
     }
     fd.append("course[teacher_id]", !!data.teacher_id ? data.teacher_id : "")
     fd.append("course[academy_id]", academyId)
-    fd.append("course[learning_route_id]", selectedOption)
     fd.append("course[description]", data.description)
     fd.append("course[price]", data.price)
     fd.append("course[subtitle]", data.subtitle)
     fd.append("course[title]", data.title)
-    dataGoals.forEach((goal, index) => {
+    dataCourseGoals.forEach((goal, index) => {
       Object.entries(goal).forEach(([key, value]) => {
         fd.append(`course[course_goals_attributes][${index}][${key}]`, value)
+      })
+    })
+    dataLearning.forEach((route, index) => {
+      Object.entries(route).forEach(([key, value]) => {
+        fd.append(`course[course_learning_routes_attributes][${index}][${key}]`, value)
       })
     })
 
@@ -141,10 +157,6 @@ const EditCourseContent = () => {
     } catch (e) {}
   }
 
-  const handleSelect = (e: any) => {
-    setSelectedOption(e)
-  }
-
   useEffect(() => {
     if (!!course && dataGoals.length === 0) {
       setData((prevConfig) => ({
@@ -166,12 +178,11 @@ const EditCourseContent = () => {
   }, [course])
 
   useEffect(() => {
-    if (!!course){
-      setSelectedOption(JSON.stringify(course.learning_route_id))
+    if (!!courseLearningRoutes && courseLearningRoutes.length > 0) {
+      setSelectedLearningRoutes(courseLearningRoutes)
     }
-  }, [course])
+  }, [courseLearningRoutes])
 
-  console.log(course)
   return (
     <>
       <div className="flex flex-col items-start justify-between space-y-4 border-b px-3 pb-6 lg:flex-row lg:items-center lg:space-y-0">
@@ -216,8 +227,9 @@ const EditCourseContent = () => {
           setData={setDataGoals}
           Icon={IconList}
           label="Objetivos del Curso"
-          placeholder="Escribe aqui el precio de tu curso"
+          placeholder="Escribe aqui el objetivo de tu curso"
           buttonLabel="Agregar Objetivo"
+          setFinalData={setDataCourseGoals}
         />
 
         <InputFileWithImage
@@ -252,30 +264,17 @@ const EditCourseContent = () => {
           setVideo={setVideo}
           description={'Te recomendamos una relación de aspecto 16:9 y maximo 3840px por 2160px'}
         />
-        <div className="mt-3 flex w-full items-center justify-start rounded-full">
-          <IconList className="mr-2 size-5" />
-          <label htmlFor="password_confirmation">
-            Escoje la ruta de aprendizaje
-          </label>
-        </div>
-        <Select
-          onValueChange={(e) => handleSelect(e)}
-          value={selectedOption}
-        >
-          <SelectTrigger className="my-2">
-            <SelectValue
-              className="text-muted-foreground"
-              placeholder="Escoge una ruta de aprendizaje"
-            />
-          </SelectTrigger>
-          <SelectContent>
-            {learningRoutes.map((route) => (
-              <SelectItem key={route.id} value={JSON.stringify(route.id)}>
-                {route.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <SelectWithListEdit
+          Icon={IconList}
+          info={learningRoutes}
+          data={selectedLearningRoutes}
+          setData={setSelectedLearningRoutes}
+          label={"Escoje una o más ruta de aprendizaje"}
+          placeholder={"Selecciona una ruta de aprendizaje"}
+          buttonLabel={"Crear una nueva ruta"}
+          setFinalData={setDataLearning}
+          modalSetter={setCreateModalOpen}
+        />
         <Dialog>
           <DialogTrigger className="dark:text-blue-dark bg-blue-dark my-4 w-full rounded-md p-2 font-bold text-slate-200 dark:bg-white">
             Editar curso
@@ -307,6 +306,13 @@ const EditCourseContent = () => {
           </DialogContent>
         </Dialog>
       </form>
+      <CreateLearningRouteModal
+        modalOpen={createModalOpen}
+        close={() => close(setCreateModalOpen)}
+        academyId={academyId}
+        changeFlag={changeFlag}
+        setChangeFlag={setChangeFlag}
+      />
     </>
   )
 }

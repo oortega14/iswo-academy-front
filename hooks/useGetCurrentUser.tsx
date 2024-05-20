@@ -16,7 +16,7 @@ const useGetCurrentUser = ({baseUrl, setLoadingCallback}: GetCurrentUserProps) =
         if (request.status === 200) {
           setUser(response);
         } else {
-          console.error('Error al obtener cursos:', response);
+          console.error('Error al obtener usuario:', response);
         }
       } catch (error) {
         console.error('Error de red:', error);

@@ -42,7 +42,7 @@ const AcademyCourseSidebar = ({ course }: { course: Course }) => {
       credentials: 'include',
     })
     const response = await request.json()
-    router.push(`/courses/${courseId}/video-player/sections/${response[0].id}/lessons/${response[0].lessons[0].id}`)
+    router.push(`/academies/${academyId}/courses/${courseId}/video-player/sections/${response[0].id}/lessons/${response[0].lessons[0].id}`)
   }
 
   const handleCreateInterestStudent = async () => {
@@ -75,8 +75,6 @@ const AcademyCourseSidebar = ({ course }: { course: Course }) => {
       })
     }
   }, [student])
-
-  console.log(courseState)
 
   return (
     <aside

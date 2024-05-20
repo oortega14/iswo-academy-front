@@ -23,7 +23,7 @@ export const SidebarLogout = () => {
         onClick={logout}
       >
         <IconLogout />
-        <span className={cn({ "lg:hidden": !isSidebarOpen })}>Log out</span>
+        <span className={cn({ "lg:hidden": !isSidebarOpen })}>Salir</span>
       </button>
     </div>
   )

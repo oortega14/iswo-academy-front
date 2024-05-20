@@ -1,21 +1,20 @@
 "use client"
 
 import { useState } from "react"
+import { useParams } from "next/navigation"
+import { useUIStore } from "@/store/ui/ui-store"
 import { IconCircleDotFilled, IconDots } from "@tabler/icons-react"
+import { toast } from "sonner"
 
 import { EvaluationQuestionProps } from "@/types/evaluation"
 import { SendQuestionOptionRequest } from "@/lib/requests"
+import useGetExam from "@/hooks/useGetExam"
 import { Progress } from "@/components/ui/progress"
 import { Separator } from "@/components/ui/separator"
+
 import { MotionDiv } from "../animations/MotionDiv"
+import Answers from "../courses/Answers"
 import Stopwatch from "./StopWatch"
-import { toast } from "sonner"
-import useGetExam from "@/hooks/useGetExam"
-import { useParams } from "next/navigation"
-import { useUIStore } from "@/store/ui/ui-store"
-import Answers from '../courses/Answers';
-
-
 
 const EvaluationQuestions = ({
   exam,
@@ -31,25 +30,29 @@ const EvaluationQuestions = ({
   const [questionIndex, setQuestionIndex] = useState(0)
   const questionsLength = evaluation.questions.length
   const progressValue = (100 / questionsLength) * (questionIndex + 1)
-  const baseUrl = useUIStore((state) => state.baseUrl);
+  const baseUrl = useUIStore((state) => state.baseUrl)
   const [Answers, setAnswers] = useState(exam.exam_answers)
 
   const getExam = async () => {
     try {
-      const request = await fetch(`${baseUrl}/exams/find_exam?course_test_id=${evaluationId}&user_id=${userId}`,{
-        method: 'GET',
-        credentials: 'include',
-      });
+      const request = await fetch(
+        `${baseUrl}/exams/find_exam?course_test_id=${evaluationId}&user_id=${userId}`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      )
       const response = await request.json()
       if (request.status === 200) {
         setApproved(response.approved)
       }
-    } catch (e) {
-    }
+    } catch (e) {}
   }
 
   const handleSubmitAnswer = async (optionId: number, questionId: number) => {
-    const answerSelected = Answers.find(answer => answer.test_question_id === questionId)
+    const answerSelected = Answers.find(
+      (answer) => answer.test_question_id === questionId
+    )
     const answerId = answerSelected?.id
     const [request, response] = await SendQuestionOptionRequest(
       optionId,
@@ -57,7 +60,7 @@ const EvaluationQuestions = ({
     )
     if (request.status === 200) {
       toast.success(response.message)
-      if ((questionIndex + 1) < questionsLength) {
+      if (questionIndex + 1 < questionsLength) {
         setQuestionIndex(questionIndex + 1)
       } else {
         getExam()
@@ -78,7 +81,10 @@ const EvaluationQuestions = ({
     <div className="px-24">
       <div className="w-full justify-center">
         <Separator className="my-4" />
-        <Stopwatch tiempoTotal={evaluation.time_limit} />
+        <Stopwatch
+          tiempoTotal={evaluation.time_limit}
+          setIsFinished={setIsFinished}
+        />
         <Separator className="my-4" />
       </div>
       <div className="flex w-full flex-col">
@@ -99,7 +105,7 @@ const EvaluationQuestions = ({
               return (
                 <MotionDiv
                   key={option.id}
-                  className="my-3 w-full cursor-pointer"
+                  className="my-3 w-full cursor-pointer bg-slate-200 rounded-md"
                   whileTap={{ scale: 1.02 }}
                   whileHover={{ scale: 0.99 }}
                   onClick={() =>

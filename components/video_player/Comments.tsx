@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
 import { useUIStore } from "@/store/ui/ui-store"
 
@@ -8,12 +8,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
+import { LessonComment } from "@/types/courses"
 
 const Comments = () => {
   const baseUrl = useUIStore((state) => state.baseUrl)
   const { lessonId } = useParams<{ lessonId: string }>()
   const [loading, setLoading] = useState(true)
   const [comment, setComment] = useState({ comment: "" })
+  const [totalComments, setTotalComments] = useState<LessonComment[]>([])
   const [newCommentFlag, setNewCommentFlag] = useState(false)
   const comments = useGetComments({
     lessonId: lessonId,
@@ -55,6 +57,13 @@ const Comments = () => {
     }
   }
 
+  useEffect(() => {
+    if (!!comments) {
+      const allComments = [...comments.comments_solved, ...comments.comments_unsolved];
+      setTotalComments(allComments)
+    }
+  }, [comments])
+
   return (
     <div>
       <h3 className="mb-1 ml-3 text-xl">{comments.total} Comentarios</h3>
@@ -73,7 +82,7 @@ const Comments = () => {
         />
         <Button>Comentar</Button>
       </form>
-      {comments?.comments?.map((comment) => (
+      {totalComments.map((comment) => (
         <div
           className="flex w-full items-center justify-start px-3 py-2"
           key={comment.id}
