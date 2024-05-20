@@ -9,6 +9,7 @@ import {
   IconUserCircle,
 } from "@tabler/icons-react"
 import { toast } from "sonner"
+
 import { RegisterParams } from "@/types/requests"
 import { RegisterNewUser } from "@/lib/requests"
 import {
@@ -24,7 +25,6 @@ import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 
 export default function RegisterDiv() {
-
   const router = useRouter()
   const [userData, setUserData] = useState<RegisterParams>({
     first_name: "",
@@ -46,6 +46,9 @@ export default function RegisterDiv() {
     switch (e) {
       case "student":
         value = 0
+        break
+      case "teacher":
+        value = 1
         break
       case "admin":
         value = 2
@@ -158,6 +161,7 @@ export default function RegisterDiv() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="student">Estudiante</SelectItem>
+            <SelectItem value="teacher">Profesor</SelectItem>
             <SelectItem value="admin">Administrador</SelectItem>
           </SelectContent>
         </Select>
