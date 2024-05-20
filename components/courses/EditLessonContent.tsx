@@ -6,14 +6,11 @@ import { useUIStore } from "@/store/ui/ui-store"
 import {
   IconDeviceImacCog,
   IconFileDescription,
-  IconLayoutCollage,
   IconList,
   IconListTree,
-  IconPhotoScan,
-  IconReceipt2,
 } from "@tabler/icons-react"
 import axios from "axios"
-import { Toaster, toast } from "sonner"
+import { toast } from "sonner"
 
 import useGetCourseSections from "@/hooks/useGetCourseSections"
 import useGetLesson from "@/hooks/useGetLesson"
@@ -28,19 +25,15 @@ import {
 } from "@/components/ui/dialog"
 import { Progress } from "@/components/ui/progress"
 
-import InputFileWithImage from "../forms/InputFileWithImage"
 import InputFileWithList from "../forms/InputFileWithList"
 import InputFileWithVideo from "../forms/InputFileWithVideo"
-import InputNumberWithIcon from "../forms/InputNumberWithIcon"
 import InputTextWithIcon from "../forms/InputTextWithIcon"
 import TextareaWithIcon from "../forms/TextareaWithIcon"
 import { Button } from "../ui/button"
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "../ui/select"
@@ -55,6 +48,7 @@ const EditLessonContent = () => {
     lessonId: string
   }>()
   const [loading, setLoading] = useState(true)
+  const [loadingLesson, setLoadingLesson] = useState(true)
   const [flag, setFlag] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
   const [video, setVideo] = useState({ name: "" })
@@ -77,7 +71,7 @@ const EditLessonContent = () => {
 
   const lesson = useGetLesson({
     lessonId: JSON.parse(lessonId),
-    setLoadingCallback: setLoading,
+    setLoadingCallback: setLoadingLesson,
   })
 
   const handleChange = (
@@ -143,8 +137,6 @@ const EditLessonContent = () => {
     setCourseSectionSelected(e)
   }
 
-  console.log(lesson)
-
   useEffect(() => {
     if (!!lesson) {
       setData((prevConfig) => ({
@@ -164,128 +156,132 @@ const EditLessonContent = () => {
     setCourseSectionSelected(JSON.stringify(lesson?.course_section_id))
   }, [lesson])
 
-  return (
-    <>
-      <div className="flex flex-col items-start justify-between space-y-4 border-b px-3 pb-6 lg:flex-row lg:items-center lg:space-y-0">
-        <h1 className="ml-3 mt-4 whitespace-nowrap text-2xl font-semibold">
-          Puedes editar la clase a continuación:
-        </h1>
-      </div>
-      <form
-        className="flex w-full flex-col px-4"
-        onSubmit={(e) => handleSubmit(e)}
-      >
-        <InputTextWithIcon
-          Icon={IconListTree}
-          label={"Titulo de la clase"}
-          name={"title"}
-          defaultValue={lesson?.title}
-          placeholder={"Escribe aqui el titulo de tu clase"}
-          onChange={(e) => handleChange(e)}
-        />
-        <TextareaWithIcon
-          Icon={IconFileDescription}
-          label={"Descripción de la clase"}
-          name={"description"}
-          placeholder={"Escribe aqui la descripción de tu clase"}
-          defaultValue={lesson?.description}
-          onChange={(e) => handleChange(e)}
-        />
-        <InputFileWithVideo
-          Icon={IconDeviceImacCog}
-          label={"Video de la clase"}
-          name="promotional_video"
-          video={video}
-          setVideo={setVideo}
-          defaultVideo={lesson?.url_video}
-        />
-        <InputTextWithIcon
-          Icon={IconListTree}
-          label={"O puedes poner una url externa"}
-          name={"externalVideoUrl"}
-          defaultValue={lesson?.external_video_url}
-          placeholder={"Enlace del vídeo"}
-          onChange={(e) => handleChange(e)}
-        />
-        <InputFileWithList
-          Icon={IconListTree}
-          label={"Archivos de la clase"}
-          name={"files"}
-          files={files}
-          setFiles={setFiles}
-          defaultFiles={lesson?.files}
-        />
-
-        <div className="my-3 flex w-full items-center justify-start rounded-full">
-          <IconList className="mr-2 size-5" />
-          <label htmlFor={"select"}>Selecciona una sección</label>
+  if (loadingLesson) {
+    return <span></span>
+  } else {
+    return (
+      <>
+        <div className="flex flex-col items-start justify-between space-y-4 border-b px-3 pb-6 lg:flex-row lg:items-center lg:space-y-0">
+          <h1 className="ml-3 mt-4 whitespace-nowrap text-2xl font-semibold">
+            Puedes editar la clase a continuación:
+          </h1>
         </div>
-        <Select
-          onValueChange={(e) => handleSelect(e)}
-          value={courseSectionSelected}
+        <form
+          className="flex w-full flex-col px-4"
+          onSubmit={(e) => handleSubmit(e)}
         >
-          <SelectTrigger className="w-full">
-            <SelectValue
-              className="text-muted-foreground"
-              placeholder="Seleccionar"
-            />
-          </SelectTrigger>
-          <SelectContent>
-            {CourseSections.map((section) => (
-              <SelectItem key={section.id} value={JSON.stringify(section.id)}>
-                {section.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <div className="my-4 flex items-center space-x-2">
-          <Checkbox
-            id="visible"
-            className="h-5 w-5"
-            onCheckedChange={(e) => handleCheck(e as boolean)}
-            checked={lesson?.visible}
+          <InputTextWithIcon
+            Icon={IconListTree}
+            label={"Titulo de la clase"}
+            name={"title"}
+            defaultValue={lesson?.title}
+            placeholder={"Escribe aqui el titulo de tu clase"}
+            onChange={(e) => handleChange(e)}
           />
-          <label
-            htmlFor="visible"
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
-            ¿Es visible para los estudiantes?
-          </label>
-        </div>
+          <TextareaWithIcon
+            Icon={IconFileDescription}
+            label={"Descripción de la clase"}
+            name={"description"}
+            placeholder={"Escribe aqui la descripción de tu clase"}
+            defaultValue={lesson?.description}
+            onChange={(e) => handleChange(e)}
+          />
+          <InputFileWithVideo
+            Icon={IconDeviceImacCog}
+            label={"Video de la clase"}
+            name="promotional_video"
+            video={video}
+            setVideo={setVideo}
+            defaultVideo={lesson?.url_video}
+          />
+          <InputTextWithIcon
+            Icon={IconListTree}
+            label={"O puedes poner una url externa"}
+            name={"externalVideoUrl"}
+            defaultValue={lesson?.external_video_url}
+            placeholder={"Enlace del vídeo"}
+            onChange={(e) => handleChange(e)}
+          />
+          <InputFileWithList
+            Icon={IconListTree}
+            label={"Archivos de la clase"}
+            name={"files"}
+            files={files}
+            setFiles={setFiles}
+            defaultFiles={lesson?.files}
+          />
 
-        <Dialog>
-          <DialogTrigger className="dark:text-blue-dark bg-blue-dark my-4 w-full rounded-md p-2 font-bold text-slate-200 dark:bg-white">
-            Editar Lección
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              {uploadProgress === 0 ? (
-                <>
-                  <DialogTitle className="text-2xl">
-                    ¿Todos los datos ingresados son correctos?
-                  </DialogTitle>
-                  <DialogDescription className="flex justify-center">
-                    <Button onClick={handleSubmit} className="mt-4 font-bold">
-                      ¡Si, Seguro!{" "}
-                    </Button>
-                  </DialogDescription>
-                </>
-              ) : (
-                <>
-                  <DialogTitle className="text-2xl">
-                    Progreso de carga
-                  </DialogTitle>
-                  <DialogDescription>
-                    <Progress className="mt-2" value={uploadProgress} />
-                  </DialogDescription>
-                </>
-              )}
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
-      </form>
-    </>
-  )
+          <div className="my-3 flex w-full items-center justify-start rounded-full">
+            <IconList className="mr-2 size-5" />
+            <label htmlFor={"select"}>Selecciona una sección</label>
+          </div>
+          <Select
+            onValueChange={(e) => handleSelect(e)}
+            defaultValue={JSON.stringify(lesson?.course_section_id)}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue
+                className="text-muted-foreground"
+                placeholder="Seleccionar"
+              />
+            </SelectTrigger>
+            <SelectContent>
+              {CourseSections.map((section) => (
+                <SelectItem key={section.id} value={JSON.stringify(section.id)}>
+                  {section.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <div className="my-4 flex items-center space-x-2">
+            <Checkbox
+              id="visible"
+              className="h-5 w-5"
+              onCheckedChange={(e) => handleCheck(e as boolean)}
+              checked={data?.visible}
+            />
+            <label
+              htmlFor="visible"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              ¿Es visible para los estudiantes?
+            </label>
+          </div>
+
+          <Dialog>
+            <DialogTrigger className="dark:text-blue-dark bg-blue-dark my-4 w-full rounded-md p-2 font-bold text-slate-200 dark:bg-white">
+              Editar Lección
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                {uploadProgress === 0 ? (
+                  <>
+                    <DialogTitle className="text-2xl">
+                      ¿Todos los datos ingresados son correctos?
+                    </DialogTitle>
+                    <DialogDescription className="flex justify-center">
+                      <Button onClick={handleSubmit} className="mt-4 font-bold">
+                        ¡Si, Seguro!{" "}
+                      </Button>
+                    </DialogDescription>
+                  </>
+                ) : (
+                  <>
+                    <DialogTitle className="text-2xl">
+                      Progreso de carga
+                    </DialogTitle>
+                    <DialogDescription>
+                      <Progress className="mt-2" value={uploadProgress} />
+                    </DialogDescription>
+                  </>
+                )}
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
+        </form>
+      </>
+    )
+  }
 }
 
 export default EditLessonContent

@@ -140,8 +140,9 @@ export const buildRouteVPlayer = ({
   sectionId,
   lessonId,
   courseId,
+  academyId,
 }: BuildRouteVPlayerProps) => {
-  return `/courses/${courseId}/video-player/sections/${sectionId}/lessons/${lessonId}`
+  return `/academies/${academyId}/courses/${courseId}/video-player/sections/${sectionId}/lessons/${lessonId}`
 }
 
 const sidebarNavigation = {

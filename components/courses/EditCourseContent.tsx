@@ -176,8 +176,6 @@ const EditCourseContent = () => {
       setDataGoals((prevConfig) => [...prevConfig, ...course?.course_goals])
     }
   }, [course])
-  console.log(course?.course_goals)
-  console.log(dataGoals)
 
   useEffect(() => {
     if (!!courseLearningRoutes && courseLearningRoutes.length > 0) {

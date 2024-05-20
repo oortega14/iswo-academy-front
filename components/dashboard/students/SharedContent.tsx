@@ -33,7 +33,7 @@ export const SharedContent = ({ courses, title, course_condition }: SharedConten
         credentials: 'include',
       })
       const response = await request.json()
-      router.push(`/courses/${courseId}/video-player/sections/${response[0].id}/lessons/${response[0].lessons[0].id}`)
+      router.push(`/academies/${first_response.academy_id}/courses/${courseId}/video-player/sections/${response[0].id}/lessons/${response[0].lessons[0].id}`)
     }
   }
 

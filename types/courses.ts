@@ -43,7 +43,8 @@ export interface Certificate {
 }
 
 export interface TotalComments {
-  comments: LessonComment[];
+  comments_solved: LessonComment[];
+  comments_unsolved: LessonComment[];
   total:    number;
 }
 
@@ -57,6 +58,7 @@ export interface LessonComment {
   id:      number;
   comment: string;
   user:    UserComment;
+  course_title: string
 }
 
 export interface ButtonTooltipProps {

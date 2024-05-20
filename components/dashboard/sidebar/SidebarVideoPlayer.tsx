@@ -4,10 +4,10 @@ import { useUIStore } from "@/store/ui/ui-store"
 import { useMotionValueEvent, useScroll } from "framer-motion"
 import { MotionDiv } from "@/components/animations/MotionDiv"
 import { cn } from "../../../lib/utils"
-import SidebarHeader from "./SidebarHeader"
 import { useState } from "react"
 import { SidebarVideoPlayerLinks } from "./SidebarVideoPlayerLinks"
 import SidebarFooterVideoPlayer from "./SidebarFooterVideoPlayer"
+import SidebarHeaderVideoPlayer from "./SidebarHeaderVideoPlayer"
 
 
 
@@ -33,7 +33,7 @@ export const SidebarVideoPlayer = () => {
             { "-translate-x-full lg:translate-x-0 lg:w-20": !isSidebarOpen }
           )}
         >
-          <SidebarHeader />
+          <SidebarHeaderVideoPlayer />
           <SidebarVideoPlayerLinks />
           <SidebarFooterVideoPlayer />
         </aside>

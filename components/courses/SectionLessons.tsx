@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react"
 import Link from "next/link"
 import { useParams } from "next/navigation"
 import { useUIStore } from "@/store/ui/ui-store"
-import { IconEdit, IconListTree, IconTrash, IconX } from "@tabler/icons-react"
+import {
+  IconEdit,
+  IconEye,
+  IconListTree,
+  IconTrash,
+  IconX,
+} from "@tabler/icons-react"
 import { Reorder, useDragControls } from "framer-motion"
 import { toast } from "sonner"
 
@@ -15,7 +21,7 @@ interface Lesson {
   id: string
   title: string
   position: number
-  // Agrega otras propiedades según sea necesario
+  visible: boolean
 }
 
 const SectionLessons = ({ lessons, flag, setFlag, sectionId }: any) => {
@@ -26,6 +32,7 @@ const SectionLessons = ({ lessons, flag, setFlag, sectionId }: any) => {
   const params = useParams()
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const [selectedSectionId, setSelectedSectionId] = useState(0)
+  const [editDeletePressed, setEditDeletePressed] = useState(false)
 
   const close = (
     setModalOpenFunction: React.Dispatch<React.SetStateAction<boolean>>
@@ -41,16 +48,22 @@ const SectionLessons = ({ lessons, flag, setFlag, sectionId }: any) => {
     setSelectedSectionId(sectionId)
   }
 
-  const handleMouseDown = () => {
+  const handleMouseDown = (e: any) => {
+    if (e.target.closest("button")) {
+      return
+    }
     setIsPressed(true)
   }
 
-  const handleMouseUp = () => {
+  const handleMouseUp = (e: any) => {
+    if (e.target.closest("button")) {
+      return
+    }
     setIsPressed(false)
   }
 
   useEffect(() => {
-    if (isMounted && !isPressed) {
+    if (isMounted && !isPressed && !editDeletePressed) {
       sendUpdatedLessonsToBackend(sortedLessons)
     }
   }, [isPressed])
@@ -92,7 +105,6 @@ const SectionLessons = ({ lessons, flag, setFlag, sectionId }: any) => {
         credentials: "include",
       })
 
-      const response = await request.json()
       if (request.ok) {
         toast.success("Clases actualizadas correctamente")
       } else {
@@ -101,6 +113,26 @@ const SectionLessons = ({ lessons, flag, setFlag, sectionId }: any) => {
     } catch (error) {
       console.error("Error en la petición al servidor:", error)
     }
+  }
+
+  const handleChangeCheck = async (params: string) => {
+    const lesson_params = JSON.parse(params)
+    try {
+      const request = await fetch(
+        `${baseUrl}/lessons/${lesson_params.lesson_id}/update_visibility?visible=${lesson_params.visible}`,
+        {
+          method: "PATCH",
+          headers: { "Content-type": "application/json;charset=UTF-8" },
+          credentials: "include",
+        }
+      )
+      const response = await request.json()
+      if (request.status == 200) {
+        toast.success("Se actualizo el estado de la clase")
+        setFlag(!flag)
+      }
+      return response
+    } catch (e) {}
   }
 
   return (
@@ -154,6 +186,33 @@ const SectionLessons = ({ lessons, flag, setFlag, sectionId }: any) => {
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>Eliminar Lección</p>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    className={`max-h-10 max-w-10 border-[1px]  px-2 py-1 ${
+                      item.visible ? "border-green-600" : "border-red-600"
+                    }`}
+                    variant="ghost"
+                    onClick={() =>
+                      handleChangeCheck(
+                        JSON.stringify({
+                          lesson_id: item.id,
+                          visible: !item.visible,
+                        })
+                      )
+                    }
+                  >
+                    <IconEye
+                      className={` size-6 ${
+                        item.visible ? "text-green-600" : "text-red-600"
+                      }`}
+                    />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Cambiar visibilidad</p>
                 </TooltipContent>
               </Tooltip>
               <span className="w-full">{item.title}</span>

@@ -76,7 +76,7 @@ export const SidebarSection = ({
           {section?.lessons?.map((lesson: Lesson) => {
             return (
             <li
-              className="cursor-pointer py-3 pl-3 dark:hover:bg-slate-800"
+              className="cursor-pointer py-3 pl-3 hover:bg-slate-400 dark:hover:bg-slate-800"
               onClick={handleClick.bind(null, section.id, lesson.id)}
               key={lesson.id}
             >

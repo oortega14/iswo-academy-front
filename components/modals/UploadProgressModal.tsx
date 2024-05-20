@@ -33,7 +33,7 @@ const UploadProgressModal = ({
         <Modal modalOpen={modalOpen} handleClose={close}>
           {!confirmationFlag ? (
             <>
-              <Card className="lg:h-2/3 lg:w-3/4">
+              <Card className="w-full">
                 <CardHeader>
                   <div className="flex items-center gap-x-3">
                     <CardTitle>¿Todos los datos son correctos?</CardTitle>
@@ -51,7 +51,7 @@ const UploadProgressModal = ({
             </>
           ) : (
             <>
-              <Card className="lg:h-2/3 lg:w-3/4">
+              <Card className="w-full">
                 <CardHeader>
                   <div className="flex items-center gap-x-3">
                     <CardTitle>El progreso de carga es:</CardTitle>

@@ -60,7 +60,7 @@ const CreateSectionsModal = ({
     <AnimatePresence>
       {modalOpen && (
         <Modal modalOpen={modalOpen} handleClose={close}>
-          <Card className="lg:h-2/3 lg:w-2/3">
+          <Card className="w-full">
             <CardHeader>
               <div className="flex items-center gap-x-3">
                 <IconCirclePlus className="size-8" />

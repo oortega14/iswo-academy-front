@@ -1,9 +1,9 @@
 import { useUIStore } from '@/store/ui/ui-store';
 import { Answer, Category, LessonComment, TotalComments } from '@/types/courses';
-import { GetCommentsProps } from '@/types/hooks';
+import { GetLessonCommentsProps } from '@/types/hooks';
 import { useEffect, useState } from 'react';
 
-const useGetComments = ({lessonId, setLoadingCallback, flag}: GetCommentsProps) => {
+const useGetLessonComments = ({academyId, setLoadingCallback, flag}: GetLessonCommentsProps) => {
   const baseUrl = useUIStore((state) => state.baseUrl);
   const initialCommentsState: TotalComments = {
     comments_solved: [],
@@ -16,7 +16,7 @@ const useGetComments = ({lessonId, setLoadingCallback, flag}: GetCommentsProps) 
     const getComments = async () => {
       try {
         setLoadingCallback(true);
-        const request = await fetch(`${baseUrl}/lesson_comments?lesson_id=${lessonId}`, {
+        const request = await fetch(`${baseUrl}/lesson_comments?academy_id=${academyId}`, {
           method: 'GET',
           credentials: 'include',
         });
@@ -38,4 +38,4 @@ const useGetComments = ({lessonId, setLoadingCallback, flag}: GetCommentsProps) 
   return comments;
 };
 
-export default useGetComments;
+export default useGetLessonComments;

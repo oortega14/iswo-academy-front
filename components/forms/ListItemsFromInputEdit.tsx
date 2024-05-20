@@ -28,8 +28,6 @@ const ListItemsFromInputEdit = ({
     setGoals(dataWithDestroy)
   }, [data])
 
-  console.log(goals)
-
   const handleChangeGoal = (e: string) => {
     const parsed_e = JSON.parse(e)
     const updatedGoals = goals.map((goal: any, index: number) =>

@@ -169,5 +169,6 @@ export type BuildRouteVPlayerProps = {
   sectionId: number
   courseId: string
   lessonId: number
+  academyId: string
 }
 

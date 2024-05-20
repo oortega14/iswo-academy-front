@@ -55,19 +55,6 @@ export const HeaderDashboard = () => {
     setModalOpenFunction(true)
   }
 
-  const toggleButtonDashboard = () => {
-    isSettingsBarOpen && changeSettingsBar()
-    isUsersSettingsOpen && changeUserSettings()
-    isNotificationsOpen && changeNotifications()
-    if (currentUser?.role === 'Administrador') {
-      router.push(`/admin/${userId}/academies/${currentUser?.academy?.id}/dashboard/main`)
-    } else if (currentUser?.role === 'Estudiante') {
-      router.push(`/student/${userId}/dashboard/main`)
-    } else if (currentUser?.role === 'Super Administrador') {
-      router.push(`/super-admin/${userId}/dashboard/main`)
-    }
-  }
-
   const toggleButton = (flag: string) => {
     if (flag === "notifications") {
       changeNotifications()
@@ -202,14 +189,6 @@ export const HeaderDashboard = () => {
                     </div>
                   </MotionDiv>
                 )}
-              </div>
-              <div>
-                <button
-                  onClick={() => toggleButtonDashboard()}
-                  className="rounded-full border-[1px] p-2 hover:bg-slate-200 focus:outline-none focus:ring dark:hover:bg-slate-800"
-                >
-                  <IconServer />
-                </button>
               </div>
               <div className="relative">
                 <button

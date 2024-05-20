@@ -18,6 +18,7 @@ const VideoPlayerContent = () => {
   const sections = useGetCourseSections({
     courseId: courseId,
     setLoadingCallback: setLoading,
+    adminFlag: false
   })
 
   if (loading) {
