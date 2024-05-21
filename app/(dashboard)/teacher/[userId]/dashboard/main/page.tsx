@@ -21,10 +21,7 @@ export default function TeacherDashboard() {
       viewport={{ amount: 0 }}
     >
       <section>
-        <div className="flex min-h-screen overflow-y-hidden ">
-          <Sidebar />
-          <DashboardContent />
-        </div>
+        <DashboardContent />
       </section>
     </MotionDiv>
   )

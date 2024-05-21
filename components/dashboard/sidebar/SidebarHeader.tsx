@@ -12,6 +12,19 @@ import useGetCurrentUser from "@/hooks/useGetCurrentUser"
 import { LoaderShimmer } from "@/components/ui/LoaderShimmer"
 import { MotionDiv } from "@/components/animations/MotionDiv"
 
+export function buildName(user: any) {
+  switch (user.role) {
+    case 'Súper Administrador': 
+      return 'superadmin'
+    case 'Administrador': 
+      return 'admin'
+    case 'Estudiante': 
+      return 'student'
+    case 'Profesor': 
+      return 'teacher'
+  }
+}
+
 export const SidebarHeader = () => {
   const [loading, setLoading] = useState(true)
   const [loadingAcademy, setLoadingAcademy] = useState(true)
@@ -53,9 +66,7 @@ export const SidebarHeader = () => {
                   }}
                 >
                   <Link
-                    href={`/${
-                      user?.role === "Estudiante" ? "student" : "super-admin"
-                    }/${user?.id}/dashboard/main`}
+                    href={`/${buildName(user)}/${user?.id}/dashboard/main`}
                     className="max-h-fit overflow-hidden rounded-xl"
                   >
                     <IswoIconLarge className="size-28 dark:invert" />

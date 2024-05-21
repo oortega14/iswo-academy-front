@@ -65,9 +65,8 @@ const MessagesContent = () => {
   return (
     <div>
       <div className="flex flex-col items-start justify-between space-y-4 border-b pb-6 lg:flex-row lg:items-center lg:space-y-0 px-5 pt-5">
-        <h1 className="whitespace-nowrap text-2xl font-semibold">
-          Hola {currentUser?.first_name}, a continuación podrás ver los mensajes
-          y comentarios de tu academia
+        <h1 className="text-2xl font-semibold">
+          Hola {currentUser?.first_name}, a continuación podrás ver los comentarios de tu academia
         </h1>
       </div>
       <div>
