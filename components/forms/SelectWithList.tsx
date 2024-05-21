@@ -48,7 +48,7 @@ const SelectWithList = ({
       </div>
       {data.map((data_child: any, index: number) => (
         <div key={index} className="flex w-full items-center gap-3 ">
-          <span className="my-2 w-full font-semibold rounded-md border p-2 text-sm bg-blue-dark text-white dark:bg-white dark:text-blue-dark">
+          <span className="bg-blue-dark dark:text-blue-dark my-2 w-full rounded-md border p-2 text-sm font-semibold text-white dark:bg-white">
             {data_child.name}
           </span>
           <div

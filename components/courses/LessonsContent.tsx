@@ -51,6 +51,7 @@ const LessonsContent = () => {
     courseId: courseId,
     setLoadingCallback: setLoading,
     flag: changeFlag,
+    adminFlag: true,
   })
 
   const sortedSections = courseSections

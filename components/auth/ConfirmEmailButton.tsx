@@ -1,8 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { useParams, useRouter, useSearchParams } from "next/navigation"
-import { useUIStore } from "@/store/ui/ui-store"
+import { useRouter, useSearchParams } from "next/navigation"
 import { Toaster, toast } from "sonner"
 
 import { SendTokenEmailVerification } from "@/lib/requests"

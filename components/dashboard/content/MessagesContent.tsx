@@ -64,15 +64,15 @@ const MessagesContent = () => {
   }
   return (
     <div>
-      <div className="flex flex-col items-start justify-between space-y-4 border-b pb-6 lg:flex-row lg:items-center lg:space-y-0 px-5 pt-5">
+      <div className="flex flex-col items-start justify-between space-y-4 border-b px-5 pb-6 pt-5 lg:flex-row lg:items-center lg:space-y-0">
         <h1 className="text-2xl font-semibold">
           Hola {currentUser?.first_name}, a continuación podrás ver los comentarios de tu academia
         </h1>
       </div>
       <div>
-        <Accordion type="single" collapsible className="w-full mb-3">
+        <Accordion type="single" collapsible className="mb-3 w-full">
           <AccordionItem value="item-1">
-            <AccordionTrigger className="bg-slate-200 rounded-md px-3 dark:bg-slate-900">
+            <AccordionTrigger className="rounded-md bg-slate-200 px-3 dark:bg-slate-900">
               Comentarios No resueltos
             </AccordionTrigger>
             <AccordionContent className="py-3">
@@ -82,7 +82,7 @@ const MessagesContent = () => {
                     <TableHead className="w-[20%]">Curso</TableHead>
                     <TableHead className="w-[20%]">Usuario</TableHead>
                     <TableHead className="w-[40%]">Comentario</TableHead>
-                    <TableHead className="text-right pr-36">Acciones</TableHead>
+                    <TableHead className="pr-36 text-right">Acciones</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -107,7 +107,7 @@ const MessagesContent = () => {
         </Accordion>
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-1">
-            <AccordionTrigger className="bg-slate-200 rounded-md px-3 dark:bg-slate-900">
+            <AccordionTrigger className="rounded-md bg-slate-200 px-3 dark:bg-slate-900">
               Comentarios Resueltos
             </AccordionTrigger>
             <AccordionContent className="py-3">

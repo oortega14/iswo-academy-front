@@ -105,7 +105,7 @@ const EvaluationQuestions = ({
               return (
                 <MotionDiv
                   key={option.id}
-                  className="my-3 w-full cursor-pointer bg-slate-200 rounded-md"
+                  className="my-3 w-full cursor-pointer rounded-md bg-slate-200"
                   whileTap={{ scale: 1.02 }}
                   whileHover={{ scale: 0.99 }}
                   onClick={() =>

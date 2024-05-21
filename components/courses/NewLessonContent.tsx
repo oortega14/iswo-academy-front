@@ -62,6 +62,7 @@ const NewLessonContent = () => {
     flag: flag,
     courseId: courseId,
     setLoadingCallback: setLoading,
+    adminFlag: true,
   })
 
   const handleChange = (

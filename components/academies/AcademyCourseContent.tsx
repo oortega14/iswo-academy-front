@@ -17,6 +17,7 @@ const AcademyCourseContent = ({ course }: { course: Course }) => {
   const courseSections = useGetCourseSections({
     setLoadingCallback: setLoading,
     courseId: JSON.stringify(course.id),
+    adminFlag: false,
   })
   if (loading) {
     return <LoadingModal />

@@ -100,7 +100,7 @@ const ListItemsFromInputEdit = ({
                 JSON.stringify({ value: e.target.value, indexGoal: index })
               )
             }
-            className="text-sm my-1"
+            className="my-1 text-sm"
           />
           <div
             onClick={() => removeGoal(index)}
@@ -110,7 +110,7 @@ const ListItemsFromInputEdit = ({
           </div>
         </div>
       ))}
-      <div className="flex space-x-3 mt-2">
+      <div className="mt-2 flex space-x-3">
         <Input
           type="text"
           name="description"
@@ -120,7 +120,7 @@ const ListItemsFromInputEdit = ({
           className="text-sm"
         />
         <button
-          className="bg-blue-dark dark:text-blue-dark text-nowrap rounded-lg px-3 py-2 font-bold text-slate-200 hover:scale-95 dark:bg-slate-200 text-sm"
+          className="bg-blue-dark dark:text-blue-dark text-nowrap rounded-lg px-3 py-2 text-sm font-bold text-slate-200 hover:scale-95 dark:bg-slate-200"
           onClick={insertNewGoal}
         >
           {buttonLabel}
