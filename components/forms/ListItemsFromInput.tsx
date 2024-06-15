@@ -52,13 +52,13 @@ const ListItemsFromInput = ({
           </span>
           <div
             onClick={() => removeGoal(index)}
-            className=" hover:text-white cursor-pointer rounded-lg border border-red-600 p-2 text-red-600 hover:bg-red-600"
+            className=" cursor-pointer rounded-lg border border-red-600 p-2 text-red-600 hover:bg-red-600 hover:text-white"
           >
             <IconX className="size-6" />
           </div>
         </div>
       ))}
-      <div className="flex space-x-3 mt-2">
+      <div className="mt-2 flex space-x-3">
         <Input
           type="text"
           name="description"
@@ -68,7 +68,7 @@ const ListItemsFromInput = ({
           className=""
         />
         <button
-          className="bg-blue-dark dark:text-blue-dark text-nowrap rounded-lg px-3 py-2 font-semibold text-slate-200 hover:scale-95 dark:bg-slate-200 text-sm"
+          className="bg-blue-dark dark:text-blue-dark text-nowrap rounded-lg px-3 py-2 text-sm font-semibold text-slate-200 hover:scale-95 dark:bg-slate-200"
           onClick={insertNewGoal}
         >
           {buttonLabel}

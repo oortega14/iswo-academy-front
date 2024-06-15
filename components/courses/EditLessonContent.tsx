@@ -67,6 +67,7 @@ const EditLessonContent = () => {
     flag: flag,
     courseId: courseId,
     setLoadingCallback: setLoading,
+    adminFlag: true,
   })
 
   const lesson = useGetLesson({

@@ -1,10 +1,9 @@
+import { Suspense } from "react"
 import Image from "next/image"
 import { IswoIconLarge } from "@/icons"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
 import { MotionDiv } from "@/components/animations/MotionDiv"
-import { useSearchParams } from "next/navigation"
 import ConfirmEmailButton from "@/components/auth/ConfirmEmailButton"
 
 const variants = {
@@ -87,7 +86,9 @@ export default function EmailConfirmationPage() {
               Dando click en el siguiente boton confirmaras tu email para poder
               usar nuestra plataforma
             </p>
-            <ConfirmEmailButton />
+            <Suspense>
+              <ConfirmEmailButton />
+            </Suspense>
           </div>
         </MotionDiv>
       </MotionDiv>

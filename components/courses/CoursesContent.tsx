@@ -178,11 +178,11 @@ const CoursesContent = () => {
         </TooltipProvider>
       ) : (
         <>
-          <div className="w-full border-b-2 flex justify-end p-2 ">
+          <div className="flex w-full justify-end border-b-2 p-2 ">
             <MotionButton
               className={cn(
                 buttonVariants({ variant: "default", size: "lg" }),
-                "border-[1px] px-2 mr-5"
+                "mr-5 border-[1px] px-2"
               )}
               onClick={() => {
                 router.push(
