@@ -20,7 +20,7 @@ const EvaluationFinished = ({ approved }: any) => {
             {approved ? (
               <>
                 <div className="relative -top-14 flex w-full justify-center ">
-                  <div className="flex w-1/2 justify-center">
+                  <div className="flex w-1/3 justify-center">
                     <Lottier animationData={data} />
                   </div>
                 </div>
@@ -42,7 +42,7 @@ const EvaluationFinished = ({ approved }: any) => {
             ) : (
               <>
                 <div className="relative -top-10 flex w-full justify-center ">
-                  <div className="flex w-1/2 justify-center">
+                  <div className="flex w-1/3 justify-center">
                     <Lottier animationData={dataSad} />
                   </div>
                 </div>

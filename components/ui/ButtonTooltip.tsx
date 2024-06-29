@@ -22,7 +22,7 @@ const ButtonTooltip = ({ tooltip, icon, onClick }: ButtonTooltipProps) => {
         </MotionButton>
       </TooltipTrigger>
       <TooltipContent>
-        <p>{tooltip}</p>
+        <span>{tooltip}</span>
       </TooltipContent>
     </Tooltip>
   )

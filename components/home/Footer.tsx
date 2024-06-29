@@ -26,7 +26,7 @@ const Footer = () => {
                     {column.links.map((link) => (
                       <div className="flex items-center" key={link.label}>
                         <link.icon className="mr-2 size-8" />
-                        <p>{link.label}</p>
+                        <span>{link.label}</span>
                       </div>
                     ))}
                   </ul>

@@ -33,7 +33,7 @@ const Stopwatch = ({tiempoTotal, setIsFinished}: any) => {
           Tiempo restante: {formatearTiempo(tiempoRestante)}
         </span>
       ) : (
-        <p>Cargando...</p>
+        <span>Cargando...</span>
       )}
     </div>
   );

@@ -106,7 +106,7 @@ const SectionsContent = () => {
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>Editar Sección</p>
+                      <span>Editar Sección</span>
                     </TooltipContent>
                   </Tooltip>
                   <Tooltip>
@@ -124,7 +124,7 @@ const SectionsContent = () => {
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>Eliminar Sección</p>
+                      <span>Eliminar Sección</span>
                     </TooltipContent>
                   </Tooltip>
                 </div>

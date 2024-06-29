@@ -84,7 +84,7 @@ const StudentsContent = () => {
                         </MotionButton>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Eliminar Estudiante</p>
+                        <span>Eliminar Estudiante</span>
                       </TooltipContent>
                     </Tooltip>
                   </TableCell>

@@ -205,7 +205,7 @@ const NewCoursesContent = () => {
           setData={setDataGoals}
           Icon={IconList}
           label="Objetivos del Curso"
-          placeholder="Escribe aqui el precio de tu curso"
+          placeholder="Escribe aqui los objetivos de tu curso"
           buttonLabel="Agregar Objetivo"
         />
         <InputFileWithImage
@@ -215,6 +215,9 @@ const NewCoursesContent = () => {
           previewImage={previewImage}
           setPreviewImage={setPreviewImage}
           setImage={setBanner}
+          description={
+            "Te recomendamos una relación de aspecto 16:9 y maximo 3840px por 2160px"
+          }
         />
         <InputFileWithImage
           Icon={IconLayoutCollage}

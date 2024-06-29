@@ -352,7 +352,7 @@ const QuestionsContent = () => {
                           </Button>
                         </TooltipTrigger>
                         <TooltipContent>
-                          <p>Editar Pregunta</p>
+                          <span>Editar Pregunta</span>
                         </TooltipContent>
                       </Tooltip>
                       <Tooltip>
@@ -370,7 +370,7 @@ const QuestionsContent = () => {
                           </Button>
                         </TooltipTrigger>
                         <TooltipContent>
-                          <p>Eliminar Pregunta</p>
+                          <span>Eliminar Pregunta</span>
                         </TooltipContent>
                       </Tooltip>
                       <Tooltip>
@@ -384,7 +384,7 @@ const QuestionsContent = () => {
                           </Link>
                         </TooltipTrigger>
                         <TooltipContent>
-                          <p>Editar Respuestas</p>
+                          <span>Editar Respuestas</span>
                         </TooltipContent>
                       </Tooltip>
                     </TableCell>

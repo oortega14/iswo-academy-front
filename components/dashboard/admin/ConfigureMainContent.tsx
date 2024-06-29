@@ -251,7 +251,6 @@ export const ConfigureMainContent = () => {
                 </DialogHeader>
               </DialogContent>
             </Dialog>
-            {/* <Button className="mt-3 w-full">Actualizar Academia</Button>*/}
           </MotionDiv>
         </form>
       </main>

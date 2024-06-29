@@ -19,7 +19,7 @@ const TextareaWithIcon = ({
       <Textarea
         placeholder={placeholder}
         name={name}
-        onChange={onChange}
+        onInput={onChange}
         className="mt-2"
         defaultValue={defaultValue}
       />

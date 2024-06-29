@@ -77,7 +77,7 @@ const VideoInfo = ({ lessons, selectedLesson }: any) => {
                 </button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Anterior clase</p>
+                <span>Anterior clase</span>
               </TooltipContent>
             </Tooltip>
             <Tooltip>
@@ -90,7 +90,7 @@ const VideoInfo = ({ lessons, selectedLesson }: any) => {
                 </button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Siguiente clase</p>
+                <span>Siguiente clase</span>
               </TooltipContent>
             </Tooltip>
           </div>

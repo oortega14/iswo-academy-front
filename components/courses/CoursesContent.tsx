@@ -84,7 +84,7 @@ const CoursesContent = () => {
                 )
               }}
             >
-              <p>Crear un nuevo curso</p>
+            <span>Crear un nuevo curso</span>
             </MotionButton>
           </div>
           <Table className="w-full ">
@@ -115,7 +115,7 @@ const CoursesContent = () => {
                         </Button>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Editar Curso</p>
+                        <span>Editar Curso</span>
                       </TooltipContent>
                     </Tooltip>
                     <Tooltip>
@@ -133,7 +133,7 @@ const CoursesContent = () => {
                         </Button>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Eliminar Curso</p>
+                        <span>Eliminar Curso</span>
                       </TooltipContent>
                     </Tooltip>
                     <Tooltip>
@@ -150,7 +150,7 @@ const CoursesContent = () => {
                         </Link>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Administrar Curso</p>
+                        <span>Administrar Curso</span>
                       </TooltipContent>
                     </Tooltip>
                   </TableCell>
@@ -190,7 +190,7 @@ const CoursesContent = () => {
                 )
               }}
             >
-              <p>Crear un nuevo curso</p>
+              <span>Crear un nuevo curso</span>
             </MotionButton>
           </div>
           <NoContent />

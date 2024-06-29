@@ -167,7 +167,7 @@ const SectionLessons = ({ lessons, flag, setFlag, sectionId }: any) => {
                   </Link>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Editar Lección</p>
+                  <span>Editar Lección</span>
                 </TooltipContent>
               </Tooltip>
               <Tooltip>
@@ -185,7 +185,7 @@ const SectionLessons = ({ lessons, flag, setFlag, sectionId }: any) => {
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Eliminar Lección</p>
+                  <span>Eliminar Lección</span>
                 </TooltipContent>
               </Tooltip>
               <Tooltip>
@@ -212,7 +212,7 @@ const SectionLessons = ({ lessons, flag, setFlag, sectionId }: any) => {
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Cambiar visibilidad</p>
+                  <span>Cambiar visibilidad</span>
                 </TooltipContent>
               </Tooltip>
               <span className="w-full">{item.title}</span>

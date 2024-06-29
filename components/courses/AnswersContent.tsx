@@ -96,7 +96,7 @@ const AnswersContent = () => {
                         </Button>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Editar respuesta</p>
+                        <span>Editar respuesta</span>
                       </TooltipContent>
                     </Tooltip>
                     <Tooltip>
@@ -114,7 +114,7 @@ const AnswersContent = () => {
                         </Button>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Eliminar respuesta</p>
+                        <span>Eliminar respuesta</span>
                       </TooltipContent>
                     </Tooltip>
                   </TableCell>

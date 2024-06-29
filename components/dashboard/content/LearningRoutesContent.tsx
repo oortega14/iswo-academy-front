@@ -82,7 +82,7 @@ const LearningRoutesContent = () => {
               open(setCreateModalOpen, 0)
             }}
           >
-            <p>Crear una nueva ruta</p>
+            <span>Crear una nueva ruta</span>
           </MotionButton>
         </div>
         <TooltipProvider>
@@ -112,7 +112,7 @@ const LearningRoutesContent = () => {
                         </Button>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Editar Ruta</p>
+                        <span>Editar Ruta</span>
                       </TooltipContent>
                     </Tooltip>
                     <Tooltip>
@@ -128,7 +128,7 @@ const LearningRoutesContent = () => {
                         </Button>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Eliminar Ruta</p>
+                        <span>Eliminar Ruta</span>
                       </TooltipContent>
                     </Tooltip>
                   </TableCell>
