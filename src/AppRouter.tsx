@@ -1,30 +1,70 @@
-import { BrowserRouter,  Route } from 'react-router-dom'
-import { RoutesWithNotFound } from './components/routes/RoutesWithNotFound'
-import { Home } from './pages/Home'
-import MainLayout from './layouts/MainLayout'
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { ProtectedRoute, PublicOnlyRoute } from './components/ProtectedRoute';
+import { useAuth } from './hooks/useAuth';
+import { RoutesWithNotFound } from './components/routes/RoutesWithNotFound';
+import { Home } from './pages/Home';
+import MainLayout from './layouts/MainLayout';
 
 export const AppRouter = () => {
+  const { user } = useAuth();
+
   return (
-    <BrowserRouter>
+    <Router>
       <RoutesWithNotFound>
-        {/* 🌟 Rutas públicas */}
-        <Route path="/" element={<MainLayout><Home /></MainLayout>} />
-        
-        {/* 🌟 Rutas con layouts específicos 
-        <Route path="/video/:videoId" element={<VideoLayout><VideoPlayer /></VideoLayout>} />
-        <Route path="/academies/:academyId/courses" element={<MainLayout><Courses /></MainLayout>} />
+        {/* Rutas públicas (accesibles sin estar loggeado) */}
+        <Route
+          path='/'
+          element={
+            <MainLayout>
+              <Home />
+            </MainLayout>
+          }
+        />
 
-        {/* 🔒 Rutas privadas 
-        <Route element={<PrivateRoute />}>
-          <Route path="/dashboard" element={<DashboardLayout><Dashboard /></DashboardLayout>} />
-        </Route>
+        {/* Rutas sólo para usuarios no autenticados */}
+        <Route
+          path='/login'
+          element={
+            <PublicOnlyRoute>
+              <div>Página de login (no accesible si ya estás loggeado)</div>
+            </PublicOnlyRoute>
+          }
+        />
 
-        {/* 🔒 Rutas solo para admin 
-        <Route element={<AdminRoute />}>
-          <Route path="/admin" element={<DashboardLayout><div>Admin Panel</div></DashboardLayout>} />
-        </Route>
-        */}
-      </RoutesWithNotFound >
-    </BrowserRouter>
-  )
-}
+        <Route
+          path='/register'
+          element={
+            <PublicOnlyRoute>
+              <div>Página de registro (no accesible si ya estás loggeado)</div>
+            </PublicOnlyRoute>
+          }
+        />
+
+        {/* Rutas protegidas (requieren estar loggeado) */}
+        <Route
+          path='/dashboard'
+          element={
+            <ProtectedRoute>
+              <div>
+                Dashboard (requiere login) - Bienvenido,{' '}
+                {user?.user_detail.first_name || 'Usuario'}
+              </div>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path='/profile'
+          element={
+            <ProtectedRoute>
+              <div>Perfil de usuario (requiere login)</div>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Ruta para cuando no se encuentra la página */}
+        <Route path='*' element={<div>Página no encontrada (404)</div>} />
+      </RoutesWithNotFound>
+    </Router>
+  );
+};
