@@ -1,4 +1,3 @@
-import Footer from '@/components/home/Footer';
 import { Header } from '@/components/home/Header';
 import { motion } from 'framer-motion';
 
@@ -11,7 +10,7 @@ const variants = {
   visible: { opacity: 1 },
 };
 
-const MainLayout = ({ children }: Props) => (
+const LoginLayout = ({ children }: Props) => (
   <motion.div
     className='w-full'
     variants={variants}
@@ -23,9 +22,8 @@ const MainLayout = ({ children }: Props) => (
     }}
     viewport={{ amount: 0 }}>
     <Header />
-    <main>{children}</main>
-    <Footer />
+    <main className='flex justify-center'>{children}</main>
   </motion.div>
 );
 
-export default MainLayout;
+export default LoginLayout;

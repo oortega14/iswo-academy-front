@@ -1,14 +1,19 @@
 import axios from 'axios';
 import { useUIStore } from '@/stores/ui-store';
+
 export interface LoginCredentials {
   email: string;
   password: string;
 }
 
 export interface RegisterData {
-  email: string;
-  password: string;
-  password_confirmation: string;
+  user: {
+    email: string;
+    user_detail_attributes: {
+      first_name: string;
+      last_name: string;
+    };
+  };
 }
 
 const ApiURL = useUIStore.getState().ApiURL;
@@ -19,7 +24,7 @@ export const authService = {
   },
 
   register: async (userData: RegisterData) => {
-    const response = await axios.post(`${ApiURL}/register`, userData);
+    const response = await axios.post(`${ApiURL}/users`, userData);
     return response.data;
   },
 

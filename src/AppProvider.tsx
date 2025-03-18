@@ -3,6 +3,7 @@ import './App.css';
 import { AppRouter } from './AppRouter';
 import { useEffect, useState } from 'react';
 import { useAuth } from './hooks/useAuth';
+import { Toaster } from 'sonner';
 
 function AppProvider() {
   const { fetchUser } = useAuth();
@@ -31,6 +32,7 @@ function AppProvider() {
       <App>
         <AppRouter />
       </App>
+      <Toaster theme="system" position="top-right" richColors />
     </>
   );
 }

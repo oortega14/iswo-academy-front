@@ -1,9 +1,15 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { ProtectedRoute, PublicOnlyRoute } from './components/ProtectedRoute';
+import {
+  ProtectedRoute,
+  PublicOnlyRoute,
+} from './components/routes/ProtectedRoute';
 import { useAuth } from './hooks/useAuth';
 import { RoutesWithNotFound } from './components/routes/RoutesWithNotFound';
 import { Home } from './pages/Home';
 import MainLayout from './layouts/MainLayout';
+import LoginLayout from './layouts/LoginLayout';
+import LoginContainer from './components/auth/LoginContainer';
+import RegisterContainer from './components/auth/RegisterContainer';
 
 export const AppRouter = () => {
   const { user } = useAuth();
@@ -26,7 +32,9 @@ export const AppRouter = () => {
           path='/login'
           element={
             <PublicOnlyRoute>
-              <div>Página de login (no accesible si ya estás loggeado)</div>
+              <LoginLayout>
+                <LoginContainer />
+              </LoginLayout>
             </PublicOnlyRoute>
           }
         />
@@ -35,7 +43,9 @@ export const AppRouter = () => {
           path='/register'
           element={
             <PublicOnlyRoute>
-              <div>Página de registro (no accesible si ya estás loggeado)</div>
+              <LoginLayout>
+                <RegisterContainer />
+              </LoginLayout>
             </PublicOnlyRoute>
           }
         />
