@@ -10,6 +10,8 @@ import MainLayout from './layouts/MainLayout';
 import LoginLayout from './layouts/LoginLayout';
 import LoginContainer from './components/auth/LoginContainer';
 import RegisterContainer from './components/auth/RegisterContainer';
+import UserEmailStep from './components/auth/UserEmailStep';
+import UserEmailConfirmation from './components/auth/UserEmailConfirmation';
 
 export const AppRouter = () => {
   const { user } = useAuth();
@@ -45,6 +47,28 @@ export const AppRouter = () => {
             <PublicOnlyRoute>
               <LoginLayout>
                 <RegisterContainer />
+              </LoginLayout>
+            </PublicOnlyRoute>
+          }
+        />
+
+        <Route
+          path='/user/email-step'
+          element={
+            <PublicOnlyRoute>
+              <LoginLayout>
+                <UserEmailStep />
+              </LoginLayout>
+            </PublicOnlyRoute>
+          }
+        />
+
+        <Route
+          path='/user/email-confirmation'
+          element={
+            <PublicOnlyRoute>
+              <LoginLayout>
+                <UserEmailConfirmation />
               </LoginLayout>
             </PublicOnlyRoute>
           }

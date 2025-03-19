@@ -4,6 +4,8 @@ import { AppRouter } from './AppRouter';
 import { useEffect, useState } from 'react';
 import { useAuth } from './hooks/useAuth';
 import { Toaster } from 'sonner';
+import axios from 'axios';
+import LoadingModal from './components/ui/Modal/LoadingModal';
 
 function AppProvider() {
   const { fetchUser } = useAuth();
@@ -11,20 +13,26 @@ function AppProvider() {
 
   useEffect(() => {
     const initializeAuth = async () => {
-      await fetchUser();
+      const { setupInterceptors, initAuth } = await import(
+        './lib/auth/authInterceptor'
+      );
+
+      setupInterceptors();
+
+      const isAuthenticated = await initAuth();
+
+      if (isAuthenticated) {
+        await fetchUser();
+      }
+
       setLoading(false);
     };
 
     initializeAuth();
-  }, []);
+  }, [fetchUser]);
 
   if (loading) {
-    return (
-      <div className='loading-container'>
-        <div className='loading-spinner'></div>
-        <p>Cargando...</p>
-      </div>
-    );
+    return <LoadingModal />;
   }
 
   return (
@@ -32,7 +40,7 @@ function AppProvider() {
       <App>
         <AppRouter />
       </App>
-      <Toaster theme="system" position="top-right" richColors />
+      <Toaster theme='system' position='top-right' richColors />
     </>
   );
 }

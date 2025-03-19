@@ -116,4 +116,11 @@
   body {
     @apply bg-background text-foreground;
   }
+  .bg-blue-dark {
+    @apply bg-[#080e1f]
+  }
+
+  .text-blue-dark {
+    @apply text-[#080e1f]
+  }
 }

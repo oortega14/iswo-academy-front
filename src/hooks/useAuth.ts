@@ -14,18 +14,14 @@ export const useAuth = () => {
 
   const login = async (credentials: LoginCredentials) => {
     try {
-      const response = await authService.login(credentials);
-      const { token } = response;
-      
-      document.cookie = `jwt=${token}; path=/; max-age=86400`;
-      
-      authService.setAuthHeader(token);
-      
-      await fetchUser();
-      
+      const response = await authService.login(credentials);    
+      const { access_token, refresh_token } = response;
+      localStorage.setItem('refreshToken', refresh_token)
+      authService.setAuthHeader(access_token);
+      setUser(response.user);
       return response;
     } catch (error) {
-      console.error('Error during login:', error);
+      console.error('Error durante el inicio de sesión:', error);
       throw error;
     }
   };
@@ -75,9 +71,19 @@ export const useAuth = () => {
   };
 
   const isAuthenticated = (): boolean => {
-    // Verificamos si hay un usuario en el store y también un token en las cookies
-    const token = getCookie('jwt');
-    return user !== null && token !== null;
+    if (user) return true;
+    const refreshToken = localStorage.getItem('refreshToken');
+    return !!refreshToken;
+  };
+
+  const confirmEmail = async (token: string) => {
+    try {
+      const response = await authService.confirmEmail(token);
+      return response;
+    } catch (error) {
+      console.error('Error during email confirmation:', error);
+      throw error;
+    }
   };
 
   return {
@@ -87,5 +93,6 @@ export const useAuth = () => {
     logout,
     fetchUser,
     isAuthenticated,
+    confirmEmail,
   };
 }; 

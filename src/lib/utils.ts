@@ -7,6 +7,7 @@ export interface AxiosErrorResponse {
   status?: number;
   code?: string;
   response?: {
+    status?: number;
     data?: {
       error?: {
         code?: string;
@@ -45,10 +46,13 @@ export function formatAxiosError(error: AxiosErrorResponse): string {
   }
 
   if (error.response?.data?.error) {
-    return error.response.data.error.message || 'Ocurrió un error inesperado';
+    return error.response.data.error || 'Ocurrió un error inesperado';
   }
 
-  switch (error.status) {
+  // Verificar si el status está directamente en el objeto de error
+  const statusCode = error.status || error.response?.status;
+
+  switch (statusCode) {
     case 400:
       return 'Datos de solicitud inválidos';
     case 401:

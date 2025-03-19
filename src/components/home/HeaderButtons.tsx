@@ -3,7 +3,6 @@ import { ThemeToggle } from './ThemeToogle';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRightIcon, Bars3Icon } from '@heroicons/react/24/solid';
-import { Button } from '../ui/button';
 import Motionbutton from '../ui/Motionbutton';
 
 const HeaderButtons = () => {

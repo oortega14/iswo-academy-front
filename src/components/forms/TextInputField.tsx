@@ -16,6 +16,7 @@ interface TextInputFieldProps {
   type?: string
   watchError?: boolean
   description?: string
+  autocomplete?: string
 }
 
 export const TextInputField = ({
@@ -25,7 +26,8 @@ export const TextInputField = ({
   field,
   type = "text",
   watchError = true,
-  description
+  description,
+  autocomplete
 }: TextInputFieldProps) => {
   return (
     <FormItem>
@@ -39,7 +41,7 @@ export const TextInputField = ({
         </FormDescription>
       )}
       <FormControl>
-        <Input type={type} placeholder={placeholder} {...field} />
+        <Input autoComplete={autocomplete} type={type} placeholder={placeholder} {...field} />
       </FormControl>
       {watchError && <FormMessage />}
     </FormItem>

@@ -2,8 +2,10 @@ import axios from 'axios';
 import { useUIStore } from '@/stores/ui-store';
 
 export interface LoginCredentials {
-  email: string;
-  password: string;
+  user: {
+    email: string;
+    password: string;
+  }
 }
 
 export interface RegisterData {
@@ -19,7 +21,8 @@ export interface RegisterData {
 const ApiURL = useUIStore.getState().ApiURL;
 export const authService = {
   login: async (credentials: LoginCredentials) => {
-    const response = await axios.post(`${ApiURL}/login`, credentials);
+    const response = await axios.post(`${ApiURL}/users/sign_in`, 
+      credentials);
     return response.data;
   },
 
@@ -29,16 +32,25 @@ export const authService = {
   },
 
   logout: async () => {
-    const response = await axios.post(`${ApiURL}/logout`, {}, {
+    const response = await axios.post(`${ApiURL}/users/sign_out`, {}, {
       withCredentials: true
     });
     return response.data;
   },
 
   getMe: async () => {
-    const response = await axios.get(`${ApiURL}/me`, {
+    const response = await axios.get(`${ApiURL}/users/me`, {
       withCredentials: true
     });
+    return response.data;
+  },
+
+  confirmEmail: async (token: string) => {
+    const response = await axios.post(
+      `${ApiURL}/users/confirmation`, 
+      { confirmation_token: token },
+      { withCredentials: true }
+    );
     return response.data;
   },
 

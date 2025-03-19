@@ -8,7 +8,6 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { RegisterFormSchema } from '@/schemas/auth/registerSchema';
 import { EnvelopeIcon, PencilIcon } from '@heroicons/react/24/solid';
-import { useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -20,25 +19,19 @@ export default function RegisterFormContainer() {
   const form = useForm<z.infer<typeof RegisterFormSchema>>({
     resolver: zodResolver(RegisterFormSchema),
     defaultValues: {
-      email: '',
-      user_detail_attributes: {
-        first_name: '',
-        last_name: '',
+      user: {
+        email: '',
+        user_detail_attributes: {
+          first_name: '',
+          last_name: '',
+        },
       },
     },
   });
 
   const onSubmit = async (data: z.infer<typeof RegisterFormSchema>) => {
     try {
-      await register({
-        user: {
-          email: data.email,
-          user_detail_attributes: {
-            first_name: data.user_detail_attributes.first_name,
-            last_name: data.user_detail_attributes.last_name,
-          },
-        },
-      });
+      await register(data);
 
       toast.success('Registro exitoso');
       navigate('/user/email-step');
@@ -76,7 +69,7 @@ export default function RegisterFormContainer() {
               {/* Nombres */}
               <FormField
                 control={form.control}
-                name='user_detail_attributes.first_name'
+                name='user.user_detail_attributes.first_name'
                 render={({ field }) => (
                   <TextInputField
                     label='Nombre(s)'
@@ -90,7 +83,7 @@ export default function RegisterFormContainer() {
               {/* Apellidos */}
               <FormField
                 control={form.control}
-                name='user_detail_attributes.last_name'
+                name='user.user_detail_attributes.last_name'
                 render={({ field }) => (
                   <TextInputField
                     label='Apellidos'
@@ -104,7 +97,7 @@ export default function RegisterFormContainer() {
               {/* Email */}
               <FormField
                 control={form.control}
-                name='email'
+                name='user.email'
                 render={({ field }) => (
                   <TextInputField
                     label='Email'
