@@ -1,28 +1,34 @@
 import App from './App';
 import './App.css';
 import { AppRouter } from './AppRouter';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useAuth } from './hooks/useAuth';
 import { Toaster } from 'sonner';
-import axios from 'axios';
 import LoadingModal from './components/ui/Modal/LoadingModal';
 
 function AppProvider() {
-  const { fetchUser } = useAuth();
   const [loading, setLoading] = useState(true);
+  const auth = useAuth();
+  const refreshAttemptedRef = useRef(false);
 
   useEffect(() => {
     let isMounted = true;
 
     const initializeAuth = async () => {
       try {
+        if (refreshAttemptedRef.current) {
+          setLoading(false);
+          return;
+        }
+
         const refreshToken = localStorage.getItem('refreshToken');
         if (!refreshToken) {
           setLoading(false);
           return;
         }
 
-        await fetchUser();
+        refreshAttemptedRef.current = true;
+        await auth.fetchUser();
       } catch (error) {
         console.error('Error initializing auth:', error);
       } finally {
@@ -37,7 +43,7 @@ function AppProvider() {
     return () => {
       isMounted = false;
     };
-  }, [fetchUser]);
+  }, []);
 
   if (loading) {
     return <LoadingModal />;

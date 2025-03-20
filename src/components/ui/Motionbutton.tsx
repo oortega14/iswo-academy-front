@@ -8,7 +8,7 @@ const Motionbutton = ({ children, className, onClick, disabled, type, variant }:
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       className={cn(
-        'w-full flex justify-center items-center cursor-pointer transition-all hover:font-bold text-sm lg:text-base',
+        'flex justify-center items-center cursor-pointer transition-all hover:font-bold text-sm lg:text-base',
         className
       )}
     >

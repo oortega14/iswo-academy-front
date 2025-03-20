@@ -1,7 +1,6 @@
 import { useUserStore } from '@/stores/user-store';
 import { User } from '@/models/user-model';
 import { authService, LoginCredentials, RegisterData } from '@/services/auth-service';
-import { useState } from 'react';
 import { useAuthStore } from '@/stores/auth-store';
 
 export const useAuth = () => {
@@ -51,7 +50,6 @@ export const useAuth = () => {
       const refreshToken = localStorage.getItem('refreshToken');
       if (!refreshToken) return null;
 
-      // Ahora solo necesitamos hacer el refresh que nos devolverá el user
       const response = await authService.refresh(refreshToken);
       const { access_token, user } = response;
       

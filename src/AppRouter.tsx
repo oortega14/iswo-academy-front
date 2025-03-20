@@ -12,6 +12,8 @@ import LoginContainer from './components/auth/LoginContainer';
 import RegisterContainer from './components/auth/RegisterContainer';
 import UserEmailStep from './components/auth/UserEmailStep';
 import UserEmailConfirmation from './components/auth/UserEmailConfirmation';
+import CompleteProfileLayout from './layouts/CompleteProfileLayout';
+import PersonalInfoStep from './components/complete-profile/PersonalInfoStep';
 
 export const AppRouter = () => {
   const { user } = useAuth();
@@ -75,6 +77,32 @@ export const AppRouter = () => {
         />
 
         {/* Rutas protegidas (requieren estar loggeado) */}
+        <Route
+          path='/user/complete-profile/personal-info'
+          element={
+            <ProtectedRoute>
+              <CompleteProfileLayout>
+                <PersonalInfoStep
+                  currentStep='personal_info_step'
+                  setCurrentStep={() => {}}
+                />
+              </CompleteProfileLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path='/choose-academy'
+          element={
+            <ProtectedRoute>
+              <div>
+                Escoger academia (requiere login) - Bienvenido,{' '}
+                {user?.user_detail.first_name || 'Usuario'}
+              </div>
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path='/dashboard'
           element={

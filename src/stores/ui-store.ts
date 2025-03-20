@@ -1,3 +1,4 @@
+import { User } from "@/models/user-model";
 import { create } from "zustand";
 import { persist } from "zustand/middleware"
 
@@ -23,7 +24,6 @@ type Action = {
   changeServices: () => void
   changeUserSettings: () => void
   changeAcademy: () => void
-
   setSelectedCategory: (category: string | undefined) => void
   setSelectedSubcategory: (subcategory: string | undefined) => void
   setAccordionValue: (value: string | null) => void
@@ -43,7 +43,6 @@ export const useUIStore = create<State & Action>()(
       isServicesOpen: false,
       isUsersSettingsOpen: false,
       academyChanges: false,
-      user: null,
       ApiURL: `${import.meta.env.VITE_API_URL}`,
       selectedCategory: undefined,
       selectedSubcategory: undefined,
@@ -63,7 +62,6 @@ export const useUIStore = create<State & Action>()(
         set((state) => ({ academyChanges: !state.academyChanges })),
       changeUserSettings: () =>
         set((state) => ({ isUsersSettingsOpen: !state.isUsersSettingsOpen })),
-
       setSelectedCategory: (category) =>
         set(() => ({ selectedCategory: category })),
       setSelectedSubcategory: (subcategory) =>

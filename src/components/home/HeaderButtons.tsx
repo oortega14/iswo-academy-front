@@ -1,6 +1,5 @@
 import { useUserStore } from '@/stores/user-store';
 import { ThemeToggle } from './ThemeToogle';
-import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRightIcon, Bars3Icon } from '@heroicons/react/24/solid';
 import Motionbutton from '../ui/Motionbutton';
@@ -16,10 +15,10 @@ const HeaderButtons = () => {
   if (!!user) {
     return (
       <div className='flex items-center'>
-        <motion.button onClick={handleDashboardClick}>
+        <Motionbutton onClick={handleDashboardClick}>
           Escoger academia
           <ArrowRightIcon className='ml-2 size-4' />
-        </motion.button>
+        </Motionbutton>
         <ThemeToggle />
       </div>
     );
