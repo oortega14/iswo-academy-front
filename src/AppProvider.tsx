@@ -12,23 +12,31 @@ function AppProvider() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+
     const initializeAuth = async () => {
-      const { setupInterceptors, initAuth } = await import(
-        './lib/auth/authInterceptor'
-      );
+      try {
+        const refreshToken = localStorage.getItem('refreshToken');
+        if (!refreshToken) {
+          setLoading(false);
+          return;
+        }
 
-      setupInterceptors();
-
-      const isAuthenticated = await initAuth();
-
-      if (isAuthenticated) {
         await fetchUser();
+      } catch (error) {
+        console.error('Error initializing auth:', error);
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
       }
-
-      setLoading(false);
     };
 
     initializeAuth();
+
+    return () => {
+      isMounted = false;
+    };
   }, [fetchUser]);
 
   if (loading) {

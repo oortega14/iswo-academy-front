@@ -24,7 +24,7 @@ const UserEmailStep = () => {
         }}
         viewport={{ amount: 0 }}
       >
-        <div className='min-h-2/3  w-full max-w-[1000px] rounded-xl p-6 bg-blue-dark dark:bg-white dark:text-blue-dark  shadow-lg'>
+        <div className='  w-full max-w-[1000px] rounded-xl p-6 bg-blue-dark dark:bg-white dark:text-blue-dark  shadow-lg'>
           <motion.div
             className='flex w-full justify-center'
             initial={{ scale: 0 }}

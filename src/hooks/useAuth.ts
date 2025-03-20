@@ -1,27 +1,23 @@
 import { useUserStore } from '@/stores/user-store';
 import { User } from '@/models/user-model';
 import { authService, LoginCredentials, RegisterData } from '@/services/auth-service';
-
-const getCookie = (name: string): string | null => {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
-  return null;
-};
+import { useState } from 'react';
+import { useAuthStore } from '@/stores/auth-store';
 
 export const useAuth = () => {
   const { user, setUser, clearUser } = useUserStore();
 
   const login = async (credentials: LoginCredentials) => {
     try {
-      const response = await authService.login(credentials);    
-      const { access_token, refresh_token } = response;
-      localStorage.setItem('refreshToken', refresh_token)
+      const response = await authService.login(credentials);
+      const { user, access_token, refresh_token } = response;
+      localStorage.setItem('refreshToken', refresh_token);
+      useAuthStore.getState().setAccessToken(access_token);
       authService.setAuthHeader(access_token);
-      setUser(response.user);
+      setUser(user);
       return response;
     } catch (error) {
-      console.error('Error durante el inicio de sesión:', error);
+      console.error('Error al procesar la respuesta:', error);
       throw error;
     }
   };
@@ -52,20 +48,21 @@ export const useAuth = () => {
 
   const fetchUser = async (): Promise<User | null> => {
     try {
-      const token = getCookie('jwt');
-      if (!token) {
-        clearUser(null);
-        return null;
-      }
+      const refreshToken = localStorage.getItem('refreshToken');
+      if (!refreshToken) return null;
 
-      authService.setAuthHeader(token);
+      // Ahora solo necesitamos hacer el refresh que nos devolverá el user
+      const response = await authService.refresh(refreshToken);
+      const { access_token, user } = response;
       
-      const userData = await authService.getMe();
-      setUser(userData);
-      return userData;
+      useAuthStore.getState().setAccessToken(access_token);
+      setUser(user);
+      return user;
     } catch (error) {
       console.error('Error fetching user:', error);
       clearUser(null);
+      localStorage.removeItem('refreshToken');
+      useAuthStore.getState().setAccessToken(null);
       return null;
     }
   };
