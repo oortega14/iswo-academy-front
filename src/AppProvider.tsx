@@ -5,9 +5,10 @@ import { useEffect, useState, useRef } from 'react';
 import { useAuth } from './hooks/useAuth';
 import { Toaster } from 'sonner';
 import LoadingModal from './components/ui/Modal/LoadingModal';
-
+import { useUserStore } from './stores/user-store';
 function AppProvider() {
   const [loading, setLoading] = useState(true);
+  const user = useUserStore((state) => state.user);
   const auth = useAuth();
   const refreshAttemptedRef = useRef(false);
 

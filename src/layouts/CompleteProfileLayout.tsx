@@ -20,7 +20,7 @@ const variants = {
 };
 
 const CompleteProfileLayout = ({ children }: Props) => {
-  const [currentStep, setCurrentStep] = useState('personal_info_step');
+  const [currentStep, setCurrentStep] = useState('');
 
   const childrenWithProps = React.Children.map(children, (child) => {
     if (React.isValidElement(child)) {

@@ -32,5 +32,6 @@ export const personalInfoSchema = z.object({
     .object({
       email: z.string().email("El email no es válido"),
       user_detail_attributes: userDetailSchema,
+      wizard_step: z.string().optional(),
     })
 })

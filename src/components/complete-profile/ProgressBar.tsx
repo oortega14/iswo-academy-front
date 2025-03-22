@@ -19,7 +19,7 @@ export const ProgressBar = ({
   const currentStepIndex = stepToIndex[currentStep] || 0
 
   return (
-    <div className="mb-3 shadow-lg rounded-lg p-4">
+    <div className="mb-3 shadow-lg rounded-lg p-4 sticky top-0 left-0 right-0 z-10 bg-white dark:bg-blue-dark">
       <div className="flex justify-between">
         {WIZARD_STEPS.map((step, index) => (
           <div key={index} className="flex flex-col items-center">

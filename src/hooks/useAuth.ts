@@ -49,12 +49,13 @@ export const useAuth = () => {
     try {
       const refreshToken = localStorage.getItem('refreshToken');
       if (!refreshToken) return null;
-
       const response = await authService.refresh(refreshToken);
       const { access_token, user } = response;
       
+      // Asegúrate de que la actualización del estado sea de forma sincrónica
       useAuthStore.getState().setAccessToken(access_token);
-      setUser(user);
+      useUserStore.getState().setUser(user); // Asegúrate de usar el método correcto
+      
       return user;
     } catch (error) {
       console.error('Error fetching user:', error);

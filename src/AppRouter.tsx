@@ -14,6 +14,7 @@ import UserEmailStep from './components/auth/UserEmailStep';
 import UserEmailConfirmation from './components/auth/UserEmailConfirmation';
 import CompleteProfileLayout from './layouts/CompleteProfileLayout';
 import PersonalInfoStep from './components/complete-profile/PersonalInfoStep';
+import UpdatePasswordStep from './components/complete-profile/UpdatePasswordStep';
 
 export const AppRouter = () => {
   const { user } = useAuth();
@@ -82,10 +83,18 @@ export const AppRouter = () => {
           element={
             <ProtectedRoute>
               <CompleteProfileLayout>
-                <PersonalInfoStep
-                  currentStep='personal_info_step'
-                  setCurrentStep={() => {}}
-                />
+                <PersonalInfoStep currentStep={'personal_info_step'} setCurrentStep={() => {}} />
+              </CompleteProfileLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path='/user/complete-profile/update-password'
+          element={
+            <ProtectedRoute>
+              <CompleteProfileLayout>
+                <UpdatePasswordStep currentStep={'update_password_step'} setCurrentStep={() => {}} />
               </CompleteProfileLayout>
             </ProtectedRoute>
           }

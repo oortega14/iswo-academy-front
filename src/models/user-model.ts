@@ -5,7 +5,7 @@ export type User = {
   is_active: boolean
   is_profile_completed: boolean
   active_academy_id: number | null
-  wizard_step: string | number
+  wizard_step: string | number | null
   profile_picture: string | null
   user_detail: UserDetail
   user_academies: UserAcademy[]

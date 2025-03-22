@@ -24,7 +24,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useUIStore } from '@/stores/ui-store';
 import { TextInputField } from '../forms/TextInputField';
 import {
   BuildingOfficeIcon,
@@ -40,19 +39,23 @@ import {
 import { GenderIcon } from '@/icons/GenderIcon';
 import Motionbutton from '../ui/Motionbutton';
 import { personalInfoSchema } from '@/schemas/wizard/personalInfoSchema';
-
+import { useNavigate } from 'react-router-dom';
+import { completeProfileService } from '@/services/complete-profile-service';
+import { useUserStore } from '@/stores/user-store';
+import { AxiosErrorResponse, formatAxiosError } from '@/lib/utils';
 export const PersonalInfoStepContent = ({
-  onStepSubmit,
+  setCurrentStep,
 }: {
-  onStepSubmit: (data: z.infer<typeof personalInfoSchema>) => Promise<void>;
+  setCurrentStep: (step: string) => void
 }) => {
-  const user = useUIStore((state: any) => state.user);
-
+  const user = useUserStore((state: any) => state.user);
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof personalInfoSchema>>({
     resolver: zodResolver(personalInfoSchema),
     defaultValues: {
       user: {
         email: '',
+        wizard_step: 'password_step',
         user_detail_attributes: {
           first_name: '',
           last_name: '',
@@ -74,11 +77,25 @@ export const PersonalInfoStepContent = ({
     },
   });
 
+  const onSubmit = async (data: any) => {
+    try {
+      await completeProfileService.updatePersonalInfo(
+        user?.id?.toString() || '',
+        data
+      );
+      setCurrentStep('update_password_step');
+      navigate('/user/complete-profile/update-password');
+    } catch (error) {
+      formatAxiosError(error as AxiosErrorResponse);
+    }
+  };
+
   useEffect(() => {
     if (user) {
       form.reset({
         user: {
           email: user.email || '',
+          wizard_step: 'password_step',
           user_detail_attributes: {
             first_name: user.user_detail?.first_name || '',
             last_name: user.user_detail?.last_name || '',
@@ -104,7 +121,7 @@ export const PersonalInfoStepContent = ({
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onStepSubmit)}
+        onSubmit={form.handleSubmit(onSubmit)}
         className='flex w-full flex-col space-y-4'
       >
         <Card>
@@ -402,6 +419,8 @@ export const PersonalInfoStepContent = ({
             </Card>
           </CardContent>
         </Card>
+        {/* Navigation Buttons */}
+        <Motionbutton type='submit'>Siguiente</Motionbutton>
       </form>
     </Form>
   );
